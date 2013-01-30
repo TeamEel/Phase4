@@ -1,0 +1,567 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+App	App.java	/^public class App {$/;"	c
+Argument	TextInterface/Argument.java	/^    public Argument(String value) {$/;"	m	class:Argument
+Argument	TextInterface/Argument.java	/^public class Argument {$/;"	c
+ArgumentConversionException	TextInterface/ArgumentConversionException.java	/^    public ArgumentConversionException(String msg) {$/;"	m	class:ArgumentConversionException
+ArgumentConversionException	TextInterface/ArgumentConversionException.java	/^public class ArgumentConversionException extends ArgumentException {$/;"	c
+ArgumentCountException	TextInterface/ArgumentCountException.java	/^    public ArgumentCountException(String msg) {$/;"	m	class:ArgumentCountException
+ArgumentCountException	TextInterface/ArgumentCountException.java	/^public class ArgumentCountException extends ArgumentException {$/;"	c
+ArgumentException	TextInterface/ArgumentException.java	/^    public ArgumentException(String msg) {$/;"	m	class:ArgumentException
+ArgumentException	TextInterface/ArgumentException.java	/^public class ArgumentException extends Exception {$/;"	c
+ArgumentList	TextInterface/ArgumentList.java	/^    public ArgumentList(String command) {$/;"	m	class:ArgumentList
+ArgumentList	TextInterface/ArgumentList.java	/^public class ArgumentList {$/;"	c
+AsciiArt	TextInterface/AsciiArt.java	/^public class AsciiArt {$/;"	c
+Bernoulli	Simulator/Bernoulli.java	/^public class Bernoulli {$/;"	c
+CannotControlException	Simulator/CannotControlException.java	/^    public CannotControlException(String message) {$/;"	m	class:CannotControlException
+CannotControlException	Simulator/CannotControlException.java	/^public class CannotControlException extends ControlException {$/;"	c
+CannotRepairException	Simulator/CannotRepairException.java	/^    public CannotRepairException(String message) {$/;"	m	class:CannotRepairException
+CannotRepairException	Simulator/CannotRepairException.java	/^public class CannotRepairException extends ControlException {$/;"	c
+Condenser	Simulator/Condenser.java	/^    public Condenser() {$/;"	m	class:Condenser
+Condenser	Simulator/Condenser.java	/^public class Condenser extends FailableComponent {$/;"	c
+Connection	Simulator/Connection.java	/^    private Connection() {$/;"	m	class:Connection	file:
+Connection	Simulator/Connection.java	/^    public Connection(Port input, Port output, double area) {$/;"	m	class:Connection
+Connection	Simulator/Connection.java	/^public class Connection extends Valve {$/;"	c
+ControlException	Simulator/ControlException.java	/^    public ControlException(String msg) {$/;"	m	class:ControlException
+ControlException	Simulator/ControlException.java	/^public class ControlException extends Exception {$/;"	c
+Density	Utilities/Density.java	/^    public Density() {$/;"	m	class:Density
+Density	Utilities/Density.java	/^    public Density(double kilogramsPerCubicMetre) {$/;"	m	class:Density
+Density	Utilities/Density.java	/^public class Density {$/;"	c
+DoNotStep	TextInterface/DoNotStep.java	/^public class DoNotStep extends Exception {$/;"	c
+Energy	Utilities/Energy.java	/^    public Energy() {$/;"	m	class:Energy
+Energy	Utilities/Energy.java	/^    public Energy(double joules) {$/;"	m	class:Energy
+Energy	Utilities/Energy.java	/^public class Energy {$/;"	c
+FailableComponent	Simulator/FailableComponent.java	/^    public FailableComponent() {$/;"	m	class:FailableComponent
+FailableComponent	Simulator/FailableComponent.java	/^public abstract class FailableComponent {$/;"	c
+FailureModel	Simulator/FailureModel.java	/^    private FailureModel() {$/;"	m	class:FailureModel	file:
+FailureModel	Simulator/FailureModel.java	/^    public FailureModel(PlantController plantController,$/;"	m	class:FailureModel
+FailureModel	Simulator/FailureModel.java	/^public class FailureModel implements PlantController, PlantStatus {$/;"	c
+FileSystem	Persistence/FileSystem.java	/^public class FileSystem {$/;"	c
+Format	Utilities/Format.java	/^public class Format {$/;"	c
+FuelPile	Simulator/FuelPile.java	/^public class FuelPile {$/;"	c
+Game	Game.java	/^    public Game() throws GameOverException, QuitGameException {$/;"	m	class:Game
+Game	Game.java	/^public class Game {$/;"	c
+GameManager	Simulator/GameManager.java	/^public interface GameManager {$/;"	i
+GameNotStarted	GameState.java	/^    GameNotStarted,$/;"	e	enum:GameState	file:
+GameOverException	GameOverException.java	/^    public GameOverException() {$/;"	m	class:GameOverException
+GameOverException	GameOverException.java	/^    public GameOverException(String message) {$/;"	m	class:GameOverException
+GameOverException	GameOverException.java	/^public class GameOverException extends Exception {$/;"	c
+GameRunning	GameState.java	/^    GameRunning$/;"	e	enum:GameState	file:
+GameState	GameState.java	/^public enum GameState {$/;"	g
+HeatSink	Simulator/HeatSink.java	/^    public HeatSink() {$/;"	m	class:HeatSink
+HeatSink	Simulator/HeatSink.java	/^public class HeatSink {$/;"	c
+IdealGas	Simulator/IdealGas.java	/^public class IdealGas {$/;"	c
+KeyNotFoundException	Simulator/KeyNotFoundException.java	/^    public KeyNotFoundException(String message) {$/;"	m	class:KeyNotFoundException
+KeyNotFoundException	Simulator/KeyNotFoundException.java	/^public class KeyNotFoundException extends Exception {$/;"	c
+LineReader	TextInterface/LineReader.java	/^public interface LineReader {$/;"	i
+Mass	Utilities/Mass.java	/^    public Mass() {$/;"	m	class:Mass
+Mass	Utilities/Mass.java	/^    public Mass(double kilograms) {$/;"	m	class:Mass
+Mass	Utilities/Mass.java	/^public class Mass {$/;"	c
+Parser	TextInterface/Parser.java	/^    Parser(PlantController controller, GameManager manager, TextRenderer renderer) {$/;"	m	class:Parser
+Parser	TextInterface/Parser.java	/^public class Parser {$/;"	c
+Percentage	Utilities/Percentage.java	/^    public Percentage() {$/;"	m	class:Percentage
+Percentage	Utilities/Percentage.java	/^    public Percentage(String representation) {$/;"	m	class:Percentage
+Percentage	Utilities/Percentage.java	/^    public Percentage(double percentagePoints) {$/;"	m	class:Percentage
+Percentage	Utilities/Percentage.java	/^public class Percentage {$/;"	c
+Persistence	Persistence/Persistence.java	/^public class Persistence {$/;"	c
+PhysicalConstants	Simulator/PhysicalConstants.java	/^public class PhysicalConstants {$/;"	c
+PhysicalModel	Simulator/PhysicalModel.java	/^    public PhysicalModel() {$/;"	m	class:PhysicalModel
+PhysicalModel	Simulator/PhysicalModel.java	/^public class PhysicalModel implements PlantController, PlantStatus {$/;"	c
+PlantController	Simulator/PlantController.java	/^public interface PlantController {$/;"	i
+PlantStatus	Simulator/PlantStatus.java	/^public interface PlantStatus {$/;"	i
+Port	Simulator/Port.java	/^public class Port {$/;"	c
+Pressure	Utilities/Pressure.java	/^    public Pressure() {$/;"	m	class:Pressure
+Pressure	Utilities/Pressure.java	/^    public Pressure(double pascals) {$/;"	m	class:Pressure
+Pressure	Utilities/Pressure.java	/^public class Pressure {$/;"	c
+Pump	Simulator/Pump.java	/^    private Pump() {$/;"	m	class:Pump	file:
+Pump	Simulator/Pump.java	/^    public Pump(Port input, Port output) {$/;"	m	class:Pump
+Pump	Simulator/Pump.java	/^public class Pump extends FailableComponent {$/;"	c
+QuitGameException	QuitGameException.java	/^    public QuitGameException() {$/;"	m	class:QuitGameException
+QuitGameException	QuitGameException.java	/^public class QuitGameException extends Exception {$/;"	c
+Reactor	Simulator/Reactor.java	/^    public Reactor() {$/;"	m	class:Reactor
+Reactor	Simulator/Reactor.java	/^    public Reactor(Percentage controlRodPosition, Percentage waterLevel,$/;"	m	class:Reactor
+Reactor	Simulator/Reactor.java	/^public class Reactor extends FailableComponent {$/;"	c
+SaveGame	Persistence/SaveGame.java	/^    private SaveGame() {$/;"	m	class:SaveGame	file:
+SaveGame	Persistence/SaveGame.java	/^    public SaveGame(PhysicalModel physicalModel, FailureModel failureModel, String userName) {$/;"	m	class:SaveGame
+SaveGame	Persistence/SaveGame.java	/^public class SaveGame {$/;"	c
+Simulator	Simulator/Simulator.java	/^    public Simulator() {$/;"	m	class:Simulator
+Simulator	Simulator/Simulator.java	/^public class Simulator implements PlantController, PlantStatus, GameManager {$/;"	c
+Temperature	Utilities/Temperature.java	/^    public Temperature() {$/;"	m	class:Temperature
+Temperature	Utilities/Temperature.java	/^    public Temperature(double degreesKelvin) {$/;"	m	class:Temperature
+Temperature	Utilities/Temperature.java	/^public class Temperature {$/;"	c
+TerminalReader	TextInterface/TerminalReader.java	/^public class TerminalReader implements LineReader {$/;"	c
+TerminalRenderer	TextInterface/TerminalRenderer.java	/^public class TerminalRenderer implements TextRenderer {$/;"	c
+TextInterface	TextInterface/TextInterface.java	/^    public TextInterface(PlantController plantController, PlantStatus plantStatus, GameManager gameManager,$/;"	m	class:TextInterface
+TextInterface	TextInterface/TextInterface.java	/^public class TextInterface {$/;"	c
+TextRenderer	TextInterface/TextRenderer.java	/^public interface TextRenderer {$/;"	i
+Turbine	Simulator/Turbine.java	/^    public Turbine() {$/;"	m	class:Turbine
+Turbine	Simulator/Turbine.java	/^public class Turbine extends FailableComponent {$/;"	c
+Units	Utilities/Units.java	/^public class Units {$/;"	c
+Utils	Persistence/Utils.java	/^public class Utils {$/;"	c
+Valve	Simulator/Valve.java	/^public class Valve {$/;"	c
+Velocity	Utilities/Velocity.java	/^    public Velocity() {$/;"	m	class:Velocity
+Velocity	Utilities/Velocity.java	/^    public Velocity(double metresPerSecond) {$/;"	m	class:Velocity
+Velocity	Utilities/Velocity.java	/^public class Velocity {$/;"	c
+Volume	Utilities/Volume.java	/^    public Volume() {$/;"	m	class:Volume
+Volume	Utilities/Volume.java	/^    public Volume(double cubicMetres) {$/;"	m	class:Volume
+Volume	Utilities/Volume.java	/^public class Volume {$/;"	c
+add	TextInterface/ArgumentList.java	/^    public void add(String argument) {$/;"	m	class:ArgumentList
+allConnections	Simulator/PhysicalModel.java	/^    private HashMap<Integer, Connection> allConnections;$/;"	f	class:PhysicalModel	file:
+allPumps	Simulator/PhysicalModel.java	/^    private HashMap<Integer, Pump> allPumps;$/;"	f	class:PhysicalModel	file:
+area	Simulator/Connection.java	/^    private double area;$/;"	f	class:Connection	file:
+arguments	TextInterface/ArgumentList.java	/^    private ArrayList<Argument> arguments;$/;"	f	class:ArgumentList	file:
+asInteger	TextInterface/Argument.java	/^    public int asInteger() throws ArgumentConversionException {$/;"	m	class:Argument
+asPercentage	TextInterface/Argument.java	/^    public Percentage asPercentage() throws ArgumentConversionException {$/;"	m	class:Argument
+asPositiveInteger	TextInterface/Argument.java	/^    public int asPositiveInteger() throws ArgumentConversionException {$/;"	m	class:Argument
+askForAction	TextInterface/TextInterface.java	/^    public int askForAction() {$/;"	m	class:TextInterface
+askForUsername	TextInterface/TextInterface.java	/^    public void askForUsername() {$/;"	m	class:TextInterface
+at	TextInterface/ArgumentList.java	/^    public Argument at(int index) throws ArgumentCountException {$/;"	m	class:ArgumentList
+atmosphericPressure	Simulator/PhysicalConstants.java	/^    public static final double atmosphericPressure = 101325;$/;"	f	class:PhysicalConstants
+boilingPointOfWater	Simulator/PhysicalConstants.java	/^    public static final double boilingPointOfWater = 373.15;$/;"	f	class:PhysicalConstants
+boilingPtAtPressure	Simulator/Reactor.java	/^    private double boilingPtAtPressure;$/;"	f	class:Reactor	file:
+buildUp	Simulator/Condenser.java	/^    private Mass buildUp = kilograms(0);$/;"	f	class:Condenser	file:
+buildUp	Simulator/Connection.java	/^    private Mass buildUp = kilograms(0);$/;"	f	class:Connection	file:
+buildUp	Simulator/Turbine.java	/^    private Mass buildUp = kilograms(0);$/;"	f	class:Turbine	file:
+calculateNewTemperature	Simulator/Condenser.java	/^    public void calculateNewTemperature(Port in) {$/;"	m	class:Condenser
+calculateNewTemperature	Simulator/Reactor.java	/^    public void calculateNewTemperature(Port in) {$/;"	m	class:Reactor
+calculateSteamVolume	Simulator/Condenser.java	/^    private Volume calculateSteamVolume() {$/;"	m	class:Condenser	file:
+calculateWearDelta	Simulator/Condenser.java	/^    public Percentage calculateWearDelta() {$/;"	m	class:Condenser
+calculateWearDelta	Simulator/FailableComponent.java	/^    protected abstract Percentage calculateWearDelta();$/;"	m	class:FailableComponent
+calculateWearDelta	Simulator/Pump.java	/^    public Percentage calculateWearDelta() {$/;"	m	class:Pump
+calculateWearDelta	Simulator/Reactor.java	/^    public Percentage calculateWearDelta() {$/;"	m	class:Reactor
+calculateWearDelta	Simulator/Turbine.java	/^    public Percentage calculateWearDelta() {$/;"	m	class:Turbine
+capacity	Simulator/Pump.java	/^    private Mass capacity = kilograms(3);$/;"	f	class:Pump	file:
+changePumpState	Simulator/FailureModel.java	/^    public void changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException, KeyNotFoundException {$/;"	m	class:FailureModel
+changePumpState	Simulator/PhysicalModel.java	/^    public void changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException, KeyNotFoundException {$/;"	m	class:PhysicalModel
+changePumpState	Simulator/PlantController.java	/^    public void changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException, KeyNotFoundException;$/;"	m	interface:PlantController
+changePumpState	Simulator/Simulator.java	/^    public void changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException, KeyNotFoundException {$/;"	m	class:Simulator
+changeValveState	Simulator/FailureModel.java	/^    public void changeValveState(int valveNumber, boolean isOpen) throws KeyNotFoundException {$/;"	m	class:FailureModel
+changeValveState	Simulator/PhysicalModel.java	/^    public void changeValveState(int valveNumber, boolean isOpen) throws KeyNotFoundException {$/;"	m	class:PhysicalModel
+changeValveState	Simulator/PlantController.java	/^    public void changeValveState(int valveNumber, boolean isOpen) throws KeyNotFoundException;$/;"	m	interface:PlantController
+changeValveState	Simulator/Simulator.java	/^    public void changeValveState(int valveNumber, boolean isOpen) throws KeyNotFoundException {$/;"	m	class:Simulator
+checkCondenserPressure	Simulator/FailureModel.java	/^    private void checkCondenserPressure() {$/;"	m	class:FailureModel	file:
+checkReactorWaterLevel	Simulator/FailureModel.java	/^    private void checkReactorWaterLevel() {$/;"	m	class:FailureModel	file:
+checkTurbineFailure	Simulator/FailureModel.java	/^    private void checkTurbineFailure() {$/;"	m	class:FailureModel	file:
+chooseAction	TextInterface/Parser.java	/^    public int chooseAction(String action) {$/;"	m	class:Parser
+chooseGame	TextInterface/Parser.java	/^    private void chooseGame() throws NumberFormatException {$/;"	m	class:Parser	file:
+command	TextInterface/ArgumentList.java	/^    private final String command;$/;"	f	class:ArgumentList	file:
+components	Simulator/FailureModel.java	/^    public ArrayList<FailableComponent> components() {$/;"	m	class:FailureModel
+components	Simulator/PhysicalModel.java	/^    public ArrayList<FailableComponent> components() {$/;"	m	class:PhysicalModel
+components	Simulator/PlantStatus.java	/^    public ArrayList<FailableComponent> components();$/;"	m	interface:PlantStatus
+components	Simulator/Simulator.java	/^    public ArrayList<FailableComponent> components() {$/;"	m	class:Simulator
+condenser	Simulator/PhysicalModel.java	/^    private Condenser condenser = new Condenser();$/;"	f	class:PhysicalModel	file:
+condenserMaxPressure	Simulator/FailureModel.java	/^    private final Pressure condenserMaxPressure = new Pressure(30662500);$/;"	f	class:FailureModel	file:
+condenserPressure	Simulator/FailureModel.java	/^    public Pressure condenserPressure() {$/;"	m	class:FailureModel
+condenserPressure	Simulator/PhysicalModel.java	/^    public Pressure condenserPressure() {$/;"	m	class:PhysicalModel
+condenserPressure	Simulator/PlantStatus.java	/^    public Pressure condenserPressure();$/;"	m	interface:PlantStatus
+condenserPressure	Simulator/Simulator.java	/^    public Pressure condenserPressure() {$/;"	m	class:Simulator
+condenserTemperature	Simulator/FailureModel.java	/^    public Temperature condenserTemperature() {$/;"	m	class:FailureModel
+condenserTemperature	Simulator/PhysicalModel.java	/^    public Temperature condenserTemperature() {$/;"	m	class:PhysicalModel
+condenserTemperature	Simulator/PlantStatus.java	/^    public Temperature condenserTemperature();$/;"	m	interface:PlantStatus
+condenserTemperature	Simulator/Simulator.java	/^    public Temperature condenserTemperature() {$/;"	m	class:Simulator
+condenserToReactor	Simulator/PhysicalModel.java	/^    private Pump condenserToReactor;$/;"	f	class:PhysicalModel	file:
+condenserWarningPressure	TextInterface/TextInterface.java	/^    private final Pressure condenserWarningPressure = new Pressure(25530000);$/;"	f	class:TextInterface	file:
+condenserWaterLevel	Simulator/FailureModel.java	/^    public Percentage condenserWaterLevel() {$/;"	m	class:FailureModel
+condenserWaterLevel	Simulator/PhysicalModel.java	/^    public Percentage condenserWaterLevel() {$/;"	m	class:PhysicalModel
+condenserWaterLevel	Simulator/PlantStatus.java	/^    public Percentage condenserWaterLevel();$/;"	m	interface:PlantStatus
+condenserWaterLevel	Simulator/Simulator.java	/^    public Percentage condenserWaterLevel() {$/;"	m	class:Simulator
+controlRodPosition	Simulator/FailureModel.java	/^    public Percentage controlRodPosition() {$/;"	m	class:FailureModel
+controlRodPosition	Simulator/FuelPile.java	/^    private Percentage controlRodPosition = new Percentage(0);$/;"	f	class:FuelPile	file:
+controlRodPosition	Simulator/FuelPile.java	/^    public Percentage controlRodPosition() {$/;"	m	class:FuelPile
+controlRodPosition	Simulator/PhysicalModel.java	/^    public Percentage controlRodPosition() {$/;"	m	class:PhysicalModel
+controlRodPosition	Simulator/PlantStatus.java	/^    public Percentage controlRodPosition();$/;"	m	interface:PlantStatus
+controlRodPosition	Simulator/Reactor.java	/^    public Percentage controlRodPosition() {$/;"	m	class:Reactor
+controlRodPosition	Simulator/Simulator.java	/^    public Percentage controlRodPosition() {$/;"	m	class:Simulator
+controller	Simulator/FailureModel.java	/^    PlantController controller;$/;"	f	class:FailureModel
+controller	Simulator/Turbine.java	/^    private static PlantController controller;$/;"	f	class:Turbine	file:
+controller	TextInterface/Parser.java	/^    private PlantController controller;$/;"	f	class:Parser	file:
+coolantInputPort	Simulator/Condenser.java	/^    private Port coolantInputPort = new Port();$/;"	f	class:Condenser	file:
+coolantInputPort	Simulator/Condenser.java	/^    public Port coolantInputPort() {$/;"	m	class:Condenser
+correctWaterMass	Simulator/Reactor.java	/^    private void correctWaterMass() {$/;"	m	class:Reactor	file:
+count	TextInterface/ArgumentList.java	/^    public int count() {$/;"	m	class:ArgumentList
+createSavePath	Persistence/FileSystem.java	/^    public static void createSavePath() throws IOException {$/;"	m	class:FileSystem
+cubicMetres	Utilities/Units.java	/^    public static Volume cubicMetres(double cubicMetres) {$/;"	m	class:Units
+cubicMetres	Utilities/Volume.java	/^    private final double cubicMetres;$/;"	f	class:Volume	file:
+degreesKelvin	Utilities/Temperature.java	/^    private final double degreesKelvin;$/;"	f	class:Temperature	file:
+density	Simulator/Bernoulli.java	/^    public static Density density(Pressure pressure, Velocity velocity) {$/;"	m	class:Bernoulli
+density	Simulator/Port.java	/^    public Density density = Density.ofLiquidWater();$/;"	f	class:Port
+densityAt	Utilities/Mass.java	/^    public Density densityAt(Volume volume) {$/;"	m	class:Mass
+deserializePercentage	Persistence/Persistence.java	/^    public Percentage deserializePercentage(String representation) throws IOException {$/;"	m	class:Persistence
+deserializePhysicalModel	Persistence/Persistence.java	/^    public PhysicalModel deserializePhysicalModel(String representation) throws JsonParseException, JsonMappingException,$/;"	m	class:Persistence
+deserializeSaveGame	Persistence/Persistence.java	/^    public SaveGame deserializeSaveGame(String representation) throws JsonParseException, JsonMappingException,$/;"	m	class:Persistence
+diagram	TextInterface/AsciiArt.java	/^    public static void diagram(TextRenderer renderer) {$/;"	m	class:AsciiArt
+eel.seprphase2	App.java	/^package eel.seprphase2;$/;"	p
+eel.seprphase2	Game.java	/^package eel.seprphase2;$/;"	p
+eel.seprphase2	GameOverException.java	/^package eel.seprphase2;$/;"	p
+eel.seprphase2	GameState.java	/^package eel.seprphase2;$/;"	p
+eel.seprphase2	QuitGameException.java	/^package eel.seprphase2;$/;"	p
+eel.seprphase2.Persistence	Persistence/FileSystem.java	/^package eel.seprphase2.Persistence;$/;"	p
+eel.seprphase2.Persistence	Persistence/Persistence.java	/^package eel.seprphase2.Persistence;$/;"	p
+eel.seprphase2.Persistence	Persistence/SaveGame.java	/^package eel.seprphase2.Persistence;$/;"	p
+eel.seprphase2.Persistence	Persistence/Utils.java	/^package eel.seprphase2.Persistence;$/;"	p
+eel.seprphase2.Simulator	Simulator/Bernoulli.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/CannotControlException.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/CannotRepairException.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/Condenser.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/Connection.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/ControlException.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/FailableComponent.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/FailureModel.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/FuelPile.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/GameManager.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/HeatSink.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/IdealGas.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/KeyNotFoundException.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/PhysicalConstants.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/PhysicalModel.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/PlantController.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/PlantStatus.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/Port.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/Pump.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/Reactor.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/Simulator.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/Turbine.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.Simulator	Simulator/Valve.java	/^package eel.seprphase2.Simulator;$/;"	p
+eel.seprphase2.TextInterface	TextInterface/Argument.java	/^package eel.seprphase2.TextInterface;$/;"	p
+eel.seprphase2.TextInterface	TextInterface/ArgumentConversionException.java	/^package eel.seprphase2.TextInterface;$/;"	p
+eel.seprphase2.TextInterface	TextInterface/ArgumentCountException.java	/^package eel.seprphase2.TextInterface;$/;"	p
+eel.seprphase2.TextInterface	TextInterface/ArgumentException.java	/^package eel.seprphase2.TextInterface;$/;"	p
+eel.seprphase2.TextInterface	TextInterface/ArgumentList.java	/^package eel.seprphase2.TextInterface;$/;"	p
+eel.seprphase2.TextInterface	TextInterface/AsciiArt.java	/^package eel.seprphase2.TextInterface;$/;"	p
+eel.seprphase2.TextInterface	TextInterface/DoNotStep.java	/^package eel.seprphase2.TextInterface;$/;"	p
+eel.seprphase2.TextInterface	TextInterface/LineReader.java	/^package eel.seprphase2.TextInterface;$/;"	p
+eel.seprphase2.TextInterface	TextInterface/Parser.java	/^package eel.seprphase2.TextInterface;$/;"	p
+eel.seprphase2.TextInterface	TextInterface/TerminalReader.java	/^package eel.seprphase2.TextInterface;$/;"	p
+eel.seprphase2.TextInterface	TextInterface/TerminalRenderer.java	/^package eel.seprphase2.TextInterface;$/;"	p
+eel.seprphase2.TextInterface	TextInterface/TextInterface.java	/^package eel.seprphase2.TextInterface;$/;"	p
+eel.seprphase2.TextInterface	TextInterface/TextRenderer.java	/^package eel.seprphase2.TextInterface;$/;"	p
+eel.seprphase2.Utilities	Utilities/Density.java	/^package eel.seprphase2.Utilities;$/;"	p
+eel.seprphase2.Utilities	Utilities/Energy.java	/^package eel.seprphase2.Utilities;$/;"	p
+eel.seprphase2.Utilities	Utilities/Format.java	/^package eel.seprphase2.Utilities;$/;"	p
+eel.seprphase2.Utilities	Utilities/Mass.java	/^package eel.seprphase2.Utilities;$/;"	p
+eel.seprphase2.Utilities	Utilities/Percentage.java	/^package eel.seprphase2.Utilities;$/;"	p
+eel.seprphase2.Utilities	Utilities/Pressure.java	/^package eel.seprphase2.Utilities;$/;"	p
+eel.seprphase2.Utilities	Utilities/Temperature.java	/^package eel.seprphase2.Utilities;$/;"	p
+eel.seprphase2.Utilities	Utilities/Units.java	/^package eel.seprphase2.Utilities;$/;"	p
+eel.seprphase2.Utilities	Utilities/Velocity.java	/^package eel.seprphase2.Utilities;$/;"	p
+eel.seprphase2.Utilities	Utilities/Volume.java	/^package eel.seprphase2.Utilities;$/;"	p
+energyGenerated	Simulator/FailureModel.java	/^    public Energy energyGenerated() {$/;"	m	class:FailureModel
+energyGenerated	Simulator/PhysicalModel.java	/^    private Energy energyGenerated = joules(0);$/;"	f	class:PhysicalModel	file:
+energyGenerated	Simulator/PhysicalModel.java	/^    public Energy energyGenerated() {$/;"	m	class:PhysicalModel
+energyGenerated	Simulator/PlantStatus.java	/^    public Energy energyGenerated();$/;"	m	interface:PlantStatus
+energyGenerated	Simulator/Simulator.java	/^    public Energy energyGenerated() {$/;"	m	class:Simulator
+equals	TextInterface/Argument.java	/^    public boolean equals(Object obj) {$/;"	m	class:Argument
+equals	Utilities/Density.java	/^    public boolean equals(Object obj) {$/;"	m	class:Density
+equals	Utilities/Energy.java	/^    public boolean equals(Object obj) {$/;"	m	class:Energy
+equals	Utilities/Mass.java	/^    public boolean equals(Object obj) {$/;"	m	class:Mass
+equals	Utilities/Percentage.java	/^    public boolean equals(Object obj) {$/;"	m	class:Percentage
+equals	Utilities/Pressure.java	/^    public boolean equals(Object obj) {$/;"	m	class:Pressure
+equals	Utilities/Temperature.java	/^    public boolean equals(Object obj) {$/;"	m	class:Temperature
+equals	Utilities/Velocity.java	/^    public boolean equals(Object obj) {$/;"	m	class:Velocity
+equals	Utilities/Volume.java	/^    public boolean equals(Object obj) {$/;"	m	class:Volume
+executeCommand	TextInterface/Parser.java	/^    public void executeCommand(String commandLine) throws DoNotStep, QuitGameException {$/;"	m	class:Parser
+fail	Simulator/FailableComponent.java	/^    public void fail() {$/;"	m	class:FailableComponent
+failChance	Simulator/FailureModel.java	/^    private Random failChance = new Random();$/;"	f	class:FailureModel	file:
+failCondenser	Simulator/FailureModel.java	/^    public void failCondenser() {$/;"	m	class:FailureModel
+failCondenser	Simulator/PhysicalModel.java	/^    public void failCondenser() {$/;"	m	class:PhysicalModel
+failCondenser	Simulator/PlantController.java	/^    public void failCondenser();$/;"	m	interface:PlantController
+failCondenser	Simulator/Simulator.java	/^    public void failCondenser() {$/;"	m	class:Simulator
+failReactor	Simulator/FailureModel.java	/^    public void failReactor() {$/;"	m	class:FailureModel
+failReactor	Simulator/PhysicalModel.java	/^    public void failReactor() {$/;"	m	class:PhysicalModel
+failReactor	Simulator/PlantController.java	/^    public void failReactor();$/;"	m	interface:PlantController
+failReactor	Simulator/Simulator.java	/^    public void failReactor() {$/;"	m	class:Simulator
+failStateCheck	Simulator/FailureModel.java	/^    public void failStateCheck() {$/;"	m	class:FailureModel
+failStateCheck	Simulator/Simulator.java	/^    public void failStateCheck() {$/;"	m	class:Simulator
+failureModel	Simulator/Simulator.java	/^    private FailureModel failureModel;$/;"	f	class:Simulator	file:
+fileName	Persistence/SaveGame.java	/^    private String fileName() {$/;"	m	class:SaveGame	file:
+first	Simulator/Connection.java	/^    private Port first;$/;"	f	class:Connection	file:
+flow	Simulator/Port.java	/^    public Mass flow = kilograms(0);$/;"	f	class:Port
+fromMolesOfWater	Utilities/Mass.java	/^    public static Mass fromMolesOfWater(double moles) {$/;"	m	class:Mass
+fuelPile	Simulator/Reactor.java	/^    private FuelPile fuelPile = new FuelPile();$/;"	f	class:Reactor	file:
+gameManager	TextInterface/TextInterface.java	/^    private GameManager gameManager;$/;"	f	class:TextInterface	file:
+gasConstant	Simulator/PhysicalConstants.java	/^    public static final double gasConstant = 8.314;$/;"	f	class:PhysicalConstants
+getOpen	Simulator/Valve.java	/^    public boolean getOpen() {$/;"	m	class:Valve
+getPhysicalModel	Persistence/SaveGame.java	/^    public PhysicalModel getPhysicalModel() {$/;"	m	class:SaveGame
+getPressure	Simulator/Condenser.java	/^    public Pressure getPressure() {$/;"	m	class:Condenser
+getPumpStatus	Simulator/PhysicalModel.java	/^    public boolean getPumpStatus(int pumpNumber) {$/;"	m	class:PhysicalModel
+getReactorToTurbine	Simulator/FailureModel.java	/^    public boolean getReactorToTurbine() {$/;"	m	class:FailureModel
+getReactorToTurbine	Simulator/PhysicalModel.java	/^    public boolean getReactorToTurbine() {$/;"	m	class:PhysicalModel
+getReactorToTurbine	Simulator/PlantStatus.java	/^    public boolean getReactorToTurbine();$/;"	m	interface:PlantStatus
+getReactorToTurbine	Simulator/Simulator.java	/^    public boolean getReactorToTurbine() {$/;"	m	class:Simulator
+getStatus	Simulator/Pump.java	/^    public boolean getStatus() {$/;"	m	class:Pump
+getTemperature	Simulator/Condenser.java	/^    public Temperature getTemperature() {$/;"	m	class:Condenser
+getUserName	Persistence/SaveGame.java	/^    public String getUserName() {$/;"	m	class:SaveGame
+getWaterLevel	Simulator/Condenser.java	/^    public Percentage getWaterLevel() {$/;"	m	class:Condenser
+getWaterMass	Simulator/Condenser.java	/^    public Mass getWaterMass() {$/;"	m	class:Condenser
+greaterThan	Utilities/Pressure.java	/^    public boolean greaterThan(Pressure other) {$/;"	m	class:Pressure
+hasFailed	Simulator/FailableComponent.java	/^    private boolean hasFailed;      \/\/The state of the component$/;"	f	class:FailableComponent	file:
+hasFailed	Simulator/FailableComponent.java	/^    public boolean hasFailed() {$/;"	m	class:FailableComponent
+hashCode	TextInterface/Argument.java	/^    public int hashCode() {$/;"	m	class:Argument
+hashCode	Utilities/Density.java	/^    public int hashCode() {$/;"	m	class:Density
+hashCode	Utilities/Energy.java	/^    public int hashCode() {$/;"	m	class:Energy
+hashCode	Utilities/Mass.java	/^    public int hashCode() {$/;"	m	class:Mass
+hashCode	Utilities/Percentage.java	/^    public int hashCode() {$/;"	m	class:Percentage
+hashCode	Utilities/Pressure.java	/^    public int hashCode() {$/;"	m	class:Pressure
+hashCode	Utilities/Temperature.java	/^    public int hashCode() {$/;"	m	class:Temperature
+hashCode	Utilities/Velocity.java	/^    public int hashCode() {$/;"	m	class:Velocity
+hashCode	Utilities/Volume.java	/^    public int hashCode() {$/;"	m	class:Volume
+heatSink	Simulator/PhysicalModel.java	/^    private HeatSink heatSink;$/;"	f	class:PhysicalModel	file:
+heatVaporizationOfWater	Simulator/PhysicalConstants.java	/^    public static final double heatVaporizationOfWater = 40.66;$/;"	f	class:PhysicalConstants
+heatsinkToCondenser	Simulator/PhysicalModel.java	/^    private Pump heatsinkToCondenser;$/;"	f	class:PhysicalModel	file:
+inAtmospheres	Utilities/Pressure.java	/^    public double inAtmospheres() {$/;"	m	class:Pressure
+inCelsius	Utilities/Temperature.java	/^    public double inCelsius() {$/;"	m	class:Temperature
+inCubicMetres	Utilities/Volume.java	/^    public double inCubicMetres() {$/;"	m	class:Volume
+inJoules	Utilities/Energy.java	/^    public double inJoules() {$/;"	m	class:Energy
+inKJoules	Utilities/Energy.java	/^    public double inKJoules() {$/;"	m	class:Energy
+inKelvin	Utilities/Temperature.java	/^    public double inKelvin() {$/;"	m	class:Temperature
+inKilograms	Utilities/Mass.java	/^    public double inKilograms() {$/;"	m	class:Mass
+inKilogramsPerCubicMetre	Utilities/Density.java	/^    public double inKilogramsPerCubicMetre() {$/;"	m	class:Density
+inMetresPerSecond	Utilities/Velocity.java	/^    public double inMetresPerSecond() {$/;"	m	class:Velocity
+inMolesOfWater	Utilities/Mass.java	/^    public double inMolesOfWater() {$/;"	m	class:Mass
+inPascals	Utilities/Pressure.java	/^    public double inPascals() {$/;"	m	class:Pressure
+initializeVariables	Simulator/Condenser.java	/^    private void initializeVariables() {$/;"	m	class:Condenser	file:
+inputPort	Simulator/Condenser.java	/^    public Port inputPort() {$/;"	m	class:Condenser
+inputPort	Simulator/Pump.java	/^    private Port inputPort;$/;"	f	class:Pump	file:
+inputPort	Simulator/Pump.java	/^    public Port inputPort() {$/;"	m	class:Pump
+inputPort	Simulator/Reactor.java	/^    private Port inputPort = new Port();$/;"	f	class:Reactor	file:
+inputPort	Simulator/Reactor.java	/^    public Port inputPort() {$/;"	m	class:Reactor
+inputPort	Simulator/Turbine.java	/^    private Port inputPort = new Port();$/;"	f	class:Turbine	file:
+inputPort	Simulator/Turbine.java	/^    public Port inputPort() {$/;"	m	class:Turbine
+isValidPercentage	Utilities/Percentage.java	/^    public static boolean isValidPercentage(String representation) {$/;"	m	class:Percentage
+isValidPercentage	Utilities/Percentage.java	/^    public static boolean isValidPercentage(double points) {$/;"	m	class:Percentage
+isWellFormedPercentage	Utilities/Percentage.java	/^    private static boolean isWellFormedPercentage(String representation) {$/;"	m	class:Percentage	file:
+joules	Utilities/Energy.java	/^    private double joules;$/;"	f	class:Energy	file:
+joules	Utilities/Units.java	/^    public static Energy joules(double joules) {$/;"	m	class:Units
+kelvin	Utilities/Units.java	/^    public static Temperature kelvin(double degrees) {$/;"	m	class:Units
+kelvinOffset	Utilities/Temperature.java	/^    static private final double kelvinOffset = 273.15;$/;"	f	class:Temperature	file:
+kilograms	Utilities/Mass.java	/^    private final double kilograms;$/;"	f	class:Mass	file:
+kilograms	Utilities/Units.java	/^    public static Mass kilograms(double kilograms) {$/;"	m	class:Units
+kilogramsPerCubicMetre	Utilities/Density.java	/^    protected double kilogramsPerCubicMetre;$/;"	f	class:Density
+kilogramsPerCubicMetre	Utilities/Units.java	/^    public static Density kilogramsPerCubicMetre(double kilogramsPerCubicMetre) {$/;"	m	class:Units
+latentHeatOfWater	Simulator/PhysicalConstants.java	/^    public static final int latentHeatOfWater = 2260000;$/;"	f	class:PhysicalConstants
+lineReader	TextInterface/TextInterface.java	/^    private LineReader lineReader;$/;"	f	class:TextInterface	file:
+listFailedComponents	Simulator/FailureModel.java	/^    public String[] listFailedComponents() {$/;"	m	class:FailureModel
+listFailedComponents	Simulator/PhysicalModel.java	/^    public String[] listFailedComponents() {$/;"	m	class:PhysicalModel
+listFailedComponents	Simulator/PlantStatus.java	/^    public String[] listFailedComponents();$/;"	m	interface:PlantStatus
+listFailedComponents	Simulator/Simulator.java	/^    public String[] listFailedComponents() {$/;"	m	class:Simulator
+listGames	Simulator/GameManager.java	/^    String[] listGames();$/;"	m	interface:GameManager
+listGames	Simulator/Simulator.java	/^    public String[] listGames() {$/;"	m	class:Simulator
+listSaveGames	Persistence/FileSystem.java	/^    public static String[] listSaveGames(String username) {$/;"	m	class:FileSystem
+load	Persistence/SaveGame.java	/^    public static SaveGame load(String filename) throws JsonParseException, IOException {$/;"	m	class:SaveGame
+loadGame	Simulator/GameManager.java	/^    void loadGame(int gameNumber);$/;"	m	interface:GameManager
+loadGame	Simulator/Simulator.java	/^    public void loadGame(int gameNumber) {$/;"	m	class:Simulator
+main	App.java	/^    public static void main(String[] args) throws IOException {$/;"	m	class:App
+manager	TextInterface/Parser.java	/^    private GameManager manager;$/;"	f	class:Parser	file:
+mapper	Persistence/Persistence.java	/^    private ObjectMapper mapper = new ObjectMapper();$/;"	f	class:Persistence	file:
+mass	Simulator/IdealGas.java	/^    public static Mass mass(Pressure pressure, Volume volume, Temperature temperature) {$/;"	m	class:IdealGas
+mass	Simulator/Port.java	/^    public Mass mass = kilograms(0);$/;"	f	class:Port
+massAt	Utilities/Volume.java	/^    public Mass massAt(Density density) {$/;"	m	class:Volume
+maximumOutput	Simulator/FuelPile.java	/^    private final int maximumOutput = 20000000;$/;"	f	class:FuelPile	file:
+maximumWaterMass	Simulator/Condenser.java	/^    private final Mass maximumWaterMass = kilograms(1000);$/;"	f	class:Condenser	file:
+maximumWaterMass	Simulator/Reactor.java	/^    private final Mass maximumWaterMass = kilograms(1000);$/;"	f	class:Reactor	file:
+maximumWaterMass	Simulator/Reactor.java	/^    public Mass maximumWaterMass() {$/;"	m	class:Reactor
+metresPerSecond	Utilities/Units.java	/^    public static Velocity metresPerSecond(double metresPerSecond) {$/;"	m	class:Units
+metresPerSecond	Utilities/Velocity.java	/^    private double metresPerSecond;$/;"	f	class:Velocity	file:
+minimumWaterLevel	Simulator/Reactor.java	/^    public Percentage minimumWaterLevel() {$/;"	m	class:Reactor
+minimumWaterMass	Simulator/Reactor.java	/^    private final Mass minimumWaterMass = kilograms(800);$/;"	f	class:Reactor	file:
+minimumWaterMass	Simulator/Reactor.java	/^    public Mass minimumWaterMass() {$/;"	m	class:Reactor
+minus	Utilities/Density.java	/^    public Density minus(Density other) {$/;"	m	class:Density
+minus	Utilities/Energy.java	/^    public Energy minus(Energy other) {$/;"	m	class:Energy
+minus	Utilities/Mass.java	/^    public Mass minus(Mass other) {$/;"	m	class:Mass
+minus	Utilities/Percentage.java	/^    public Percentage minus(Percentage other) {$/;"	m	class:Percentage
+minus	Utilities/Pressure.java	/^    public Pressure minus(Pressure other) {$/;"	m	class:Pressure
+minus	Utilities/Temperature.java	/^    public Temperature minus(Temperature other) {$/;"	m	class:Temperature
+minus	Utilities/Velocity.java	/^    public Velocity minus(Velocity other) {$/;"	m	class:Velocity
+minus	Utilities/Volume.java	/^    public Volume minus(Volume other) {$/;"	m	class:Volume
+molesOfWater	Utilities/Units.java	/^    public static Mass molesOfWater(double moles) {$/;"	m	class:Units
+moveControlRods	Simulator/FailureModel.java	/^    public void moveControlRods(Percentage extracted) {$/;"	m	class:FailureModel
+moveControlRods	Simulator/FuelPile.java	/^    public void moveControlRods(Percentage extracted) {$/;"	m	class:FuelPile
+moveControlRods	Simulator/PhysicalModel.java	/^    public void moveControlRods(Percentage percent) {$/;"	m	class:PhysicalModel
+moveControlRods	Simulator/PlantController.java	/^    public void moveControlRods(Percentage extracted);$/;"	m	interface:PlantController
+moveControlRods	Simulator/Reactor.java	/^    public void moveControlRods(Percentage extracted) {$/;"	m	class:Reactor
+moveControlRods	Simulator/Simulator.java	/^    public void moveControlRods(Percentage extracted) {$/;"	m	class:Simulator
+mushroomCloud	TextInterface/AsciiArt.java	/^    public static void mushroomCloud(TextRenderer renderer) {$/;"	m	class:AsciiArt
+neededEnergy	Simulator/Reactor.java	/^    private double neededEnergy;$/;"	f	class:Reactor	file:
+numberOfTimesWaterLevelIsTooLow	Simulator/FailureModel.java	/^    private int numberOfTimesWaterLevelIsTooLow;$/;"	f	class:FailureModel	file:
+ofLiquidWater	Utilities/Density.java	/^    public static Density ofLiquidWater() {$/;"	m	class:Density
+open	Simulator/Valve.java	/^    private boolean open = true;$/;"	f	class:Valve	file:
+output	Simulator/FuelPile.java	/^    public int output(int seconds) {$/;"	m	class:FuelPile
+outputFlowVelocity	Simulator/Reactor.java	/^    public Velocity outputFlowVelocity() {$/;"	m	class:Reactor
+outputLine	TextInterface/TerminalRenderer.java	/^    public void outputLine(String s) {$/;"	m	class:TerminalRenderer
+outputLine	TextInterface/TextRenderer.java	/^    public void outputLine(String s);$/;"	m	interface:TextRenderer
+outputPort	Simulator/Condenser.java	/^    private Port outputPort = new Port();$/;"	f	class:Condenser	file:
+outputPort	Simulator/Condenser.java	/^    public Port outputPort() {$/;"	m	class:Condenser
+outputPort	Simulator/HeatSink.java	/^    private Port outputPort;$/;"	f	class:HeatSink	file:
+outputPort	Simulator/HeatSink.java	/^    public Port outputPort() {$/;"	m	class:HeatSink
+outputPort	Simulator/Pump.java	/^    private Port outputPort;$/;"	f	class:Pump	file:
+outputPort	Simulator/Pump.java	/^    public Port outputPort() {$/;"	m	class:Pump
+outputPort	Simulator/Reactor.java	/^    private Port outputPort = new Port();$/;"	f	class:Reactor	file:
+outputPort	Simulator/Reactor.java	/^    public Port outputPort() {$/;"	m	class:Reactor
+outputPort	Simulator/Turbine.java	/^    private Port outputPort = new Port();$/;"	f	class:Turbine	file:
+outputPort	Simulator/Turbine.java	/^    public Port outputPort() {$/;"	m	class:Turbine
+outputPower	Simulator/Turbine.java	/^    private double outputPower;$/;"	f	class:Turbine	file:
+outputPower	Simulator/Turbine.java	/^    public double outputPower() {$/;"	m	class:Turbine
+parseCommand	TextInterface/Parser.java	/^    private void parseCommand(String command, ArgumentList arguments)$/;"	m	class:Parser	file:
+pascals	Utilities/Pressure.java	/^    private final double pascals;$/;"	f	class:Pressure	file:
+pascals	Utilities/Units.java	/^    public static Pressure pascals(double pascals) {$/;"	m	class:Units
+pascalsPerAtmosphere	Utilities/Pressure.java	/^    private static final double pascalsPerAtmosphere = 101325;$/;"	f	class:Pressure	file:
+pattern	Utilities/Percentage.java	/^    private static final Pattern pattern = Pattern.compile("^([0-9]+(\\\\.[0-9])?)%?$");$/;"	f	class:Percentage	file:
+percent	Utilities/Units.java	/^    public static Percentage percent(int percentagePoints) {$/;"	m	class:Units
+percentagePoints	Utilities/Percentage.java	/^    private final double percentagePoints;$/;"	f	class:Percentage	file:
+physicalModel	Persistence/SaveGame.java	/^    private PhysicalModel physicalModel;$/;"	f	class:SaveGame	file:
+physicalModel	Simulator/Simulator.java	/^    private PhysicalModel physicalModel;$/;"	f	class:Simulator	file:
+plantController	TextInterface/TextInterface.java	/^    private PlantController plantController;$/;"	f	class:TextInterface	file:
+plantStatus	TextInterface/TextInterface.java	/^    private PlantStatus plantStatus;$/;"	f	class:TextInterface	file:
+plus	Utilities/Density.java	/^    public Density plus(Density other) {$/;"	m	class:Density
+plus	Utilities/Energy.java	/^    public Energy plus(Energy other) {$/;"	m	class:Energy
+plus	Utilities/Mass.java	/^    public Mass plus(Mass other) {$/;"	m	class:Mass
+plus	Utilities/Percentage.java	/^    public Percentage plus(Percentage other) {$/;"	m	class:Percentage
+plus	Utilities/Pressure.java	/^    public Pressure plus(Pressure other) {$/;"	m	class:Pressure
+plus	Utilities/Temperature.java	/^    public Temperature plus(Temperature other) {$/;"	m	class:Temperature
+plus	Utilities/Velocity.java	/^    public Velocity plus(Velocity other) {$/;"	m	class:Velocity
+plus	Utilities/Volume.java	/^    public Volume plus(Volume other) {$/;"	m	class:Volume
+points	Utilities/Percentage.java	/^    public double points() {$/;"	m	class:Percentage
+pointsFromString	Utilities/Percentage.java	/^    private static int pointsFromString(String representation) {$/;"	m	class:Percentage	file:
+pressure	Simulator/Bernoulli.java	/^    public static Pressure pressure(Density density, Velocity velocity) {$/;"	m	class:Bernoulli
+pressure	Simulator/Condenser.java	/^    private Pressure pressure;$/;"	f	class:Condenser	file:
+pressure	Simulator/IdealGas.java	/^    public static Pressure pressure(Volume volume, Mass mass, Temperature temperature) {$/;"	m	class:IdealGas
+pressure	Simulator/Port.java	/^    public Pressure pressure = pascals(101325);$/;"	f	class:Port
+pressure	Simulator/Reactor.java	/^    private Pressure pressure;$/;"	f	class:Reactor	file:
+pressure	Simulator/Reactor.java	/^    public Pressure pressure() {$/;"	m	class:Reactor
+print	TextInterface/Parser.java	/^    private void print(String output) {$/;"	m	class:Parser	file:
+processCommand	TextInterface/TextInterface.java	/^    public void processCommand() throws DoNotStep, QuitGameException {$/;"	m	class:TextInterface
+ratio	Utilities/Percentage.java	/^    public double ratio() {$/;"	m	class:Percentage
+reactor	Simulator/PhysicalModel.java	/^    private Reactor reactor = new Reactor();$/;"	f	class:PhysicalModel	file:
+reactorInputPort	Simulator/Condenser.java	/^    private Port reactorInputPort = new Port();$/;"	f	class:Condenser	file:
+reactorMaximumWaterMass	Simulator/PhysicalModel.java	/^    public Mass reactorMaximumWaterMass() {$/;"	m	class:PhysicalModel
+reactorMinimumWaterLevel	Simulator/FailureModel.java	/^    public Percentage reactorMinimumWaterLevel() {$/;"	m	class:FailureModel
+reactorMinimumWaterLevel	Simulator/PhysicalModel.java	/^    public Percentage reactorMinimumWaterLevel() {$/;"	m	class:PhysicalModel
+reactorMinimumWaterLevel	Simulator/PlantStatus.java	/^    public Percentage reactorMinimumWaterLevel();$/;"	m	interface:PlantStatus
+reactorMinimumWaterLevel	Simulator/Simulator.java	/^    public Percentage reactorMinimumWaterLevel() {$/;"	m	class:Simulator
+reactorMinimumWaterMass	Simulator/PhysicalModel.java	/^    public Mass reactorMinimumWaterMass() {$/;"	m	class:PhysicalModel
+reactorOverheatThreshold	Simulator/FailureModel.java	/^    private final int reactorOverheatThreshold = 8;$/;"	f	class:FailureModel	file:
+reactorPressure	Simulator/FailureModel.java	/^    public Pressure reactorPressure() {$/;"	m	class:FailureModel
+reactorPressure	Simulator/PhysicalModel.java	/^    public Pressure reactorPressure() {$/;"	m	class:PhysicalModel
+reactorPressure	Simulator/PlantStatus.java	/^    public Pressure reactorPressure();$/;"	m	interface:PlantStatus
+reactorPressure	Simulator/Simulator.java	/^    public Pressure reactorPressure() {$/;"	m	class:Simulator
+reactorTemperature	Simulator/FailureModel.java	/^    public Temperature reactorTemperature() {$/;"	m	class:FailureModel
+reactorTemperature	Simulator/PhysicalModel.java	/^    public Temperature reactorTemperature() {$/;"	m	class:PhysicalModel
+reactorTemperature	Simulator/PlantStatus.java	/^    public Temperature reactorTemperature();$/;"	m	interface:PlantStatus
+reactorTemperature	Simulator/Simulator.java	/^    public Temperature reactorTemperature() {$/;"	m	class:Simulator
+reactorToTurbine	Simulator/PhysicalModel.java	/^    private Connection reactorToTurbine;$/;"	f	class:PhysicalModel	file:
+reactorVolume	Simulator/Reactor.java	/^    private final Volume reactorVolume = cubicMetres(2);$/;"	f	class:Reactor	file:
+reactorWaterLevel	Simulator/FailureModel.java	/^    public Percentage reactorWaterLevel() {$/;"	m	class:FailureModel
+reactorWaterLevel	Simulator/PhysicalModel.java	/^    public Percentage reactorWaterLevel() {$/;"	m	class:PhysicalModel
+reactorWaterLevel	Simulator/PlantStatus.java	/^    public Percentage reactorWaterLevel();$/;"	m	interface:PlantStatus
+reactorWaterLevel	Simulator/Simulator.java	/^    public Percentage reactorWaterLevel() {$/;"	m	class:Simulator
+readFile	Persistence/Utils.java	/^    public static String readFile(String path) throws IOException {$/;"	m	class:Utils
+readLine	TextInterface/LineReader.java	/^    public String readLine();$/;"	m	interface:LineReader
+readLine	TextInterface/TerminalReader.java	/^    public String readLine() {$/;"	m	class:TerminalReader
+readString	Persistence/FileSystem.java	/^    public static String readString(String fileName) throws IOException {$/;"	m	class:FileSystem
+reader	Game.java	/^    private TerminalReader reader;$/;"	f	class:Game	file:
+reduceTemperature	Simulator/Condenser.java	/^    public void reduceTemperature(int delta) {$/;"	m	class:Condenser
+renderer	Game.java	/^    private TerminalRenderer renderer;$/;"	f	class:Game	file:
+renderer	TextInterface/Parser.java	/^    private TextRenderer renderer;$/;"	f	class:Parser	file:
+repair	Simulator/Condenser.java	/^    public void repair() throws CannotRepairException {$/;"	m	class:Condenser
+repair	Simulator/FailableComponent.java	/^    public void repair() throws CannotRepairException {$/;"	m	class:FailableComponent
+repair	TextInterface/Parser.java	/^    private void repair(ArgumentList arguments)$/;"	m	class:Parser	file:
+repairCondenser	Simulator/FailureModel.java	/^    public void repairCondenser() throws CannotRepairException {$/;"	m	class:FailureModel
+repairCondenser	Simulator/PhysicalModel.java	/^    public void repairCondenser() throws CannotRepairException {$/;"	m	class:PhysicalModel
+repairCondenser	Simulator/PlantController.java	/^    public void repairCondenser() throws CannotRepairException;$/;"	m	interface:PlantController
+repairCondenser	Simulator/Simulator.java	/^    public void repairCondenser() throws CannotRepairException {$/;"	m	class:Simulator
+repairPump	Simulator/FailureModel.java	/^    public void repairPump(int pumpNumber) throws KeyNotFoundException, CannotRepairException {$/;"	m	class:FailureModel
+repairPump	Simulator/PhysicalModel.java	/^    public void repairPump(int pumpNumber) throws KeyNotFoundException, CannotRepairException {$/;"	m	class:PhysicalModel
+repairPump	Simulator/PlantController.java	/^    public void repairPump(int pumpNumber) throws KeyNotFoundException, CannotRepairException;$/;"	m	interface:PlantController
+repairPump	Simulator/Simulator.java	/^    public void repairPump(int pumpNumber) throws KeyNotFoundException, CannotRepairException {$/;"	m	class:Simulator
+repairTurbine	Simulator/FailureModel.java	/^    public void repairTurbine() throws CannotRepairException {$/;"	m	class:FailureModel
+repairTurbine	Simulator/PhysicalModel.java	/^    public void repairTurbine() throws CannotRepairException {$/;"	m	class:PhysicalModel
+repairTurbine	Simulator/PlantController.java	/^    public void repairTurbine() throws CannotRepairException;$/;"	m	interface:PlantController
+repairTurbine	Simulator/Simulator.java	/^    public void repairTurbine() throws CannotRepairException {$/;"	m	class:Simulator
+save	Persistence/SaveGame.java	/^    public void save() throws JsonProcessingException, FileNotFoundException, IOException {$/;"	m	class:SaveGame
+saveGame	Simulator/GameManager.java	/^    void saveGame() throws JsonProcessingException;$/;"	m	interface:GameManager
+saveGame	Simulator/Simulator.java	/^    public void saveGame() throws JsonProcessingException {$/;"	m	class:Simulator
+saveGame	TextInterface/Parser.java	/^    private void saveGame() throws DoNotStep {$/;"	m	class:Parser	file:
+savePath	Persistence/FileSystem.java	/^    public static String savePath() {$/;"	m	class:FileSystem
+second	Simulator/Connection.java	/^    private Port second;$/;"	f	class:Connection	file:
+serialize	Persistence/Persistence.java	/^    public String serialize(Object obj) throws JsonProcessingException {$/;"	m	class:Persistence
+setCapacity	Simulator/Pump.java	/^    public void setCapacity(Mass newCapacity) {$/;"	m	class:Pump
+setOpen	Simulator/Valve.java	/^    public void setOpen(boolean Open) {$/;"	m	class:Valve
+setReactorToTurbine	Simulator/FailureModel.java	/^    public void setReactorToTurbine(boolean open) {$/;"	m	class:FailureModel
+setReactorToTurbine	Simulator/PhysicalModel.java	/^    public void setReactorToTurbine(boolean open) {$/;"	m	class:PhysicalModel
+setReactorToTurbine	Simulator/PlantController.java	/^    public void setReactorToTurbine(boolean open);$/;"	m	interface:PlantController
+setReactorToTurbine	Simulator/Simulator.java	/^    public void setReactorToTurbine(boolean open) {$/;"	m	class:Simulator
+setStatus	Simulator/Pump.java	/^    public void setStatus(boolean newStatus) {$/;"	m	class:Pump
+setTemperature	Simulator/Condenser.java	/^    public void setTemperature(Temperature newTemp) {$/;"	m	class:Condenser
+setUsername	Simulator/GameManager.java	/^    void setUsername(String userName);$/;"	m	interface:GameManager
+setUsername	Simulator/Simulator.java	/^    public void setUsername(String userName) {$/;"	m	class:Simulator
+setUsername	TextInterface/Parser.java	/^    public void setUsername(String username) {$/;"	m	class:Parser
+setWaterMass	Simulator/Condenser.java	/^    public void setWaterMass(Mass newWater) {$/;"	m	class:Condenser
+showCommandHelp	TextInterface/Parser.java	/^    private void showCommandHelp(String command, String documentation) {$/;"	m	class:Parser	file:
+showDiagram	TextInterface/Parser.java	/^    private void showDiagram() {$/;"	m	class:Parser	file:
+showHelp	TextInterface/Parser.java	/^    private void showHelp() {$/;"	m	class:Parser	file:
+showIntroText	TextInterface/TextInterface.java	/^    public void showIntroText() {$/;"	m	class:TextInterface
+showSavedGames	TextInterface/TextInterface.java	/^    public void showSavedGames() {$/;"	m	class:TextInterface
+showStatus	TextInterface/TextInterface.java	/^    public void showStatus() {$/;"	m	class:TextInterface
+showWelcomeMessage	TextInterface/TextInterface.java	/^    public void showWelcomeMessage() {$/;"	m	class:TextInterface
+simulator	Game.java	/^    private Simulator simulator;$/;"	f	class:Game	file:
+specificHeatOfWater	Simulator/PhysicalConstants.java	/^    public static final int specificHeatOfWater = 4181;$/;"	f	class:PhysicalConstants
+status	Simulator/FailureModel.java	/^    PlantStatus status;$/;"	f	class:FailureModel
+status	Simulator/Pump.java	/^    private boolean status = true;$/;"	f	class:Pump	file:
+steamDensity	Simulator/Reactor.java	/^    private Density steamDensity;$/;"	f	class:Reactor	file:
+steamInputPort	Simulator/Condenser.java	/^    private Port steamInputPort = new Port();$/;"	f	class:Condenser	file:
+steamMass	Simulator/Condenser.java	/^    private Mass steamMass;$/;"	f	class:Condenser	file:
+steamMass	Simulator/Reactor.java	/^    private Mass steamMass;$/;"	f	class:Reactor	file:
+step	Simulator/Condenser.java	/^    public void step() {$/;"	m	class:Condenser
+step	Simulator/Connection.java	/^    public void step() {$/;"	m	class:Connection
+step	Simulator/FailureModel.java	/^    public void step() throws GameOverException {$/;"	m	class:FailureModel
+step	Simulator/FailureModel.java	/^    public void step(int i) throws GameOverException {$/;"	m	class:FailureModel
+step	Simulator/PhysicalModel.java	/^    public void step(int steps) throws GameOverException {$/;"	m	class:PhysicalModel
+step	Simulator/PlantController.java	/^    public void step(int steps) throws GameOverException;$/;"	m	interface:PlantController
+step	Simulator/Pump.java	/^    public void step() {$/;"	m	class:Pump
+step	Simulator/Reactor.java	/^    public void step() throws GameOverException {$/;"	m	class:Reactor
+step	Simulator/Simulator.java	/^    public void step() throws GameOverException {$/;"	m	class:Simulator
+step	Simulator/Simulator.java	/^    public void step(int steps) throws GameOverException {$/;"	m	class:Simulator
+step	Simulator/Turbine.java	/^    public void step() {$/;"	m	class:Turbine
+stepWear	Simulator/FailableComponent.java	/^    public void stepWear() {$/;"	m	class:FailableComponent
+temperature	Simulator/Condenser.java	/^    private Temperature temperature;$/;"	f	class:Condenser	file:
+temperature	Simulator/IdealGas.java	/^    public static Temperature temperature(Volume volume, Mass mass, Pressure pressure) {$/;"	m	class:IdealGas
+temperature	Simulator/Port.java	/^    public Temperature temperature = kelvin(300);$/;"	f	class:Port
+temperature	Simulator/Reactor.java	/^    private Temperature temperature;$/;"	f	class:Reactor	file:
+temperature	Simulator/Reactor.java	/^    public Temperature temperature() {$/;"	m	class:Reactor
+textRenderer	TextInterface/TextInterface.java	/^    private TextRenderer textRenderer;$/;"	f	class:TextInterface	file:
+ti	Game.java	/^    private TextInterface ti;$/;"	f	class:Game	file:
+toOneDecimalPlace	Utilities/Format.java	/^    public static String toOneDecimalPlace(double number) {$/;"	m	class:Format
+toString	TextInterface/Argument.java	/^    public String toString() {$/;"	m	class:Argument
+toString	Utilities/Density.java	/^    public String toString() {$/;"	m	class:Density
+toString	Utilities/Energy.java	/^    public String toString() {$/;"	m	class:Energy
+toString	Utilities/Mass.java	/^    public String toString() {$/;"	m	class:Mass
+toString	Utilities/Percentage.java	/^    public String toString() {$/;"	m	class:Percentage
+toString	Utilities/Pressure.java	/^    public String toString() {$/;"	m	class:Pressure
+toString	Utilities/Temperature.java	/^    public String toString() {$/;"	m	class:Temperature
+toString	Utilities/Velocity.java	/^    public String toString() {$/;"	m	class:Velocity
+toString	Utilities/Volume.java	/^    public String toString() {$/;"	m	class:Volume
+toThreeDecimalPlaces	Utilities/Format.java	/^    public static String toThreeDecimalPlaces(double number) {$/;"	m	class:Format
+turbine	Simulator/PhysicalModel.java	/^    private Turbine turbine = new Turbine();$/;"	f	class:PhysicalModel	file:
+turbineHasFailed	Simulator/FailureModel.java	/^    public boolean turbineHasFailed() {$/;"	m	class:FailureModel
+turbineHasFailed	Simulator/PhysicalModel.java	/^    public boolean turbineHasFailed() {$/;"	m	class:PhysicalModel
+turbineHasFailed	Simulator/PlantStatus.java	/^    public boolean turbineHasFailed();$/;"	m	interface:PlantStatus
+turbineHasFailed	Simulator/Simulator.java	/^    public boolean turbineHasFailed() {$/;"	m	class:Simulator
+turbineToCondenser	Simulator/PhysicalModel.java	/^    private Connection turbineToCondenser;$/;"	f	class:PhysicalModel	file:
+userName	Persistence/SaveGame.java	/^    private String userName;$/;"	f	class:SaveGame	file:
+userName	Simulator/Simulator.java	/^    private String userName;$/;"	f	class:Simulator	file:
+username	Simulator/PhysicalModel.java	/^    private String username;$/;"	f	class:PhysicalModel	file:
+value	TextInterface/Argument.java	/^    private final String value;$/;"	f	class:Argument	file:
+velocity	Simulator/Bernoulli.java	/^    public static Velocity velocity(Pressure pressure, Density density) {$/;"	m	class:Bernoulli
+volume	Simulator/IdealGas.java	/^    public static Volume volume(Pressure pressure, Mass mass, Temperature temperature) {$/;"	m	class:IdealGas
+volumeAt	Utilities/Mass.java	/^    public Volume volumeAt(Density density) {$/;"	m	class:Mass
+waterLevel	Simulator/Condenser.java	/^    private Percentage waterLevel = percent(0);$/;"	f	class:Condenser	file:
+waterLevel	Simulator/Reactor.java	/^    public Percentage waterLevel() {$/;"	m	class:Reactor
+waterMass	Simulator/Condenser.java	/^    private Mass waterMass;$/;"	f	class:Condenser	file:
+waterMass	Simulator/Reactor.java	/^    private Mass waterMass;$/;"	f	class:Reactor	file:
+wear	Simulator/FailableComponent.java	/^    private Percentage wear;                \/\/Current wear level - capped at 100%$/;"	f	class:FailableComponent	file:
+wear	Simulator/FailableComponent.java	/^    public Percentage wear() {$/;"	m	class:FailableComponent
+writeString	Persistence/FileSystem.java	/^    public static void writeString(String fileName, String contents) throws FileNotFoundException {$/;"	m	class:FileSystem
