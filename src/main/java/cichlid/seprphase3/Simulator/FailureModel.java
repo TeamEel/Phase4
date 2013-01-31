@@ -218,3 +218,13 @@ public class FailureModel implements PlantController, PlantStatus {
         }
     }
 }
+
+/**
+ * Enum used to represent the current software failure.
+ */
+enum SoftwareFailure {
+    pumpStateChange, valveStateChange, rodStateChange,
+    condenserPressureRead, condenserTemperatureRead, condenserWaterRead,
+    reactorPressureRead, reactorTemperatureRead, reactorWaterRead,
+    None
+}
