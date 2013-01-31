@@ -65,6 +65,11 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     public String[] listFailedComponents() {
         return failureModel.listFailedComponents();
     }
+    
+    @Override
+    public SoftwareFailure getSoftwareFailure() {
+        return failureModel.getSoftwareFailure();
+    }
 
     public void step() throws GameOverException {
         try {

@@ -1,12 +1,12 @@
 package cichlid.seprphase3.Simulator;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import cichlid.seprphase3.GameOverException;
 import cichlid.seprphase3.Utilities.Energy;
 import cichlid.seprphase3.Utilities.Percentage;
 import cichlid.seprphase3.Utilities.Pressure;
 import cichlid.seprphase3.Utilities.Temperature;
 import static cichlid.seprphase3.Utilities.Units.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -42,8 +42,7 @@ public class FailureModel implements PlantController, PlantStatus {
     private FailureModel() {
     }
 
-    public FailureModel(PlantController plantController,
-                        PlantStatus plantStatus) {
+    public FailureModel(PlantController plantController, PlantStatus plantStatus) {
         this.controller = plantController;
         this.status = plantStatus;
     }
@@ -83,6 +82,11 @@ public class FailureModel implements PlantController, PlantStatus {
     @Override
     public String[] listFailedComponents() {
         return status.listFailedComponents();
+    }
+    
+    @Override
+    public SoftwareFailure getSoftwareFailure() {
+        return status.getSoftwareFailure();
     }
 
     @Override
@@ -217,14 +221,4 @@ public class FailureModel implements PlantController, PlantStatus {
             controller.moveControlRods(percent(0));
         }
     }
-}
-
-/**
- * Enum used to represent the current software failure.
- */
-enum SoftwareFailure {
-    pumpStateChange, valveStateChange, rodStateChange,
-    condenserPressureRead, condenserTemperatureRead, condenserWaterRead,
-    reactorPressureRead, reactorTemperatureRead, reactorWaterRead,
-    None
 }

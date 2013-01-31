@@ -46,6 +46,8 @@ public class PhysicalModel implements PlantController, PlantStatus {
     private HashMap<Integer, Connection> allConnections;
     @JsonProperty
     private HeatSink heatSink;
+    
+    private SoftwareFailure currentFailure;
 
     /**
      *
@@ -70,7 +72,8 @@ public class PhysicalModel implements PlantController, PlantStatus {
 
         allPumps.put(1, condenserToReactor);
         allPumps.put(2, heatsinkToCondenser);
-
+        
+        currentFailure = SoftwareFailure.None;
     }
 
     @Override
@@ -112,6 +115,11 @@ public class PhysicalModel implements PlantController, PlantStatus {
 
         return out.toArray(new String[out.size()]);
 
+    }
+    
+    @Override
+    public SoftwareFailure getSoftwareFailure() {
+        return currentFailure;
     }
 
     /**
