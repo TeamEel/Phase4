@@ -48,6 +48,10 @@ public class SaveGame {
     public PhysicalModel getPhysicalModel() {
         return this.physicalModel;
     }
+
+    public FailureModel getFailureModel() {
+        return new FailureModel(physicalModel, physicalModel);
+    }
     
     /**
      * generateFileName generates a new unique file name using getTimeInMillis

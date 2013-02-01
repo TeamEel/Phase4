@@ -10,6 +10,7 @@ import cichlid.seprphase3.Utilities.Percentage;
 import cichlid.seprphase3.Utilities.Pressure;
 import cichlid.seprphase3.Utilities.Temperature;
 import static cichlid.seprphase3.Utilities.Units.*;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -20,6 +21,7 @@ import java.util.Map;
  * @author Marius
  */
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
+@JsonAutoDetect(getterVisibility= JsonAutoDetect.Visibility.NONE, setterVisibility= JsonAutoDetect.Visibility.NONE)
 public class PhysicalModel implements PlantController, PlantStatus {
 
     @JsonProperty
@@ -47,8 +49,7 @@ public class PhysicalModel implements PlantController, PlantStatus {
     @JsonProperty
     private HeatSink heatSink;
     
-    // TODO: fix serialization!
-    @JsonProperty()
+    @JsonProperty
     private SoftwareFailure currentSoftwareFailure;
 
     /**
@@ -74,8 +75,6 @@ public class PhysicalModel implements PlantController, PlantStatus {
 
         allPumps.put(1, condenserToReactor);
         allPumps.put(2, heatsinkToCondenser);
-        
-        currentSoftwareFailure = SoftwareFailure.None;
     }
 
     @Override
@@ -117,21 +116,6 @@ public class PhysicalModel implements PlantController, PlantStatus {
 
         return out.toArray(new String[out.size()]);
 
-    }
-    
-    @Override
-    public SoftwareFailure getSoftwareFailure() {
-        return currentSoftwareFailure;
-    }
-
-    @Override        
-    public void failSoftware() {
-        currentSoftwareFailure = SoftwareFailure.pickRandom();
-    }
-
-    @Override
-    public void turbineFailurePrecautions() {
-        reactor.moveControlRods(new Percentage(0.0));
     }
 
     /**
@@ -332,5 +316,15 @@ public class PhysicalModel implements PlantController, PlantStatus {
     
     public boolean getPumpStatus(int pumpNumber) {
         return allPumps.get(pumpNumber).getStatus();
+    }
+
+    @Override
+    public SoftwareFailure getSoftwareFailure() {
+        return currentSoftwareFailure;
+    }
+
+    @Override
+    public void failSoftware() {
+        currentSoftwareFailure = SoftwareFailure.pickRandom();
     }
 }

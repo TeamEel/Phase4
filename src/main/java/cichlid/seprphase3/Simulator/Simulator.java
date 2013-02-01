@@ -49,7 +49,7 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
         try {
             SaveGame saveGame = SaveGame.load(listGames()[gameNumber]);
             this.physicalModel = saveGame.getPhysicalModel();
-            this.failureModel = new FailureModel(physicalModel, physicalModel);
+            this.failureModel = saveGame.getFailureModel();
             this.userName = saveGame.getUserName();
         } catch (JsonParseException ex) {
         } catch (IOException ex) {
@@ -90,12 +90,12 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     }
 
     @Override
-    public Boolean moveControlRods(Percentage extracted) throws CannotControlException, KeyNotFoundException {
+    public Boolean moveControlRods(Percentage extracted) {
         return failureModel.moveControlRods(extracted);
     }
 
     @Override
-    public Boolean changeValveState(int valveNumber, boolean isOpen) throws CannotControlException, KeyNotFoundException {
+    public Boolean changeValveState(int valveNumber, boolean isOpen) throws KeyNotFoundException {
         return failureModel.changeValveState(valveNumber, isOpen);
     }
 
@@ -176,22 +176,17 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
 
     @Override
     public void failCondenser() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not meaningful at this level.");
     }
 
     @Override
     public void failReactor() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void failSoftware() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not meaningful at this level.");
     }
     
     @Override
-    public void turbineFailurePrecautions() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void failSoftware() {
+        throw new UnsupportedOperationException("Not meaningful at this level.");
     }
 
     @Override

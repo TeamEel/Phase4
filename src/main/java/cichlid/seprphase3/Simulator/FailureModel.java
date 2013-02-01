@@ -6,6 +6,7 @@ import cichlid.seprphase3.Utilities.Percentage;
 import cichlid.seprphase3.Utilities.Pressure;
 import cichlid.seprphase3.Utilities.Temperature;
 import static cichlid.seprphase3.Utilities.Units.*;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Random;
@@ -27,6 +28,7 @@ import java.util.Random;
  *
  * @author Marius Dumitrescu
  */
+@JsonAutoDetect(getterVisibility= JsonAutoDetect.Visibility.NONE, setterVisibility= JsonAutoDetect.Visibility.NONE)
 public class FailureModel implements PlantController, PlantStatus {
 
     @JsonProperty
@@ -99,7 +101,7 @@ public class FailureModel implements PlantController, PlantStatus {
     }
 
     @Override
-    public Boolean moveControlRods(Percentage extracted) throws CannotControlException, KeyNotFoundException {
+    public Boolean moveControlRods(Percentage extracted) {
         if (status.getSoftwareFailure() == SoftwareFailure.rodStateChange) {
             randomSoftwareFailure();
             return false;
@@ -109,7 +111,7 @@ public class FailureModel implements PlantController, PlantStatus {
     }
 
     @Override
-    public Boolean changeValveState(int valveNumber, boolean isOpen) throws CannotControlException, KeyNotFoundException {
+    public Boolean changeValveState(int valveNumber, boolean isOpen) throws KeyNotFoundException {
         if (status.getSoftwareFailure() == SoftwareFailure.valveStateChange) {
             randomSoftwareFailure();
             return false;
@@ -268,33 +270,32 @@ public class FailureModel implements PlantController, PlantStatus {
 
     private void checkTurbineFailure() {
         if (status.turbineHasFailed()) {
-            turbineFailurePrecautions();
+            controller.moveControlRods(new Percentage(0.0));
         }
     }
 
-    // Having this method means we can bypass the possible random failures of the software moving the
-    // control rods around when the turbine has failed - the values are set directly.
-    @Override
-    public void turbineFailurePrecautions() {
-        controller.turbineFailurePrecautions();
-    }
-
-    private void randomSoftwareFailure() throws CannotControlException, KeyNotFoundException {
+    private void randomSoftwareFailure() {
         RandomAction actionToFailWith = RandomAction.pickRandom();
 
-        switch(actionToFailWith) {
-            case pumpOff:
-                controller.changePumpState(0, false);
-            case coolantPumpOff:
-                controller.changePumpState(1, false);
-            case reactorControlRodsLower:
-                controller.moveControlRods(new Percentage(100.0));
-            case reactorControlRodsRaise:
-                controller.moveControlRods(new Percentage(0.0));
-            case valve1Close:
-                controller.changeValveState(1, false);
-            default:
-                break;
+        try {
+            switch(actionToFailWith) {
+                case pumpOff:
+                    controller.changePumpState(0, false);
+                case coolantPumpOff:
+                    controller.changePumpState(1, false);
+                case reactorControlRodsLower:
+                    controller.moveControlRods(new Percentage(100.0));
+                case reactorControlRodsRaise:
+                    controller.moveControlRods(new Percentage(0.0));
+                case valve1Close:
+                    controller.changeValveState(1, false);
+                default:
+                    break;
+            }
+        } catch (CannotControlException e) {
+            throw new RuntimeException("This should never happen as values are known.");
+        } catch (KeyNotFoundException e) {
+            throw new RuntimeException("This should never happen as values are known.");
         }
     }
 }
