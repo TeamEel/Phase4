@@ -41,7 +41,7 @@ public class ParserTest {
     }
 
     @Test
-    public void shouldMoveControlRods() throws DoNotStep, QuitGameException {
+    public void shouldMoveControlRods() throws CannotControlException, KeyNotFoundException, DoNotStep, QuitGameException {
         context.checking(new Expectations() {
             {
                 oneOf(plantController).moveControlRods(percent(50));
@@ -109,7 +109,7 @@ public class ParserTest {
     }
 
     @Test
-    public void shouldOpenValve() throws DoNotStep, KeyNotFoundException, QuitGameException {
+    public void shouldOpenValve() throws DoNotStep, CannotControlException, KeyNotFoundException, QuitGameException {
         context.checking(new Expectations() {
             {
                 oneOf(plantController).changeValveState(1, true);
@@ -155,7 +155,7 @@ public class ParserTest {
     }
 
     @Test
-    public void shouldCloseValve() throws DoNotStep, KeyNotFoundException, QuitGameException {
+    public void shouldCloseValve() throws DoNotStep, CannotControlException, KeyNotFoundException, QuitGameException {
         context.checking(new Expectations() {
             {
                 oneOf(plantController).changeValveState(1, false);

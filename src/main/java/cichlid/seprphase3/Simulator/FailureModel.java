@@ -39,6 +39,9 @@ public class FailureModel implements PlantController, PlantStatus {
     private final int reactorOverheatThreshold = 8;
     private final Pressure condenserMaxPressure = new Pressure(30662500);
 
+    // Software will fail 1 out of softwareFailureProbability times
+    private final int softwareFailureProbability = 100;
+
     private FailureModel() {
     }
 
@@ -77,6 +80,12 @@ public class FailureModel implements PlantController, PlantStatus {
             }
 
         }
+
+        // There is also a 1 in 1000 chance that a software failure will occur at any step.
+        failValue = failChance.nextInt(softwareFailureProbability);
+        if (failValue == 0) {
+            failSoftware();
+        }
     }
 
     @Override
@@ -90,18 +99,33 @@ public class FailureModel implements PlantController, PlantStatus {
     }
 
     @Override
-    public void moveControlRods(Percentage extracted) {
+    public Boolean moveControlRods(Percentage extracted) throws CannotControlException, KeyNotFoundException {
+        if (status.getSoftwareFailure() == SoftwareFailure.rodStateChange) {
+            randomSoftwareFailure();
+            return false;
+        }
         controller.moveControlRods(extracted);
+        return true;
     }
 
     @Override
-    public void changeValveState(int valveNumber, boolean isOpen) throws KeyNotFoundException {
+    public Boolean changeValveState(int valveNumber, boolean isOpen) throws CannotControlException, KeyNotFoundException {
+        if (status.getSoftwareFailure() == SoftwareFailure.valveStateChange) {
+            randomSoftwareFailure();
+            return false;
+        }
         controller.changeValveState(valveNumber, isOpen);
+        return true;
     }
 
     @Override
-    public void changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException, KeyNotFoundException {
+    public Boolean changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException, KeyNotFoundException {
+        if (status.getSoftwareFailure() == SoftwareFailure.pumpStateChange) {
+            randomSoftwareFailure();
+            return false;
+        }
         controller.changePumpState(pumpNumber, isPumping);
+        return true;
     }
 
     @Override
@@ -121,21 +145,33 @@ public class FailureModel implements PlantController, PlantStatus {
 
     @Override
     public Percentage controlRodPosition() {
+        if (status.getSoftwareFailure() == SoftwareFailure.controlRodRead) {
+            return null;
+        }
         return status.controlRodPosition();
     }
 
     @Override
     public Pressure reactorPressure() {
+        if (status.getSoftwareFailure() == SoftwareFailure.reactorPressureRead) {
+            return null;
+        }
         return status.reactorPressure();
     }
 
     @Override
     public Temperature reactorTemperature() {
+        if (status.getSoftwareFailure() == SoftwareFailure.reactorTemperatureRead) {
+            return null;
+        }
         return status.reactorTemperature();
     }
 
     @Override
     public Percentage reactorWaterLevel() {
+        if (status.getSoftwareFailure() == SoftwareFailure.reactorWaterRead) {
+            return null;
+        }
         return status.reactorWaterLevel();
     }
 
@@ -156,16 +192,25 @@ public class FailureModel implements PlantController, PlantStatus {
 
     @Override
     public Temperature condenserTemperature() {
+        if (status.getSoftwareFailure() == SoftwareFailure.condenserTemperatureRead) {
+            return null;
+        }
         return status.condenserTemperature();
     }
 
     @Override
     public Pressure condenserPressure() {
+        if (status.getSoftwareFailure() == SoftwareFailure.condenserPressureRead) {
+            return null;
+        }
         return status.condenserPressure();
     }
 
     @Override
     public Percentage condenserWaterLevel() {
+        if (status.getSoftwareFailure() == SoftwareFailure.condenserWaterRead) {
+            return null;
+        }
         return status.condenserWaterLevel();
     }
 
@@ -182,6 +227,11 @@ public class FailureModel implements PlantController, PlantStatus {
     @Override
     public void failReactor() {
         controller.failReactor();
+    }
+
+    @Override
+    public void failSoftware() {
+        controller.failSoftware();
     }
 
     @Override
@@ -218,7 +268,33 @@ public class FailureModel implements PlantController, PlantStatus {
 
     private void checkTurbineFailure() {
         if (status.turbineHasFailed()) {
-            controller.moveControlRods(percent(0));
+            turbineFailurePrecautions();
+        }
+    }
+
+    // Having this method means we can bypass the possible random failures of the software moving the
+    // control rods around when the turbine has failed - the values are set directly.
+    @Override
+    public void turbineFailurePrecautions() {
+        controller.turbineFailurePrecautions();
+    }
+
+    private void randomSoftwareFailure() throws CannotControlException, KeyNotFoundException {
+        RandomAction actionToFailWith = RandomAction.pickRandom();
+
+        switch(actionToFailWith) {
+            case pumpOff:
+                controller.changePumpState(0, false);
+            case coolantPumpOff:
+                controller.changePumpState(1, false);
+            case reactorControlRodsLower:
+                controller.moveControlRods(new Percentage(100.0));
+            case reactorControlRodsRaise:
+                controller.moveControlRods(new Percentage(0.0));
+            case valve1Close:
+                controller.changeValveState(1, false);
+            default:
+                break;
         }
     }
 }

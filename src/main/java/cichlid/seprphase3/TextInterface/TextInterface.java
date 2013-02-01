@@ -5,6 +5,7 @@ import cichlid.seprphase3.QuitGameException;
 import cichlid.seprphase3.Simulator.GameManager;
 import cichlid.seprphase3.Simulator.PlantController;
 import cichlid.seprphase3.Simulator.PlantStatus;
+import cichlid.seprphase3.Simulator.SoftwareFailure;
 import cichlid.seprphase3.Utilities.Pressure;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -79,6 +80,10 @@ public class TextInterface {
                 textRenderer.outputLine("WARNING: " + failedComponent + " HAS FAILED");
             }
 
+        }
+
+        if (plantStatus.getSoftwareFailure() != SoftwareFailure.None) {
+            textRenderer.outputLine("Software has failed: " + plantStatus.getSoftwareFailure().name());
         }
     }
 

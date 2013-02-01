@@ -90,18 +90,18 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     }
 
     @Override
-    public void moveControlRods(Percentage extracted) {
-        failureModel.moveControlRods(extracted);
+    public Boolean moveControlRods(Percentage extracted) throws CannotControlException, KeyNotFoundException {
+        return failureModel.moveControlRods(extracted);
     }
 
     @Override
-    public void changeValveState(int valveNumber, boolean isOpen) throws KeyNotFoundException {
-        failureModel.changeValveState(valveNumber, isOpen);
+    public Boolean changeValveState(int valveNumber, boolean isOpen) throws CannotControlException, KeyNotFoundException {
+        return failureModel.changeValveState(valveNumber, isOpen);
     }
 
     @Override
-    public void changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException, KeyNotFoundException {
-        failureModel.changePumpState(pumpNumber, isPumping);
+    public Boolean changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException, KeyNotFoundException {
+        return failureModel.changePumpState(pumpNumber, isPumping);
     }
 
     @Override
@@ -181,6 +181,16 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
 
     @Override
     public void failReactor() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void failSoftware() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    @Override
+    public void turbineFailurePrecautions() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

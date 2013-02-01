@@ -148,5 +148,6 @@ public class PersistenceTest {
         assertEquals(before.reactorPressure(), after.reactorPressure());
         assertEquals(before.reactorTemperature(), after.reactorTemperature());
         assertEquals(before.reactorWaterLevel(), after.reactorWaterLevel());
+        assertEquals(before.getSoftwareFailure(), after.getSoftwareFailure());
     }
 }

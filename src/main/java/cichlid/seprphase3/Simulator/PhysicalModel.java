@@ -47,7 +47,9 @@ public class PhysicalModel implements PlantController, PlantStatus {
     @JsonProperty
     private HeatSink heatSink;
     
-    private SoftwareFailure currentFailure;
+    // TODO: fix serialization!
+    @JsonProperty()
+    private SoftwareFailure currentSoftwareFailure;
 
     /**
      *
@@ -73,7 +75,7 @@ public class PhysicalModel implements PlantController, PlantStatus {
         allPumps.put(1, condenserToReactor);
         allPumps.put(2, heatsinkToCondenser);
         
-        currentFailure = SoftwareFailure.None;
+        currentSoftwareFailure = SoftwareFailure.None;
     }
 
     @Override
@@ -119,7 +121,17 @@ public class PhysicalModel implements PlantController, PlantStatus {
     
     @Override
     public SoftwareFailure getSoftwareFailure() {
-        return currentFailure;
+        return currentSoftwareFailure;
+    }
+
+    @Override        
+    public void failSoftware() {
+        currentSoftwareFailure = SoftwareFailure.pickRandom();
+    }
+
+    @Override
+    public void turbineFailurePrecautions() {
+        reactor.moveControlRods(new Percentage(0.0));
     }
 
     /**
@@ -146,8 +158,9 @@ public class PhysicalModel implements PlantController, PlantStatus {
      * @param percent
      */
     @Override
-    public void moveControlRods(Percentage percent) {
+    public Boolean moveControlRods(Percentage percent) {
         reactor.moveControlRods(percent);
+        return true;
     }
 
     /**
@@ -248,16 +261,17 @@ public class PhysicalModel implements PlantController, PlantStatus {
     }
 
     @Override
-    public void changeValveState(int valveNumber, boolean isOpen) throws KeyNotFoundException {
+    public Boolean changeValveState(int valveNumber, boolean isOpen) throws KeyNotFoundException {
         if (allConnections.containsKey(valveNumber)) {
             allConnections.get(valveNumber).setOpen(isOpen);
         } else {
             throw new KeyNotFoundException("Valve " + valveNumber + " does not exist");
         }
+        return true;
     }
 
     @Override
-    public void changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException, KeyNotFoundException {
+    public Boolean changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException, KeyNotFoundException {
         if (!allPumps.containsKey(pumpNumber)) {
             throw new KeyNotFoundException("Pump " + pumpNumber + " does not exist");
         }
@@ -267,6 +281,7 @@ public class PhysicalModel implements PlantController, PlantStatus {
         }
 
         allPumps.get(pumpNumber).setStatus(isPumping);
+        return true;
     }
 
     @Override

@@ -70,9 +70,10 @@ public class FailureModelTest {
     }
 
     @Test
-    public void testMoveControlRods() {
+    public void testMoveControlRods() throws Exception {
         context.checking(new Expectations() {
             {
+                oneOf(plantStatus).getSoftwareFailure();
                 oneOf(plantController).moveControlRods(percent(57));
             }
         });
@@ -83,6 +84,7 @@ public class FailureModelTest {
     public void changeValveState() throws Exception {
         context.checking(new Expectations() {
             {
+                oneOf(plantStatus).getSoftwareFailure();
                 oneOf(plantController).changeValveState(1, true);
             }
         });
@@ -93,6 +95,7 @@ public class FailureModelTest {
     public void changePumpState() throws Exception {
         context.checking(new Expectations() {
             {
+                oneOf(plantStatus).getSoftwareFailure();
                 oneOf(plantController).changePumpState(1, true);
             }
         });

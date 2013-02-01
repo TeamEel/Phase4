@@ -5,7 +5,9 @@ import cichlid.seprphase3.TextInterface.DoNotStep;
 import cichlid.seprphase3.TextInterface.TextInterface;
 import cichlid.seprphase3.TextInterface.LineReader;
 import cichlid.seprphase3.QuitGameException;
+import cichlid.seprphase3.Simulator.CannotControlException;
 import cichlid.seprphase3.Simulator.GameManager;
+import cichlid.seprphase3.Simulator.KeyNotFoundException;
 import cichlid.seprphase3.Simulator.PlantController;
 import cichlid.seprphase3.Simulator.PlantStatus;
 import cichlid.seprphase3.Utilities.Energy;
@@ -96,7 +98,7 @@ public class TextInterfaceTest {
     }
 
     @Test
-    public void shouldProcessACommand() throws DoNotStep, QuitGameException {
+    public void shouldProcessACommand() throws CannotControlException, KeyNotFoundException, DoNotStep, QuitGameException {
         context.checking(new Expectations() {
             {
 
