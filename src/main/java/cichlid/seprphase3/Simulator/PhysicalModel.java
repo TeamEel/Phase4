@@ -75,6 +75,8 @@ public class PhysicalModel implements PlantController, PlantStatus {
 
         allPumps.put(1, condenserToReactor);
         allPumps.put(2, heatsinkToCondenser);
+
+        currentSoftwareFailure = SoftwareFailure.None;
     }
 
     @Override
