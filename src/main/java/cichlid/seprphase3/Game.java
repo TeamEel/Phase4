@@ -1,23 +1,24 @@
 package cichlid.seprphase3;
 
-import cichlid.seprphase3.GUIInterface.GUIInterface;
+import cichlid.seprphase3.GUIInterface.GUIWindow;
+import cichlid.seprphase3.GUIInterface.PlantInterface;
 import cichlid.seprphase3.Simulator.Simulator;
 
 
 public class Game {
 
-    private GUIInterface gui;
+    private GUIWindow gui;
     private Simulator simulator;
 
     public Game() throws GameOverException, QuitGameException {
 
         simulator = new Simulator();
 
-        gui = new GUIInterface(simulator, simulator, simulator);
-        gui.start();
+        gui = new GUIWindow("Nuke Dukem", 1600, 900);
+        gui.setWindow(new PlantInterface(simulator, simulator, simulator));
 
         while(true) {
-            gui.render();
+            gui.update();
         }
     }
 }
