@@ -17,4 +17,12 @@ public class GUIInterface {
         this.plantStatus = plantStatus;
         this.gameManager = gameManager;
     }
+
+    public void start() {
+        GUIWindow j = new GUIWindow("Nuke Dukem", 1600, 900);
+    }
+
+    public void render() {
+        return;
+    }
 }

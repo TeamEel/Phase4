@@ -14,5 +14,10 @@ public class Game {
         simulator = new Simulator();
 
         gui = new GUIInterface(simulator, simulator, simulator);
+        gui.start();
+
+        while(true) {
+            gui.render();
+        }
     }
 }
