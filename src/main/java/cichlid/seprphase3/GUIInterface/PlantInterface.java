@@ -1,10 +1,12 @@
 package cichlid.seprphase3.GUIInterface;
 
+import cichlid.seprphase3.GameOverException;
 import cichlid.seprphase3.Simulator.GameManager;
 import cichlid.seprphase3.Simulator.PlantController;
 import cichlid.seprphase3.Simulator.PlantStatus;
 import cichlid.seprphase3.Simulator.SoftwareFailure;
 import cichlid.seprphase3.Utilities.Pressure;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -32,6 +34,8 @@ public class PlantInterface extends JPanel {
     private BufferedImage controlRodsImage;
     private BufferedImage turbineImage;
     private BufferedImage turbineHousingImage;
+
+    private final float WATER_LEVEL_PIX = 400;
     
     AffineTransformOp rotateValve90Deg;
 
@@ -74,33 +78,35 @@ public class PlantInterface extends JPanel {
         super.paintComponent(g);
         
         Graphics2D g2d = (Graphics2D)g;
-        
+
         g2d.drawImage(reactorImage, 50, 70, null);
-        
+
         g2d.drawImage(condenserImage, 1100, 400, null);
-        
+
         g2d.drawImage(valveImage, 550, 13, null);
-        
+
         g2d.drawImage(reactorToCondenserPipeImage, 270, 65, null);
-        
+
         g2d.drawImage(turbineHousingImage, 1150, 135, null);
-        
+
         g2d.drawImage(turbineHousingImage, 1350, 130, null);
-        
+
         g2d.drawImage(turbineImage, 1195, 150, this);
-        
+
         g2d.drawImage(rotateValve90Deg.filter(valveImage, null), 1291, 373, null);
 
         g2d.drawImage(coolingPipeImage, 1250, 600, null);
-        
+
         g2d.drawImage(pumpImage, 1500, 760, null);
 
-        g.drawImage(condenserToReactorPipeImage, 200, 300, null);
-//        
-//        g.drawImage(fuelRodsImage, 100, 100, null);
-//        g.drawImage(controlRodsImage, 100, 100, null);
-//        
-//        g.drawImage(turbineImage, 100, 100, null);
+        g2d.drawImage(condenserToReactorPipeImage, 250, 584, null);
 
+        g.drawImage(controlRodsImage, 150, -150, null);
+
+        g.drawImage(fuelRodsImage, 150, 350, null);
+
+        g2d.setColor(new Color(0, 0, 255, 100));
+
+        g2d.fillRect(90, 175, 288, (int)(WATER_LEVEL_PIX * plantStatus.reactorWaterLevel().ratio()));
     }
 }

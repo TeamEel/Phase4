@@ -19,7 +19,7 @@ public class App {
      *
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         while (true) {
             try {
                 Game game = new Game();

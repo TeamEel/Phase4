@@ -19,5 +19,6 @@ public class GUIWindow extends JFrame {
 
     public void update() {
         revalidate();
+        repaint();
     }
 }

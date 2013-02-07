@@ -10,7 +10,7 @@ public class Game {
     private GUIWindow gui;
     private Simulator simulator;
 
-    public Game() throws GameOverException, QuitGameException {
+    public Game() throws GameOverException, QuitGameException, InterruptedException {
 
         simulator = new Simulator();
 
@@ -19,6 +19,7 @@ public class Game {
 
         while(true) {
             gui.update();
+            simulator.step();
         }
     }
 }
