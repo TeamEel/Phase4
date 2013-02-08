@@ -22,33 +22,21 @@ public class PlantInterface extends JPanel {
     private PlantController plantController;
     private PlantStatus plantStatus;
     private GameManager gameManager;
-    
-//    private Rectangle reactorLocation = new Rectangle(50, 70);
-//    private Rectangle condenserLocation = new Rectangle();
-//    private Rectangle pump1Location = new Rectangle();
-//    private Rectangle pump2Location = new Rectangle();
-//    private Rectangle valve1Location = new Rectangle();
-//    private Rectangle valve2Location = new Rectangle();
-//    private Rectangle coolingPipeLocation = new Rectangle();
-//    private Rectangle reactorToCondenserLocation = new Rectangle();
-//    private Rectangle condenserToReactorLocation = new Rectangle();
-//    private Rectangle fuelRodsLocation = new Rectangle();
-//    private Rectangle controlRodsLocation = new Rectangle();
-//    private Rectangle turbineLocation = new Rectangle();
-//    private Rectangle turbineHousingLocation = new Rectangle();
 
     // Interface images
-    private BufferedImage reactorImage;
-    private BufferedImage condenserImage;
-    private BufferedImage pumpImage;
-    private BufferedImage valveImage;
-    private BufferedImage coolingPipeImage;
-    private BufferedImage reactorToCondenserPipeImage;
-    private BufferedImage condenserToReactorPipeImage;
-    private BufferedImage fuelRodsImage;
-    private BufferedImage controlRodsImage;
-    private BufferedImage turbineImage;
-    private BufferedImage turbineHousingImage;
+    private PlantGUIElement reactor;
+    private PlantGUIElement condenser;
+    private PlantGUIElement pump1;
+    private PlantGUIElement pump2;
+    private PlantGUIElement valve1;
+    private PlantGUIElement valve2;
+    private PlantGUIElement coolingPipe;
+    private PlantGUIElement reactorToCondenserPipe;
+    private PlantGUIElement condenserToReactorPipe;
+    private PlantGUIElement fuelRods;
+    private PlantGUIElement controlRods;
+    private PlantGUIElement turbine;
+    private PlantGUIElement turbineHousing;
 
     private final float WATER_LEVEL_PIX = 400;
 
@@ -61,47 +49,48 @@ public class PlantInterface extends JPanel {
         this.plantStatus = plantStatus;
         this.gameManager = gameManager;
         
-        loadImages();
-        
-        rotateValve90Deg = new AffineTransformOp(AffineTransform.getRotateInstance(Math.PI/2, valveImage.getWidth()/2, (valveImage.getHeight()/3)*2), AffineTransformOp.TYPE_BILINEAR);
+        setupComponents();
     }
     
-    private void loadImages() {
-        BufferedImage unscaledReactorImage = loadImage("images/reactor.png");
-        reactorImage = scaleImage(unscaledReactorImage, SCALE_AMOUNT);
+    private void setupComponents() {
+        BufferedImage reactorImage = loadImage("images/reactor.png");
+        reactor = new PlantGUIElement(reactorImage, 50, 70, SCALE_AMOUNT);
         
-        BufferedImage unscaledCondenserImage = loadImage("images/reactor.png");
-        condenserImage = scaleImage(unscaledCondenserImage, SCALE_AMOUNT);
+        BufferedImage condenserImage = loadImage("images/reactor.png");
+        condenser = new PlantGUIElement(condenserImage, 0, 0, SCALE_AMOUNT);
         
-        BufferedImage unscaledPumpImage = loadImage("images/pump.png");
-        pumpImage = scaleImage(unscaledPumpImage, SCALE_AMOUNT);
-        BufferedImage unscaledValveImage = loadImage("images/valve.png");
-        valveImage = scaleImage(unscaledValveImage, SCALE_AMOUNT);
+        BufferedImage pumpImage = loadImage("images/pump.png");
+        pump1 = new PlantGUIElement(pumpImage, 0, 0, SCALE_AMOUNT);
+        pump2 = new PlantGUIElement(pumpImage, 0, 0, SCALE_AMOUNT);
         
-        BufferedImage unscaledCoolingPipeImage = loadImage("images/pipe1.png");
-        coolingPipeImage = scaleImage(unscaledCoolingPipeImage, SCALE_AMOUNT);
-        BufferedImage unscaledReactorToCondenserPipeImage = loadImage("images/pipe2.png");
-        reactorToCondenserPipeImage = scaleImage(unscaledReactorToCondenserPipeImage, SCALE_AMOUNT);
-        BufferedImage unscaledCondenserToReactorPipeImage = loadImage("images/pipe3.png");
-        condenserToReactorPipeImage = scaleImage(unscaledCondenserToReactorPipeImage, SCALE_AMOUNT);
+        BufferedImage valveImage = loadImage("images/valve.png");
+        valve1 = new PlantGUIElement(valveImage, 0, 0, SCALE_AMOUNT);
+        valve2 = new PlantGUIElement(valveImage, 0, 0, SCALE_AMOUNT);
+        rotateValve90Deg = new AffineTransformOp(AffineTransform.getRotateInstance(Math.PI/2, valve1.image.getWidth()/2, (valve1.image.getHeight()/3)*2), AffineTransformOp.TYPE_BILINEAR);
         
-        BufferedImage unscaledFuelRodsImage = loadImage("images/fuel_rods.png");
-        fuelRodsImage = scaleImage(unscaledFuelRodsImage, SCALE_AMOUNT);
-        BufferedImage unscaledControlRodsImage = loadImage("images/control_rods.png");
-        controlRodsImage = scaleImage(unscaledControlRodsImage, SCALE_AMOUNT);
+        BufferedImage coolingPipeImage = loadImage("images/pipe1.png");
+        coolingPipe = new PlantGUIElement(coolingPipeImage, 0, 0, SCALE_AMOUNT);
         
-        BufferedImage unscaledTurbineImage = loadImage("images/turbine.png");
-        turbineImage = scaleImage(unscaledTurbineImage, SCALE_AMOUNT);
-        BufferedImage unscaledTurbineHousingImage = loadImage("images/turbineC2.png");
-        turbineHousingImage = scaleImage(unscaledTurbineHousingImage, SCALE_AMOUNT);
+        BufferedImage reactorToCondenserPipeImage = loadImage("images/pipe2.png");
+        reactorToCondenserPipe = new PlantGUIElement(reactorToCondenserPipeImage, 0, 0, SCALE_AMOUNT);
+        
+        BufferedImage condenserToReactorPipeImage = loadImage("images/pipe3.png");
+        condenserToReactorPipe = new PlantGUIElement(condenserToReactorPipeImage, 0, 0, SCALE_AMOUNT);
+        
+        BufferedImage fuelRodsImage = loadImage("images/fuel_rods.png");
+        fuelRods = new PlantGUIElement(fuelRodsImage, 0, 0, SCALE_AMOUNT);
+        
+        BufferedImage controlRodsImage = loadImage("images/control_rods.png");
+        controlRods = new PlantGUIElement(controlRodsImage, 0, 0, SCALE_AMOUNT);
+        
+        BufferedImage turbineImage = loadImage("images/turbine.png");
+        turbine = new PlantGUIElement(turbineImage, 0, 0, SCALE_AMOUNT);
+        
+        BufferedImage turbineHousingImage = loadImage("images/turbineC2.png");
+        turbineHousing = new PlantGUIElement(turbineHousingImage, 0, 0, SCALE_AMOUNT);
     }
     
-    private BufferedImage scaleImage(BufferedImage unscaledImage, float percent) {
-        Image scaledImage = unscaledImage.getScaledInstance( (int)(unscaledImage.getWidth() * percent), -1, Image.SCALE_SMOOTH);
-        BufferedImage scaledBufferedImage = new BufferedImage(scaledImage.getWidth(null), scaledImage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-        scaledBufferedImage.getGraphics().drawImage(scaledImage, 0, 0, null);
-        return scaledBufferedImage;
-    }
+    
     
     private BufferedImage loadImage(String filePath) {
         try {
@@ -112,40 +101,50 @@ public class PlantInterface extends JPanel {
         
         return null;
     }
+    
+    public void drawPlantGUIElement(Graphics2D g, PlantGUIElement guiElement) {
+        g.drawImage(guiElement.image, guiElement.x(), guiElement.y(), null);
+    }
+    
+    public void drawTransformedGUIElement(Graphics2D g, PlantGUIElement guiElement, AffineTransformOp transform) {
+        g.drawImage(transform.filter(guiElement.image, null), guiElement.x(), guiElement.y(), null);
+    }
 
     @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    public void paintComponent(Graphics _g) {
+        super.paintComponent(_g);
         
-        Graphics2D g2d = (Graphics2D)g;
+        Graphics2D g = (Graphics2D)_g;
 
-        g2d.drawImage(reactorImage, 50, 70, null);
+        drawPlantGUIElement(g, reactor);
+        
+        drawPlantGUIElement(g, condenser);
 
-        g2d.drawImage(condenserImage, 1100, 400, null);
+        drawPlantGUIElement(g, valve1);
+        
+        drawPlantGUIElement(g, valve2);
+        
+        drawPlantGUIElement(g, reactorToCondenserPipe);
+        
+        drawPlantGUIElement(g, condenserToReactorPipe);
+        
+        drawPlantGUIElement(g, turbineHousing);
+        
+        drawPlantGUIElement(g, turbine);
+        
+        drawTransformedGUIElement(g, valve2, rotateValve90Deg);
+        
+        drawPlantGUIElement(g, coolingPipe);
+        
+        drawPlantGUIElement(g, pump1);
+        
+        drawPlantGUIElement(g, pump2);
 
-        g2d.drawImage(valveImage, 550, 13, null);
+        drawPlantGUIElement(g, controlRods);
+        
+        drawPlantGUIElement(g, fuelRods);
 
-        g2d.drawImage(reactorToCondenserPipeImage, 270, 65, null);
-
-        g2d.drawImage(turbineHousingImage, 1150, 135, null);
-
-        g2d.drawImage(turbineHousingImage, 1350, 130, null);
-
-        g2d.drawImage(turbineImage, 1195, 150, this);
-
-        g2d.drawImage(rotateValve90Deg.filter(valveImage, null), 1291, 373, null);
-
-        g2d.drawImage(coolingPipeImage, 1250, 600, null);
-
-        g2d.drawImage(pumpImage, 1500, 760, null);
-
-        g2d.drawImage(condenserToReactorPipeImage, 250, 584, null);
-
-        g.drawImage(controlRodsImage, 150, -150, null);
-
-        g.drawImage(fuelRodsImage, 150, 350, null);
-
-        g2d.setColor(new Color(0, 0, 255, 100));
+        //g2d.setColor(new Color(0, 0, 255, 100));
 
         //g2d.fillRect(90, 175, 288, (int)(WATER_LEVEL_PIX * plantStatus.reactorWaterLevel().ratio()));
     }
