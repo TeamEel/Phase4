@@ -14,7 +14,7 @@ public class Game {
 
         simulator = new Simulator();
 
-        gui = new GUIWindow("Nuke Dukem", 1600, 900);
+        gui = new GUIWindow("Nuke Dukem", 1366, 768);
         gui.setWindow(new PlantInterface(simulator, simulator, simulator));
 
         while(true) {
