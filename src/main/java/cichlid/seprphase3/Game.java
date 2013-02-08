@@ -16,10 +16,23 @@ public class Game {
 
         gui = new GUIWindow("Nuke Dukem", 1366, 768);
         gui.setWindow(new PlantInterface(simulator, simulator, simulator));
+        
+        long lastTime = System.nanoTime();
+        long elapsedTime = 0;
 
         while(true) {
-            gui.update();
-            simulator.step();
+            long currentTime = System.nanoTime();
+            
+            if (elapsedTime > 16666666) {
+                gui.update();
+                simulator.step();
+                elapsedTime = 0;
+                System.out.println("Frame!");
+            } else {
+                elapsedTime += currentTime - lastTime;
+            }
+            
+            lastTime = currentTime;
         }
     }
 }
