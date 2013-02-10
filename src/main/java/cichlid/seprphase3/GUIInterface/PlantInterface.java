@@ -47,6 +47,8 @@ public class PlantInterface extends JPanel {
     private final int WATER_LEVEL_PIX = 240;
 
     // The global scale applied to images in the plant to make them the right size on the screen.
+    private final int X_OFFSET = 350;
+    private final int Y_OFFSET = 100;
     private final float SCALE_AMOUNT = 0.6f;
 
     // An AffineTransform is one which preserves straight lines. This is used to rotate the valve image
@@ -77,18 +79,18 @@ public class PlantInterface extends JPanel {
      */
     private void setupComponents() {
         BufferedImage reactorImage = loadImage("images/reactor.png");
-        reactor = new PlantGUIElement(reactorImage, 50, 70, SCALE_AMOUNT);
+        reactor = new PlantGUIElement(reactorImage, 0, 0, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         
         BufferedImage condenserImage = loadImage("images/reactor.png");
-        condenser = new PlantGUIElement(condenserImage, 715, 345, SCALE_AMOUNT);
+        condenser = new PlantGUIElement(condenserImage, 665, 275, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         
         BufferedImage pumpImage = loadImage("images/pump.png");
-        pump1 = new PlantGUIElement(pumpImage, 622, 563, SCALE_AMOUNT);
-        coolingPump = new PlantGUIElement(pumpImage, 965, 585, SCALE_AMOUNT);
+        pump1 = new PlantGUIElement(pumpImage, 572, 493, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        coolingPump = new PlantGUIElement(pumpImage, 915, 515, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         
         BufferedImage valveImage = loadImage("images/valve.png");
-        valve1 = new PlantGUIElement(valveImage, 345, 35, SCALE_AMOUNT);
-        valve2 = new PlantGUIElement(valveImage, 790, 250, SCALE_AMOUNT);
+        valve1 = new PlantGUIElement(valveImage, 295, -35, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        valve2 = new PlantGUIElement(valveImage, 740, 180, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         
         // This sets up the transform used to rotate the valve by 90 degrees.
         // Uses getRotateInstance, which takes an origin. The origin is the middle of the image,
@@ -96,26 +98,26 @@ public class PlantInterface extends JPanel {
         rotateValve90Deg = new AffineTransformOp(AffineTransform.getRotateInstance(Math.PI/2, valve1.image.getWidth()/2, (valve1.image.getHeight()/3)*2), AffineTransformOp.TYPE_BILINEAR);
         
         BufferedImage coolingPipeImage = loadImage("images/pipe1.png");
-        coolingPipe = new PlantGUIElement(coolingPipeImage, 800, 490, SCALE_AMOUNT);
+        coolingPipe = new PlantGUIElement(coolingPipeImage, 750, 420, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         
         BufferedImage reactorToCondenserPipeImage = loadImage("images/pipe2.png");
-        reactorToCondenserPipe = new PlantGUIElement(reactorToCondenserPipeImage, 178, 65, SCALE_AMOUNT);
+        reactorToCondenserPipe = new PlantGUIElement(reactorToCondenserPipeImage, 128, -5, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         
         BufferedImage condenserToReactorPipeImage = loadImage("images/pipe3.png");
-        condenserToReactorPipe = new PlantGUIElement(condenserToReactorPipeImage, 173, 376, SCALE_AMOUNT);
+        condenserToReactorPipe = new PlantGUIElement(condenserToReactorPipeImage, 123, 306, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         
         BufferedImage fuelRodsImage = loadImage("images/fuel_rods.png");
-        fuelRods = new PlantGUIElement(fuelRodsImage, 108, 260, SCALE_AMOUNT);
+        fuelRods = new PlantGUIElement(fuelRodsImage, 58, 190, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         
         BufferedImage controlRodsImage = loadImage("images/control_rods.png");
-        controlRods = new PlantGUIElement(controlRodsImage, 108, 50, SCALE_AMOUNT);
+        controlRods = new PlantGUIElement(controlRodsImage, 58, -20, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         
         BufferedImage turbineImage = loadImage("images/turbine.png");
-        turbine = new PlantGUIElement(turbineImage, 725, 115, SCALE_AMOUNT);
+        turbine = new PlantGUIElement(turbineImage, 675, 45, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         
         BufferedImage turbineHousingImage = loadImage("images/turbineC2.png");
-        turbineHousing = new PlantGUIElement(turbineHousingImage, 700, 106, SCALE_AMOUNT);
-        turbineHousing2 = new PlantGUIElement(turbineHousingImage, 820, 100, SCALE_AMOUNT+0.1f);
+        turbineHousing = new PlantGUIElement(turbineHousingImage, 650, 36, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        turbineHousing2 = new PlantGUIElement(turbineHousingImage, 770, 30, SCALE_AMOUNT+0.1f, X_OFFSET, Y_OFFSET);
     }
     
     private BufferedImage loadImage(String filePath) {
@@ -209,14 +211,14 @@ public class PlantInterface extends JPanel {
         g.setColor(new Color(0.0f, 0.0f, 0.5f, 0.5f));
         
         if(plantStatus.reactorWaterLevel() != null) {
-            g.fillRect(55,
+            g.fillRect(355,
                         129 + (int)(WATER_LEVEL_PIX * (1.0 - plantStatus.reactorWaterLevel().ratio())),
                         173,
                         (int)(WATER_LEVEL_PIX * plantStatus.reactorWaterLevel().ratio()));
         }
         
         if(plantStatus.condenserWaterLevel() != null) {
-            g.fillRect(720,
+            g.fillRect(1020,
                         405 + (int)(WATER_LEVEL_PIX * (1.0 - plantStatus.condenserWaterLevel().ratio())),
                         173,
                         (int)(WATER_LEVEL_PIX * plantStatus.condenserWaterLevel().ratio()));

@@ -17,6 +17,11 @@ public class PlantGUIElement {
         location = new Rectangle(x, y, image.getWidth(), image.getHeight());
     }
     
+    public PlantGUIElement(BufferedImage _image, int x, int y, float scaling, int offsetx, int offsety) {
+        image = scaleImage(_image, scaling);
+        location = new Rectangle(x+offsetx, y+offsety, image.getWidth(), image.getHeight());
+    }
+    
     /**
      * Scales the image by a specified amount.
      * @param unscaledImage     The image to scale
