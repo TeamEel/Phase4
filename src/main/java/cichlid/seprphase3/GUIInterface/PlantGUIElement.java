@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 
 public class PlantGUIElement {
+    
     public Rectangle location;
     public BufferedImage image;
     
