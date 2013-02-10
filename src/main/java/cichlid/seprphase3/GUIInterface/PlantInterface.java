@@ -15,13 +15,19 @@ import java.io.*;
 import javax.imageio.*;
 import javax.swing.JPanel;
 
+/**
+ * This is the main interface which will be shown during the game.
+ * It is responsible for drawing the representation of the plant to the screen.
+ */
 public class PlantInterface extends JPanel {
 
+    // These allow access to the plant's methods.
     private PlantController plantController;
     private PlantStatus plantStatus;
     private GameManager gameManager;
 
-    // Interface images
+    // These represent parts of the plant which will be drawn to the screen.
+    // Each has a location and an image which is set up in setupComponents().
     private PlantGUIElement reactor;
     private PlantGUIElement condenser;
     private PlantGUIElement pump1;
@@ -37,20 +43,38 @@ public class PlantInterface extends JPanel {
     private PlantGUIElement turbineHousing;
     private PlantGUIElement turbineHousing2;
 
+    // The height of the water in the Reactor and Condenser in pixels.
     private final int WATER_LEVEL_PIX = 240;
 
+    // The global scale applied to images in the plant to make them the right size on the screen.
     private final float SCALE_AMOUNT = 0.6f;
 
+    // An AffineTransform is one which preserves straight lines. This is used to rotate the valve image
+    // by 90 degrees so the valve above the condenser can be drawn in the right orientation.
     AffineTransformOp rotateValve90Deg;
 
+    /**
+     * The interface is set up with references to the plant classes it needs for getting and setting information.
+     * @param plantController
+     * @param plantStatus
+     * @param gameManager 
+     */
     public PlantInterface(PlantController plantController, PlantStatus plantStatus, GameManager gameManager) {
         this.plantController = plantController;
         this.plantStatus = plantStatus;
         this.gameManager = gameManager;
         
+        // Give all of the plant components the right images and location on the screen.
         setupComponents();
     }
     
+    /**
+     * Gives all of the plant components the right images and locations on the screen.
+     * Each component has the form:
+     *      BufferedImage image = loadImage("images/image.png");
+     *      component = new PlantGUIElement( image, location x, location y, scale amount);
+     *      
+     */
     private void setupComponents() {
         BufferedImage reactorImage = loadImage("images/reactor.png");
         reactor = new PlantGUIElement(reactorImage, 50, 70, SCALE_AMOUNT);
@@ -65,6 +89,10 @@ public class PlantInterface extends JPanel {
         BufferedImage valveImage = loadImage("images/valve.png");
         valve1 = new PlantGUIElement(valveImage, 345, 35, SCALE_AMOUNT);
         valve2 = new PlantGUIElement(valveImage, 790, 250, SCALE_AMOUNT);
+        
+        // This sets up the transform used to rotate the valve by 90 degrees.
+        // Uses getRotateInstance, which takes an origin. The origin is the middle of the image,
+        // so we pass in image.getWidth()/2 and image.getHeight()/2
         rotateValve90Deg = new AffineTransformOp(AffineTransform.getRotateInstance(Math.PI/2, valve1.image.getWidth()/2, (valve1.image.getHeight()/3)*2), AffineTransformOp.TYPE_BILINEAR);
         
         BufferedImage coolingPipeImage = loadImage("images/pipe1.png");
@@ -100,33 +128,58 @@ public class PlantInterface extends JPanel {
         return null;
     }
     
+    /**
+     * Draws a plantGUIElement to a specified Graphics2D (the window). It takes the X position and Y position
+     * and draws the specified image there.
+     * @param g                 The screen to draw the image to.
+     * @param guiElement        The GUI element to draw.
+     */
     public void drawPlantGUIElement(Graphics2D g, PlantGUIElement guiElement) {
         g.drawImage(guiElement.image, guiElement.x(), guiElement.y(), null);
     }
     
+    /**
+     * Same as plantGUIElement, but applies a transform to the image first. Used for the valve above the
+     * condenser.
+     * @param g                 The screen to draw to.
+     * @param guiElement        The GUI element to draw.
+     * @param transform         The transform to apply before the image is drawn.
+     */
     public void drawTransformedGUIElement(Graphics2D g, PlantGUIElement guiElement, AffineTransformOp transform) {
         g.drawImage(transform.filter(guiElement.image, null), guiElement.x(), guiElement.y(), null);
     }
 
+    /**
+     * This overrides the jPanel's paintComponent method and is called every time the jPanel is repainted. The method
+     * is passed a 'Graphics' by the library, which represents the part of the screen which will be drawn on. All
+     * draw calls are made on this graphics object.
+     * @param _g        The Graphics object to draw to.
+     */
     @Override
     public void paintComponent(Graphics _g) {
+        // Calls the jPanel method paintComponent() which clears the screen.
         super.paintComponent(_g);
         
+        // Casts the Graphics object to a Graphics2D since we are drawing to a 2D screen.
+        // This makes some method calls more obvious.
         Graphics2D g = (Graphics2D)_g;
 
+        // Draw all of the plant components.
         drawPlant(g);
         
+        // Draw water in the plant and in the pipes.
         drawWater(g);
         
+        // Draw steam and bubbles.
         drawEffects(g);
         
+        // Draw any text around the screen.
         drawText(g);
-        
-        //g2d.setColor(new Color(0, 0, 255, 100));
-
-        //g2d.fillRect(90, 175, 288, (int)(WATER_LEVEL_PIX * plantStatus.reactorWaterLevel().ratio()));
     }
     
+    /**
+     * Draws all of the plant components to the screen.
+     */
     private void drawPlant(Graphics2D g) {
         drawPlantGUIElement(g, reactor);
         drawPlantGUIElement(g, condenser);
@@ -149,6 +202,9 @@ public class PlantInterface extends JPanel {
         drawPlantGUIElement(g, fuelRods);
     }
     
+    /**
+     * Draws all of the water effects to the screen.
+     */
     private void drawWater(Graphics2D g) {
         g.setColor(new Color(0.0f, 0.0f, 0.5f, 0.5f));
         
@@ -167,10 +223,16 @@ public class PlantInterface extends JPanel {
         }
     }
     
+    /**
+     * Draws any effects e.g. bubbles or steam.
+     */
     private void drawEffects(Graphics2D g) {
         
     }
     
+    /**
+     * Draws any text to the screen.
+     */
     private void drawText(Graphics2D g) {
         int textX = 400;
         int textY = 200;
