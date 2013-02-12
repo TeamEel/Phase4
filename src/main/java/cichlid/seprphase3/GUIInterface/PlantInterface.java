@@ -5,6 +5,7 @@ import cichlid.seprphase3.Simulator.GameManager;
 import cichlid.seprphase3.Simulator.PlantController;
 import cichlid.seprphase3.Simulator.PlantStatus;
 import cichlid.seprphase3.Simulator.SoftwareFailure;
+import cichlid.seprphase3.Utilities.Percentage;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -44,7 +45,7 @@ public class PlantInterface extends JPanel {
     private PlantGUIElement turbineHousing2;
 
     // The height of the water in the Reactor and Condenser in pixels.
-    private final int WATER_LEVEL_PIX = 240;
+    private final int MAX_WATER_HEIGHT = 240;
 
     // The global scale applied to images in the plant to make them the right size on the screen.
     private final int X_OFFSET = 350;
@@ -104,7 +105,7 @@ public class PlantInterface extends JPanel {
         reactorToCondenserPipe = new PlantGUIElement(reactorToCondenserPipeImage, 128, -5, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         
         BufferedImage condenserToReactorPipeImage = loadImage("images/pipe3.png");
-        condenserToReactorPipe = new PlantGUIElement(condenserToReactorPipeImage, 123, 306, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        condenserToReactorPipe = new PlantGUIElement(condenserToReactorPipeImage, 120, 306, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         
         BufferedImage fuelRodsImage = loadImage("images/fuel_rods.png");
         fuelRods = new PlantGUIElement(fuelRodsImage, 58, 190, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
@@ -208,21 +209,31 @@ public class PlantInterface extends JPanel {
      * Draws all of the water effects to the screen.
      */
     private void drawWater(Graphics2D g) {
-        g.setColor(new Color(0.0f, 0.0f, 0.5f, 0.5f));
+        g.setColor(new Color(0.2f, 0.2f, 1.0f, 0.5f));
         
         if(plantStatus.reactorWaterLevel() != null) {
-            g.fillRect(355,
-                        129 + (int)(WATER_LEVEL_PIX * (1.0 - plantStatus.reactorWaterLevel().ratio())),
-                        173,
-                        (int)(WATER_LEVEL_PIX * plantStatus.reactorWaterLevel().ratio()));
+            g.fillRect(X_OFFSET + 5,
+                       Y_OFFSET + 62 + inverseWaterHeight(MAX_WATER_HEIGHT, plantStatus.reactorWaterLevel()),
+                       173,
+                       waterHeight(MAX_WATER_HEIGHT, plantStatus.reactorWaterLevel()));
         }
         
         if(plantStatus.condenserWaterLevel() != null) {
-            g.fillRect(1020,
-                        405 + (int)(WATER_LEVEL_PIX * (1.0 - plantStatus.condenserWaterLevel().ratio())),
-                        173,
-                        (int)(WATER_LEVEL_PIX * plantStatus.condenserWaterLevel().ratio()));
+            g.fillRect(X_OFFSET + 670,
+                       Y_OFFSET + 338 + inverseWaterHeight(MAX_WATER_HEIGHT, plantStatus.condenserWaterLevel()),
+                       173,
+                       waterHeight(MAX_WATER_HEIGHT, plantStatus.condenserWaterLevel()));
         }
+        
+        g.setColor(Color.BLACK);
+    }
+    
+    private int waterHeight(int maxWaterHeight, Percentage waterLevel) {
+        return (int)(maxWaterHeight * waterLevel.ratio());
+    }
+    
+    private int inverseWaterHeight(int maxWaterHeight, Percentage waterLevel) {
+        return (int)(maxWaterHeight * (1.0f - waterLevel.ratio()));
     }
     
     /**
@@ -236,8 +247,8 @@ public class PlantInterface extends JPanel {
      * Draws any text to the screen.
      */
     private void drawText(Graphics2D g) {
-        int textX = 400;
-        int textY = 200;
+        int textX = 50;
+        int textY = 100;
         
         g.drawString("> " + plantStatus.reactorWaterLevel().ratio(), textX, textY - 50);
         
