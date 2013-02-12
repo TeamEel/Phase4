@@ -42,7 +42,7 @@ public class FailureModel implements PlantController, PlantStatus {
     private final Pressure condenserMaxPressure = new Pressure(30662500);
 
     // Software will fail 1 out of softwareFailureProbability times
-    private final int softwareFailureProbability = 100;
+    private final int softwareFailureProbability = 10000;
 
     private FailureModel() {
     }
@@ -72,7 +72,7 @@ public class FailureModel implements PlantController, PlantStatus {
      */
     public void failStateCheck() {
         ArrayList<FailableComponent> components = status.components();
-        int failValue = failChance.nextInt(5000);  //A component that is 100% wear will have a 1 in 50 chance of failing
+        int failValue = failChance.nextInt(20000);  //A component that is 100% wear will have a 1 in 50 chance of failing
         int componentsFailChance = 0;
         for (int i = 0; i < components.size(); i++) {
             componentsFailChance += components.get(i).wear().points() / components.size();
@@ -84,9 +84,12 @@ public class FailureModel implements PlantController, PlantStatus {
         }
 
         // There is also a 1 in 1000 chance that a software failure will occur at any step.
-        failValue = failChance.nextInt(softwareFailureProbability);
-        if (failValue == 0) {
-            failSoftware();
+        // But only if there is not already a failure!
+        if(status.getSoftwareFailure() == SoftwareFailure.None) {
+            failValue = failChance.nextInt(softwareFailureProbability);
+            if (failValue == 0) {
+                failSoftware();
+            }
         }
     }
 

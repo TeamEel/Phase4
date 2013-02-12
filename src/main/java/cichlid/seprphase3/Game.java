@@ -24,11 +24,10 @@ public class Game {
         while(true) {
             long currentTime = System.nanoTime();
             
-            if (elapsedTime > 16666666) {
-                gui.update();
+            if (elapsedTime > 50000000) {
                 simulator.step();
+                gui.update();
                 elapsedTime = 0;
-                System.out.println("Frame!");
             } else {
                 elapsedTime += currentTime - lastTime;
             }

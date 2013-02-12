@@ -8,15 +8,31 @@ public class GUIWindow extends JFrame {
         super(title);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(width, height);
+        
+        // If the location is relative to nothing, the window always starts in the middle of the screen.
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
     }
 
+    /**
+     *  Sets the active interface on the jFrame (all interfaces are jPanels).
+     * 
+     *  @param _window  The interface to display.
+     */
     public void setWindow(JPanel _window) {
+        /**
+         * The content pane represents the area of the window where content is shown - all of the
+         * window except the title bar. Setting the content panel to a jPanel causes the jPanel to
+         * draw to the window.
+         */
         setContentPane(_window);
     }
 
+    /**
+     * Update the window. Revalidate causes the jPanel to revalidate, while redraw redraws the jPanel's content
+     * to the screen.
+     */
     public void update() {
         revalidate();
         repaint();
