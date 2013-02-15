@@ -136,44 +136,105 @@ public class FailureModelTest {
     public void shouldGetControlRodPosition() {
         context.checking(new Expectations() {
             {
+                allowing(plantStatus).getSoftwareFailure();
+                will(returnValue(SoftwareFailure.None));
                 allowing(plantStatus).controlRodPosition();
                 will(returnValue(percent(28)));
             }
         });
         assertEquals(percent(28), model.controlRodPosition());
     }
-
+    
+    @Test
+    public void shouldGetFailedControlRodPosition() {
+        context.checking(new Expectations() {
+            {
+                allowing(plantStatus).getSoftwareFailure();
+                will(returnValue(SoftwareFailure.controlRodRead));
+                allowing(plantStatus).controlRodPosition();
+                will(returnValue(percent(28)));
+            }
+        });
+        assertEquals(null, model.controlRodPosition());
+    }
+    
     @Test
     public void shouldGetReactorPressure() {
         context.checking(new Expectations() {
             {
+                allowing(plantStatus).getSoftwareFailure();
+                will(returnValue(SoftwareFailure.None));
                 allowing(plantStatus).reactorPressure();
                 will(returnValue(pascals(10)));
             }
         });
         assertEquals(pascals(10), model.reactorPressure());
     }
+    
+    @Test
+    public void shouldGetFailedReactorPressure() {
+        context.checking(new Expectations() {
+            {
+                allowing(plantStatus).getSoftwareFailure();
+                will(returnValue(SoftwareFailure.reactorPressureRead));
+                allowing(plantStatus).reactorPressure();
+                will(returnValue(pascals(10)));
+            }
+        });
+        assertEquals(null, model.reactorPressure());
+    }
 
     @Test
     public void shouldGetReactorTemperature() {
         context.checking(new Expectations() {
             {
+                allowing(plantStatus).getSoftwareFailure();
+                will(returnValue(SoftwareFailure.None));
                 allowing(plantStatus).reactorTemperature();
                 will(returnValue(kelvin(1000)));
             }
         });
         assertEquals(kelvin(1000), model.reactorTemperature());
     }
+    
+    @Test
+    public void shouldGetFailedReactorTemperature() {
+        context.checking(new Expectations() {
+            {
+                allowing(plantStatus).getSoftwareFailure();
+                will(returnValue(SoftwareFailure.reactorTemperatureRead));
+                allowing(plantStatus).reactorTemperature();
+                will(returnValue(kelvin(1000)));
+            }
+        });
+        assertEquals(null, model.reactorTemperature());
+    }
 
     @Test
     public void shouldGetReactorWaterLevel() {
         context.checking(new Expectations() {
             {
+                allowing(plantStatus).getSoftwareFailure();
+                will(returnValue(SoftwareFailure.None));
                 allowing(plantStatus).reactorWaterLevel();
                 will(returnValue(percent(89)));
             }
         });
         assertEquals(percent(89), model.reactorWaterLevel());
+    }
+    
+    
+    @Test
+    public void shouldGetFailedReactorWaterLevel() {
+        context.checking(new Expectations() {
+            {
+                allowing(plantStatus).getSoftwareFailure();
+                will(returnValue(SoftwareFailure.reactorWaterRead));
+                allowing(plantStatus).reactorWaterLevel();
+                will(returnValue(percent(89)));
+            }
+        });
+        assertEquals(null, model.reactorWaterLevel());
     }
 
     @Test
@@ -212,33 +273,78 @@ public class FailureModelTest {
     public void shouldGetCondenserTemperature() {
         context.checking(new Expectations() {
             {
+                allowing(plantStatus).getSoftwareFailure();
+                will(returnValue(SoftwareFailure.None));
                 allowing(plantStatus).condenserTemperature();
                 will(returnValue(kelvin(100)));
             }
         });
         assertEquals(kelvin(100), model.condenserTemperature());
     }
+    
+    @Test
+    public void shouldGetFailedCondenserTemperature() {
+        context.checking(new Expectations() {
+            {
+                allowing(plantStatus).getSoftwareFailure();
+                will(returnValue(SoftwareFailure.condenserTemperatureRead));
+                allowing(plantStatus).condenserTemperature();
+                will(returnValue(kelvin(100)));
+            }
+        });
+        assertEquals(null, model.condenserTemperature());
+    }
 
     @Test
     public void shouldGetCondenserPressure() {
         context.checking(new Expectations() {
             {
+                allowing(plantStatus).getSoftwareFailure();
+                will(returnValue(SoftwareFailure.None));
                 allowing(plantStatus).condenserPressure();
                 will(returnValue(pascals(1000)));
             }
         });
-        assertEquals(pascals(1000), plantStatus.condenserPressure());
+        assertEquals(pascals(1000), model.condenserPressure());
+    }
+    
+    @Test
+    public void shouldGetFailedCondenserPressure() {
+        context.checking(new Expectations() {
+            {
+                allowing(plantStatus).getSoftwareFailure();
+                will(returnValue(SoftwareFailure.condenserPressureRead));
+                allowing(plantStatus).condenserPressure();
+                will(returnValue(pascals(1000)));
+            }
+        });
+        assertEquals(null, model.condenserPressure());
     }
 
     @Test
     public void shouldGetCondenserWaterLevel() {
         context.checking(new Expectations() {
             {
+                allowing(plantStatus).getSoftwareFailure();
+                will(returnValue(SoftwareFailure.None));
                 allowing(plantStatus).condenserWaterLevel();
                 will(returnValue(percent(56)));
             }
         });
         assertEquals(percent(56), model.condenserWaterLevel());
+    }
+    
+    @Test
+    public void shouldGetFailedCondenserWaterLevel() {
+        context.checking(new Expectations() {
+            {
+                allowing(plantStatus).getSoftwareFailure();
+                will(returnValue(SoftwareFailure.condenserWaterRead));
+                allowing(plantStatus).condenserWaterLevel();
+                will(returnValue(percent(56)));
+            }
+        });
+        assertEquals(null, model.condenserWaterLevel());
     }
 
     @Test
