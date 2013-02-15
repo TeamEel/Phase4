@@ -5,6 +5,7 @@ import cichlid.seprphase3.Utilities.Percentage;
 import cichlid.seprphase3.Utilities.Pressure;
 import cichlid.seprphase3.Utilities.Temperature;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -63,4 +64,7 @@ public interface PlantStatus {
     public boolean turbineHasFailed();
 
     public ArrayList<FailableComponent> components();
+    
+    public HashMap<String, FailableComponent> componentList();
+    public HashMap<String, Connection> connectionList();
 }

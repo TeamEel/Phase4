@@ -12,6 +12,7 @@ import cichlid.seprphase3.Utilities.Temperature;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -201,6 +202,16 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
 
     @Override
     public ArrayList<FailableComponent> components() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet");
+    }
+    
+    @Override
+    public HashMap<String, FailableComponent> componentList() {
+        return failureModel.componentList();
+    }
+    
+    @Override
+    public HashMap<String, Connection> connectionList() {
+        return failureModel.connectionList();
     }
 }

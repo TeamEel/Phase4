@@ -9,6 +9,7 @@ import static cichlid.seprphase3.Utilities.Units.*;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -252,6 +253,16 @@ public class FailureModel implements PlantController, PlantStatus {
     @Override
     public ArrayList<FailableComponent> components() {
         return status.components();
+    }
+    
+    @Override
+    public HashMap<String, FailableComponent> componentList() {
+        return status.componentList();
+    }
+    
+    @Override
+    public HashMap<String, Connection> connectionList() {
+        return status.connectionList();
     }
 
     private void checkReactorWaterLevel() {
