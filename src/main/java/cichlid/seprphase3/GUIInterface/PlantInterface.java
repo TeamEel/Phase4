@@ -1,10 +1,8 @@
 package cichlid.seprphase3.GUIInterface;
 
-import cichlid.seprphase3.GameOverException;
 import cichlid.seprphase3.Simulator.GameManager;
 import cichlid.seprphase3.Simulator.PlantController;
 import cichlid.seprphase3.Simulator.PlantStatus;
-import cichlid.seprphase3.Simulator.SoftwareFailure;
 import cichlid.seprphase3.Utilities.Percentage;
 import java.awt.*;
 import java.awt.geom.*;
@@ -90,7 +88,7 @@ public class PlantInterface extends JPanel {
         pump1 = new PlantGUIElement(pumpImage, 572, 535, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         coolingPump = new PlantGUIElement(pumpImage, 915, 545, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         
-        BufferedImage valveImage = loadImage("images/valve.png");
+        BufferedImage valveImage = loadImage("images/valve-still.png");
         valve1 = new PlantGUIElement(valveImage, 307, -51, SCALE_AMOUNT+0.1f, X_OFFSET, Y_OFFSET);
         valve2 = new PlantGUIElement(valveImage, 761, 170, SCALE_AMOUNT+0.1f, X_OFFSET, Y_OFFSET);
         
