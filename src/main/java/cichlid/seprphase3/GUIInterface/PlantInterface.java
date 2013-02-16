@@ -6,12 +6,8 @@ import cichlid.seprphase3.Simulator.GameManager;
 import cichlid.seprphase3.Simulator.KeyNotFoundException;
 import cichlid.seprphase3.Simulator.PlantController;
 import cichlid.seprphase3.Simulator.PlantStatus;
-import cichlid.seprphase3.Simulator.SoftwareFailure;
 import cichlid.seprphase3.Utilities.Percentage;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.geom.*;
 import java.awt.image.*;
 import java.awt.event.*;
@@ -46,15 +42,19 @@ public class PlantInterface extends JPanel implements MouseListener
     private PlantGUIElement condenserToReactorPipe;
     private PlantGUIElement fuelRods;
     private PlantGUIElement controlRods;
-    private PlantGUIElement turbine;
+    private PlantGUIElement turbineLeft;
+    private PlantGUIElement turbineMiddle;
+    private PlantGUIElement turbineRight;
     private PlantGUIElement turbineHousing;
     private PlantGUIElement turbineHousing2;
+    
+    private Font gameFont;
 
     // The height of the water in the Reactor and Condenser in pixels.
-    private final int MAX_WATER_HEIGHT = 240;
+    private final int MAX_WATER_HEIGHT = 275;
 
     // The global scale applied to images in the plant to make them the right size on the screen.
-    private final int X_OFFSET = 350;
+    private final int X_OFFSET = 300;
     private final int Y_OFFSET = 100;
     private final float SCALE_AMOUNT = 0.6f;
 
@@ -87,53 +87,67 @@ public class PlantInterface extends JPanel implements MouseListener
      *      
      */
     private void setupComponents() {
-        BufferedImage reactorImage = loadImage("images/reactor.png");
-        reactor = new PlantGUIElement(reactorImage, 0, 0, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        BufferedImage reactorImage = loadImage("images/container.png");
+        reactor = new PlantGUIElement(reactorImage, 0, 0, 0.9f, X_OFFSET, Y_OFFSET);
         
-        BufferedImage condenserImage = loadImage("images/reactor.png");
-        condenser = new PlantGUIElement(condenserImage, 665, 275, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        BufferedImage condenserImage = loadImage("images/container.png");
+        condenser = new PlantGUIElement(condenserImage, 665, 275, 0.9f, X_OFFSET, Y_OFFSET);
         
         BufferedImage pumpImage = loadImage("images/pump.png");
-        pump1 = new PlantGUIElement(pumpImage, 572, 493, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
-        coolingPump = new PlantGUIElement(pumpImage, 915, 515, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        pump1 = new PlantGUIElement(pumpImage, 572, 535, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        coolingPump = new PlantGUIElement(pumpImage, 915, 545, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         
-        BufferedImage valveImage = loadImage("images/valve.png");
-        valve1 = new PlantGUIElement(valveImage, 295, -35, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
-        valve2 = new PlantGUIElement(valveImage, 740, 180, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        BufferedImage valveImage = loadImage("images/valve-still.png");
+        valve1 = new PlantGUIElement(valveImage, 307, -51, SCALE_AMOUNT+0.1f, X_OFFSET, Y_OFFSET);
+        valve2 = new PlantGUIElement(valveImage, 761, 170, SCALE_AMOUNT+0.1f, X_OFFSET, Y_OFFSET);
         
         // This sets up the transform used to rotate the valve by 90 degrees.
         // Uses getRotateInstance, which takes an origin. The origin is the middle of the image,
         // so we pass in image.getWidth()/2 and image.getHeight()/2
-        rotateValve90Deg = new AffineTransformOp(AffineTransform.getRotateInstance(Math.PI/2, valve1.image.getWidth()/2, (valve1.image.getHeight()/3)*2), AffineTransformOp.TYPE_BILINEAR);
+        rotateValve90Deg = new AffineTransformOp(
+                AffineTransform.getRotateInstance(
+                    Math.PI/2, // Rotate by 90 degrees
+                    valve1.image.getWidth()/2,   // Rotate round this X point
+                    (valve1.image.getHeight()/3)*2), // Rotate round this Y point
+                    AffineTransformOp.TYPE_BILINEAR // Use bilinear filtering to reconstruct pixels
+                );
         
-        BufferedImage coolingPipeImage = loadImage("images/pipe1.png");
-        coolingPipe = new PlantGUIElement(coolingPipeImage, 750, 420, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        BufferedImage coolingPipeImage = loadImage("images/coolingPipe.png");
+        coolingPipe = new PlantGUIElement(coolingPipeImage, 750, 450, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         
-        BufferedImage reactorToCondenserPipeImage = loadImage("images/pipe2.png");
-        reactorToCondenserPipe = new PlantGUIElement(reactorToCondenserPipeImage, 128, -5, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        BufferedImage reactorToCondenserPipeImage = loadImage("images/reactorToCondenser.png");
+        reactorToCondenserPipe = new PlantGUIElement(reactorToCondenserPipeImage, 137, -2, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         
-        BufferedImage condenserToReactorPipeImage = loadImage("images/pipe3.png");
-        condenserToReactorPipe = new PlantGUIElement(condenserToReactorPipeImage, 120, 306, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        BufferedImage condenserToReactorPipeImage = loadImage("images/condenserToReactor.png");
+        condenserToReactorPipe = new PlantGUIElement(condenserToReactorPipeImage, 154, 334, SCALE_AMOUNT+0.3f, X_OFFSET, Y_OFFSET);
         
         BufferedImage fuelRodsImage = loadImage("images/fuel_rods.png");
-        fuelRods = new PlantGUIElement(fuelRodsImage, 58, 190, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        fuelRods = new PlantGUIElement(fuelRodsImage, 63, 216, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         
         BufferedImage controlRodsImage = loadImage("images/control_rods.png");
-        controlRods = new PlantGUIElement(controlRodsImage, 58, -20, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        controlRods = new PlantGUIElement(controlRodsImage, 65, -290, SCALE_AMOUNT+0.2f, X_OFFSET, Y_OFFSET);
         
-        BufferedImage turbineImage = loadImage("images/turbine.png");
-        turbine = new PlantGUIElement(turbineImage, 675, 45, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        BufferedImage turbineLeftImage = loadImage("images/turbine_left.png");
+        turbineLeft = new PlantGUIElement(turbineLeftImage, 675, 57, SCALE_AMOUNT+0.2f, X_OFFSET, Y_OFFSET);
+        
+        BufferedImage turbineMiddleImage = loadImage("images/turbine_middle.png");
+        turbineMiddle = new PlantGUIElement(turbineMiddleImage, 720, 80, SCALE_AMOUNT+0.2f, X_OFFSET, Y_OFFSET);
+        
+        BufferedImage turbineRightImage = loadImage("images/turbine_right.png");
+        turbineRight = new PlantGUIElement(turbineRightImage, 800, 50, SCALE_AMOUNT+0.2f, X_OFFSET, Y_OFFSET);
         
         BufferedImage turbineHousingImage = loadImage("images/turbineC2.png");
-        turbineHousing = new PlantGUIElement(turbineHousingImage, 650, 36, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
-        turbineHousing2 = new PlantGUIElement(turbineHousingImage, 770, 30, SCALE_AMOUNT+0.1f, X_OFFSET, Y_OFFSET);
+        turbineHousing = new PlantGUIElement(turbineHousingImage, 650, 36, SCALE_AMOUNT+0.1f, X_OFFSET, Y_OFFSET);
+        turbineHousing2 = new PlantGUIElement(turbineHousingImage, 770, 36, SCALE_AMOUNT+0.1f, X_OFFSET, Y_OFFSET);
+        
+        gameFont = new Font("Impact", Font.PLAIN, 20);
     }
     
     private BufferedImage loadImage(String filePath) {
         try {
             return ImageIO.read(new File(filePath));
         } catch (IOException e) {
-            System.err.println("Error loading image resources: " + e.getMessage());
+            System.err.println("Error loading image resources> " + filePath + "  :  " + e.getMessage());
         }
         
         return null;
@@ -195,16 +209,18 @@ public class PlantInterface extends JPanel implements MouseListener
         drawPlantGUIElement(g, reactor);
         drawPlantGUIElement(g, condenser);
         
-        drawPlantGUIElement(g, pump1);
-        drawPlantGUIElement(g, coolingPump);
-        
         drawPlantGUIElement(g, reactorToCondenserPipe);
         drawPlantGUIElement(g, condenserToReactorPipe);
         drawPlantGUIElement(g, coolingPipe);
         
+        drawPlantGUIElement(g, pump1);
+        drawPlantGUIElement(g, coolingPump);
+        
         drawPlantGUIElement(g, turbineHousing);
         drawPlantGUIElement(g, turbineHousing2);
-        drawPlantGUIElement(g, turbine);
+        drawPlantGUIElement(g, turbineMiddle);
+        drawPlantGUIElement(g, turbineLeft);
+        drawPlantGUIElement(g, turbineRight);
         
         drawPlantGUIElement(g, valve1);
         drawTransformedGUIElement(g, valve2, rotateValve90Deg);
@@ -217,19 +233,19 @@ public class PlantInterface extends JPanel implements MouseListener
      * Draws all of the water effects to the screen.
      */
     private void drawWater(Graphics2D g) {
-        g.setColor(new Color(0.2f, 0.2f, 1.0f, 0.5f));
+        g.setColor(new Color(0.4f, 0.4f, 1.0f, 0.7f));
         
         if(plantStatus.reactorWaterLevel() != null) {
-            g.fillRect(X_OFFSET + 5,
+            g.fillRect(X_OFFSET + 6,
                        Y_OFFSET + 62 + inverseWaterHeight(MAX_WATER_HEIGHT, plantStatus.reactorWaterLevel()),
-                       173,
+                       185,
                        waterHeight(MAX_WATER_HEIGHT, plantStatus.reactorWaterLevel()));
         }
         
         if(plantStatus.condenserWaterLevel() != null) {
-            g.fillRect(X_OFFSET + 670,
+            g.fillRect(X_OFFSET + 671,
                        Y_OFFSET + 338 + inverseWaterHeight(MAX_WATER_HEIGHT, plantStatus.condenserWaterLevel()),
-                       173,
+                       185,
                        waterHeight(MAX_WATER_HEIGHT, plantStatus.condenserWaterLevel()));
         }
         
@@ -258,26 +274,29 @@ public class PlantInterface extends JPanel implements MouseListener
         int textX = 50;
         int textY = 100;
         
-        g.drawString("> " + plantStatus.reactorWaterLevel().ratio(), textX, textY - 50);
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g.setFont(gameFont);
         
         g.drawString("Reactor Pressure: " + plantStatus.reactorPressure(), textX, textY);
-        g.drawString("Reactor Temp: " + plantStatus.reactorTemperature(), textX, textY + 20);
-        g.drawString("Reactor Water: " + plantStatus.reactorWaterLevel(), textX, textY + 40);
+        g.drawString("Reactor Temp: " + plantStatus.reactorTemperature(), textX, textY + 30);
+        g.drawString("Reactor Water: " + plantStatus.reactorWaterLevel(), textX, textY + 60);
         
-        g.drawString("Condenser Pressure: " + plantStatus.condenserPressure(), textX, textY + 60);
-        g.drawString("Condenser Temp: " + plantStatus.condenserTemperature(), textX, textY + 80);
-        g.drawString("Condenser Water: " + plantStatus.condenserWaterLevel(), textX, textY + 100);
+        g.drawString("Condenser Pressure: " + plantStatus.condenserPressure(), textX, textY + 90);
+        g.drawString("Condenser Temp: " + plantStatus.condenserTemperature(), textX, textY + 120);
+        g.drawString("Condenser Water: " + plantStatus.condenserWaterLevel(), textX, textY + 150);
         
-        g.drawString("Reactor to Turbine: " + plantStatus.getReactorToTurbine(), textX, textY + 120);
+        g.drawString("Reactor to Turbine: " + plantStatus.getReactorToTurbine(), textX, textY + 180);
         
-        g.drawString("Energy Generated: " + plantStatus.energyGenerated(), textX, textY + 140);
+        g.drawString("Energy Generated: " + plantStatus.energyGenerated(), textX, textY + 210);
         
-        g.drawString("Software Failure: " + plantStatus.getSoftwareFailure(), textX, textY + 160);
+        g.drawString("Control rods: " + plantStatus.controlRodPosition(), textX, textY + 240);
+        
+        g.drawString("Software Failure: " + plantStatus.getSoftwareFailure(), textX, textY + 270);
         
         int offset = 0;
         for(String s : plantStatus.listFailedComponents()) {
-            g.drawString("Failure: " + s, textX, textY + 180 + offset);
-            offset += 20;
+            g.drawString("Failure: " + s, textX, textY + 300 + offset);
+            offset += 30;
         }
     }
     

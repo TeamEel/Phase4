@@ -245,6 +245,25 @@ public class PhysicalModel implements PlantController, PlantStatus {
         c.add(4, heatsinkToCondenser);
         return c;
     }
+    
+    @Override
+    public HashMap<String, FailableComponent> componentList() {
+        HashMap<String, FailableComponent> c = new HashMap<String, FailableComponent>();
+        c.put("reactor", reactor);
+        c.put("condenser", condenser);
+        c.put("turbine", turbine);
+        c.put("pump1", condenserToReactor);
+        c.put("coolingpump", heatsinkToCondenser);
+        return c;
+    }
+    
+    @Override
+    public HashMap<String, Connection> connectionList() {
+        HashMap<String, Connection> c = new HashMap<String, Connection>();
+        c.put("reactorToTurbine", reactorToTurbine);
+        c.put("turbineToCondenser", turbineToCondenser);
+        return c;
+    }
 
     @Override
     public Boolean changeValveState(int valveNumber, boolean isOpen) throws KeyNotFoundException {
