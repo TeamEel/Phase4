@@ -301,14 +301,14 @@ public class PlantInterface extends JPanel implements MouseListener
     }
     
     @Override
-    public void mouseClicked(MouseEvent e)
+    public void mouseClicked(MouseEvent click)
     {   
-        if (reactor.location.contains(e.getPoint()))
+        if (reactor.location.contains(click.getPoint()))
         {
             
         }
         
-        if (condenser.location.contains(e.getPoint()))
+        if (condenser.location.contains(click.getPoint()))
         {
             try { 
                 plantController.repairCondenser();
@@ -317,7 +317,7 @@ public class PlantInterface extends JPanel implements MouseListener
             }
         }
         
-        if (pump1.location.contains(e.getPoint()))
+        if (pump1.location.contains(click.getPoint()))
         {
             try {
                 plantController.repairPump(1);
@@ -328,7 +328,7 @@ public class PlantInterface extends JPanel implements MouseListener
             }
         }
         
-        if (coolingPump.location.contains(e.getPoint()))
+        if (coolingPump.location.contains(click.getPoint()))
         {
             try {
                 plantController.repairPump(2);
@@ -339,7 +339,7 @@ public class PlantInterface extends JPanel implements MouseListener
             }
         }
         
-        if (valve1.location.contains(e.getPoint()))
+        if (valve1.location.contains(click.getPoint()))
             {
               
             }
