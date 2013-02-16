@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 public abstract class GUIButton extends JPanel {
 
-    private String name;
+    public String name;
     private BufferedImage UpImg;
     private BufferedImage DownImg;
     private int x;
