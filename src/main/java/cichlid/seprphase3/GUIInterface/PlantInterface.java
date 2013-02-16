@@ -1,7 +1,9 @@
 package cichlid.seprphase3.GUIInterface;
 
 import cichlid.seprphase3.GameOverException;
+import cichlid.seprphase3.Simulator.CannotRepairException;
 import cichlid.seprphase3.Simulator.GameManager;
+import cichlid.seprphase3.Simulator.KeyNotFoundException;
 import cichlid.seprphase3.Simulator.PlantController;
 import cichlid.seprphase3.Simulator.PlantStatus;
 import cichlid.seprphase3.Simulator.SoftwareFailure;
@@ -12,7 +14,10 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.*;
 import java.awt.image.*;
+import java.awt.event.*;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.*;
 import javax.swing.JPanel;
 
@@ -20,7 +25,8 @@ import javax.swing.JPanel;
  * This is the main interface which will be shown during the game.
  * It is responsible for drawing the representation of the plant to the screen.
  */
-public class PlantInterface extends JPanel {
+public class PlantInterface extends JPanel implements MouseListener
+{
 
     // These allow access to the plant's methods.
     private PlantController plantController;
@@ -66,6 +72,8 @@ public class PlantInterface extends JPanel {
         this.plantController = plantController;
         this.plantStatus = plantStatus;
         this.gameManager = gameManager;
+                
+        addMouseListener(this);
         
         // Give all of the plant components the right images and location on the screen.
         setupComponents();
@@ -272,4 +280,58 @@ public class PlantInterface extends JPanel {
             offset += 20;
         }
     }
+    
+    @Override
+    public void mouseClicked(MouseEvent e)
+    {   
+        if (reactor.location.contains(e.getPoint()))
+        {
+            
+        }
+        
+        if (condenser.location.contains(e.getPoint()))
+        {
+            try { 
+                plantController.repairCondenser();
+            } catch (CannotRepairException ex) {
+                Logger.getLogger(PlantInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        if (pump1.location.contains(e.getPoint()))
+        {
+            try {
+                plantController.repairPump(1);
+            } catch (KeyNotFoundException ex) {
+                Logger.getLogger(PlantInterface.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (CannotRepairException ex) {
+                Logger.getLogger(PlantInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        if (coolingPump.location.contains(e.getPoint()))
+        {
+            try {
+                plantController.repairPump(2);
+            } catch (KeyNotFoundException ex) {
+                Logger.getLogger(PlantInterface.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (CannotRepairException ex) {
+                Logger.getLogger(PlantInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        if (valve1.location.contains(e.getPoint()))
+            {
+              
+            }
+    }
+    
+   @Override
+   public void mousePressed(MouseEvent e) { }
+   @Override
+   public void mouseReleased(MouseEvent e) { }
+   @Override
+   public void mouseEntered(MouseEvent e) { }
+   @Override
+   public void mouseExited(MouseEvent e) { }
 }
