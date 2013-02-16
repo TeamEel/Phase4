@@ -10,7 +10,11 @@ public class PlantGUIElement {
     // This rectangle will  be used to detect mouse collision with PlantGUIComponents.
     public Rectangle location;
     // This is the image that will be drawn to the screen while the PlantGUIComponent is static.
-    public BufferedImage image;
+    public Animation working;
+    public Animation starting;
+    public Animation stopping;
+    public Animation broken;
+    public Animation meltdown;
     
     public PlantGUIElement(BufferedImage _image, int x, int y, float scaling) {
         image = scaleImage(_image, scaling);
