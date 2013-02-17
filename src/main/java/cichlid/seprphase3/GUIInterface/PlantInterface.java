@@ -7,6 +7,7 @@ import cichlid.seprphase3.Simulator.KeyNotFoundException;
 import cichlid.seprphase3.Simulator.PlantController;
 import cichlid.seprphase3.Simulator.PlantStatus;
 import cichlid.seprphase3.Utilities.Percentage;
+import cichlid.seprphase3.Simulator.Pump;
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.image.*;
@@ -316,13 +317,27 @@ public class PlantInterface extends JPanel implements MouseListener
         }
         
         if (pump1.location.contains(e.getPoint()) && SwingUtilities.isRightMouseButton(e))
-        {
+        {    
             try {
                 plantController.repairPump(1);
             } catch (KeyNotFoundException ex) {
                 
             } catch (CannotRepairException ex) {
                 
+            }
+        }
+        
+        if (pump1.location.contains(e.getPoint()) && SwingUtilities.isLeftMouseButton(e))
+        {
+            Pump pump1 = (Pump) plantStatus.componentList().get("pump1");
+            boolean state = pump1.getStatus();
+            
+            if (state)
+            {
+                pump1.setStatus(false);
+            }
+            else{
+                pump1.setStatus(true);
             }
         }
         
@@ -337,6 +352,20 @@ public class PlantInterface extends JPanel implements MouseListener
             }
         }
         
+        if (coolingPump.location.contains(e.getPoint()) && SwingUtilities.isLeftMouseButton(e))
+        {
+            Pump coolingPump = (Pump) plantStatus.componentList().get("coolingPump");
+            boolean state = coolingPump.getStatus();
+            
+            if (state)
+            {
+                coolingPump.setStatus(false);
+            }
+            else{
+                coolingPump.setStatus(true);
+            }     
+        }
+        
         if ((turbineLeft.location.contains(e.getPoint()) || turbineRight.location.contains(e.getPoint())) && SwingUtilities.isRightMouseButton(e))
             {
             try {
@@ -346,19 +375,23 @@ public class PlantInterface extends JPanel implements MouseListener
             }
             }
         
-        if (valve1.location.contains(e.getPoint()) && plantStatus.componentList().get("valve1").hasFailed() && SwingUtilities.isLeftMouseButton(e))
+        if (valve1.location.contains(e.getPoint()) && SwingUtilities.isLeftMouseButton(e))
         {
+            boolean state = plantStatus.connectionList().get("reactorToTurbine").getOpen();
+            
             try { 
-                plantController.changeValveState(1, false);
+                plantController.changeValveState(1, state);
             } catch (KeyNotFoundException ex) {
                 
             }
         }
         
-        if (valve2.location.contains(e.getPoint()) && plantStatus.componentList().get("valve2").hasFailed() && SwingUtilities.isLeftMouseButton(e))
+        if (valve2.location.contains(e.getPoint()) && SwingUtilities.isLeftMouseButton(e))
         {
+            boolean state = plantStatus.connectionList().get("turbineToReactor").getOpen();
+            
             try {
-                plantController.changeValveState(2, false);
+                plantController.changeValveState(2, state);
             } catch (KeyNotFoundException ex) {
                 
             }
