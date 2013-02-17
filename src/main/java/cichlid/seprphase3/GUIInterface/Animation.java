@@ -22,7 +22,7 @@ public class Animation {
         }
     };
     
-    public Animation(String filePath) {
+    public Animation(String filePath, float scaling) {
         File imgDir = new File("images/" + filePath);
         
         try {
@@ -30,6 +30,7 @@ public class Animation {
             int i = 0;
             for(File f : imgDir.listFiles(IMAGE_FILTER)) {
                 images[i] = ImageUtils.loadImage(f.getCanonicalPath());
+                images[i] = ImageUtils.scaleImage(images[i], scaling);
             }
         } catch (IOException e) {
             System.out.println("Failed to load image: " + e.getMessage());

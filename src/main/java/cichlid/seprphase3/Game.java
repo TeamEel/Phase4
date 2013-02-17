@@ -31,6 +31,7 @@ public class Game {
                 elapsedTime = 0;
             } else {
                 elapsedTime += currentTime - lastTime;
+                Thread.sleep(20);
             }
             
             lastTime = currentTime;
