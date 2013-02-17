@@ -32,6 +32,7 @@ public class MenuInterface extends JPanel implements MouseListener
     private JLabel intro;
     private Button New;
     private Button load;
+    private Font gameFont;
     
     private GUIWindow parent;
     private Simulator simulator;
@@ -65,6 +66,8 @@ public class MenuInterface extends JPanel implements MouseListener
        add(load);
        load.setBounds(180, 140, 70, 30);
        load.addMouseListener(this);
+       
+       gameFont = new Font("Impact", Font.PLAIN, 20);
        
    }
    

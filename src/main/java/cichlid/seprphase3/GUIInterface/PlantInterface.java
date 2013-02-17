@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.*;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  * This is the main interface which will be shown during the game.
@@ -303,46 +304,65 @@ public class PlantInterface extends JPanel implements MouseListener
     @Override
     public void mouseClicked(MouseEvent e)
     {   
-        if (reactor.location.contains(e.getPoint()))
-        {
-            
-        }
         
-        if (condenser.location.contains(e.getPoint()))
+        
+        if (condenser.location.contains(e.getPoint()) && SwingUtilities.isRightMouseButton(e))
         {
             try { 
                 plantController.repairCondenser();
             } catch (CannotRepairException ex) {
-                Logger.getLogger(PlantInterface.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
         }
         
-        if (pump1.location.contains(e.getPoint()))
+        if (pump1.location.contains(e.getPoint()) && SwingUtilities.isRightMouseButton(e))
         {
             try {
                 plantController.repairPump(1);
             } catch (KeyNotFoundException ex) {
-                Logger.getLogger(PlantInterface.class.getName()).log(Level.SEVERE, null, ex);
+                
             } catch (CannotRepairException ex) {
-                Logger.getLogger(PlantInterface.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
         }
         
-        if (coolingPump.location.contains(e.getPoint()))
+        if (coolingPump.location.contains(e.getPoint()) && SwingUtilities.isRightMouseButton(e))
         {
             try {
                 plantController.repairPump(2);
             } catch (KeyNotFoundException ex) {
-                Logger.getLogger(PlantInterface.class.getName()).log(Level.SEVERE, null, ex);
+                
             } catch (CannotRepairException ex) {
-                Logger.getLogger(PlantInterface.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
         }
         
-        if (valve1.location.contains(e.getPoint()))
+        if ((turbineLeft.location.contains(e.getPoint()) || turbineRight.location.contains(e.getPoint())) && SwingUtilities.isRightMouseButton(e))
             {
-              
+            try {
+                plantController.repairTurbine();
+            } catch (CannotRepairException ex) {
+               
             }
+            }
+        
+        if (valve1.location.contains(e.getPoint()) && plantStatus.componentList().get("valve1").hasFailed() && SwingUtilities.isLeftMouseButton(e))
+        {
+            try { 
+                plantController.changeValveState(1, false);
+            } catch (KeyNotFoundException ex) {
+                
+            }
+        }
+        
+        if (valve2.location.contains(e.getPoint()) && plantStatus.componentList().get("valve2").hasFailed() && SwingUtilities.isLeftMouseButton(e))
+        {
+            try {
+                plantController.changeValveState(2, false);
+            } catch (KeyNotFoundException ex) {
+                
+            }
+        }
     }
     
    @Override

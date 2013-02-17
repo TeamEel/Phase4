@@ -9,6 +9,7 @@ import cichlid.seprphase3.Simulator.GameManager;
 import cichlid.seprphase3.Simulator.PlantController;
 import cichlid.seprphase3.Simulator.PlantStatus;
 import cichlid.seprphase3.Simulator.Simulator;
+import java.awt.Font;
 import javax.swing.JPanel;
 import java.awt.event.*;
 import java.awt.Label;
@@ -19,9 +20,11 @@ public class NameInterface extends JPanel implements ActionListener
     private GUIWindow parent;
     private Simulator simulator;
     
+    
     private Label namelbl;
     private TextField nameField;
     public String name;
+    private Font gameFont;
    
     
     public NameInterface(GUIWindow _parent, Simulator _simulator)
@@ -47,6 +50,8 @@ public class NameInterface extends JPanel implements ActionListener
         name = nameField.getText();
         simulator.setUsername(name);
         parent.setWindow(new PlantInterface(simulator, simulator, simulator));
+        
+        gameFont = new Font("Impact", Font.PLAIN, 20);
         
     }
     

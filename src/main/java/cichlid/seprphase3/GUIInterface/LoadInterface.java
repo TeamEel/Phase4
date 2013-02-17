@@ -7,6 +7,8 @@ package cichlid.seprphase3.GUIInterface;
 
 import javax.swing.JPanel;
 import java.awt.Button;
+import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.Label;
 import java.util.ArrayList;
 import java.io.File;
@@ -26,8 +28,7 @@ public class LoadInterface extends JPanel
     
     
     
-    public ArrayList<Button> saves;
-    public ArrayList<Label> savelbls;
+    private Font gameFont;
     
     public int y;
     public int i;
@@ -37,6 +38,7 @@ public class LoadInterface extends JPanel
         y = 0;
         i = 0;
         setUpComponents();
+        
     }
     
     public void setUpComponents()
@@ -65,5 +67,13 @@ public class LoadInterface extends JPanel
             add(name);
             name.setBounds(50, (10*y), 170, 30);  
         } 
+        
+        gameFont = new Font("Impact", Font.PLAIN, 20);
+        
     }
+    
+     private void drawText(Graphics2D g)
+     {
+         g.setFont(gameFont);
+     }
 }
