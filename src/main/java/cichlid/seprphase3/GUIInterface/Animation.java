@@ -13,6 +13,7 @@ public class Animation {
     
     private BufferedImage[] images;
     private int currentFrame;
+    private AnimatedPlantGUIElement elementParent;
     
     static final FilenameFilter IMAGE_FILTER = new FilenameFilter() {
         @Override
@@ -48,8 +49,16 @@ public class Animation {
         }
     }
     
-    public Animation(String filePath, float scaling, AffineTransformOp transform) {
+    public Animation(String filePath, float scaling, AnimatedPlantGUIElement parent) {
+        this(filePath, scaling);
+        
+        elementParent = parent;
+    }
+    
+    public Animation(String filePath, float scaling, AffineTransformOp transform, AnimatedPlantGUIElement parent) {
         File imgDir = new File("images/" + filePath);
+        
+        elementParent = parent;
         
         if(imgDir.exists()) {
         
@@ -73,13 +82,26 @@ public class Animation {
     
     public BufferedImage stepImage() {
         currentFrame++;
-        if (currentFrame >= images.length) { currentFrame = images.length - 1; }
-        return images[currentFrame];
-    }
-    
-    public BufferedImage continueImage() {
-        currentFrame++;
-        currentFrame = currentFrame % images.length;
+        
+        if (currentFrame >= images.length) {
+            switch(elementParent.currentAnimation) {
+                case TURNINGON:
+                    elementParent.setAnimation(PlantAnimationType.ON);
+                    break;
+                case TURNINGOFF:
+                    elementParent.setAnimation(PlantAnimationType.OFF);
+                    break;
+                case ON:
+                    currentFrame = 0; break;
+                case OFF:
+                    currentFrame = 0; break;
+                case BROKEN:
+                    currentFrame = 0; break;
+                case MELTDOWN:
+                    break;
+            }
+        }
+        
         return images[currentFrame];
     }
     
@@ -87,7 +109,7 @@ public class Animation {
         return images[0];
     }
     
-    public void restart() {
+    public void reset() {
         currentFrame = 0;
     }
 }

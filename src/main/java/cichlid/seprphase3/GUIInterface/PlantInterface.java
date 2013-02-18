@@ -29,31 +29,51 @@ public class PlantInterface extends JPanel implements MouseListener {
     private PlantController plantController;
     private PlantStatus plantStatus;
     private GameManager gameManager;
+    
     // These represent parts of the plant which will be drawn to the screen.
     // Each has a location and an image which is set up in setupComponents().
+    
+    // Water tanks - the reactor and condenser.
     private PlantGUIElement reactor;
     private PlantGUIElement condenser;
+    
+    // The pumps (static images) and the rotors (animations).
     private PlantGUIElement pump1;
     private PlantGUIElement coolingPump;
+    private AnimatedPlantGUIElement pump1Rotors;
+    private AnimatedPlantGUIElement coolingPumpRotors;
+    
+    // Valves.
     private AnimatedPlantGUIElement valve1;
     private AnimatedPlantGUIElement valve2;
+    
+    // Pipes.
     private PlantGUIElement coolingPipe;
     private PlantGUIElement reactorToCondenserPipe;
     private PlantGUIElement condenserToReactorPipe;
+    
+    // Reactor elements.
     private PlantGUIElement fuelRods;
     private PlantGUIElement controlRods;
-    private PlantGUIElement turbineLeft;
+    
+    // Turbine.
+    private AnimatedPlantGUIElement turbineLeft;
     private PlantGUIElement turbineMiddle;
-    private PlantGUIElement turbineRight;
+    private AnimatedPlantGUIElement turbineRight;
     private PlantGUIElement turbineHousing;
     private PlantGUIElement turbineHousing2;
+    
+    // Font for displaying information about the game.
     private Font gameFont;
+    
     // The height of the water in the Reactor and Condenser in pixels.
     private final int MAX_WATER_HEIGHT = 275;
+    
     // The global scale applied to images in the plant to make them the right size on the screen.
     private final int X_OFFSET = 300;
     private final int Y_OFFSET = 100;
     private final float SCALE_AMOUNT = 0.6f;
+    
     // An AffineTransform is one which preserves straight lines. This is used to rotate the valve image
     // by 90 degrees so the valve above the condenser can be drawn in the right orientation.
     AffineTransformOp rotateValve90Deg;
@@ -70,10 +90,11 @@ public class PlantInterface extends JPanel implements MouseListener {
         this.plantStatus = plantStatus;
         this.gameManager = gameManager;
 
-        addMouseListener(this);
-
         // Give all of the plant components the right images and location on the screen.
         setupComponents();
+        
+        // Add a mouse listener to listen to mouse events (so we can click things!)
+        addMouseListener(this);
     }
 
     /**
@@ -83,17 +104,19 @@ public class PlantInterface extends JPanel implements MouseListener {
      *
      */
     private void setupComponents() {
-        BufferedImage reactorImage = loadImage("images/container.png");
-        reactor = new PlantGUIElement(reactorImage, 0, 0, 0.9f, X_OFFSET, Y_OFFSET);
+        
+        BufferedImage containerImage = loadImage("images/container.png");
+        reactor = new PlantGUIElement(containerImage, "animations/meltcontainer", 0, 0, 0.9f, X_OFFSET, Y_OFFSET);
 
-        BufferedImage condenserImage = loadImage("images/container.png");
-        condenser = new PlantGUIElement(condenserImage, 665, 275, 0.9f, X_OFFSET, Y_OFFSET);
+        condenser = new PlantGUIElement(containerImage, "animations/meltcontainer", 665, 275, 0.9f, X_OFFSET, Y_OFFSET);
 
         BufferedImage pumpImage = loadImage("images/pump.png");
-        pump1 = new PlantGUIElement(pumpImage, 572, 535, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
-        coolingPump = new PlantGUIElement(pumpImage, 915, 545, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        pump1 = new PlantGUIElement(pumpImage, null, 572, 535, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        coolingPump = new PlantGUIElement(pumpImage, null, 915, 545, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        //pump1Rotors = new AnimatedPlantGUIElement("animations/workingpump", "animations/startpump", "animations/stoppump", pumpImage, 572, 535, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        //coolingPump = new AnimatedPlantGUIElement(pumpImage, 915, 545, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
 
-        valve1 = new AnimatedPlantGUIElement("animations/closevalve", null, null, null, null, 307, -51, SCALE_AMOUNT +
+        valve1 = new AnimatedPlantGUIElement(true, "animations/openvalve", "animations/closevalve", "animations/openvalve", 307, -51, SCALE_AMOUNT +
                                                                                                         0.1f, X_OFFSET,
                                              Y_OFFSET);
 
@@ -108,39 +131,37 @@ public class PlantInterface extends JPanel implements MouseListener {
                 AffineTransformOp.TYPE_BILINEAR // Use bilinear filtering to reconstruct pixels
                 );
 
-        valve2 = new AnimatedPlantGUIElement("animations/closevalve", null, null, null, null, 761, 170, SCALE_AMOUNT +
+        valve2 = new AnimatedPlantGUIElement(true, "animations/openvalve", "animations/closevalve", "animations/openvalve", 761, 170, SCALE_AMOUNT +
                                                                                                         0.1f, X_OFFSET,
                                              Y_OFFSET, rotateValve90Deg);
 
         BufferedImage coolingPipeImage = loadImage("images/coolingPipe.png");
-        coolingPipe = new PlantGUIElement(coolingPipeImage, 750, 450, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        coolingPipe = new PlantGUIElement(coolingPipeImage, null, 750, 450, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
 
         BufferedImage reactorToCondenserPipeImage = loadImage("images/reactorToCondenser.png");
-        reactorToCondenserPipe = new PlantGUIElement(reactorToCondenserPipeImage, 137, -2, SCALE_AMOUNT, X_OFFSET,
+        reactorToCondenserPipe = new PlantGUIElement(reactorToCondenserPipeImage, null, 137, -2, SCALE_AMOUNT, X_OFFSET,
                                                      Y_OFFSET);
 
         BufferedImage condenserToReactorPipeImage = loadImage("images/condenserToReactor.png");
-        condenserToReactorPipe = new PlantGUIElement(condenserToReactorPipeImage, 154, 334, SCALE_AMOUNT + 0.3f,
+        condenserToReactorPipe = new PlantGUIElement(condenserToReactorPipeImage, null, 154, 334, SCALE_AMOUNT + 0.3f,
                                                      X_OFFSET, Y_OFFSET);
 
         BufferedImage fuelRodsImage = loadImage("images/fuel_rods.png");
-        fuelRods = new PlantGUIElement(fuelRodsImage, 63, 216, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        fuelRods = new PlantGUIElement(fuelRodsImage, null, 63, 216, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
 
         BufferedImage controlRodsImage = loadImage("images/control_rods.png");
-        controlRods = new PlantGUIElement(controlRodsImage, 65, -290, SCALE_AMOUNT + 0.2f, X_OFFSET, Y_OFFSET);
+        controlRods = new PlantGUIElement(controlRodsImage, null, 65, -290, SCALE_AMOUNT + 0.2f, X_OFFSET, Y_OFFSET);
 
-        BufferedImage turbineLeftImage = loadImage("images/turbine_left.png");
-        turbineLeft = new PlantGUIElement(turbineLeftImage, 675, 57, SCALE_AMOUNT + 0.2f, X_OFFSET, Y_OFFSET);
+        turbineLeft = new AnimatedPlantGUIElement(false, "animations/leftturbine/on", "animations/leftturbine/start", "animations/leftturbine/stop", 675, 57, SCALE_AMOUNT + 0.2f, X_OFFSET, Y_OFFSET);
 
         BufferedImage turbineMiddleImage = loadImage("images/turbine_middle.png");
-        turbineMiddle = new PlantGUIElement(turbineMiddleImage, 720, 80, SCALE_AMOUNT + 0.2f, X_OFFSET, Y_OFFSET);
+        turbineMiddle = new PlantGUIElement(turbineMiddleImage, null, 720, 80, SCALE_AMOUNT + 0.2f, X_OFFSET, Y_OFFSET);
 
-        BufferedImage turbineRightImage = loadImage("images/turbine_right.png");
-        turbineRight = new PlantGUIElement(turbineRightImage, 800, 50, SCALE_AMOUNT + 0.2f, X_OFFSET, Y_OFFSET);
+        turbineRight = new AnimatedPlantGUIElement(false, "animations/rightturbine/on", "animations/rightturbine/on", "animations/rightturbine/off", 800, 50, SCALE_AMOUNT + 0.2f, X_OFFSET, Y_OFFSET);
 
         BufferedImage turbineHousingImage = loadImage("images/turbineC2.png");
-        turbineHousing = new PlantGUIElement(turbineHousingImage, 650, 36, SCALE_AMOUNT + 0.1f, X_OFFSET, Y_OFFSET);
-        turbineHousing2 = new PlantGUIElement(turbineHousingImage, 770, 36, SCALE_AMOUNT + 0.1f, X_OFFSET, Y_OFFSET);
+        turbineHousing = new PlantGUIElement(turbineHousingImage, "animations/meltturbinehouse", 650, 36, SCALE_AMOUNT + 0.1f, X_OFFSET, Y_OFFSET);
+        turbineHousing2 = new PlantGUIElement(turbineHousingImage, "animations/meltturbinehouse", 770, 36, SCALE_AMOUNT + 0.1f, X_OFFSET, Y_OFFSET);
 
         gameFont = new Font("Impact", Font.PLAIN, 20);
     }
@@ -167,7 +188,7 @@ public class PlantInterface extends JPanel implements MouseListener {
     }
 
     public void drawAnimatedGUIElement(Graphics2D g, AnimatedPlantGUIElement guiElement) {
-        g.drawImage(guiElement.working.stepImage(), guiElement.x(), guiElement.y(), null);
+        g.drawImage(guiElement.stepImage(), guiElement.x(), guiElement.y(), null);
     }
 
     /**
@@ -216,8 +237,8 @@ public class PlantInterface extends JPanel implements MouseListener {
         drawPlantGUIElement(g, turbineHousing);
         drawPlantGUIElement(g, turbineHousing2);
         drawPlantGUIElement(g, turbineMiddle);
-        drawPlantGUIElement(g, turbineLeft);
-        drawPlantGUIElement(g, turbineRight);
+        drawAnimatedGUIElement(g, turbineLeft);
+        drawAnimatedGUIElement(g, turbineRight);
 
         drawAnimatedGUIElement(g, valve1);
         drawAnimatedGUIElement(g, valve2);
@@ -319,8 +340,7 @@ public class PlantInterface extends JPanel implements MouseListener {
             Pump pump1 = (Pump)plantStatus.componentList().get("pump1");
             boolean state = pump1.getStatus();
 
-            valve1.setAnimation(PlantAnimationType.WORKING);
-            //valve2.setAnimation(PlantAnimationType.STOPPING);
+            valve1.setAnimation(PlantAnimationType.TURNINGON);
 
             if (state) {
                 pump1.setStatus(false);

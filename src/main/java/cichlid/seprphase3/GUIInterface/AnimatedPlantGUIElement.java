@@ -5,51 +5,67 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 public class AnimatedPlantGUIElement extends PlantGUIElement {
-    public Animation working;
-    public Animation starting;
-    public Animation stopping;
-    public Animation broken;
-    public Animation meltdown;
+    public Animation on;
+    public BufferedImage off;
+    public Animation turningon;
+    public Animation turningoff;
     
-    PlantAnimationType currentAnimation = PlantAnimationType.WORKING;
+    private Boolean staticWhileActivated;
     
-    public AnimatedPlantGUIElement(String workingPath, String startingPath, String stoppingPath, String brokenPath, String meltdownPath, int x, int y, float scaling, int offsetx, int offsety) {
-        working = new Animation(workingPath, scaling);
-        starting = new Animation(startingPath, scaling);
-        stopping = new Animation(stoppingPath, scaling);
-        broken = new Animation(brokenPath, scaling);
-        meltdown = new Animation(meltdownPath, scaling);
-        image = working.staticImage();
+    PlantAnimationType currentAnimation = PlantAnimationType.OFF;
+    
+    public AnimatedPlantGUIElement(Boolean _staticWhileActivated, String onPath, String turningOnPath, String turningOffPath, int x, int y, float scaling, int offsetx, int offsety) {
+        on = new Animation(onPath, scaling, this);
+        turningon = new Animation(turningOnPath, scaling, this);
+        turningoff = new Animation(turningOffPath, scaling, this);
+        image = on.staticImage();
         location = new Rectangle(x+offsetx, y+offsety, image.getWidth(), image.getHeight());
+        staticWhileActivated = _staticWhileActivated;
     }
     
-    public AnimatedPlantGUIElement(String workingPath, String startingPath, String stoppingPath, String brokenPath, String meltdownPath, int x, int y, float scaling, int offsetx, int offsety, AffineTransformOp transform) {
-        working = new Animation(workingPath, scaling, transform);
-        starting = new Animation(startingPath, scaling, transform);
-        stopping = new Animation(stoppingPath, scaling, transform);
-        broken = new Animation(brokenPath, scaling, transform);
-        meltdown = new Animation(meltdownPath, scaling, transform);
-        image = working.staticImage();
+    public AnimatedPlantGUIElement(Boolean _staticWhileActivated, String onPath, String turningOnPath, String turningOffPath, int x, int y, float scaling, int offsetx, int offsety, AffineTransformOp transform) {
+        on = new Animation(onPath, scaling, transform, this);
+        turningon = new Animation(turningOnPath, scaling, transform, this);
+        turningoff = new Animation(turningOffPath, scaling, transform, this);
+        image = on.staticImage();
         location = new Rectangle(x+offsetx, y+offsety, image.getWidth(), image.getHeight());
+        staticWhileActivated = _staticWhileActivated;
     }
     
     public void setAnimation(PlantAnimationType aniType) {
+        switch(currentAnimation) {
+            case ON:
+                on.reset(); break;
+            case TURNINGON:
+                turningon.reset(); break;
+            case TURNINGOFF:
+                turningoff.reset(); break;
+            case BROKEN:
+                break;
+        }
+        
         currentAnimation = aniType;
-        working.restart();
     }
     
     public BufferedImage stepImage() {
         switch(currentAnimation) {
-            case WORKING:
-                return working.continueImage();
-            case STARTING:
-                return starting.stepImage();
-            case STOPPING:
-                return stopping.stepImage();
+            case ON:
+                if (staticWhileActivated) {
+                    return turningoff.staticImage();
+                }
+                return on.stepImage();
+            case OFF:
+                if (staticWhileActivated) {
+                    return turningon.staticImage();
+                }
+                return on.staticImage();
+            case TURNINGON:
+                return turningon.stepImage();
+            case TURNINGOFF:
+                return turningoff.stepImage();
             case BROKEN:
-                return broken.stepImage();
-            case MELTDOWN:
-                return meltdown.stepImage();
+                // TODO: sine filter for red image.
+                break;
         }
 
         return image;
