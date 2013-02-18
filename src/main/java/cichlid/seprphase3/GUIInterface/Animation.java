@@ -84,7 +84,7 @@ public class Animation {
         currentFrame++;
         
         if (currentFrame >= images.length) {
-            switch(elementParent.currentAnimation) {
+            switch(elementParent.getCurrentAnimation()) {
                 case TURNINGON:
                     elementParent.setAnimation(PlantAnimationType.ON);
                     break;

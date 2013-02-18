@@ -234,6 +234,10 @@ public class PhysicalModel implements PlantController, PlantStatus {
     public boolean getReactorToTurbine() {
         return reactorToTurbine.getOpen();
     }
+    
+    public boolean getTurbineToCondenser() {
+        return turbineToCondenser.getOpen();
+    }
 
     @Override
     public ArrayList<FailableComponent> components() {

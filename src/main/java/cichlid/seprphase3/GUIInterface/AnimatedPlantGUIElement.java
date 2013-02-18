@@ -5,14 +5,14 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 public class AnimatedPlantGUIElement extends PlantGUIElement {
-    public Animation on;
-    public BufferedImage off;
-    public Animation turningon;
-    public Animation turningoff;
+    
+    private Animation on;
+    private Animation turningon;
+    private Animation turningoff;
     
     private Boolean staticWhileActivated;
     
-    PlantAnimationType currentAnimation = PlantAnimationType.OFF;
+    private PlantAnimationType currentAnimation = PlantAnimationType.OFF;
     
     public AnimatedPlantGUIElement(Boolean _staticWhileActivated, String onPath, String turningOnPath, String turningOffPath, int x, int y, float scaling, int offsetx, int offsety) {
         on = new Animation(onPath, scaling, this);
@@ -30,6 +30,10 @@ public class AnimatedPlantGUIElement extends PlantGUIElement {
         image = on.staticImage();
         location = new Rectangle(x+offsetx, y+offsety, image.getWidth(), image.getHeight());
         staticWhileActivated = _staticWhileActivated;
+    }
+    
+    public PlantAnimationType getCurrentAnimation() {
+        return currentAnimation;
     }
     
     public void setAnimation(PlantAnimationType aniType) {

@@ -154,6 +154,11 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     public boolean getReactorToTurbine() {
         return failureModel.getReactorToTurbine();
     }
+    
+    @Override
+    public boolean getTurbineToCondenser() {
+        return failureModel.getTurbineToCondenser();
+    }
 
     @Override
     public Temperature condenserTemperature() {
