@@ -13,7 +13,6 @@ public class AnimatedPlantGUIElement extends PlantGUIElement {
     PlantAnimationType currentAnimation = PlantAnimationType.WORKING;
     
     public AnimatedPlantGUIElement(String workingPath, String startingPath, String stoppingPath, String brokenPath, String meltdownPath, int x, int y, float scaling, int offsetx, int offsety) {
-        super(new BufferedImage(0, 0, 0), x, y, scaling, offsetx, offsety);
         working = new Animation(workingPath, scaling);
         starting = new Animation(startingPath, scaling);
         stopping = new Animation(stoppingPath, scaling);

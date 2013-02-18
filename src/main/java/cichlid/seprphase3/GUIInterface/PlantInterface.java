@@ -37,7 +37,7 @@ public class PlantInterface extends JPanel implements MouseListener
     private PlantGUIElement condenser;
     private PlantGUIElement pump1;
     private PlantGUIElement coolingPump;
-    private PlantGUIElement valve1;
+    private AnimatedPlantGUIElement valve1;
     private PlantGUIElement valve2;
     private PlantGUIElement coolingPipe;
     private PlantGUIElement reactorToCondenserPipe;
@@ -100,7 +100,7 @@ public class PlantInterface extends JPanel implements MouseListener
         coolingPump = new PlantGUIElement(pumpImage, 915, 545, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         
         BufferedImage valveImage = loadImage("images/valve-still.png");
-        valve1 = new PlantGUIElement(valveImage, 307, -51, SCALE_AMOUNT+0.1f, X_OFFSET, Y_OFFSET);
+        valve1 = new AnimatedPlantGUIElement("animations/closevalve", null, null, null, null, 307, -51, SCALE_AMOUNT+0.1f, X_OFFSET, Y_OFFSET);
         valve2 = new PlantGUIElement(valveImage, 761, 170, SCALE_AMOUNT+0.1f, X_OFFSET, Y_OFFSET);
         
         // This sets up the transform used to rotate the valve by 90 degrees.
@@ -165,6 +165,10 @@ public class PlantInterface extends JPanel implements MouseListener
         g.drawImage(guiElement.image, guiElement.x(), guiElement.y(), null);
     }
     
+    public void drawAnimatedGUIElement(Graphics2D g, AnimatedPlantGUIElement guiElement) {
+        g.drawImage(guiElement.working.stepImage(), guiElement.x(), guiElement.y(), null);
+    }
+    
     /**
      * Same as plantGUIElement, but applies a transform to the image first. Used for the valve above the
      * condenser.
@@ -224,7 +228,7 @@ public class PlantInterface extends JPanel implements MouseListener
         drawPlantGUIElement(g, turbineLeft);
         drawPlantGUIElement(g, turbineRight);
         
-        drawPlantGUIElement(g, valve1);
+        drawAnimatedGUIElement(g, valve1);
         drawTransformedGUIElement(g, valve2, rotateValve90Deg);
 
         drawPlantGUIElement(g, controlRods);
