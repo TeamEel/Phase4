@@ -318,17 +318,17 @@ public class PlantInterface extends JPanel implements MouseListener {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent click) {
 
 
-        if (condenser.location.contains(e.getPoint()) && SwingUtilities.isRightMouseButton(e)) {
+        if (condenser.location.contains(click.getPoint()) && SwingUtilities.isRightMouseButton(click)) {
             try {
                 plantController.repairCondenser();
             } catch (CannotRepairException ex) {
             }
         }
 
-        if (pump1.location.contains(e.getPoint()) && SwingUtilities.isRightMouseButton(e)) {
+        if (pump1.location.contains(click.getPoint()) && SwingUtilities.isRightMouseButton(click)) {
             try {
                 plantController.repairPump(1);
             } catch (KeyNotFoundException ex) {
@@ -336,7 +336,7 @@ public class PlantInterface extends JPanel implements MouseListener {
             }
         }
 
-        if (pump1.location.contains(e.getPoint()) && SwingUtilities.isLeftMouseButton(e)) {
+        if (pump1.location.contains(click.getPoint()) && SwingUtilities.isLeftMouseButton(click)) {
             Pump pump1 = (Pump)plantStatus.componentList().get("pump1");
             boolean state = pump1.getStatus();
 
@@ -349,7 +349,7 @@ public class PlantInterface extends JPanel implements MouseListener {
             }
         }
 
-        if (coolingPump.location.contains(e.getPoint()) && SwingUtilities.isRightMouseButton(e)) {
+        if (coolingPump.location.contains(click.getPoint()) && SwingUtilities.isRightMouseButton(click)) {
             try {
                 plantController.repairPump(2);
             } catch (KeyNotFoundException ex) {
@@ -357,7 +357,7 @@ public class PlantInterface extends JPanel implements MouseListener {
             }
         }
 
-        if (coolingPump.location.contains(e.getPoint()) && SwingUtilities.isLeftMouseButton(e)) {
+        if (coolingPump.location.contains(click.getPoint()) && SwingUtilities.isLeftMouseButton(click)) {
             Pump coolingPump = (Pump)plantStatus.componentList().get("coolingPump");
             boolean state = coolingPump.getStatus();
 
@@ -368,29 +368,36 @@ public class PlantInterface extends JPanel implements MouseListener {
             }
         }
 
-        if ((turbineLeft.location.contains(e.getPoint()) || turbineRight.location.contains(e.getPoint())) &&
-            SwingUtilities.isRightMouseButton(e)) {
+        if ((turbineLeft.location.contains(click.getPoint()) || turbineRight.location.contains(click.getPoint())) &&
+            SwingUtilities.isRightMouseButton(click)) {
             try {
                 plantController.repairTurbine();
             } catch (CannotRepairException ex) {
             }
         }
 
-        if (valve1.location.contains(e.getPoint()) && SwingUtilities.isLeftMouseButton(e)) {
+        if (valve1.location.contains(click.getPoint()) && SwingUtilities.isLeftMouseButton(click)) {
             boolean state = plantStatus.connectionList().get("reactorToTurbine").getOpen();
 
-            try {
-                plantController.changeValveState(1, state);
-            } catch (KeyNotFoundException ex) {
+            if (state)
+            {
+                plantStatus.connectionList().get("reactorToTurbine").setOpen(false);
+            
+            }
+            else{
+                plantStatus.connectionList().get("reactorToTurbine").setOpen(true);
             }
         }
 
-        if (valve2.location.contains(e.getPoint()) && SwingUtilities.isLeftMouseButton(e)) {
-            boolean state = plantStatus.connectionList().get("turbineToReactor").getOpen();
+        if (valve2.location.contains(click.getPoint()) && SwingUtilities.isLeftMouseButton(click)) {
+            boolean state = plantStatus.connectionList().get("turbineToCondenser").getOpen();
 
-            try {
-                plantController.changeValveState(2, state);
-            } catch (KeyNotFoundException ex) {
+            if (state)
+            {   
+                plantStatus.connectionList().get("turbineToCondenser").setOpen(false);
+            }
+            else{
+                plantStatus.connectionList().get("turbineToCondenser").setOpen(true);
             }
         }
     }
