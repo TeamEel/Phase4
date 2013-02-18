@@ -1,6 +1,7 @@
 package cichlid.seprphase3.GUIInterface;
 
 import java.awt.Rectangle;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 public class AnimatedPlantGUIElement extends PlantGUIElement {
@@ -22,14 +23,25 @@ public class AnimatedPlantGUIElement extends PlantGUIElement {
         location = new Rectangle(x+offsetx, y+offsety, image.getWidth(), image.getHeight());
     }
     
+    public AnimatedPlantGUIElement(String workingPath, String startingPath, String stoppingPath, String brokenPath, String meltdownPath, int x, int y, float scaling, int offsetx, int offsety, AffineTransformOp transform) {
+        working = new Animation(workingPath, scaling, transform);
+        starting = new Animation(startingPath, scaling, transform);
+        stopping = new Animation(stoppingPath, scaling, transform);
+        broken = new Animation(brokenPath, scaling, transform);
+        meltdown = new Animation(meltdownPath, scaling, transform);
+        image = working.staticImage();
+        location = new Rectangle(x+offsetx, y+offsety, image.getWidth(), image.getHeight());
+    }
+    
     public void setAnimation(PlantAnimationType aniType) {
         currentAnimation = aniType;
+        working.restart();
     }
     
     public BufferedImage stepImage() {
         switch(currentAnimation) {
             case WORKING:
-                return working.stepImage();
+                return working.continueImage();
             case STARTING:
                 return starting.stepImage();
             case STOPPING:
