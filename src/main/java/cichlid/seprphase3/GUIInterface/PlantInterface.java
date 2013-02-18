@@ -171,17 +171,6 @@ public class PlantInterface extends JPanel implements MouseListener {
     }
 
     /**
-     * Same as plantGUIElement, but applies a transform to the image first. Used for the valve above the condenser.
-     *
-     * @param g          The screen to draw to.
-     * @param guiElement The GUI element to draw.
-     * @param transform  The transform to apply before the image is drawn.
-     */
-    public void drawTransformedGUIElement(Graphics2D g, PlantGUIElement guiElement, AffineTransformOp transform) {
-        g.drawImage(transform.filter(guiElement.image, null), guiElement.x(), guiElement.y(), null);
-    }
-
-    /**
      * This overrides the jPanel's paintComponent method and is called every time the jPanel is repainted. The method is
      * passed a 'Graphics' by the library, which represents the part of the screen which will be drawn on. All draw
      * calls are made on this graphics object.
