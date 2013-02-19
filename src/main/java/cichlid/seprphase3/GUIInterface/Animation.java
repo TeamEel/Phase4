@@ -81,6 +81,7 @@ public class Animation {
     }
     
     public BufferedImage stepImage() {
+        
         currentFrame++;
         
         if (currentFrame >= images.length) {
@@ -92,11 +93,9 @@ public class Animation {
                     elementParent.setAnimation(PlantAnimationType.OFF);
                     break;
                 case ON:
-                    currentFrame = 0; break;
+                    reset(); break;
                 case OFF:
-                    currentFrame = 0; break;
-                case BROKEN:
-                    currentFrame = 0; break;
+                    reset(); break;
                 case MELTDOWN:
                     break;
             }
