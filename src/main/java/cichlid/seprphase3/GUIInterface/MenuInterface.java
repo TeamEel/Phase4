@@ -35,6 +35,7 @@ public class MenuInterface extends JPanel implements MouseListener
     
     private GUIWindow parent;
     private Simulator simulator;
+    private Boolean loading = false;
     
     
    public MenuInterface(GUIWindow _parent, Simulator _simulator)
@@ -67,6 +68,15 @@ public class MenuInterface extends JPanel implements MouseListener
        load.addMouseListener(this);
        
    }
+   
+    private void LoadScreen(Graphics2D g){
+        g.drawString("LOADING", 600, 400);
+    }
+    
+    private void EndLoadScreen(Graphics2D g){
+        g.clearRect(0, 0, 1366, 768);    
+    }
+    
    
    @Override
    public void mouseClicked(MouseEvent e) 
