@@ -110,13 +110,12 @@ public class PlantInterface extends JPanel implements MouseListener {
                                                         "animations/stoppump", 941, 577, SCALE_AMOUNT, X_OFFSET,
                                                         Y_OFFSET);
         pump1Rotors.setAnimation(PlantAnimationType.ON);
+        coolingPumpRotors.setAnimation(PlantAnimationType.ON);
 
-        valve1 = new AnimatedPlantGUIElement(true, "animations/openvalve", "animations/closevalve",
+        valve1 = new AnimatedPlantGUIElement(true, "animations/closevalve", "animations/closevalve",
                                              "animations/openvalve", 307, -51, SCALE_AMOUNT +
                                                                                0.1f, X_OFFSET,
                                              Y_OFFSET);
-
-
 
         // This sets up the transform used to rotate the valve by 90 degrees.
         // Uses getRotateInstance, which takes an origin. The origin is the middle of the image,
@@ -129,7 +128,7 @@ public class PlantInterface extends JPanel implements MouseListener {
                 AffineTransformOp.TYPE_BILINEAR // Use bilinear filtering to reconstruct pixels
                 );
 
-        valve2 = new AnimatedPlantGUIElement(true, "animations/openvalve", "animations/closevalve",
+        valve2 = new AnimatedPlantGUIElement(true, "animations/closevalve", "animations/closevalve",
                                              "animations/openvalve", 761, 170, SCALE_AMOUNT +
                                                                                0.1f, X_OFFSET,
                                              Y_OFFSET, rotateValve90Deg);
@@ -397,10 +396,10 @@ public class PlantInterface extends JPanel implements MouseListener {
 
                 if (state) {
                     plantStatus.connectionList().get("reactorToTurbine").setOpen(false);
-                    valve1.setAnimation(PlantAnimationType.OFF);
+                    valve1.setAnimation(PlantAnimationType.ON);
                 } else {
                     plantStatus.connectionList().get("reactorToTurbine").setOpen(true);
-                    valve1.setAnimation(PlantAnimationType.ON);
+                    valve1.setAnimation(PlantAnimationType.OFF);
                 }
             }
 
@@ -409,10 +408,10 @@ public class PlantInterface extends JPanel implements MouseListener {
 
                 if (state) {
                     plantStatus.connectionList().get("turbineToCondenser").setOpen(false);
-                    valve2.setAnimation(PlantAnimationType.OFF);
+                    valve2.setAnimation(PlantAnimationType.ON);
                 } else {
                     plantStatus.connectionList().get("turbineToCondenser").setOpen(true);
-                    valve2.setAnimation(PlantAnimationType.ON);
+                    valve2.setAnimation(PlantAnimationType.OFF);
                 }
             }
         } else if (SwingUtilities.isRightMouseButton(click)) {
