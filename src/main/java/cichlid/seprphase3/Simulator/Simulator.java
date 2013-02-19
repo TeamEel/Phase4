@@ -119,6 +119,11 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     public void repairTurbine() throws CannotRepairException {
         failureModel.repairTurbine();
     }
+    
+    @Override
+    public void repairSoftware() {
+        failureModel.repairSoftware();
+    }
 
     @Override
     public Percentage controlRodPosition() {

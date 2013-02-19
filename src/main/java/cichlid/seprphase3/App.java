@@ -1,5 +1,6 @@
 package cichlid.seprphase3;
 
+import cichlid.seprphase3.GUIInterface.GUIWindow;
 import cichlid.seprphase3.GUIInterface.PlantInterface;
 import cichlid.seprphase3.TextInterface.AsciiArt;
 import cichlid.seprphase3.TextInterface.TerminalRenderer;
@@ -21,14 +22,13 @@ public class App {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException, InterruptedException {
-        Game game;
+        Game game = new Game();
         
         while (true) {
-            game = new Game();
             try {
                 game.run();
             } catch (GameOverException e) {
-                ((PlantInterface)game.getCurrentGUI()).meltdown();
+                ((GUIWindow)game.getFrame()).setWindow(new GameOverInterface());
             } catch (QuitGameException e) {
                 System.out.println("");
             }

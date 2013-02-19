@@ -4,6 +4,7 @@ import cichlid.seprphase3.GUIInterface.GUIWindow;
 import cichlid.seprphase3.GUIInterface.PlantInterface;
 import cichlid.seprphase3.Simulator.Simulator;
 import cichlid.seprphase3.GUIInterface.MenuInterface;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
@@ -18,8 +19,8 @@ public class Game {
     
     public void run() throws GameOverException, QuitGameException, InterruptedException {
         gui = new GUIWindow("Nuke Dukem", 1366, 768);
-        //gui.setWindow(new PlantInterface(simulator, simulator, simulator));
-        gui.setWindow(new MenuInterface(gui, simulator));
+        gui.setWindow(new PlantInterface(simulator, simulator, simulator));
+        //gui.setWindow(new MenuInterface(gui, simulator));
         
         long lastTime = System.nanoTime();
         long elapsedTime = 0;
@@ -38,6 +39,10 @@ public class Game {
             
             lastTime = currentTime;
         }
+    }
+    
+    public JFrame getFrame() {
+        return gui;
     }
     
     public JPanel getCurrentGUI() {
