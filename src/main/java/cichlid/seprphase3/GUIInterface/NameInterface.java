@@ -48,8 +48,7 @@ public class NameInterface extends JPanel implements ActionListener
         nameField.addActionListener(this);
         
         name = nameField.getText();
-        simulator.setUsername(name);
-        parent.setWindow(new PlantInterface(simulator, simulator, simulator));
+        
         
         gameFont = new Font("Impact", Font.PLAIN, 20);
         

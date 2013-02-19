@@ -14,6 +14,7 @@ public class ImageUtils {
     
     public static BufferedImage loadImage(String filePath) {
         try {
+            System.out.println(filePath);
             return ImageIO.read(new File(filePath));
         } catch (IOException e) {
             System.err.println("Error loading image resources> " + filePath + "  :  " + e.getMessage());

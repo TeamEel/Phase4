@@ -23,12 +23,13 @@ import java.io.*;
 import javax.imageio.*;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 
 
 public class MenuInterface extends JPanel implements MouseListener
 {
-   
+    private BufferedImage backgroundImage;
     private JLabel intro;
     private Button New;
     private Button load;
@@ -47,7 +48,7 @@ public class MenuInterface extends JPanel implements MouseListener
    
    private void setUpComponent()
    {
-       
+       backgroundImage = ImageUtils.loadImage("images/menu.png");
        setLayout(null);
        
        intro = new JLabel("<html>Hello and welcome to Nuke Dukem the nucler power plant simulator!");
@@ -69,10 +70,17 @@ public class MenuInterface extends JPanel implements MouseListener
    }
    
    @Override
+   public void paintComponent(Graphics g) {
+       g.drawImage(backgroundImage, 0, 0, null);
+   }
+   
+   @Override
    public void mouseClicked(MouseEvent e) 
    {
        if(e.getSource().equals(New)){
-           parent.setWindow(new NameInterface(parent, simulator));
+           String name = JOptionPane.showInputDialog("Enter your name");
+           simulator.setUsername(name);
+           parent.setWindow(new PlantInterface(simulator, simulator, simulator));
        }
        
        if(e.getSource().equals(load)){

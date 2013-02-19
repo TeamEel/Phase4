@@ -1,5 +1,6 @@
 package cichlid.seprphase3;
 
+import cichlid.seprphase3.GUIInterface.PlantInterface;
 import cichlid.seprphase3.TextInterface.AsciiArt;
 import cichlid.seprphase3.TextInterface.TerminalRenderer;
 import java.io.BufferedReader;
@@ -11,7 +12,7 @@ import java.io.InputStreamReader;
  *
  */
 public class App {
-
+    
     /**
      * The main entry point for the application
      *
@@ -20,13 +21,14 @@ public class App {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException, InterruptedException {
+        Game game;
+        
         while (true) {
+            game = new Game();
             try {
-                Game game = new Game();
+                game.run();
             } catch (GameOverException e) {
-                AsciiArt.mushroomCloud(new TerminalRenderer());
-                System.out.println(e.getMessage());
-                (new BufferedReader(new InputStreamReader(System.in))).readLine();
+                ((PlantInterface)game.getCurrentGUI()).meltdown();
             } catch (QuitGameException e) {
                 System.out.println("");
             }
