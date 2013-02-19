@@ -6,13 +6,9 @@ package cichlid.seprphase3.GUIInterface;
  *
  */
 import cichlid.seprphase3.Simulator.Simulator;
-import java.awt.event.*;
 import java.awt.Button;
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Label;
-import java.io.File;
-import javax.swing.JOptionPane;
+import java.awt.event.*;
 import javax.swing.JPanel;
 
 public class GameOverInterface extends JPanel implements MouseListener {
