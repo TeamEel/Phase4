@@ -5,10 +5,10 @@ package cichlid.seprphase3.GUIInterface;
  * @author Tomasz
  *
  */
-import java.awt.event.*;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.*;
 import javax.swing.JPanel;
 
 public class GameOverInterface extends JPanel implements MouseListener {
