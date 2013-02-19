@@ -83,6 +83,12 @@ public class MenuInterface extends JPanel implements MouseListener
    @Override
    public void paintComponent(Graphics g) {
        g.drawImage(backgroundImage, 0, 0, null);
+       
+       if (loading == true) {
+            g.setColor(Color.red);
+            g.setFont(g.getFont().deriveFont(30.0f));
+            g.drawString("LOADING", 500, 400);
+       }
    }
    
    @Override
@@ -94,6 +100,8 @@ public class MenuInterface extends JPanel implements MouseListener
                name = JOptionPane.showInputDialog("Enter your name");
            }
            
+           loading = true;
+           paint(this.getGraphics());
            simulator.setUsername(name);
            parent.setWindow(new PlantInterface(simulator, simulator, simulator));
        }
