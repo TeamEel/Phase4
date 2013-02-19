@@ -48,8 +48,6 @@ public class AnimatedPlantGUIElement extends PlantGUIElement {
                 turningon.reset(); break;
             case TURNINGOFF:
                 turningoff.reset(); break;
-            case BROKEN:
-                break;
         }
         
         currentAnimation = aniType;
@@ -72,9 +70,6 @@ public class AnimatedPlantGUIElement extends PlantGUIElement {
                 return turningon.stepImage();
             case TURNINGOFF:
                 return turningoff.stepImage();
-            case BROKEN:
-                // TODO: sine filter for red image.
-                break;
         }
 
         return image;

@@ -12,13 +12,14 @@ public class Game {
     private GUIWindow gui;
     private Simulator simulator;
 
-    public Game() throws GameOverException, QuitGameException, InterruptedException {
-
+    public Game() {
         simulator = new Simulator();
-
+    }
+    
+    public void run() throws GameOverException, QuitGameException, InterruptedException {
         gui = new GUIWindow("Nuke Dukem", 1366, 768);
-        gui.setWindow(new PlantInterface(simulator, simulator, simulator));
-        //gui.setWindow(new MenuInterface(gui, simulator));
+        //gui.setWindow(new PlantInterface(simulator, simulator, simulator));
+        gui.setWindow(new MenuInterface(gui, simulator));
         
         long lastTime = System.nanoTime();
         long elapsedTime = 0;
