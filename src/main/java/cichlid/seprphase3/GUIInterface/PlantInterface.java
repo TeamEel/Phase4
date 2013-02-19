@@ -156,7 +156,7 @@ public class PlantInterface extends JPanel implements MouseListener {
                                                   Y_OFFSET);
 
         BufferedImage turbineMiddleImage = loadImage("images/turbine_middle.png");
-        turbineMiddle = new PlantGUIElement(turbineMiddleImage, null, 720, 90, SCALE_AMOUNT + 0.5f, X_OFFSET, Y_OFFSET);
+        turbineMiddle = new PlantGUIElement(turbineMiddleImage, null, 720, 95, SCALE_AMOUNT + 0.5f, X_OFFSET, Y_OFFSET);
 
         turbineRight = new AnimatedPlantGUIElement(false, "animations/rightturbine/on", "animations/rightturbine/on",
                                     "animations/rightturbine/off", 800, 50, SCALE_AMOUNT + 0.5f, X_OFFSET,
@@ -226,6 +226,8 @@ public class PlantInterface extends JPanel implements MouseListener {
         // Casts the Graphics object to a Graphics2D since we are drawing to a 2D screen.
         // This makes some method calls more obvious.
         Graphics2D g = (Graphics2D)_g;
+        
+        updateTurbine();
 
         // Draw all of the plant components.
         drawPlant(g);
@@ -238,6 +240,24 @@ public class PlantInterface extends JPanel implements MouseListener {
 
         // Draw any text around the screen.
         drawText(g);
+    }
+    
+    private void updateTurbine() {
+        if (plantStatus.getReactorToTurbine() && !plantStatus.componentList().get("turbine").hasFailed()) {
+            if (turbineLeft.getCurrentAnimation() != PlantAnimationType.ON) {
+                turbineLeft.setAnimation(PlantAnimationType.ON);
+            }
+            if (turbineRight.getCurrentAnimation() != PlantAnimationType.ON) {
+                turbineRight.setAnimation(PlantAnimationType.ON);
+            }
+        } else {
+            if (turbineLeft.getCurrentAnimation() != PlantAnimationType.OFF) {
+                turbineLeft.setAnimation(PlantAnimationType.OFF);
+            }
+            if (turbineRight.getCurrentAnimation() != PlantAnimationType.OFF) {
+                turbineRight.setAnimation(PlantAnimationType.OFF);
+            }
+        }
     }
 
     /**
