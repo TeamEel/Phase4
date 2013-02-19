@@ -9,21 +9,20 @@ public class PlantGUIElement {
     
     // This rectangle will  be used to detect mouse collision with PlantGUIComponents.
     public Rectangle location;
-    // This is the image that will be drawn to the screen while the PlantGUIComponent is static.
-    public BufferedImage image;
-    public Animation working;
-    public Animation starting;
-    public Animation stopping;
-    public Animation broken;
+    
+    // This animation will be used when the plant is melting down.
     public Animation meltdown;
     
-    public PlantGUIElement(BufferedImage _image, int x, int y, float scaling) {
-        image = ImageUtils.scaleImage(_image, scaling);
-        location = new Rectangle(x, y, image.getWidth(), image.getHeight());
+    // This is the image that will be drawn to the screen while the PlantGUIComponent is static.
+    public BufferedImage image;
+    
+    public PlantGUIElement() {
+        
     }
     
-    public PlantGUIElement(BufferedImage _image, int x, int y, float scaling, int offsetx, int offsety) {
+    public PlantGUIElement(BufferedImage _image, String meldownPath, int x, int y, float scaling, int offsetx, int offsety) {
         image = ImageUtils.scaleImage(_image, scaling);
+        meltdown = new Animation(meldownPath, scaling);
         location = new Rectangle(x+offsetx, y+offsety, image.getWidth(), image.getHeight());
     }
     

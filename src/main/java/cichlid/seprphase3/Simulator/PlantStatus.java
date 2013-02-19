@@ -48,6 +48,8 @@ public interface PlantStatus {
      * @return
      */
     public boolean getReactorToTurbine();
+    
+    public boolean getTurbineToCondenser();
 
     public Temperature condenserTemperature();
 
