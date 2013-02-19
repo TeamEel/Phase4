@@ -104,10 +104,10 @@ public class PlantInterface extends JPanel implements MouseListener {
         pump1 = new PlantGUIElement(pumpImage, null, 572, 535, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         coolingPump = new PlantGUIElement(pumpImage, null, 915, 545, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
 
-        pump1Rotors = new AnimatedPlantGUIElement(true, "animations/workingpump", "animations/startpump",
-                                                  "animations/stoppump", 572, 535, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
-        coolingPumpRotors = new AnimatedPlantGUIElement(true, "animations/workingpump", "animations/startpump",
-                                                        "animations/stoppump", 915, 545, SCALE_AMOUNT, X_OFFSET,
+        pump1Rotors = new AnimatedPlantGUIElement(false, "animations/workingpump", "animations/startpump",
+                                                  "animations/stoppump", 598, 567, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        coolingPumpRotors = new AnimatedPlantGUIElement(false, "animations/workingpump", "animations/startpump",
+                                                        "animations/stoppump", 941, 577, SCALE_AMOUNT, X_OFFSET,
                                                         Y_OFFSET);
         pump1Rotors.setAnimation(PlantAnimationType.ON);
 
@@ -192,12 +192,25 @@ public class PlantInterface extends JPanel implements MouseListener {
      * @param g          The screen to draw the image to.
      * @param guiElement The GUI element to draw.
      */
-    public void drawPlantGUIElement(Graphics2D g, PlantGUIElement guiElement) {
-        g.drawImage(guiElement.image, guiElement.x(), guiElement.y(), null);
+    public void drawPlantGUIElement(Graphics2D g, PlantGUIElement guiElement, Boolean failed) {
+        if (!failed) {
+            g.drawImage(guiElement.image, guiElement.x(), guiElement.y(), null);
+        } else {
+            BufferedImageOp tintFilter = ImageUtils.createTintOp((short)2, (short).5, (short).5);
+            BufferedImage tintedImage = tintFilter.filter(guiElement.image, null);
+            g.drawImage(tintedImage, guiElement.x(), guiElement.y(), null);
+        }
+        
     }
 
-    public void drawAnimatedGUIElement(Graphics2D g, AnimatedPlantGUIElement guiElement) {
-        g.drawImage(guiElement.stepImage(), guiElement.x(), guiElement.y(), null);
+    public void drawAnimatedGUIElement(Graphics2D g, AnimatedPlantGUIElement guiElement, Boolean failed) {
+        if (!failed) {
+            g.drawImage(guiElement.stepImage(), guiElement.x(), guiElement.y(), null);
+        } else {
+            BufferedImageOp tintFilter = ImageUtils.createTintOp((short)1.5, (short).5, (short).5);
+            BufferedImage tintedImage = tintFilter.filter(guiElement.stepImage(), null);
+            g.drawImage(tintedImage, guiElement.x(), guiElement.y(), null);
+        }
     }
 
     /**
@@ -233,30 +246,30 @@ public class PlantInterface extends JPanel implements MouseListener {
      * Draws all of the plant components to the screen.
      */
     private void drawPlant(Graphics2D g) {
-        drawPlantGUIElement(g, reactor);
-        drawPlantGUIElement(g, condenser);
+        drawPlantGUIElement(g, reactor, plantStatus.componentList().get("reactor").hasFailed());
+        drawPlantGUIElement(g, condenser, plantStatus.componentList().get("condenser").hasFailed());
 
-        drawPlantGUIElement(g, reactorToCondenserPipe);
-        drawPlantGUIElement(g, condenserToReactorPipe);
-        drawPlantGUIElement(g, coolingPipe);
+        drawPlantGUIElement(g, reactorToCondenserPipe, false);
+        drawPlantGUIElement(g, condenserToReactorPipe, false);
+        drawPlantGUIElement(g, coolingPipe, false);
 
-        drawPlantGUIElement(g, pump1);
-        drawPlantGUIElement(g, coolingPump);
+        drawPlantGUIElement(g, pump1, plantStatus.componentList().get("pump1").hasFailed());
+        drawPlantGUIElement(g, coolingPump, plantStatus.componentList().get("coolingPump").hasFailed());
 
-        drawAnimatedGUIElement(g, pump1Rotors);
-        drawAnimatedGUIElement(g, coolingPumpRotors);
+        drawAnimatedGUIElement(g, pump1Rotors, false);
+        drawAnimatedGUIElement(g, coolingPumpRotors, false);
 
-        drawPlantGUIElement(g, turbineHousing);
-        drawPlantGUIElement(g, turbineHousing2);
-        drawPlantGUIElement(g, turbineMiddle);
-        drawAnimatedGUIElement(g, turbineLeft);
-        drawAnimatedGUIElement(g, turbineRight);
+        drawPlantGUIElement(g, turbineHousing, false);
+        drawPlantGUIElement(g, turbineHousing2, false);
+        drawPlantGUIElement(g, turbineMiddle, plantStatus.componentList().get("turbine").hasFailed());
+        drawAnimatedGUIElement(g, turbineLeft, plantStatus.componentList().get("turbine").hasFailed());
+        drawAnimatedGUIElement(g, turbineRight, plantStatus.componentList().get("turbine").hasFailed());
 
-        drawAnimatedGUIElement(g, valve1);
-        drawAnimatedGUIElement(g, valve2);
+        drawAnimatedGUIElement(g, valve1, false);
+        drawAnimatedGUIElement(g, valve2, false);
 
-        drawPlantGUIElement(g, controlRods);
-        drawPlantGUIElement(g, fuelRods);
+        drawPlantGUIElement(g, controlRods, false);
+        drawPlantGUIElement(g, fuelRods, false);
     }
 
     /**
@@ -340,6 +353,13 @@ public class PlantInterface extends JPanel implements MouseListener {
         }
     }
 
+    /**
+     * Called when the mouse is clicked on the screen by the MouseListener.
+     * The method is passed a MouseEvent 'click' which contains a point on the screen where the mouse was clicked.
+     * This can be checked against each component to see which component was clicked on, and the appropriate action
+     * is taken.
+     * @param click    The event information for the mouse click.
+     */
     @Override
     public void mouseClicked(MouseEvent click) {
 

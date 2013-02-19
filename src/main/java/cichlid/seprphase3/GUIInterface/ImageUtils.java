@@ -2,6 +2,9 @@ package cichlid.seprphase3.GUIInterface;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.awt.image.LookupOp;
+import java.awt.image.LookupTable;
+import java.awt.image.ShortLookupTable;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -30,5 +33,26 @@ public class ImageUtils {
         BufferedImage scaledBufferedImage = new BufferedImage(scaledImage.getWidth(null), scaledImage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
         scaledBufferedImage.getGraphics().drawImage(scaledImage, 0, 0, null);
         return scaledBufferedImage;
+    }
+    
+    public static LookupOp createTintOp(short R1, short G1, short B1) {
+        short[] alpha = new short[256];
+        short[] red = new short[256];
+        short[] green = new short[256];
+        short[] blue = new short[256];
+
+        for (short i = 0; i < 256; i++) {
+            alpha[i] = i;
+            red[i] = (short)((1 + i*R1)/2);
+            green[i] = (short)((1 + i*G1)/2);
+            blue[i] = (short)((1 + i*B1)/2);
+        }
+
+        short[][] data = new short[][] {
+                red, green, blue, alpha
+        };
+
+        LookupTable lookupTable = new ShortLookupTable(0, data);
+        return new LookupOp(lookupTable, null);
     }
 }

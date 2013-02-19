@@ -1,8 +1,12 @@
 package cichlid.seprphase3.GUIInterface;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import javax.imageio.ImageTypeSpecifier;
 
 public class AnimatedPlantGUIElement extends PlantGUIElement {
     
@@ -52,6 +56,7 @@ public class AnimatedPlantGUIElement extends PlantGUIElement {
     }
     
     public BufferedImage stepImage() {
+        
         switch(currentAnimation) {
             case ON:
                 if (staticWhileActivated) {
