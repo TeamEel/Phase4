@@ -318,6 +318,11 @@ public class PhysicalModel implements PlantController, PlantStatus {
     public void repairTurbine() throws CannotRepairException {
         turbine.repair();
     }
+    
+    @Override
+    public void repairSoftware() {
+        currentSoftwareFailure = SoftwareFailure.None;
+    }
 
     @Override
     public Temperature condenserTemperature() {

@@ -30,7 +30,7 @@ public class ImageUtils {
      * @return  A bufferedimage representing the scaled image.
      */
     public static BufferedImage scaleImage(BufferedImage unscaledImage, float percent) {
-        Image scaledImage = unscaledImage.getScaledInstance( (int)(unscaledImage.getWidth() * percent), -1, Image.SCALE_SMOOTH);
+        Image scaledImage = unscaledImage.getScaledInstance( (int)(unscaledImage.getWidth() * percent), -1, Image.SCALE_DEFAULT);
         BufferedImage scaledBufferedImage = new BufferedImage(scaledImage.getWidth(null), scaledImage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
         scaledBufferedImage.getGraphics().drawImage(scaledImage, 0, 0, null);
         return scaledBufferedImage;
