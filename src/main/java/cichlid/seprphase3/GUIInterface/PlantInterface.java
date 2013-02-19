@@ -60,6 +60,8 @@ public class PlantInterface extends JPanel implements MouseListener {
     private PlantGUIElement turbineHousing;
     private PlantGUIElement turbineHousing2;
     
+    private PlantGUIElement computer;
+    
     // Left Panels
     
     
@@ -180,6 +182,8 @@ public class PlantInterface extends JPanel implements MouseListener {
         turbineHousing = new PlantGUIElement(turbineHousingImage, "animations/meltturbinehouse", 650, 36, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
         turbineHousing2 = new PlantGUIElement(turbineHousingImage, "animations/meltturbinehouse", 770, 36, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
         
+        BufferedImage computerImage = ImageUtils.loadImage("images/computer.png");
+        computer = new PlantGUIElement(computerImage, null, 100, 500, SCALE_AMOUNT + 0.5f, 0, 0);
         
         // Explosion
         explosion = new AnimatedPlantGUIElement(false, "animations/explosion", null, null, 0, 0, 0.0f, 0, 0);
@@ -414,6 +418,8 @@ public class PlantInterface extends JPanel implements MouseListener {
     
     private void drawInfo(Graphics2D g) {
         drawBorderRect(g, 100, 200, 100, 100);
+        
+        drawPlantGUIElement(g, computer, false);
     }
 
     /**

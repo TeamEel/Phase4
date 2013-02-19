@@ -24,6 +24,7 @@ import javax.imageio.*;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.text.html.Option;
 
 
 
@@ -78,7 +79,11 @@ public class MenuInterface extends JPanel implements MouseListener
    public void mouseClicked(MouseEvent e) 
    {
        if(e.getSource().equals(New)){
-           String name = JOptionPane.showInputDialog("Enter your name");
+           String name = null;
+           while (name == null) {
+               name = JOptionPane.showInputDialog("Enter your name");
+           }
+           
            simulator.setUsername(name);
            parent.setWindow(new PlantInterface(simulator, simulator, simulator));
        }
