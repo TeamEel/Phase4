@@ -11,10 +11,13 @@ public class PlantGUIElement {
     public Rectangle location;
     
     // This animation will be used when the plant is melting down.
-    public Animation meltdown;
+    private Animation meltdown;
+    private int meltdownFrame = 0;
     
     // This is the image that will be drawn to the screen while the PlantGUIComponent is static.
     public BufferedImage image;
+    
+    private PlantAnimationType currentAnimation = PlantAnimationType.ON;
     
     public PlantGUIElement() {
         
@@ -32,5 +35,17 @@ public class PlantGUIElement {
     
     public int y() {
         return location.y;
+    }
+    
+    public BufferedImage getImage() {
+        if(currentAnimation != PlantAnimationType.MELTDOWN) {
+            return image;
+        } else {
+            return meltdown.stepImage();
+        }
+    }
+    
+    public void meltdown() {
+        currentAnimation = PlantAnimationType.MELTDOWN;
     }
 }

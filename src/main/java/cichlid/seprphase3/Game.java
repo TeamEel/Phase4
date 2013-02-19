@@ -4,11 +4,12 @@ import cichlid.seprphase3.GUIInterface.GUIWindow;
 import cichlid.seprphase3.GUIInterface.PlantInterface;
 import cichlid.seprphase3.Simulator.Simulator;
 import cichlid.seprphase3.GUIInterface.MenuInterface;
+import javax.swing.JPanel;
 
 
 public class Game {
 
-    public GUIWindow gui;
+    private GUIWindow gui;
     private Simulator simulator;
 
     public Game() throws GameOverException, QuitGameException, InterruptedException {
@@ -36,5 +37,9 @@ public class Game {
             
             lastTime = currentTime;
         }
+    }
+    
+    public JPanel getCurrentGUI() {
+        return gui.getWindow();
     }
 }

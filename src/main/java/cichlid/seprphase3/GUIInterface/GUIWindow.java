@@ -3,6 +3,8 @@ package cichlid.seprphase3.GUIInterface;
 import javax.swing.*;
 
 public class GUIWindow extends JFrame {
+    
+    JPanel currentWindow;
 
     public GUIWindow(String title, int width, int height) {
         super(title);
@@ -26,7 +28,12 @@ public class GUIWindow extends JFrame {
          * window except the title bar. Setting the content panel to a jPanel causes the jPanel to
          * draw to the window.
          */
+        currentWindow = _window;
         setContentPane(_window);
+    }
+    
+    public JPanel getWindow() {
+        return currentWindow;
     }
 
     /**

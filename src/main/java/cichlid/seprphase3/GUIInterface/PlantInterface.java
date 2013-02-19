@@ -50,12 +50,16 @@ public class PlantInterface extends JPanel implements MouseListener {
     // Reactor elements.
     private PlantGUIElement fuelRods;
     private PlantGUIElement controlRods;
+    private PlantGUIElement rodGlow;
     // Turbine.
     private AnimatedPlantGUIElement turbineLeft;
     private PlantGUIElement turbineMiddle;
     private AnimatedPlantGUIElement turbineRight;
     private PlantGUIElement turbineHousing;
     private PlantGUIElement turbineHousing2;
+    
+    private AnimatedPlantGUIElement explosion;
+    private Boolean meltdown = false;
     // Font for displaying information about the game.
     private Font gameFont;
     private Font scoreFont;
@@ -150,6 +154,9 @@ public class PlantInterface extends JPanel implements MouseListener {
 
         BufferedImage controlRodsImage = loadImage("images/control_rods.png");
         controlRods = new PlantGUIElement(controlRodsImage, null, 65, -230, SCALE_AMOUNT + 0.2f, X_OFFSET, Y_OFFSET);
+        
+        BufferedImage glowImage = loadImage("images/glow.png");
+        rodGlow = new PlantGUIElement(glowImage, null, 43, 206, SCALE_AMOUNT+0.2f, X_OFFSET, Y_OFFSET);
 
         turbineLeft = new AnimatedPlantGUIElement(false, "animations/leftturbine/on", "animations/leftturbine/start",
                                                   "animations/leftturbine/stop", 675, 57, SCALE_AMOUNT + 0.5f, X_OFFSET,
@@ -168,6 +175,8 @@ public class PlantInterface extends JPanel implements MouseListener {
                             Y_OFFSET);
         turbineHousing2 = new PlantGUIElement(turbineHousingImage, "animations/meltturbinehouse", 770, 36,
                                               SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
+        
+        explosion = new AnimatedPlantGUIElement(false, "animations/explosion", null, null, 0, 0, 0.0f, 0, 0);
 
         gameFont = new Font("Impact", Font.PLAIN, 15);
         scoreFont = new Font("Impact", Font.PLAIN, 30);
@@ -205,6 +214,7 @@ public class PlantInterface extends JPanel implements MouseListener {
         if (!failed) {
             g.drawImage(guiElement.stepImage(), guiElement.x(), guiElement.y(), null);
         } else {
+            guiElement.setAnimation(PlantAnimationType.OFF);
             BufferedImageOp tintFilter = ImageUtils.createTintOp((short)1.5, (short).5, (short).5);
             BufferedImage tintedImage = tintFilter.filter(guiElement.stepImage(), null);
             g.drawImage(tintedImage, guiElement.x(), guiElement.y(), null);
@@ -240,6 +250,11 @@ public class PlantInterface extends JPanel implements MouseListener {
 
         // Draw any text around the screen.
         drawText(g);
+        
+        // If the plant is melting down, draw the explosion.
+        if(meltdown) {
+            drawExplosion(g);
+        }
     }
     
     private void updateTurbine() {
@@ -288,13 +303,14 @@ public class PlantInterface extends JPanel implements MouseListener {
 
         drawPlantGUIElement(g, controlRods, false);
         drawPlantGUIElement(g, fuelRods, false);
+        drawPlantGUIElement(g, rodGlow, false);
     }
 
     /**
      * Draws all of the water effects to the screen.
      */
     private void drawWater(Graphics2D g) {
-        g.setColor(new Color(0.4f, 0.4f, 1.0f, 0.7f));
+        g.setColor(new Color(0.5f, 0.6f, 0.8f, 0.7f));
 
         if (plantStatus.reactorWaterLevel() != null) {
             g.fillRect(X_OFFSET + 6,
@@ -402,6 +418,18 @@ public class PlantInterface extends JPanel implements MouseListener {
         } else {
             g.drawString("Valve 2: CLOSED", 960, 325);
         }
+        
+        if(((Pump)plantStatus.componentList().get("pump1")).getStatus()) {
+            g.drawString("Pump 1: ON", 870, 620);
+        } else {
+            g.drawString("Pump 1: OFF", 870, 620);
+        }
+        
+        if(((Pump)plantStatus.componentList().get("coolingPump")).getStatus()) {
+            g.drawString("Cooling Pump: ON", 1190, 630);
+        } else {
+            g.drawString("Cooling Pump: OFF", 1190, 630);
+        }
 
         g.drawString("Software Failure: " + plantStatus.getSoftwareFailure(), textX, textY + 270);
         
@@ -414,6 +442,10 @@ public class PlantInterface extends JPanel implements MouseListener {
             g.drawString("Failure: " + s, textX, textY + 300 + offset);
             offset += 30;
         }
+    }
+    
+    public void drawExplosion(Graphics2D g) {
+        drawAnimatedGUIElement(g, explosion, false);
     }
 
     /**
@@ -518,6 +550,14 @@ public class PlantInterface extends JPanel implements MouseListener {
                 }
             }
         }
+    }
+    
+    public void meltdown() {
+        meltdown = true;
+        reactor.meltdown();
+        condenser.meltdown();
+        turbineHousing.meltdown();
+        turbineHousing2.meltdown();
     }
 
     @Override
