@@ -72,17 +72,12 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
         return failureModel.getSoftwareFailure();
     }
 
-    public void step() throws GameOverException {
+    public boolean step() {
         try {
             failureModel.step();
+            return true;
         } catch (GameOverException e) {
-            throw new GameOverException("Dear " + userName + ",\n\n" +
-                                        "YOU HAVE FAILED\n\n" +
-                                        "The reactor vessel has failed catastrophically,\n"+ 
-                                        "and everyone within a 100km radius is now either\n " +
-                                        "dead or dying of radiation\n" +"poisioning.\n\n" +
-                                        "However, you did successfully generate \n" + failureModel.energyGenerated() +
-                                        "\nof energy before this occurred.");
+            return false;
         }
     }
 

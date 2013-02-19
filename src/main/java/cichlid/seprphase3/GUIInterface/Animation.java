@@ -27,6 +27,27 @@ public class Animation {
         }
     };
     
+    public Animation(String filePath) {
+        File imgDir = new File("images/" + filePath);
+        
+        if(imgDir.exists()) {
+        
+            try {
+                images = new BufferedImage[imgDir.listFiles().length];
+
+                File[] imageFiles = imgDir.listFiles(IMAGE_FILTER);
+                Arrays.sort(imageFiles);
+                
+                for(int i = 0; i < imageFiles.length; i++) {
+                    images[i] = ImageUtils.loadImage(imageFiles[i].getAbsolutePath());
+                }
+            } catch (Exception e) {
+                System.out.println("Failed to load image: " + e.getMessage());
+            }
+        
+        }
+    }
+    
     public Animation(String filePath, float scaling) {
         File imgDir = new File("images/" + filePath);
         
@@ -84,20 +105,24 @@ public class Animation {
         
         currentFrame++;
         
-        if (currentFrame >= images.length) {
-            switch(elementParent.getCurrentAnimation()) {
-                case TURNINGON:
-                    elementParent.setAnimation(PlantAnimationType.ON);
-                    break;
-                case TURNINGOFF:
-                    elementParent.setAnimation(PlantAnimationType.OFF);
-                    break;
-                case ON:
-                    reset(); break;
-                case OFF:
-                    reset(); break;
-                case MELTDOWN:
-                    break;
+        if (currentFrame >= images.length - 1) {
+            if(elementParent!=null) {
+                switch(elementParent.getCurrentAnimation()) {
+                    case TURNINGON:
+                        elementParent.setAnimation(PlantAnimationType.ON);
+                        break;
+                    case TURNINGOFF:
+                        elementParent.setAnimation(PlantAnimationType.OFF);
+                        break;
+                    case ON:
+                        reset(); break;
+                    case OFF:
+                        reset(); break;
+                    case MELTDOWN:
+                        break;
+                }
+            } else {
+                return endImage();
             }
         }
         
@@ -106,6 +131,14 @@ public class Animation {
     
     public BufferedImage staticImage() {
         return images[0];
+    }
+    
+    public BufferedImage endImage() {
+        return images[images.length - 2];
+    }
+    
+    public Boolean isAtEnd() {
+        return currentFrame >= images.length - 1;
     }
     
     public void reset() {

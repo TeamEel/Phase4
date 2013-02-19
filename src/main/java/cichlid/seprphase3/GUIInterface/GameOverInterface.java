@@ -5,54 +5,43 @@ package cichlid.seprphase3.GUIInterface;
  * @author Tomasz
  *
  */
-import cichlid.seprphase3.Simulator.Simulator;
 import java.awt.event.*;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Label;
-import java.io.File;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class GameOverInterface extends JPanel implements MouseListener {
 
-    AnimatedPlantGUIElement explosion;
+    Animation explosion;
     Button playAgainButton;
     Button leaveButton;
-    GUIWindow parent;
-    Simulator simulator;
+    public Boolean block = true;
 
-    GameOverInterface(GUIWindow parent, Simulator simulator) {
-        this.parent = parent;
-        this.simulator = simulator;
-        setUpComponent();
-    }
-
-    private void setUpComponent() {
-        explosion = new AnimatedPlantGUIElement(false, "animations/explosion", null, null, 0, 0, 1.0f, 0, 0);
+    GameOverInterface() {
+        explosion = new Animation("animations/explosion");
         playAgainButton = new Button("Play Again");
         leaveButton = new Button("Leave Game");
         playAgainButton.setLocation(200, 500);
         leaveButton.setLocation(200, 600);
+        this.addMouseListener(this);
     }
 
     @Override
     public void paintComponent(Graphics g) {
-
         g.drawImage(explosion.stepImage(), 0, 0, null);
-
+        g.setColor(Color.RED);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getSource().equals(playAgainButton)) {
-            parent.setWindow(new PlantInterface(simulator, simulator, simulator));
-        }
+        //if (e.getSource().equals(playAgainButton)) {
+        block = false;
+        //}
 
-        if (e.getSource().equals(leaveButton)) {
-            System.exit(0);
-        }
+        //if (e.getSource().equals(leaveButton)) {
+        //    System.exit(0);
+        //}
     }
 
     @Override

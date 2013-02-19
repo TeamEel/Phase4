@@ -22,16 +22,7 @@ public class App {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException, InterruptedException {
-        Game game = new Game();
-        
-        while (true) {
-            try {
-                game.run();
-            } catch (GameOverException e) {
-                ((GUIWindow)game.getFrame()).setWindow(new GameOverInterface());
-            } catch (QuitGameException e) {
-                System.out.println("");
-            }
-        }
+        GUIWindow gameWindow = new GUIWindow("Nuke Dukem", 1377, 768);
+        gameWindow.run();
     }
 }

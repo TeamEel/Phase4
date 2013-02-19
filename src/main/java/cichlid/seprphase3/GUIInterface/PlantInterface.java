@@ -66,9 +66,6 @@ public class PlantInterface extends JPanel implements MouseListener {
     
     // Left Panels
     
-    
-    private AnimatedPlantGUIElement explosion;
-    private Boolean meltdown = false;
     // Font for displaying information about the game.
     private Font gameFont;
     private Font scoreFont;
@@ -190,9 +187,6 @@ public class PlantInterface extends JPanel implements MouseListener {
         BufferedImage computerImage = ImageUtils.loadImage("images/computer.png");
         computer = new PlantGUIElement(computerImage, null, 70, 480, SCALE_AMOUNT + 0.2f, 0, 0);
         debugButton = new Rectangle(100, 640, 60, 20);
-        
-        // Explosion
-        explosion = new AnimatedPlantGUIElement(false, "animations/explosion", null, null, 0, 0, 0.0f, 0, 0);
 
         
         // Fonts
@@ -266,11 +260,6 @@ public class PlantInterface extends JPanel implements MouseListener {
 
         // Draw any text around the screen.
         drawText(g);
-        
-        // If the plant is melting down, draw the explosion.
-        if(meltdown) {
-            drawExplosion(g);
-        }
     }
     
     private void updateComponents() {
@@ -500,10 +489,6 @@ public class PlantInterface extends JPanel implements MouseListener {
         g.drawString("Score: " + plantStatus.energyGenerated(), 1100, 50);
         g.setFont(gameFont); g.setColor(Color.BLACK);
     }
-    
-    public void drawExplosion(Graphics2D g) {
-        drawAnimatedGUIElement(g, explosion, false);
-    }
 
     /**
      * Called when the mouse is clicked on the screen by the MouseListener.
@@ -625,14 +610,6 @@ public class PlantInterface extends JPanel implements MouseListener {
                 }
             }
         }
-    }
-    
-    public void meltdown() {
-        meltdown = true;
-        reactor.meltdown();
-        condenser.meltdown();
-        turbineHousing.meltdown();
-        turbineHousing2.meltdown();
     }
 
     @Override
