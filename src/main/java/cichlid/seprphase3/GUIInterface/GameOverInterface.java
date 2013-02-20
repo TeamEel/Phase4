@@ -18,10 +18,12 @@ public class GameOverInterface extends JPanel implements MouseListener {
     public Boolean block = true;
     
     Energy powerGenerated;
+    String name;
 
-    GameOverInterface(Animation preloadedExplosion, Energy powerGenerated) {
+    GameOverInterface(Animation preloadedExplosion, Energy powerGenerated, String name) {
         explosion = preloadedExplosion;
         this.powerGenerated = powerGenerated;
+        this.name = name;
         
         BufferedImage buttonImage = ImageUtils.loadImage("images/button.png");
         playAgainButton = new PlantGUIElement(buttonImage, 580, 550, 1.2f, 0, 0);
@@ -38,7 +40,7 @@ public class GameOverInterface extends JPanel implements MouseListener {
             g.setColor(Color.WHITE);
             g.setFont(new Font("Impact", Font.BOLD, 40));
             g.drawString("Game over!", 550, 200);
-            g.drawString("Oh no! You blew up the Reactor!", 360, 300);
+            g.drawString("Oh no! " + name + ", you blew up the Reactor!", 360, 300);
             g.drawString("However, you generated: " + powerGenerated.toString() + " power before you did!", 210, 400);
             g.drawString("Click anywhere to start a new game!", 320, 450);
             g.setColor(Color.BLACK);

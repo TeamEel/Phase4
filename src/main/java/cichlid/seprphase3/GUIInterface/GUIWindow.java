@@ -48,7 +48,7 @@ public class GUIWindow extends JFrame implements ActionListener {
                     update();
                 } else {
                     state = GameState.GameOver;
-                    gameover = new GameOverInterface(explosion, simulator.energyGenerated());
+                    gameover = new GameOverInterface(explosion, simulator.energyGenerated(), simulator.getUsername());
                     setWindow(gameover);
                 }
                 break;

@@ -107,7 +107,7 @@ public class FailureModel implements PlantController, PlantStatus {
     @Override
     public Boolean moveControlRods(Percentage extracted) {
         if (status.getSoftwareFailure() == SoftwareFailure.rodStateChange) {
-            randomSoftwareFailure();
+            //randomSoftwareFailure();
             return false;
         }
         controller.moveControlRods(extracted);
@@ -117,7 +117,7 @@ public class FailureModel implements PlantController, PlantStatus {
     @Override
     public Boolean changeValveState(int valveNumber, boolean isOpen) throws KeyNotFoundException {
         if (status.getSoftwareFailure() == SoftwareFailure.valveStateChange) {
-            randomSoftwareFailure();
+            //randomSoftwareFailure();
             return false;
         }
         controller.changeValveState(valveNumber, isOpen);

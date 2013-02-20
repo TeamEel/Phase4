@@ -76,7 +76,7 @@ public class PlantInterface extends JPanel implements MouseListener {
     // The height of the water in the Reactor and Condenser in pixels.
     private final int MAX_WATER_HEIGHT = 275;
     private final int INITIAL_CONTROL_ROD_HEIGHT = -230;
-    private final int CONTROL_ROD_HEIGHT = 200;
+    private final int CONTROL_ROD_HEIGHT = 120;
     // The global scale applied to images in the plant to make them the right size on the screen.
     private final int X_OFFSET = 300;
     private final int Y_OFFSET = 100;
@@ -299,6 +299,8 @@ public class PlantInterface extends JPanel implements MouseListener {
                 turbineRight.setAnimation(PlantAnimationType.OFF);
             }
         }
+        
+        controlRods.setY(Y_OFFSET + (int)(INITIAL_CONTROL_ROD_HEIGHT + (1.0 - plantStatus.controlRodPosition().ratio()) * CONTROL_ROD_HEIGHT));
     }
     
     private void drawBackgroundAndLogo(Graphics2D g) {
@@ -429,13 +431,6 @@ public class PlantInterface extends JPanel implements MouseListener {
         g.drawRect(x, y, width, height);
     }
     
-    private void drawBorderRect(Graphics2D g, int x, int y, int width, int height, Color color, Color borderColor) {
-        g.setColor(color);
-        g.fillRect(x, y, width, height);
-        g.setColor(borderColor);
-        g.drawRect(x, y, width, height);
-    }
-    
     private void drawInfo(Graphics2D g) {
         g.setFont(gameFont);
         drawBorderRect(g, 80, 310 , 190, 130);
@@ -489,7 +484,7 @@ public class PlantInterface extends JPanel implements MouseListener {
         g.drawString("Temperature: " + plantStatus.condenserTemperature(), 1175, 505);
         g.drawString("Water Level: " + plantStatus.condenserWaterLevel(), 1175, 530);
         
-        g.drawString("Rod Up", 200, 170);
+        g.drawString("Rod Up", 220, 170);
         g.drawString("Rod Down", 200, 220);
 
         drawBorderRect(g, 575, 130, 110, 30);
