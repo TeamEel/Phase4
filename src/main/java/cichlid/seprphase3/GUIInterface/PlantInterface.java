@@ -1,6 +1,5 @@
 package cichlid.seprphase3.GUIInterface;
 
-import cichlid.seprphase3.GameOverException;
 import cichlid.seprphase3.Simulator.CannotRepairException;
 import cichlid.seprphase3.Simulator.GameManager;
 import cichlid.seprphase3.Simulator.KeyNotFoundException;
@@ -196,7 +195,7 @@ public class PlantInterface extends JPanel implements MouseListener {
         BufferedImage turbineMiddleImage = ImageUtils.loadImage("turbine_middle.png");
         turbineMiddle = new PlantGUIElement(turbineMiddleImage, 720, 95, SCALE_AMOUNT + 0.5f, X_OFFSET, Y_OFFSET);
 
-        turbineRight = new AnimatedPlantGUIElement(true, "animations/rightturbine/on", "animations/rightturbine/on", "animations/rightturbine/off", X_OFFSET + 810, Y_OFFSET + 60, SCALE_AMOUNT + 0.3f);
+        turbineRight = new AnimatedPlantGUIElement(true, "animations/rightturbine/on", "animations/rightturbine/start", "animations/rightturbine/stop", X_OFFSET + 810, Y_OFFSET + 60, SCALE_AMOUNT + 0.3f);
 
         BufferedImage turbineHousingImage = ImageUtils.loadImage("turbineC2.png");
         turbineHousing = new PlantGUIElement(turbineHousingImage, 650, 36, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);

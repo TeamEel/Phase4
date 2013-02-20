@@ -16,6 +16,7 @@ public class Animation {
     
     // The array of frames.
     private BufferedImage[] images;
+    private File[] imageFiles;
     
     // The current frame which the animation is on.
     private int currentFrame;
@@ -38,31 +39,42 @@ public class Animation {
         }
     };
     
+    private void getFileList(String filePath) {
+        // Set all given paths to be relative to images/
+        File imgDir = new File("images/" + filePath);
+
+        if(imgDir.exists()) {
+        
+                // Instantiate the array to be the number of images in the directory.
+                images = new BufferedImage[imgDir.listFiles(IMAGE_FILTER).length];
+
+                // Get a list of the files in the directory.
+                imageFiles = imgDir.listFiles(IMAGE_FILTER);
+                // Sort it by name so the images are loaded in the correct order.
+                Arrays.sort(imageFiles);
+        }
+    }
+    
     /**
      * Create an animation based on a file path.
      * @param filePath              The file path of the images.
      * @param shouldLoop            Whether it should loop or not.
      */
     public Animation(String filePath, boolean shouldLoop) {
-        // Set all given paths to be relative to images/
-        File imgDir = new File("images/" + filePath);
+                
+        // Set if the animation should loop.
         loop = shouldLoop;
         
-        if(imgDir.exists()) {
+        // Get the list of files in the provided path.
+        getFileList(filePath);
         
-            try {
-                images = new BufferedImage[imgDir.listFiles(IMAGE_FILTER).length];
-
-                File[] imageFiles = imgDir.listFiles(IMAGE_FILTER);
-                Arrays.sort(imageFiles);
-                
-                for(int i = 0; i < imageFiles.length; i++) {
-                    images[i] = ImageUtils.loadImageByPath(imageFiles[i].getPath());
-                }
-            } catch (Exception e) {
-                System.out.println("Failed to load image: " + e.getMessage());
+        try {
+            // Load each image in the list of files.
+            for(int i = 0; i < imageFiles.length; i++) {
+                images[i] = ImageUtils.loadImageByPath(imageFiles[i].getPath());
             }
-        
+        } catch (Exception e) {
+            System.out.println("Failed to open file:" + filePath);
         }
     }
     
@@ -72,25 +84,13 @@ public class Animation {
      * @param scaling           The scaling to apply to each of the images.
      */
     public Animation(String filePath, float scaling, boolean shouldLoop) {
-        File imgDir = new File("images/" + filePath);
-        loop = shouldLoop;
         
-        if(imgDir.exists()) {
-        
-            try {
-                images = new BufferedImage[imgDir.listFiles(IMAGE_FILTER).length];
+        // Initialise based on the most basic constructor (load the images).
+        this(filePath, shouldLoop);
 
-                File[] imageFiles = imgDir.listFiles(IMAGE_FILTER);
-                Arrays.sort(imageFiles);
-                
-                for(int i = 0; i < imageFiles.length; i++) {
-                    images[i] = ImageUtils.loadImageByPath(imageFiles[i].getPath());
-                    images[i] = ImageUtils.scaleImage(images[i], scaling);
-                }
-            } catch (Exception e) {
-                System.out.println("Failed to load image: " + e.getMessage());
-            }
-        
+        // Apply the scale to each of the loaded images.
+        for(int i = 0; i < imageFiles.length; i++) {
+            images[i] = ImageUtils.scaleImage(images[i], scaling);
         }
     }
     
@@ -100,26 +100,14 @@ public class Animation {
      * @param transform         The transform to apply.
      */
     public Animation(String filePath, float scaling, AffineTransformOp transform, boolean shouldLoop) {
-        File imgDir = new File("images/" + filePath);
-        loop = shouldLoop;
-        
-        if(imgDir.exists()) {
-        
-            try {
-                images = new BufferedImage[imgDir.listFiles(IMAGE_FILTER).length];
 
-                File[] imageFiles = imgDir.listFiles(IMAGE_FILTER);
-                Arrays.sort(imageFiles);
-                
-                for(int i = 0; i < imageFiles.length; i++) {
-                    images[i] = ImageUtils.loadImageByPath(imageFiles[i].getPath());
-                    images[i] = ImageUtils.scaleImage(images[i], scaling);
-                    images[i] = transform.filter(images[i], null);
-                }
-            } catch (Exception e) {
-                System.out.println("Failed to load image: " + e.getMessage());
-            }
+        // Initialise based on the most basic constructor (load the images).
+        this(filePath, shouldLoop);
         
+        // Apply the scale and transformation to each of the loaded images.
+        for(int i = 0; i < imageFiles.length; i++) {
+            images[i] = ImageUtils.scaleImage(images[i], scaling);
+            images[i] = transform.filter(images[i], null);
         }
     }
     

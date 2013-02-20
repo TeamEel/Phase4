@@ -73,7 +73,7 @@ public class MenuInterface extends JPanel implements MouseListener {
             
                 String name = JOptionPane.showInputDialog("Enter your name");
                 
-            if (name == null) {return;}    
+            if (name == null || name.equals("")) {return;}    
 
 
             loading = true;
