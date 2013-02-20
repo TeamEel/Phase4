@@ -22,6 +22,7 @@ public class GameOverInterface extends JPanel implements MouseListener {
 
     GameOverInterface(Animation preloadedExplosion, Energy powerGenerated, String name) {
         explosion = preloadedExplosion;
+        explosion.reset();
         this.powerGenerated = powerGenerated;
         this.name = name;
         
