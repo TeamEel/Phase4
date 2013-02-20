@@ -80,7 +80,7 @@ public class MenuInterface extends JPanel implements MouseListener {
             paint(this.getGraphics());
             simulator.setUsername(name);
             parent.state = GameState.Running;
-            parent.setWindow(new PlantInterface(simulator, simulator, simulator));
+            parent.setWindow(new PlantInterface(parent, simulator, simulator, simulator));
             }
         
         if(loadGameButton.location.contains(click.getPoint())) {

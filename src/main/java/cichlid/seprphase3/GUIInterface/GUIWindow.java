@@ -1,7 +1,7 @@
 package cichlid.seprphase3.GUIInterface;
 
 import cichlid.seprphase3.GameOverException;
-import cichlid.seprphase3.QuitGameException;
+import cichlid.seprphase3.TextInterface.QuitGameException;
 import cichlid.seprphase3.Simulator.Simulator;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,11 +30,11 @@ public class GUIWindow extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
-        explosion = new Animation("animations/explosion");
+        explosion = new Animation("animations/explosion", false);
     }
 
-    public void run() throws InterruptedException {
-        startGame();
+    public void run() {
+        showMenu();
 
         Timer timer = new Timer(60, this);
         timer.start();
@@ -57,7 +57,7 @@ public class GUIWindow extends JFrame implements ActionListener {
                 repaint();
                 if(!gameover.block) {
                     state = GameState.NotStarted;
-                    startGame();
+                    showMenu();
                 }
                 break;
             default:
@@ -96,11 +96,11 @@ public class GUIWindow extends JFrame implements ActionListener {
 
     public void runGame(Simulator sim) {
         simulator = sim;
-        setWindow(new PlantInterface(simulator, simulator, simulator));
+        setWindow(new PlantInterface(this, simulator, simulator, simulator));
         state = GameState.Running;
     }
     
-    private void startGame() {
+    public void showMenu() {
         simulator = new Simulator();
         setWindow(new MenuInterface(this, simulator));
     }
