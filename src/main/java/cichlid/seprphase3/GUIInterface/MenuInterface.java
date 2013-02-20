@@ -69,23 +69,26 @@ public class MenuInterface extends JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent click) {
         if(newGameButton.location.contains(click.getPoint())) {
-            String name = null;
-            while (name == null) {
-                name = JOptionPane.showInputDialog("Enter your name");
-            }
+            boolean cancel = false;
+            
+                String name = JOptionPane.showInputDialog("Enter your name");
+                
+            if (name == null) {return;}    
+
 
             loading = true;
             paint(this.getGraphics());
             simulator.setUsername(name);
             parent.state = GameState.Running;
             parent.setWindow(new PlantInterface(simulator, simulator, simulator));
-        }
+            }
         
         if(loadGameButton.location.contains(click.getPoint())) {
-             String name = null;
-            while (name == null) {
-                name = JOptionPane.showInputDialog("Enter your name");
-            }
+            
+               String name = JOptionPane.showInputDialog("Enter your name");
+                
+            if (name == null) {return;}    
+                
             parent.setWindow(new LoadInterface(parent, simulator, name));
         }
     }
