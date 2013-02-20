@@ -39,9 +39,9 @@ public class MenuInterface extends JPanel implements MouseListener {
         parent = _parent;
         simulator = _simulator;
 
-        backgroundImage = ImageUtils.loadImage("images/menu.png");
+        backgroundImage = ImageUtils.loadImage("menu.png");
 
-        BufferedImage buttonImage = ImageUtils.loadImage("images/button.png");
+        BufferedImage buttonImage = ImageUtils.loadImage("button.png");
         newGameButton = new PlantGUIElement(buttonImage, 200, 500, 1.0f, 0, 0);
         loadGameButton = new PlantGUIElement(buttonImage, 200, 600, 1.0f, 0, 0);
 

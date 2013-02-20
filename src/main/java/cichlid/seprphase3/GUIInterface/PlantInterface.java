@@ -121,21 +121,21 @@ public class PlantInterface extends JPanel implements MouseListener {
     private void setupComponents() {
         
         // Background.
-        BufferedImage backgroundImage = ImageUtils.loadImage("images/background.png");
+        BufferedImage backgroundImage = ImageUtils.loadImage("background.png");
         plantBackground = new PlantGUIElement(backgroundImage, 0, 0, 1.0f, 0, 0);
         
-        BufferedImage logoImage = ImageUtils.loadImage("images/logo.png");
+        BufferedImage logoImage = ImageUtils.loadImage("logo.png");
         logo = new PlantGUIElement(logoImage, 20, 20, 0.5f, 0, 0);
 
         
         // Reactor and Condenser
-        BufferedImage containerImage = ImageUtils.loadImage("images/container.png");
+        BufferedImage containerImage = ImageUtils.loadImage("container.png");
         reactor = new PlantGUIElement(containerImage, 0, 0, 0.9f, X_OFFSET, Y_OFFSET);
         condenser = new PlantGUIElement(containerImage, 665, 275, 0.9f, X_OFFSET, Y_OFFSET);
         
         
         // Static Pump Images
-        BufferedImage pumpImage = ImageUtils.loadImage("images/pump.png");
+        BufferedImage pumpImage = ImageUtils.loadImage("pump.png");
         pump1 = new PlantGUIElement(pumpImage, 572, 535, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
         coolingPump = new PlantGUIElement(pumpImage, 915, 545, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
 
@@ -165,27 +165,27 @@ public class PlantInterface extends JPanel implements MouseListener {
 
         
         // Pipes
-        BufferedImage coolingPipeImage = ImageUtils.loadImage("images/coolingPipe.png");
+        BufferedImage coolingPipeImage = ImageUtils.loadImage("coolingPipe.png");
         coolingPipe = new PlantGUIElement(coolingPipeImage, 750, 450, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
 
-        BufferedImage reactorToCondenserPipeImage = ImageUtils.loadImage("images/reactorToCondenser.png");
+        BufferedImage reactorToCondenserPipeImage = ImageUtils.loadImage("reactorToCondenser.png");
         reactorToCondenserPipe = new PlantGUIElement(reactorToCondenserPipeImage, 137, -2, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
 
-        BufferedImage condenserToReactorPipeImage = ImageUtils.loadImage("images/condenserToReactor.png");
+        BufferedImage condenserToReactorPipeImage = ImageUtils.loadImage("condenserToReactor.png");
         condenserToReactorPipe = new PlantGUIElement(condenserToReactorPipeImage, 154, 334, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
 
         
         // Fuel rods and glow
-        BufferedImage fuelRodsImage = ImageUtils.loadImage("images/fuel_rods.png");
+        BufferedImage fuelRodsImage = ImageUtils.loadImage("fuel_rods.png");
         fuelRods = new PlantGUIElement(fuelRodsImage, 63, 216, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
 
-        BufferedImage controlRodsImage = ImageUtils.loadImage("images/control_rods.png");
+        BufferedImage controlRodsImage = ImageUtils.loadImage("control_rods.png");
         controlRods = new PlantGUIElement(controlRodsImage, 65, -230, SCALE_AMOUNT + 0.2f, X_OFFSET, Y_OFFSET);
         
-        BufferedImage glowImage = ImageUtils.loadImage("images/glow.png");
+        BufferedImage glowImage = ImageUtils.loadImage("glow.png");
         rodGlow = new PlantGUIElement(glowImage, 47, 206, SCALE_AMOUNT+0.2f, X_OFFSET, Y_OFFSET);
         
-        BufferedImage buttonImage = ImageUtils.loadImage("images/button.png");
+        BufferedImage buttonImage = ImageUtils.loadImage("button.png");
         controlRodDownButton = new PlantGUIElement(buttonImage, 180, 150, 0.5f, 0, 0);
         controlRodUpButton = new PlantGUIElement(buttonImage, 180, 200, 0.5f, 0, 0);
 
@@ -193,16 +193,16 @@ public class PlantInterface extends JPanel implements MouseListener {
         // Turbine
         turbineLeft = new AnimatedPlantGUIElement(true, "animations/leftturbine/on", "animations/leftturbine/start", "animations/leftturbine/stop", X_OFFSET + 680, Y_OFFSET + 67, SCALE_AMOUNT + 0.3f);
 
-        BufferedImage turbineMiddleImage = ImageUtils.loadImage("images/turbine_middle.png");
+        BufferedImage turbineMiddleImage = ImageUtils.loadImage("turbine_middle.png");
         turbineMiddle = new PlantGUIElement(turbineMiddleImage, 720, 95, SCALE_AMOUNT + 0.5f, X_OFFSET, Y_OFFSET);
 
         turbineRight = new AnimatedPlantGUIElement(true, "animations/rightturbine/on", "animations/rightturbine/on", "animations/rightturbine/off", X_OFFSET + 810, Y_OFFSET + 60, SCALE_AMOUNT + 0.3f);
 
-        BufferedImage turbineHousingImage = ImageUtils.loadImage("images/turbineC2.png");
+        BufferedImage turbineHousingImage = ImageUtils.loadImage("turbineC2.png");
         turbineHousing = new PlantGUIElement(turbineHousingImage, 650, 36, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
         turbineHousing2 = new PlantGUIElement(turbineHousingImage, 770, 36, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
         
-        BufferedImage computerImage = ImageUtils.loadImage("images/computer.png");
+        BufferedImage computerImage = ImageUtils.loadImage("computer.png");
         computer = new PlantGUIElement(computerImage, 70, 480, SCALE_AMOUNT + 0.2f, 0, 0);
         debugButton = new Rectangle(100, 640, 60, 20);
         saveButton = new Rectangle(280, 640, 75, 20);

@@ -57,7 +57,7 @@ public class Animation {
                 Arrays.sort(imageFiles);
                 
                 for(int i = 0; i < imageFiles.length; i++) {
-                    images[i] = ImageUtils.loadImage(imageFiles[i].getPath());
+                    images[i] = ImageUtils.loadImageByPath(imageFiles[i].getPath());
                 }
             } catch (Exception e) {
                 System.out.println("Failed to load image: " + e.getMessage());
@@ -84,7 +84,7 @@ public class Animation {
                 Arrays.sort(imageFiles);
                 
                 for(int i = 0; i < imageFiles.length; i++) {
-                    images[i] = ImageUtils.loadImage(imageFiles[i].getAbsolutePath());
+                    images[i] = ImageUtils.loadImageByPath(imageFiles[i].getPath());
                     images[i] = ImageUtils.scaleImage(images[i], scaling);
                 }
             } catch (Exception e) {
@@ -112,7 +112,7 @@ public class Animation {
                 Arrays.sort(imageFiles);
                 
                 for(int i = 0; i < imageFiles.length; i++) {
-                    images[i] = ImageUtils.loadImage(imageFiles[i].getAbsolutePath());
+                    images[i] = ImageUtils.loadImageByPath(imageFiles[i].getPath());
                     images[i] = ImageUtils.scaleImage(images[i], scaling);
                     images[i] = transform.filter(images[i], null);
                 }
