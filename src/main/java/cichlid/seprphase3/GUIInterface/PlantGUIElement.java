@@ -33,7 +33,7 @@ public class PlantGUIElement {
     }
     
     public void setY(int offset) {
-        location.y += offset;
+        location.y = offset;
     }
     
     public BufferedImage getImage() {

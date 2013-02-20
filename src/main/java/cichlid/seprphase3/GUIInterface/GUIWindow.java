@@ -48,7 +48,7 @@ public class GUIWindow extends JFrame implements ActionListener {
                     update();
                 } else {
                     state = GameState.GameOver;
-                    gameover = new GameOverInterface(explosion, simulator.energyGenerated());
+                    gameover = new GameOverInterface(explosion, simulator.energyGenerated(), simulator.getUsername());
                     setWindow(gameover);
                 }
                 break;
@@ -94,6 +94,12 @@ public class GUIWindow extends JFrame implements ActionListener {
         repaint();
     }
 
+    public void runGame(Simulator sim) {
+        simulator = sim;
+        setWindow(new PlantInterface(simulator, simulator, simulator));
+        state = GameState.Running;
+    }
+    
     private void startGame() {
         simulator = new Simulator();
         setWindow(new MenuInterface(this, simulator));

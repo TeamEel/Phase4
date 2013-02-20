@@ -34,6 +34,10 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     public void setUsername(String userName) {
         this.userName = userName;
     }
+    
+    public String getUsername() {
+        return userName;
+    }
 
     @Override
     public void saveGame() throws JsonProcessingException {
