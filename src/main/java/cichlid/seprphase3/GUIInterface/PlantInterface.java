@@ -32,6 +32,8 @@ public class PlantInterface extends JPanel implements MouseListener {
     private PlantStatus plantStatus;
     private GameManager gameManager;
     
+    private GUIWindow parent;
+    
     private PlantGUIElement plantBackground;
     private PlantGUIElement logo;
     // These represent parts of the plant which will be drawn to the screen.
@@ -69,6 +71,7 @@ public class PlantInterface extends JPanel implements MouseListener {
     private PlantGUIElement computer;
     private Rectangle debugButton;
     private Rectangle saveButton;
+    private Rectangle quitButton;
     
     // Font for displaying information about the game.
     private Font gameFont;
@@ -95,10 +98,12 @@ public class PlantInterface extends JPanel implements MouseListener {
      * @param plantStatus
      * @param gameManager
      */
-    public PlantInterface(PlantController plantController, PlantStatus plantStatus, GameManager gameManager) {
+    public PlantInterface(GUIWindow parent, PlantController plantController, PlantStatus plantStatus, GameManager gameManager) {
         this.plantController = plantController;
         this.plantStatus = plantStatus;
         this.gameManager = gameManager;
+        
+        this.parent = parent;
 
         // Give all of the plant components the right images and location on the screen.
         setupComponents();
@@ -201,6 +206,7 @@ public class PlantInterface extends JPanel implements MouseListener {
         computer = new PlantGUIElement(computerImage, 70, 480, SCALE_AMOUNT + 0.2f, 0, 0);
         debugButton = new Rectangle(100, 640, 60, 20);
         saveButton = new Rectangle(280, 640, 75, 20);
+        quitButton = new Rectangle(200, 640, 45, 20);
 
         
         // Fonts
@@ -460,6 +466,12 @@ public class PlantInterface extends JPanel implements MouseListener {
         g.fillRect(saveButton.x, saveButton.y, saveButton.width, saveButton.height);
         g.setColor(Color.BLACK);
         g.drawString("SAVE GAME", saveButton.x + 5, saveButton.y + 15);
+        
+        
+        g.setColor(Color.CYAN);
+        g.fillRect(quitButton.x, quitButton.y, quitButton.width, quitButton.height);
+        g.setColor(Color.BLACK);
+        g.drawString("QUIT", quitButton.x + 10, quitButton.y + 15);
 
         
         if (plantStatus.getSoftwareFailure() != SoftwareFailure.None) {
@@ -497,7 +509,7 @@ public class PlantInterface extends JPanel implements MouseListener {
         g.drawString("Water Level: " + plantStatus.condenserWaterLevel(), 1175, 530);
         
         g.drawString("Rod Up", 205, 175);
-        g.drawString("Rod Down", 200, 220);
+        g.drawString("Rod Down", 200, 225);
 
         drawBorderRect(g, 575, 130, 110, 30);
         if(plantStatus.getReactorToTurbine()) {
@@ -618,6 +630,11 @@ public class PlantInterface extends JPanel implements MouseListener {
                         
             if (debugButton.contains(click.getPoint())) {
                 plantController.repairSoftware();
+            }
+            
+            if (quitButton.contains(click.getPoint())) {
+                parent.state = GameState.NotStarted;
+                parent.showMenu();
             }
             
             if (saveButton.contains(click.getPoint())) {
