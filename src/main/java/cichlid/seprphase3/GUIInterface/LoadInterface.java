@@ -141,10 +141,8 @@ public class LoadInterface extends JPanel implements MouseListener
         } catch (IOException ex) {
             ex.printStackTrace();
         } 
-            
-            
-            
-            //parent.setWindow(new PlantInterface(simulator, simulator, simulator));
+    
+        parent.setWindow(new PlantInterface(physicalModel, physicalModel, simulator));
          
                       
     }
