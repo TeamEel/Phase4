@@ -14,6 +14,7 @@ import java.util.Calendar;
  * 
  * @author David
  */
+
 public class SaveGame {
 
     @JsonProperty
@@ -21,7 +22,7 @@ public class SaveGame {
     @JsonProperty
     private String userName;
 
-    private SaveGame() {
+    public SaveGame() {
     }
 
     public static SaveGame load(String filename) throws JsonParseException, IOException {

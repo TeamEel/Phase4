@@ -1,5 +1,6 @@
 package cichlid.seprphase3.Persistence;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -15,6 +16,7 @@ import java.io.IOException;
 public class Persistence {
 
     private ObjectMapper mapper = new ObjectMapper();
+    
 
     /**
      *
@@ -40,6 +42,7 @@ public class Persistence {
      */
     public SaveGame deserializeSaveGame(String representation) throws JsonParseException, JsonMappingException,
                                                                       IOException {
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         return mapper.readValue(representation, SaveGame.class);
     }
 

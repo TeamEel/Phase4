@@ -82,8 +82,11 @@ public class MenuInterface extends JPanel implements MouseListener {
         }
         
         if(loadGameButton.location.contains(click.getPoint())) {
-            parent.state = GameState.NotStarted;
-            parent.setWindow(new LoadInterface());
+             String name = null;
+            while (name == null) {
+                name = JOptionPane.showInputDialog("Enter your name");
+            }
+            parent.setWindow(new LoadInterface(parent, simulator, name));
         }
     }
 
