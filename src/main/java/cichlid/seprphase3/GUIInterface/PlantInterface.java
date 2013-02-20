@@ -141,14 +141,14 @@ public class PlantInterface extends JPanel implements MouseListener {
 
         
         // Animated Pump Images
-        pump1Rotors = new AnimatedPlantGUIElement(false, "animations/workingpump", "animations/startpump", "animations/stoppump", 598, 567, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
-        coolingPumpRotors = new AnimatedPlantGUIElement(false, "animations/workingpump", "animations/startpump", "animations/stoppump", 941, 577, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        pump1Rotors = new AnimatedPlantGUIElement(true, "animations/workingpump", "animations/startpump", "animations/stoppump", X_OFFSET + 598, Y_OFFSET + 567, SCALE_AMOUNT);
+        coolingPumpRotors = new AnimatedPlantGUIElement(true, "animations/workingpump", "animations/startpump", "animations/stoppump", X_OFFSET + 941, Y_OFFSET + 577, SCALE_AMOUNT);
         pump1Rotors.setAnimation(PlantAnimationType.ON);
         coolingPumpRotors.setAnimation(PlantAnimationType.ON);
 
         
         // Animated Valves
-        valve1 = new AnimatedPlantGUIElement(true, "animations/closevalve", "animations/closevalve", "animations/openvalve", 307, -51, SCALE_AMOUNT + 0.1f, X_OFFSET, Y_OFFSET);
+        valve1 = new AnimatedPlantGUIElement(false, "animations/closevalve", "animations/closevalve", "animations/openvalve", X_OFFSET + 307, Y_OFFSET -51, SCALE_AMOUNT + 0.1f);
 
         // This sets up the transform used to rotate the valve by 90 degrees.
         // Uses getRotateInstance, which takes an origin. The origin is the middle of the image,
@@ -161,7 +161,7 @@ public class PlantInterface extends JPanel implements MouseListener {
                 AffineTransformOp.TYPE_BILINEAR // Use bilinear filtering to reconstruct pixels
                 );
 
-        valve2 = new AnimatedPlantGUIElement(true, "animations/closevalve", "animations/closevalve", "animations/openvalve", 761, 170, SCALE_AMOUNT + 0.1f, X_OFFSET, Y_OFFSET, rotateValve90Deg);
+        valve2 = new AnimatedPlantGUIElement(false, "animations/closevalve", "animations/closevalve", "animations/openvalve", X_OFFSET + 761, Y_OFFSET + 170, SCALE_AMOUNT + 0.1f, rotateValve90Deg);
 
         
         // Pipes
@@ -191,12 +191,12 @@ public class PlantInterface extends JPanel implements MouseListener {
 
         
         // Turbine
-        turbineLeft = new AnimatedPlantGUIElement(false, "animations/leftturbine/on", "animations/leftturbine/start", "animations/leftturbine/stop", 680, 67, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
+        turbineLeft = new AnimatedPlantGUIElement(true, "animations/leftturbine/on", "animations/leftturbine/start", "animations/leftturbine/stop", X_OFFSET + 680, Y_OFFSET + 67, SCALE_AMOUNT + 0.3f);
 
         BufferedImage turbineMiddleImage = ImageUtils.loadImage("images/turbine_middle.png");
         turbineMiddle = new PlantGUIElement(turbineMiddleImage, 720, 95, SCALE_AMOUNT + 0.5f, X_OFFSET, Y_OFFSET);
 
-        turbineRight = new AnimatedPlantGUIElement(false, "animations/rightturbine/on", "animations/rightturbine/on", "animations/rightturbine/off", 810, 60, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
+        turbineRight = new AnimatedPlantGUIElement(true, "animations/rightturbine/on", "animations/rightturbine/on", "animations/rightturbine/off", X_OFFSET + 810, Y_OFFSET + 60, SCALE_AMOUNT + 0.3f);
 
         BufferedImage turbineHousingImage = ImageUtils.loadImage("images/turbineC2.png");
         turbineHousing = new PlantGUIElement(turbineHousingImage, 650, 36, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);

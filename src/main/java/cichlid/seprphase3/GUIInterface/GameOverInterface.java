@@ -36,7 +36,7 @@ public class GameOverInterface extends JPanel implements MouseListener {
         if(!explosion.isAtEnd()) {
             g.drawImage(explosion.stepImage(), 0, 0, null);
         } else {
-            g.drawImage(explosion.endImage(), 0, 0, null);
+            g.drawImage(explosion.stepImage(), 0, 0, null);
             ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
             g.setColor(Color.WHITE);
             g.setFont(new Font("Impact", Font.BOLD, 40));

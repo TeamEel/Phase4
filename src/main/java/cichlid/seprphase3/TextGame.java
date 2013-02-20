@@ -4,6 +4,7 @@
  */
 package cichlid.seprphase3;
 
+import cichlid.seprphase3.TextInterface.QuitGameException;
 import cichlid.seprphase3.Simulator.Simulator;
 import cichlid.seprphase3.TextInterface.DoNotStep;
 import cichlid.seprphase3.TextInterface.TerminalReader;

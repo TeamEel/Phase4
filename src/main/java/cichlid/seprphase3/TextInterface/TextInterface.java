@@ -1,7 +1,6 @@
 package cichlid.seprphase3.TextInterface;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import cichlid.seprphase3.QuitGameException;
 import cichlid.seprphase3.Simulator.GameManager;
 import cichlid.seprphase3.Simulator.PlantController;
 import cichlid.seprphase3.Simulator.PlantStatus;

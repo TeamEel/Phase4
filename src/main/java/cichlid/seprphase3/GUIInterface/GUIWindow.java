@@ -30,7 +30,7 @@ public class GUIWindow extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
-        explosion = new Animation("animations/explosion");
+        explosion = new Animation("animations/explosion", false);
     }
 
     public void run() {

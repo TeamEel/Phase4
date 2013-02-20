@@ -4,7 +4,6 @@ import cichlid.seprphase3.TextInterface.TextRenderer;
 import cichlid.seprphase3.TextInterface.DoNotStep;
 import cichlid.seprphase3.TextInterface.TextInterface;
 import cichlid.seprphase3.TextInterface.LineReader;
-import cichlid.seprphase3.QuitGameException;
 import cichlid.seprphase3.Simulator.CannotControlException;
 import cichlid.seprphase3.Simulator.GameManager;
 import cichlid.seprphase3.Simulator.KeyNotFoundException;
