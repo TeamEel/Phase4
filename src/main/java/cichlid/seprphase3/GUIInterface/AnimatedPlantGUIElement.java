@@ -53,7 +53,7 @@ public class AnimatedPlantGUIElement extends PlantGUIElement {
         turningoff = new Animation(turningOffPath, scaling, transform, false);
         
         // Create a static image just in case it is needed. Take this from the first frame of the ON animation.
-        image = on.staticImage();
+        this.image = on.staticImage();
         
         // Automatically calculate the rectangle on the screen that the image will occupy.
         location = new Rectangle(x, y, image.getWidth(), image.getHeight());

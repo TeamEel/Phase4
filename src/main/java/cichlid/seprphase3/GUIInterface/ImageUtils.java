@@ -9,13 +9,20 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-
+/**
+ * This class provides a number of image helper functions for dealing with images.
+ */
 public class ImageUtils {
     
+    /**
+     * Loads an image from the image/ directory.
+     * @param filePath      The path of the image relative to images/
+     * @return              The image.
+     */
     public static BufferedImage loadImage(String filePath) {
         try {
+            // Load the image.
             filePath = "images/" + filePath;
-            System.out.println(filePath);
             return ImageIO.read(new File(filePath));
         } catch (IOException e) {
             System.err.println("Error loading image resources> " + filePath + "  :  " + e.getMessage());
@@ -24,9 +31,14 @@ public class ImageUtils {
         return null;
     }
     
+    /**
+     * Loads an image given a path.
+     * @param filePath      The path of the image.
+     * @return              The image.
+     */
     public static BufferedImage loadImageByPath(String filePath) {
         try {
-            System.out.println(filePath);
+            // Load the image.
             return ImageIO.read(new File(filePath));
         } catch (IOException e) {
             System.err.println("Error loading image resources> " + filePath + "  :  " + e.getMessage());
@@ -48,6 +60,13 @@ public class ImageUtils {
         return scaledBufferedImage;
     }
     
+    /**
+     * Helper function to tint an image. Used for red components when they have failed.
+     * @param R1
+     * @param G1
+     * @param B1
+     * @return 
+     */
     public static LookupOp createTintOp(short R1, short G1, short B1) {
         short[] alpha = new short[256];
         short[] red = new short[256];

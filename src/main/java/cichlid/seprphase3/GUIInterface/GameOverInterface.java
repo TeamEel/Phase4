@@ -46,7 +46,7 @@ public class GameOverInterface extends BaseInterface implements MouseListener {
         
         // Load the button image for the button and make the button.
         BufferedImage buttonImage = ImageUtils.loadImage("images/button.png");
-        playAgainButton = new PlantGUIElement(buttonImage, 580, 550, 1.2f, 0, 0);
+        playAgainButton = new PlantGUIElement(buttonImage, 580, 550, 1.2f);
         
         // Add the mouse listener which allows this interface to accept mouse input.
         this.addMouseListener(this);
@@ -74,7 +74,7 @@ public class GameOverInterface extends BaseInterface implements MouseListener {
             
             // Draw the button.
             g.setColor(Color.BLACK);
-            g.drawImage(playAgainButton.image, playAgainButton.x(), playAgainButton.y(), null);
+            g.drawImage(playAgainButton.getImage(), playAgainButton.x(), playAgainButton.y(), null);
             g.drawString("Play Again!", playAgainButton.x() + 20, playAgainButton.y() + 60);
         }
         
@@ -87,9 +87,11 @@ public class GameOverInterface extends BaseInterface implements MouseListener {
      */
     @Override
     public void mouseClicked(MouseEvent click) {
+        
         if( clicked(playAgainButton, click) ) {
             block = false;
         }
+        
     }
 
     @Override
