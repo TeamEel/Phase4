@@ -39,4 +39,12 @@
                 <jpda.listen>true</jpda.listen>
             </properties>
         </action>
+    <action>
+            <actionName>CUSTOM-build.jar</actionName>
+            <displayName>build.jar</displayName>
+            <preAction>build-with-dependencies</preAction>
+            <goals>
+                <goal>assembly:single</goal>
+            </goals>
+        </action>
 </actions>
