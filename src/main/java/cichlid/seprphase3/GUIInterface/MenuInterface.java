@@ -25,7 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.text.html.Option;
 
-public class MenuInterface extends JPanel implements MouseListener {
+public class MenuInterface extends BaseInterface implements MouseListener {
 
     private BufferedImage backgroundImage;
     PlantGUIElement newGameButton;

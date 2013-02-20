@@ -24,7 +24,7 @@ import javax.swing.SwingUtilities;
  * This is the main interface which will be shown during the game. It is responsible for drawing the representation of
  * the plant to the screen.
  */
-public class PlantInterface extends JPanel implements MouseListener {
+public class PlantInterface extends BaseInterface implements MouseListener {
 
     // These allow access to the plant's methods.
     private PlantController plantController;

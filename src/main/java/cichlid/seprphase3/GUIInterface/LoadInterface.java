@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LoadInterface extends JPanel implements MouseListener {
+public class LoadInterface extends BaseInterface implements MouseListener {
 
     public static String savePath() {
         return System.getProperty("user.home") +
