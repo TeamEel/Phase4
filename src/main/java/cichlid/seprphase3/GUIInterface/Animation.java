@@ -134,7 +134,7 @@ public class Animation {
     }
     
     public BufferedImage endImage() {
-        return images[images.length - 2];
+        return images[images.length - 5];
     }
     
     public Boolean isAtEnd() {
