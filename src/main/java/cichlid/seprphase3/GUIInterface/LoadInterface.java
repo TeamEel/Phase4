@@ -64,7 +64,7 @@ public class LoadInterface extends BaseInterface implements MouseListener {
         backgroundImage = ImageUtils.loadImage("images/menu.png");
 
         BufferedImage buttonImage = ImageUtils.loadImage("images/button.png");
-        menuButton = new PlantGUIElement(buttonImage, 1100, 50, 1.0f, 0, 0);
+        menuButton = new PlantGUIElement(buttonImage, 1100, 50, 1.0f);
 
         saveBut = new ArrayList<PlantGUIElement>();
         savelbls = new ArrayList<String>();
@@ -95,7 +95,7 @@ public class LoadInterface extends BaseInterface implements MouseListener {
             SimpleDateFormat date = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
 
 
-            loadButton = new PlantGUIElement(buttonImage, 600, 10 * y, 1.0f, 0, 0);
+            loadButton = new PlantGUIElement(buttonImage, 600, 10 * y, 1.0f);
             saveBut.add(loadButton);
             
 
