@@ -6,67 +6,60 @@ package cichlid.seprphase3.GUIInterface;
 
 import cichlid.seprphase3.Persistence.FileSystem;
 import cichlid.seprphase3.Persistence.SaveGame;
-import cichlid.seprphase3.Simulator.FailureModel;
-import cichlid.seprphase3.Simulator.PhysicalModel;
 import cichlid.seprphase3.Simulator.Simulator;
-import com.fasterxml.jackson.core.JsonParseException;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import java.awt.Button;
-import java.awt.Label;
-import java.util.ArrayList;
-import java.io.File;
 import java.awt.*;
-import java.awt.image.*;
 import java.awt.event.*;
-import java.io.IOException;
+import java.awt.image.*;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/**
+ * This interface allows games to be loaded from a list of games.
+ */
 public class LoadInterface extends BaseInterface implements MouseListener {
 
+    // Automatically build a save path for saved games.
     public static String savePath() {
         return System.getProperty("user.home") +
                System.getProperty("file.separator") +
                "sepr.teameel.gamesaves" +
                System.getProperty("file.separator");
     }
+    
+    // Background Image.
     private BufferedImage backgroundImage;
+    
+    // Buttons and Labels
     PlantGUIElement menuButton;
-    PlantGUIElement loadButton;
-    PlantGUIElement[] saves;
-    String[] labels;
-    public String saveLbl;
+    public ArrayList<PlantGUIElement> loadButtons;
+    public ArrayList<String> savelbls;
+    
+    // Useful references
     public SaveGame saveGame;
     public Simulator simulator;
-    private PhysicalModel physicalModel;
-    private FailureModel failureModel;
     public GUIWindow parent;
-    public ArrayList<PlantGUIElement> saveBut;
-    public ArrayList<String> savelbls;
+    
+    // Maps a space on the screen to a particular save.
     Map<Rectangle, Integer> m;
+    
     public int y;
     public int i;
     private String userName;
 
-    public LoadInterface(GUIWindow _parent, Simulator _simulator, String username) {
+    public LoadInterface(GUIWindow _parent, Simulator _simulator, String _username) {
         y = 0;
         i = 0;
 
         simulator = _simulator;
         parent = _parent;
-        userName = username;
+        userName = _username;
 
-        backgroundImage = ImageUtils.loadImage("images/menu.png");
+        backgroundImage = ImageUtils.loadImage("menu.png");
 
-        BufferedImage buttonImage = ImageUtils.loadImage("images/button.png");
-        menuButton = new PlantGUIElement(buttonImage, 1100, 50, 1.0f);
+        BufferedImage buttonImage = ImageUtils.loadImage("button.png");
+        menuButton = new PlantGUIElement(buttonImage, 1100, 80, 1.0f);
 
-        saveBut = new ArrayList<PlantGUIElement>();
+        loadButtons = new ArrayList<PlantGUIElement>();
         savelbls = new ArrayList<String>();
 
         m = new HashMap<Rectangle, Integer>();
@@ -80,33 +73,23 @@ public class LoadInterface extends BaseInterface implements MouseListener {
 
     public void setUpComponents() {
 
-        BufferedImage buttonImage = ImageUtils.loadImage("images/button.png");
-
+        BufferedImage buttonImage = ImageUtils.loadImage("button.png");
 
         for (String string : listGames()) {
             y = y + 8;
             i = i + 1;
-
+            
+            PlantGUIElement loadButton = new PlantGUIElement(buttonImage, 600, 10 * y, 1.0f);
+            loadButtons.add(loadButton);
+            
 
             String[] bits = string.split("\\.");
             Timestamp t = new Timestamp(Long.parseLong(bits[3]));
             Date d = new Date(t.getTime());
-
-            SimpleDateFormat date = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
-
-
-            loadButton = new PlantGUIElement(buttonImage, 600, 10 * y, 1.0f);
-            saveBut.add(loadButton);
             
-
-            saveLbl = new String(i + " " + userName + ": " + d);
+            String saveLbl = i + " " + userName + ": " + d;
             savelbls.add(saveLbl);
-
         }
-
-        saves = saveBut.toArray(new PlantGUIElement[saveBut.size()]);
-        labels = savelbls.toArray(new String[savelbls.size()]);
-
     }
 
     public String[] listGames() {
@@ -123,34 +106,30 @@ public class LoadInterface extends BaseInterface implements MouseListener {
         g.drawImage(menuButton.image, menuButton.x(), menuButton.y(), null);
         g.drawString("Main Menu", menuButton.x() + 30, menuButton.y() + 47);
 
-        for (int z = 0; z < saves.length; z++) {
-            g.drawString(labels[z], 10, saves[z].y() + 50);
-            g.drawImage(saves[z].image, saves[z].x(), saves[z].y(), null);
-            g.drawString("Load Game", saves[z].x() + 25, saves[z].y() + 50);
-            m.put(saves[z].location, z);
-
+        for (int i = 0; i < loadButtons.size(); i++) {
+            g.drawString(savelbls.get(i), 70, loadButtons.get(i).y() + 50);
+            g.drawImage(loadButtons.get(i).image, loadButtons.get(i).x(), loadButtons.get(i).y(), null);
+            g.drawString("Load Game", loadButtons.get(i).x() + 25, loadButtons.get(i).y() + 50);
+            m.put(loadButtons.get(i).location, i);
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent click) {
 
-        if (menuButton.location.contains(click.getPoint())) {
+        if ( clicked(menuButton, click) ) {
             parent.setWindow(new MenuInterface(parent, simulator));
         }
         
-        
-        if (loadButton.location.contains(click.getPoint())) {
-        int n = m.get(loadButton.location);
-
-        Simulator sim = new Simulator();
-        sim.setUsername(userName);
-        sim.loadGame(n);
-        parent.runGame(sim);
+        for(PlantGUIElement button : loadButtons) {
+            if ( clicked(button, click) ) {
+                int gameNumber = m.get(button.location);
+                Simulator sim = new Simulator();
+                sim.setUsername(userName);
+                sim.loadGame(gameNumber);
+                parent.runGame(sim);
+            }
         }
-        
-        
-
     }
 
     @Override
