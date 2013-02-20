@@ -18,6 +18,8 @@ public class GUIWindow extends JFrame implements ActionListener {
     Simulator simulator;
     GameOverInterface gameover;
     GameState state;
+    
+    Animation explosion;
 
     public GUIWindow(String title, int width, int height) {
         super(title);
@@ -28,6 +30,7 @@ public class GUIWindow extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
+        explosion = new Animation("animations/explosion");
     }
 
     public void run() throws InterruptedException {
@@ -45,7 +48,7 @@ public class GUIWindow extends JFrame implements ActionListener {
                     update();
                 } else {
                     state = GameState.GameOver;
-                    gameover = new GameOverInterface();
+                    gameover = new GameOverInterface(explosion, simulator.energyGenerated());
                     setWindow(gameover);
                 }
                 break;
@@ -91,7 +94,7 @@ public class GUIWindow extends JFrame implements ActionListener {
 
     private void startGame() {
         simulator = new Simulator();
-        setWindow(new PlantInterface(simulator, simulator, simulator));
+        setWindow(new MenuInterface(this, simulator));
         state = GameState.Running;
     }
 }

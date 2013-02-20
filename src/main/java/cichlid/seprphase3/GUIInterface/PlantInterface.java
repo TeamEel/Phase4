@@ -9,6 +9,7 @@ import cichlid.seprphase3.Simulator.PlantStatus;
 import cichlid.seprphase3.Utilities.Percentage;
 import cichlid.seprphase3.Simulator.Pump;
 import cichlid.seprphase3.Simulator.SoftwareFailure;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.image.*;
@@ -61,10 +62,10 @@ public class PlantInterface extends JPanel implements MouseListener {
     private PlantGUIElement turbineHousing;
     private PlantGUIElement turbineHousing2;
     
+    // Computer
     private PlantGUIElement computer;
     private Rectangle debugButton;
-    
-    // Left Panels
+    private Rectangle saveButton;
     
     // Font for displaying information about the game.
     private Font gameFont;
@@ -108,22 +109,22 @@ public class PlantInterface extends JPanel implements MouseListener {
         
         // Background.
         BufferedImage backgroundImage = ImageUtils.loadImage("images/background.png");
-        plantBackground = new PlantGUIElement(backgroundImage, null, 0, 0, 1.0f, 0, 0);
+        plantBackground = new PlantGUIElement(backgroundImage, 0, 0, 1.0f, 0, 0);
         
         BufferedImage logoImage = ImageUtils.loadImage("images/logo.png");
-        logo = new PlantGUIElement(logoImage, null, 30, 30, 0.5f, 0, 0);
+        logo = new PlantGUIElement(logoImage, 20, 20, 0.5f, 0, 0);
 
         
         // Reactor and Condenser
         BufferedImage containerImage = ImageUtils.loadImage("images/container.png");
-        reactor = new PlantGUIElement(containerImage, "animations/meltcontainer", 0, 0, 0.9f, X_OFFSET, Y_OFFSET);
-        condenser = new PlantGUIElement(containerImage, "animations/meltcontainer", 665, 275, 0.9f, X_OFFSET, Y_OFFSET);
+        reactor = new PlantGUIElement(containerImage, 0, 0, 0.9f, X_OFFSET, Y_OFFSET);
+        condenser = new PlantGUIElement(containerImage, 665, 275, 0.9f, X_OFFSET, Y_OFFSET);
         
         
         // Static Pump Images
         BufferedImage pumpImage = ImageUtils.loadImage("images/pump.png");
-        pump1 = new PlantGUIElement(pumpImage, null, 572, 535, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
-        coolingPump = new PlantGUIElement(pumpImage, null, 915, 545, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        pump1 = new PlantGUIElement(pumpImage, 572, 535, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        coolingPump = new PlantGUIElement(pumpImage, 915, 545, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
 
         
         // Animated Pump Images
@@ -152,41 +153,42 @@ public class PlantInterface extends JPanel implements MouseListener {
         
         // Pipes
         BufferedImage coolingPipeImage = ImageUtils.loadImage("images/coolingPipe.png");
-        coolingPipe = new PlantGUIElement(coolingPipeImage, null, 750, 450, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        coolingPipe = new PlantGUIElement(coolingPipeImage, 750, 450, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
 
         BufferedImage reactorToCondenserPipeImage = ImageUtils.loadImage("images/reactorToCondenser.png");
-        reactorToCondenserPipe = new PlantGUIElement(reactorToCondenserPipeImage, null, 137, -2, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        reactorToCondenserPipe = new PlantGUIElement(reactorToCondenserPipeImage, 137, -2, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
 
         BufferedImage condenserToReactorPipeImage = ImageUtils.loadImage("images/condenserToReactor.png");
-        condenserToReactorPipe = new PlantGUIElement(condenserToReactorPipeImage, null, 154, 334, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
+        condenserToReactorPipe = new PlantGUIElement(condenserToReactorPipeImage, 154, 334, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
 
         
         // Fuel rods and glow
         BufferedImage fuelRodsImage = ImageUtils.loadImage("images/fuel_rods.png");
-        fuelRods = new PlantGUIElement(fuelRodsImage, null, 63, 216, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        fuelRods = new PlantGUIElement(fuelRodsImage, 63, 216, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
 
         BufferedImage controlRodsImage = ImageUtils.loadImage("images/control_rods.png");
-        controlRods = new PlantGUIElement(controlRodsImage, null, 65, -230, SCALE_AMOUNT + 0.2f, X_OFFSET, Y_OFFSET);
+        controlRods = new PlantGUIElement(controlRodsImage, 65, -230, SCALE_AMOUNT + 0.2f, X_OFFSET, Y_OFFSET);
         
         BufferedImage glowImage = ImageUtils.loadImage("images/glow.png");
-        rodGlow = new PlantGUIElement(glowImage, null, 48, 206, SCALE_AMOUNT+0.2f, X_OFFSET, Y_OFFSET);
+        rodGlow = new PlantGUIElement(glowImage, 47, 206, SCALE_AMOUNT+0.2f, X_OFFSET, Y_OFFSET);
 
         
         // Turbine
         turbineLeft = new AnimatedPlantGUIElement(false, "animations/leftturbine/on", "animations/leftturbine/start", "animations/leftturbine/stop", 680, 67, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
 
         BufferedImage turbineMiddleImage = ImageUtils.loadImage("images/turbine_middle.png");
-        turbineMiddle = new PlantGUIElement(turbineMiddleImage, null, 720, 100, SCALE_AMOUNT + 0.5f, X_OFFSET, Y_OFFSET);
+        turbineMiddle = new PlantGUIElement(turbineMiddleImage, 720, 95, SCALE_AMOUNT + 0.5f, X_OFFSET, Y_OFFSET);
 
         turbineRight = new AnimatedPlantGUIElement(false, "animations/rightturbine/on", "animations/rightturbine/on", "animations/rightturbine/off", 810, 60, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
 
         BufferedImage turbineHousingImage = ImageUtils.loadImage("images/turbineC2.png");
-        turbineHousing = new PlantGUIElement(turbineHousingImage, "animations/meltturbinehouse", 650, 36, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
-        turbineHousing2 = new PlantGUIElement(turbineHousingImage, "animations/meltturbinehouse", 770, 36, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
+        turbineHousing = new PlantGUIElement(turbineHousingImage, 650, 36, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
+        turbineHousing2 = new PlantGUIElement(turbineHousingImage, 770, 36, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
         
         BufferedImage computerImage = ImageUtils.loadImage("images/computer.png");
-        computer = new PlantGUIElement(computerImage, null, 70, 480, SCALE_AMOUNT + 0.2f, 0, 0);
+        computer = new PlantGUIElement(computerImage, 70, 480, SCALE_AMOUNT + 0.2f, 0, 0);
         debugButton = new Rectangle(100, 640, 60, 20);
+        saveButton = new Rectangle(280, 640, 75, 20);
 
         
         // Fonts
@@ -219,8 +221,8 @@ public class PlantInterface extends JPanel implements MouseListener {
         } else {
             guiElement.setAnimation(PlantAnimationType.OFF);
             BufferedImageOp tintFilter = ImageUtils.createTintOp((short)1.5, (short).5, (short).5);
-            
-            //g.drawImage(tintedImage, guiElement.x(), guiElement.y(), null);
+            BufferedImage tintedImage = tintFilter.filter(guiElement.getImage(), null);
+            g.drawImage(tintedImage, guiElement.x(), guiElement.y(), null);
         }
     }
 
@@ -414,14 +416,23 @@ public class PlantInterface extends JPanel implements MouseListener {
     
     private void drawInfo(Graphics2D g) {
         g.setFont(gameFont);
-        drawBorderRect(g, 50, 110 , 200, 130);
-        g.drawString("Damage", 120, 130);
-        g.drawString("Condenser: " + plantStatus.componentList().get("condenser").wear(), 70, 160);
-        g.drawString("Pump 1: " + plantStatus.componentList().get("pump1").wear(), 70, 180);
-        g.drawString("Cooling Pump: " + plantStatus.componentList().get("coolingPump").wear(), 70, 200);
-        g.drawString("Turbine: " + plantStatus.componentList().get("turbine").wear(), 70, 220);
+        drawBorderRect(g, 80, 310 , 190, 130);
+        g.drawString("Damage", 140, 330);
+        g.drawString("Condenser: " + plantStatus.componentList().get("condenser").wear(), 90, 360);
+        g.drawString("Pump 1: " + plantStatus.componentList().get("pump1").wear(), 90, 380);
+        g.drawString("Cooling Pump: " + plantStatus.componentList().get("coolingPump").wear(), 90, 400);
+        g.drawString("Turbine: " + plantStatus.componentList().get("turbine").wear(), 90, 420);
+        
         
         drawPlantGUIElement(g, computer, false);
+        
+        
+        g.setColor(Color.GREEN);
+        g.fillRect(saveButton.x, saveButton.y, saveButton.width, saveButton.height);
+        g.setColor(Color.BLACK);
+        g.drawString("SAVE GAME", saveButton.x + 5, saveButton.y + 15);
+
+        
         if (plantStatus.getSoftwareFailure() != SoftwareFailure.None) {
             g.setColor(Color.GREEN);
             g.drawString("> error", 120, 540);
@@ -433,7 +444,7 @@ public class PlantInterface extends JPanel implements MouseListener {
             
             g.setColor(Color.BLACK);
             
-            g.drawString("debug", debugButton.x + 15, debugButton.y + 15);
+            g.drawString("DEBUG", debugButton.x + 15, debugButton.y + 15);
         }
     }
 
@@ -565,6 +576,15 @@ public class PlantInterface extends JPanel implements MouseListener {
             if (debugButton.contains(click.getPoint())) {
                 plantController.repairSoftware();
             }
+            
+            if (saveButton.contains(click.getPoint())) {
+                try {
+                    gameManager.saveGame();
+                } catch (JsonProcessingException ex) {
+                    Logger.getLogger(PlantInterface.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
         } else if (SwingUtilities.isRightMouseButton(click)) {
             
             if (condenser.location.contains(click.getPoint())) {
