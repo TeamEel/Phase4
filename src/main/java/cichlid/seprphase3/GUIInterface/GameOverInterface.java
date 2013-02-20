@@ -8,24 +8,23 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 public class GameOverInterface extends JPanel implements MouseListener {
 
     Animation explosion;
-    Button playAgainButton;
-    Button leaveButton;
+    public PlantGUIElement playAgainButton;
     public Boolean block = true;
     
     Energy powerGenerated;
 
     GameOverInterface(Animation preloadedExplosion, Energy powerGenerated) {
         explosion = preloadedExplosion;
-        playAgainButton = new Button("Play Again");
-        leaveButton = new Button("Leave Game");
-        playAgainButton.setLocation(200, 500);
-        leaveButton.setLocation(200, 600);
         this.powerGenerated = powerGenerated;
+        
+        BufferedImage buttonImage = ImageUtils.loadImage("images/button.png");
+        playAgainButton = new PlantGUIElement(buttonImage, 580, 550, 1.2f, 0, 0);
         this.addMouseListener(this);
     }
 
@@ -39,23 +38,22 @@ public class GameOverInterface extends JPanel implements MouseListener {
             g.setColor(Color.WHITE);
             g.setFont(new Font("Impact", Font.BOLD, 40));
             g.drawString("Game over!", 550, 200);
-            g.drawString("Oh no! You blew up the Reactor!", 340, 300);
-            g.drawString("However, you generated: " + powerGenerated.toString() + " power before you did!", 230, 500);
-            g.drawString("Click anywhere to start a new game!", 300, 600);
+            g.drawString("Oh no! You blew up the Reactor!", 360, 300);
+            g.drawString("However, you generated: " + powerGenerated.toString() + " power before you did!", 210, 400);
+            g.drawString("Click anywhere to start a new game!", 320, 450);
+            g.setColor(Color.BLACK);
+            g.drawImage(playAgainButton.image, playAgainButton.x(), playAgainButton.y(), null);
+            g.drawString("Play Again!", playAgainButton.x() + 20, playAgainButton.y() + 60);
         }
         
         
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-        //if (e.getSource().equals(playAgainButton)) {
-        block = false;
-        //}
-
-        //if (e.getSource().equals(leaveButton)) {
-        //    System.exit(0);
-        //}
+    public void mouseClicked(MouseEvent click) {
+        if (playAgainButton.location.contains(click.getPoint())) {
+            block = false;
+        }
     }
 
     @Override

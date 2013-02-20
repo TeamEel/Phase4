@@ -52,6 +52,9 @@ public class PlantInterface extends JPanel implements MouseListener {
     private PlantGUIElement reactorToCondenserPipe;
     private PlantGUIElement condenserToReactorPipe;
     // Reactor elements.
+    private PlantGUIElement controlRodDownButton;
+    private PlantGUIElement controlRodUpButton;
+    
     private PlantGUIElement fuelRods;
     private PlantGUIElement controlRods;
     private PlantGUIElement rodGlow;
@@ -72,6 +75,8 @@ public class PlantInterface extends JPanel implements MouseListener {
     private Font scoreFont;
     // The height of the water in the Reactor and Condenser in pixels.
     private final int MAX_WATER_HEIGHT = 275;
+    private final int INITIAL_CONTROL_ROD_HEIGHT = -230;
+    private final int CONTROL_ROD_HEIGHT = 200;
     // The global scale applied to images in the plant to make them the right size on the screen.
     private final int X_OFFSET = 300;
     private final int Y_OFFSET = 100;
@@ -171,6 +176,10 @@ public class PlantInterface extends JPanel implements MouseListener {
         
         BufferedImage glowImage = ImageUtils.loadImage("images/glow.png");
         rodGlow = new PlantGUIElement(glowImage, 47, 206, SCALE_AMOUNT+0.2f, X_OFFSET, Y_OFFSET);
+        
+        BufferedImage buttonImage = ImageUtils.loadImage("images/button.png");
+        controlRodDownButton = new PlantGUIElement(buttonImage, 180, 150, 0.5f, 0, 0);
+        controlRodUpButton = new PlantGUIElement(buttonImage, 180, 200, 0.5f, 0, 0);
 
         
         // Turbine
@@ -196,6 +205,16 @@ public class PlantInterface extends JPanel implements MouseListener {
         scoreFont = new Font("Impact", Font.PLAIN, 30);
     }
 
+    /**
+     * Draws a plantGUIElement to a specified Graphics2D (the window). It takes the X position and Y position and draws
+     * the specified image there.
+     *
+     * @param g          The screen to draw the image to.
+     * @param guiElement The GUI element to draw.
+     */
+    public void drawPlantGUIElement(Graphics2D g, PlantGUIElement guiElement) {
+            g.drawImage(guiElement.image, guiElement.x(), guiElement.y(), null);
+    }
 
     /**
      * Draws a plantGUIElement to a specified Graphics2D (the window). It takes the X position and Y position and draws
@@ -294,9 +313,9 @@ public class PlantInterface extends JPanel implements MouseListener {
         drawPlantGUIElement(g, reactor, plantStatus.componentList().get("reactor").hasFailed());
         drawPlantGUIElement(g, condenser, plantStatus.componentList().get("condenser").hasFailed());
 
-        drawPlantGUIElement(g, reactorToCondenserPipe, false);
-        drawPlantGUIElement(g, condenserToReactorPipe, false);
-        drawPlantGUIElement(g, coolingPipe, false);
+        drawPlantGUIElement(g, reactorToCondenserPipe);
+        drawPlantGUIElement(g, condenserToReactorPipe);
+        drawPlantGUIElement(g, coolingPipe);
 
         drawPlantGUIElement(g, pump1, plantStatus.componentList().get("pump1").hasFailed());
         drawPlantGUIElement(g, coolingPump, plantStatus.componentList().get("coolingPump").hasFailed());
@@ -304,8 +323,8 @@ public class PlantInterface extends JPanel implements MouseListener {
         drawAnimatedGUIElement(g, pump1Rotors, plantStatus.componentList().get("pump1").hasFailed());
         drawAnimatedGUIElement(g, coolingPumpRotors, plantStatus.componentList().get("coolingPump").hasFailed());
 
-        drawPlantGUIElement(g, turbineHousing, false);
-        drawPlantGUIElement(g, turbineHousing2, false);
+        drawPlantGUIElement(g, turbineHousing);
+        drawPlantGUIElement(g, turbineHousing2);
         drawPlantGUIElement(g, turbineMiddle, plantStatus.componentList().get("turbine").hasFailed());
         drawAnimatedGUIElement(g, turbineLeft, plantStatus.componentList().get("turbine").hasFailed());
         drawAnimatedGUIElement(g, turbineRight, plantStatus.componentList().get("turbine").hasFailed());
@@ -313,9 +332,12 @@ public class PlantInterface extends JPanel implements MouseListener {
         drawAnimatedGUIElement(g, valve1, false);
         drawAnimatedGUIElement(g, valve2, false);
 
-        drawPlantGUIElement(g, controlRods, false);
-        drawPlantGUIElement(g, fuelRods, false);
-        drawPlantGUIElement(g, rodGlow, false);
+        drawPlantGUIElement(g, controlRods);
+        drawPlantGUIElement(g, fuelRods);
+        drawPlantGUIElement(g, rodGlow);
+        
+        drawPlantGUIElement(g, controlRodDownButton);
+        drawPlantGUIElement(g, controlRodUpButton);
     }
 
     /**
@@ -466,6 +488,9 @@ public class PlantInterface extends JPanel implements MouseListener {
         g.drawString("Pressure: " + plantStatus.condenserPressure(), 1175, 480);
         g.drawString("Temperature: " + plantStatus.condenserTemperature(), 1175, 505);
         g.drawString("Water Level: " + plantStatus.condenserWaterLevel(), 1175, 530);
+        
+        g.drawString("Rod Up", 200, 170);
+        g.drawString("Rod Down", 200, 220);
 
         drawBorderRect(g, 575, 130, 110, 30);
         if(plantStatus.getReactorToTurbine()) {
@@ -572,6 +597,17 @@ public class PlantInterface extends JPanel implements MouseListener {
                 }
             }
             
+            if (controlRodUpButton.location.contains(click.getPoint())) {
+                if(plantStatus.controlRodPosition().points() > 0) {
+                    plantController.moveControlRods(plantStatus.controlRodPosition().minus(new Percentage(10.0)));
+                }
+            }
+            
+            if (controlRodDownButton.location.contains(click.getPoint())) {
+                if(plantStatus.controlRodPosition().points() < 100) {
+                    plantController.moveControlRods(plantStatus.controlRodPosition().plus(new Percentage(10.0)));
+                }
+            }
                         
             if (debugButton.contains(click.getPoint())) {
                 plantController.repairSoftware();

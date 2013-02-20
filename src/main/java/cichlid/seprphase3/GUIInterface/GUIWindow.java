@@ -17,7 +17,7 @@ public class GUIWindow extends JFrame implements ActionListener {
     JPanel currentWindow;
     Simulator simulator;
     GameOverInterface gameover;
-    GameState state;
+    GameState state = GameState.NotStarted;
     
     Animation explosion;
 
@@ -55,12 +55,14 @@ public class GUIWindow extends JFrame implements ActionListener {
             case GameOver:
                 revalidate();
                 repaint();
-                //gameover.paint(this.getGraphics());
-                if(!gameover.block) {  
+                if(!gameover.block) {
+                    state = GameState.NotStarted;
                     startGame();
                 }
                 break;
             default:
+                revalidate();
+                repaint();
                 break;
         }
     }
@@ -95,6 +97,5 @@ public class GUIWindow extends JFrame implements ActionListener {
     private void startGame() {
         simulator = new Simulator();
         setWindow(new MenuInterface(this, simulator));
-        state = GameState.Running;
     }
 }
