@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.io.File;
 import java.awt.event.*;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -80,10 +83,7 @@ public class LoadInterface extends JPanel implements MouseListener
         for(File file : allFiles)
         {
             if (file.isFile()) {
-                
-                
-            
-                
+    
             if (file.getName().matches("sepr.teameel." + userName + ".([0-9]+).nuke")) {
                 
                 y = y + 4;
@@ -93,6 +93,14 @@ public class LoadInterface extends JPanel implements MouseListener
             
             
                 saves.add(title);
+                
+               
+                    String[] bits = title.split("\\.");
+                    Timestamp t = new Timestamp(Long.parseLong(bits[3]));
+                    Date d = new Date(t.getTime());
+                    SimpleDateFormat date = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
+                
+                                                                 
             
             
                 Button load = new Button("Load Game " + i);
@@ -101,7 +109,7 @@ public class LoadInterface extends JPanel implements MouseListener
                 saveBut.add(load);
                 load.addMouseListener(this);
             
-                Label name = new Label (i + " " + userName);
+                Label name = new Label (i + " " + userName + ": " + d);
                 add(name);
                 name.setBounds(50, (10*y), 170, 30);  
                 savelbls.add(name);
