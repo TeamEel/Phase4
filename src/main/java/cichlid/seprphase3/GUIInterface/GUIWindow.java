@@ -94,6 +94,12 @@ public class GUIWindow extends JFrame implements ActionListener {
         repaint();
     }
 
+    public void runGame(Simulator sim) {
+        simulator = sim;
+        setWindow(new PlantInterface(simulator, simulator, simulator));
+        state = GameState.Running;
+    }
+    
     private void startGame() {
         simulator = new Simulator();
         setWindow(new MenuInterface(this, simulator));
