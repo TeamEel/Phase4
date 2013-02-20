@@ -81,6 +81,9 @@ public class PlantInterface extends JPanel implements MouseListener {
     private final int X_OFFSET = 300;
     private final int Y_OFFSET = 100;
     private final float SCALE_AMOUNT = 0.6f;
+    
+    // Number of remaining ticks to make the saved game button green to show the user the game has been saved.
+    private int savedGameTicks = 0;
     // An AffineTransform is one which preserves straight lines. This is used to rotate the valve image
     // by 90 degrees so the valve above the condenser can be drawn in the right orientation.
     AffineTransformOp rotateValve90Deg;
@@ -300,7 +303,11 @@ public class PlantInterface extends JPanel implements MouseListener {
             }
         }
         
-        controlRods.setY(Y_OFFSET + (int)(INITIAL_CONTROL_ROD_HEIGHT + (1.0 - plantStatus.controlRodPosition().ratio()) * CONTROL_ROD_HEIGHT));
+        controlRods.setY(
+                Y_OFFSET + 
+                (int)(INITIAL_CONTROL_ROD_HEIGHT + 
+                      (1.0 - plantStatus.controlRodPosition().ratio()) * 
+                      CONTROL_ROD_HEIGHT));
     }
     
     private void drawBackgroundAndLogo(Graphics2D g) {
@@ -443,8 +450,13 @@ public class PlantInterface extends JPanel implements MouseListener {
         
         drawPlantGUIElement(g, computer, false);
         
+        if(savedGameTicks>0) {
+            g.setColor(Color.GREEN);
+            savedGameTicks--;
+        } else {
+            g.setColor(Color.RED);
+        }
         
-        g.setColor(Color.GREEN);
         g.fillRect(saveButton.x, saveButton.y, saveButton.width, saveButton.height);
         g.setColor(Color.BLACK);
         g.drawString("SAVE GAME", saveButton.x + 5, saveButton.y + 15);
@@ -484,7 +496,7 @@ public class PlantInterface extends JPanel implements MouseListener {
         g.drawString("Temperature: " + plantStatus.condenserTemperature(), 1175, 505);
         g.drawString("Water Level: " + plantStatus.condenserWaterLevel(), 1175, 530);
         
-        g.drawString("Rod Up", 220, 170);
+        g.drawString("Rod Up", 205, 175);
         g.drawString("Rod Down", 200, 220);
 
         drawBorderRect(g, 575, 130, 110, 30);
@@ -611,6 +623,7 @@ public class PlantInterface extends JPanel implements MouseListener {
             if (saveButton.contains(click.getPoint())) {
                 try {
                     gameManager.saveGame();
+                    savedGameTicks = 10;
                 } catch (JsonProcessingException ex) {
                     Logger.getLogger(PlantInterface.class.getName()).log(Level.SEVERE, null, ex);
                 }
