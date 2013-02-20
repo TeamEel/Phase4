@@ -5,15 +5,23 @@
 package cichlid.seprphase3.GUIInterface;
 
 
+import cichlid.seprphase3.Persistence.SaveGame; 
+import cichlid.seprphase3.Simulator.FailureModel;
+import cichlid.seprphase3.Simulator.PhysicalModel;
+import cichlid.seprphase3.Simulator.Simulator;
+import com.fasterxml.jackson.core.JsonParseException;
 import javax.swing.JPanel;
 import java.awt.Button;
 import java.awt.Label;
 import java.util.ArrayList;
 import java.io.File;
 import java.awt.event.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
-public class LoadInterface extends JPanel
+public class LoadInterface extends JPanel implements MouseListener
 {
     
     public static String savePath() 
@@ -24,18 +32,39 @@ public class LoadInterface extends JPanel
                System.getProperty("file.separator");
     }
     
+    public SaveGame saveGame;
     
+    public Simulator simulator;
+    private PhysicalModel physicalModel;
+    private FailureModel failureModel;
+    public GUIWindow parent;
     
-    public ArrayList<Button> saves;
-    public ArrayList<Label> savelbls;
+    public ArrayList<Button> saveBut;
+    public ArrayList<Label> savelbls;;
+    public ArrayList<String> saves;
     
     public int y;
     public int i;
     
-    public LoadInterface()
+    
+    private String userName;
+    
+    
+    public LoadInterface(GUIWindow _parent, Simulator _simulator, String username)
     {
         y = 0;
         i = 0;
+        
+        simulator = _simulator;
+        parent = _parent;
+        userName = username;
+        
+        saveBut = new ArrayList<Button>();
+        savelbls = new ArrayList<Label>();
+        saves = new ArrayList<String>();
+        
+        saveGame = new SaveGame();
+        
         setUpComponents();
     }
     
@@ -50,20 +79,89 @@ public class LoadInterface extends JPanel
         
         for(File file : allFiles)
         {
-            y = y + 4;
-            i = i + 1;
+            if (file.isFile()) {
+                
+                
             
-            String title = file.toString();
-            int length = title.length();
-            int end = 50 + length;
+                
+            if (file.getName().matches("sepr.teameel." + userName + ".([0-9]+).nuke")) {
+                
+                y = y + 4;
+                i = i + 1;
+                
+                String title = file.getName();
             
-            Button load = new Button("Load Game");
-            add(load);
-            load.setBounds(225, (10*y), 70, 30);
             
-            Label name = new Label (i + " " + title.substring(51) + ":");
-            add(name);
-            name.setBounds(50, (10*y), 170, 30);  
-        } 
+                saves.add(title);
+            
+            
+                Button load = new Button("Load Game " + i);
+                add(load);
+                load.setBounds(230, (10*y), 80, 30);
+                saveBut.add(load);
+                load.addMouseListener(this);
+            
+                Label name = new Label (i + " " + userName);
+                add(name);
+                name.setBounds(50, (10*y), 170, 30);  
+                savelbls.add(name);
+                } 
+            }
+        }
+            
+        
     }
+    
+    public String[] listGames() {
+        return saves.toArray(new String[saves.size()]);
+        
+    }
+    
+    @Override
+    public void mouseClicked(MouseEvent click)
+    {
+        
+        int n = saveBut.indexOf(click.getSource());
+        
+            try {
+            SaveGame saveGame = SaveGame.load(listGames()[n]);
+            this.physicalModel = saveGame.getPhysicalModel();
+            this.failureModel = saveGame.getFailureModel();
+            this.userName = saveGame.getUserName();
+        } catch (JsonParseException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } 
+            
+            
+            
+            //parent.setWindow(new PlantInterface(simulator, simulator, simulator));
+         
+                      
+    }
+    
+    @Override
+   public void mouseExited(MouseEvent e)
+   {
+      
+   }
+   
+   @Override
+   public void mouseEntered(MouseEvent e)
+   {
+       
+   }
+   
+   @Override
+   public void mouseReleased(MouseEvent e)
+   {
+       
+   }
+   
+   @Override
+   public void mousePressed(MouseEvent e)
+   {
+       
+   }
 }

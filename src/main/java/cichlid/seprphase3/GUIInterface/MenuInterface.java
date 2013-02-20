@@ -89,7 +89,7 @@ public class MenuInterface extends JPanel implements MouseListener
        }
        
        if(e.getSource().equals(load)){
-           parent.setWindow(new LoadInterface());
+           parent.setWindow(new LoadInterface(parent, simulator, "name"));
        }
         
    }
