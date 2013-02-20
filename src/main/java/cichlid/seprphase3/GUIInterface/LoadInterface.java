@@ -4,21 +4,26 @@
  */
 package cichlid.seprphase3.GUIInterface;
 
+import cichlid.seprphase3.Persistence.FileSystem;
 import cichlid.seprphase3.Persistence.SaveGame;
 import cichlid.seprphase3.Simulator.FailureModel;
 import cichlid.seprphase3.Simulator.PhysicalModel;
 import cichlid.seprphase3.Simulator.Simulator;
 import com.fasterxml.jackson.core.JsonParseException;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
 import java.awt.Button;
 import java.awt.Label;
 import java.util.ArrayList;
 import java.io.File;
+import java.awt.*;
+import java.awt.image.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,15 +35,20 @@ public class LoadInterface extends JPanel implements MouseListener {
                "sepr.teameel.gamesaves" +
                System.getProperty("file.separator");
     }
+    private BufferedImage backgroundImage;
+    PlantGUIElement menuButton;
+    PlantGUIElement loadButton;
+    PlantGUIElement[] saves;
+    String[] labels;
+    public String saveLbl;
     public SaveGame saveGame;
     public Simulator simulator;
     private PhysicalModel physicalModel;
     private FailureModel failureModel;
     public GUIWindow parent;
-    public ArrayList<Button> saveBut;
-    public ArrayList<Label> savelbls;
-    ;
-    public ArrayList<String> saves;
+    public ArrayList<PlantGUIElement> saveBut;
+    public ArrayList<String> savelbls;
+    Map<Rectangle, Integer> m;
     public int y;
     public int i;
     private String userName;
@@ -51,82 +61,95 @@ public class LoadInterface extends JPanel implements MouseListener {
         parent = _parent;
         userName = username;
 
-        saveBut = new ArrayList<Button>();
-        savelbls = new ArrayList<Label>();
-        saves = new ArrayList<String>();
+        backgroundImage = ImageUtils.loadImage("images/menu.png");
+
+        BufferedImage buttonImage = ImageUtils.loadImage("images/button.png");
+        menuButton = new PlantGUIElement(buttonImage, 1100, 50, 1.0f, 0, 0);
+
+        saveBut = new ArrayList<PlantGUIElement>();
+        savelbls = new ArrayList<String>();
+
+        m = new HashMap<Rectangle, Integer>();
 
         saveGame = new SaveGame();
 
         setUpComponents();
+
+        this.addMouseListener(this);
     }
 
     public void setUpComponents() {
-        setLayout(null);
 
-        File saveDir = new File(savePath());
-        File[] allFiles = saveDir.listFiles();
+        BufferedImage buttonImage = ImageUtils.loadImage("images/button.png");
 
 
-
-        for (File file : allFiles) {
-            if (file.isFile()) {
-
-                if (file.getName().matches("sepr.teameel." + userName + ".([0-9]+).nuke")) {
-
-                    y = y + 4;
-                    i = i + 1;
-
-                    String title = file.getName();
+        for (String string : listGames()) {
+            y = y + 8;
+            i = i + 1;
 
 
-                    saves.add(title);
+            String[] bits = string.split("\\.");
+            Timestamp t = new Timestamp(Long.parseLong(bits[3]));
+            Date d = new Date(t.getTime());
+
+            SimpleDateFormat date = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
 
 
-                    String[] bits = title.split("\\.");
-                    Timestamp t = new Timestamp(Long.parseLong(bits[3]));
-                    Date d = new Date(t.getTime());
-                    SimpleDateFormat date = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
+            loadButton = new PlantGUIElement(buttonImage, 600, 10 * y, 1.0f, 0, 0);
+            saveBut.add(loadButton);
+            
 
+            saveLbl = new String(i + " " + userName + ": " + d);
+            savelbls.add(saveLbl);
 
-
-
-                    Button load = new Button("Load Game " + i);
-                    add(load);
-                    load.setBounds(230, (10 * y), 80, 30);
-                    saveBut.add(load);
-                    load.addMouseListener(this);
-
-                    Label name = new Label(i + " " + userName + ": " + d);
-                    add(name);
-                    name.setBounds(50, (10 * y), 170, 30);
-                    savelbls.add(name);
-                }
-            }
         }
 
+        saves = saveBut.toArray(new PlantGUIElement[saveBut.size()]);
+        labels = savelbls.toArray(new String[savelbls.size()]);
 
     }
 
     public String[] listGames() {
-        return saves.toArray(new String[saves.size()]);
+        return FileSystem.listSaveGames(userName);
+    }
 
+    @Override
+    public void paintComponent(Graphics g) {
+        g.drawImage(backgroundImage, 0, 0, null);
+
+        g.setFont(new Font("Impact", Font.BOLD, 30));
+        g.setColor(Color.BLACK);
+
+        g.drawImage(menuButton.image, menuButton.x(), menuButton.y(), null);
+        g.drawString("Main Menu", menuButton.x() + 30, menuButton.y() + 47);
+
+        for (int z = 0; z < saves.length; z++) {
+            g.drawString(labels[z], 10, saves[z].y() + 50);
+            g.drawImage(saves[z].image, saves[z].x(), saves[z].y(), null);
+            g.drawString("Load Game", saves[z].x() + 25, saves[z].y() + 50);
+            m.put(saves[z].location, z);
+
+        }
     }
 
     @Override
     public void mouseClicked(MouseEvent click) {
 
-        int n = saveBut.indexOf(click.getSource());
+        if (menuButton.location.contains(click.getPoint())) {
+            parent.setWindow(new MenuInterface(parent, simulator));
+        }
+        
+        
+        if (loadButton.location.contains(click.getPoint())) {
+        int n = m.get(loadButton.location);
 
         Simulator sim = new Simulator();
         sim.setUsername(userName);
         sim.loadGame(n);
         parent.runGame(sim);
-//            SaveGame saveGame = SaveGame.load(listGames()[n]);
-//            this.physicalModel = saveGame.getPhysicalModel();
-//            this.failureModel = saveGame.getFailureModel();
-//            this.userName = saveGame.getUserName();
-
-//        parent.setWindow(new PlantInterface(physicalModel, physicalModel, simulator));
+        }
+        
+        
 
     }
 
