@@ -617,13 +617,13 @@ public class PlantInterface extends JPanel implements MouseListener {
             }
             
             if (controlRodUpButton.location.contains(click.getPoint())) {
-                if(plantStatus.controlRodPosition().points() > 0) {
+                if(plantStatus.controlRodPosition().points() > 0 && !(plantStatus.getSoftwareFailure() == SoftwareFailure.rodStateChange)) {
                     plantController.moveControlRods(plantStatus.controlRodPosition().minus(new Percentage(10.0)));
                 }
             }
             
             if (controlRodDownButton.location.contains(click.getPoint())) {
-                if(plantStatus.controlRodPosition().points() < 100) {
+                if(plantStatus.controlRodPosition().points() < 100 && !(plantStatus.getSoftwareFailure() == SoftwareFailure.rodStateChange)) {
                     plantController.moveControlRods(plantStatus.controlRodPosition().plus(new Percentage(10.0)));
                 }
             }
