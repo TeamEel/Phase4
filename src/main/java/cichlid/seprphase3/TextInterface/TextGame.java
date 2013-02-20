@@ -2,8 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cichlid.seprphase3;
+package cichlid.seprphase3.TextInterface;
 
+import cichlid.seprphase3.GameOverException;
+import cichlid.seprphase3.TextInterface.QuitGameException;
 import cichlid.seprphase3.Simulator.Simulator;
 import cichlid.seprphase3.TextInterface.DoNotStep;
 import cichlid.seprphase3.TextInterface.TerminalReader;

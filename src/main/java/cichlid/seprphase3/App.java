@@ -1,12 +1,7 @@
 package cichlid.seprphase3;
 
 import cichlid.seprphase3.GUIInterface.GUIWindow;
-import cichlid.seprphase3.GUIInterface.PlantInterface;
-import cichlid.seprphase3.TextInterface.AsciiArt;
-import cichlid.seprphase3.TextInterface.TerminalRenderer;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
  * Hello world!
@@ -21,8 +16,11 @@ public class App {
      *
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
+        // Create a new GUIWindow - this is a JFrame which is the window.
         GUIWindow gameWindow = new GUIWindow("Nuke Dukem", 1377, 768);
+        
+        // Run the game. This shows the menu screen and sets up a timer to update everything.
         gameWindow.run();
     }
 }

@@ -1,86 +1,107 @@
 package cichlid.seprphase3.GUIInterface;
 
-import cichlid.seprphase3.GameOverException;
 import cichlid.seprphase3.Simulator.CannotRepairException;
 import cichlid.seprphase3.Simulator.GameManager;
 import cichlid.seprphase3.Simulator.KeyNotFoundException;
 import cichlid.seprphase3.Simulator.PlantController;
 import cichlid.seprphase3.Simulator.PlantStatus;
-import cichlid.seprphase3.Utilities.Percentage;
 import cichlid.seprphase3.Simulator.Pump;
 import cichlid.seprphase3.Simulator.SoftwareFailure;
+import cichlid.seprphase3.Utilities.Percentage;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.geom.*;
 import java.awt.image.*;
-import java.awt.event.*;
-import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.*;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
  * This is the main interface which will be shown during the game. It is responsible for drawing the representation of
  * the plant to the screen.
  */
-public class PlantInterface extends JPanel implements MouseListener {
+public class PlantInterface extends BaseInterface implements MouseListener {
 
     // These allow access to the plant's methods.
     private PlantController plantController;
     private PlantStatus plantStatus;
     private GameManager gameManager;
     
+    // This is the GUIWindow the interface is being shown in.
+    private GUIWindow parent;
+    
+    // Misc UI elements.
     private PlantGUIElement plantBackground;
     private PlantGUIElement logo;
+    
+    
     // These represent parts of the plant which will be drawn to the screen.
     // Each has a location and an image which is set up in setupComponents().
+    
+    
     // Water tanks - the reactor and condenser.
     private PlantGUIElement reactor;
     private PlantGUIElement condenser;
+    
     // The pumps (static images) and the rotors (animations).
     private PlantGUIElement pump1;
     private PlantGUIElement coolingPump;
     private AnimatedPlantGUIElement pump1Rotors;
     private AnimatedPlantGUIElement coolingPumpRotors;
+    
     // Valves.
     private AnimatedPlantGUIElement valve1;
     private AnimatedPlantGUIElement valve2;
+    
     // Pipes.
     private PlantGUIElement coolingPipe;
     private PlantGUIElement reactorToCondenserPipe;
     private PlantGUIElement condenserToReactorPipe;
+    
     // Reactor elements.
-    private PlantGUIElement controlRodDownButton;
-    private PlantGUIElement controlRodUpButton;
+    private Rectangle controlRodDownButton;
+    private Rectangle controlRodUpButton;
     
     private PlantGUIElement fuelRods;
     private PlantGUIElement controlRods;
     private PlantGUIElement rodGlow;
-    // Turbine.
+    
+    // Turbine.elements.
     private AnimatedPlantGUIElement turbineLeft;
     private PlantGUIElement turbineMiddle;
     private AnimatedPlantGUIElement turbineRight;
     private PlantGUIElement turbineHousing;
     private PlantGUIElement turbineHousing2;
     
-    // Computer
+    // Computer elements.
     private PlantGUIElement computer;
     private Rectangle debugButton;
     private Rectangle saveButton;
+    private Rectangle quitButton;
     
     // Font for displaying information about the game.
     private Font gameFont;
     private Font scoreFont;
-    // The height of the water in the Reactor and Condenser in pixels.
+    
+    
+    // Misc pixel values for setting water height and control rod height.
     private final int MAX_WATER_HEIGHT = 275;
     private final int INITIAL_CONTROL_ROD_HEIGHT = -230;
     private final int CONTROL_ROD_HEIGHT = 120;
-    // The global scale applied to images in the plant to make them the right size on the screen.
+    
+    
+    // The global offset to apply to power plant components.
     private final int X_OFFSET = 300;
     private final int Y_OFFSET = 100;
+    // The global scale applied to images in the plant to make them the right size on the screen.
     private final float SCALE_AMOUNT = 0.6f;
+    
+    
+    // Number of remaining ticks to make the saved game button green to show the user the game has been saved.
+    private int savedGameTicks = 0;
+    
+    
     // An AffineTransform is one which preserves straight lines. This is used to rotate the valve image
     // by 90 degrees so the valve above the condenser can be drawn in the right orientation.
     AffineTransformOp rotateValve90Deg;
@@ -92,10 +113,12 @@ public class PlantInterface extends JPanel implements MouseListener {
      * @param plantStatus
      * @param gameManager
      */
-    public PlantInterface(PlantController plantController, PlantStatus plantStatus, GameManager gameManager) {
+    public PlantInterface(GUIWindow parent, PlantController plantController, PlantStatus plantStatus, GameManager gameManager) {
         this.plantController = plantController;
         this.plantStatus = plantStatus;
         this.gameManager = gameManager;
+        
+        this.parent = parent;
 
         // Give all of the plant components the right images and location on the screen.
         setupComponents();
@@ -113,34 +136,34 @@ public class PlantInterface extends JPanel implements MouseListener {
     private void setupComponents() {
         
         // Background.
-        BufferedImage backgroundImage = ImageUtils.loadImage("images/background.png");
-        plantBackground = new PlantGUIElement(backgroundImage, 0, 0, 1.0f, 0, 0);
+        BufferedImage backgroundImage = ImageUtils.loadImage("background.png");
+        plantBackground = new PlantGUIElement(backgroundImage, 0, 0, 1.0f);
         
-        BufferedImage logoImage = ImageUtils.loadImage("images/logo.png");
-        logo = new PlantGUIElement(logoImage, 20, 20, 0.5f, 0, 0);
+        BufferedImage logoImage = ImageUtils.loadImage("logo.png");
+        logo = new PlantGUIElement(logoImage, 20, 20, 0.5f);
 
         
         // Reactor and Condenser
-        BufferedImage containerImage = ImageUtils.loadImage("images/container.png");
-        reactor = new PlantGUIElement(containerImage, 0, 0, 0.9f, X_OFFSET, Y_OFFSET);
-        condenser = new PlantGUIElement(containerImage, 665, 275, 0.9f, X_OFFSET, Y_OFFSET);
+        BufferedImage containerImage = ImageUtils.loadImage("container.png");
+        reactor = new PlantGUIElement(containerImage, X_OFFSET + 0, Y_OFFSET + 0, SCALE_AMOUNT + 0.3f);
+        condenser = new PlantGUIElement(containerImage, X_OFFSET + 665, Y_OFFSET + 275, SCALE_AMOUNT + 0.3f);
         
         
         // Static Pump Images
-        BufferedImage pumpImage = ImageUtils.loadImage("images/pump.png");
-        pump1 = new PlantGUIElement(pumpImage, 572, 535, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
-        coolingPump = new PlantGUIElement(pumpImage, 915, 545, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        BufferedImage pumpImage = ImageUtils.loadImage("pump.png");
+        pump1 = new PlantGUIElement(pumpImage, X_OFFSET + 572, Y_OFFSET + 535, SCALE_AMOUNT);
+        coolingPump = new PlantGUIElement(pumpImage, X_OFFSET + 915, Y_OFFSET + 545, SCALE_AMOUNT);
 
         
         // Animated Pump Images
-        pump1Rotors = new AnimatedPlantGUIElement(false, "animations/workingpump", "animations/startpump", "animations/stoppump", 598, 567, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
-        coolingPumpRotors = new AnimatedPlantGUIElement(false, "animations/workingpump", "animations/startpump", "animations/stoppump", 941, 577, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        pump1Rotors = new AnimatedPlantGUIElement(true, "animations/workingpump", "animations/startpump", "animations/stoppump", X_OFFSET + 598, Y_OFFSET + 567, SCALE_AMOUNT);
+        coolingPumpRotors = new AnimatedPlantGUIElement(true, "animations/workingpump", "animations/startpump", "animations/stoppump", X_OFFSET + 941, Y_OFFSET + 577, SCALE_AMOUNT);
         pump1Rotors.setAnimation(PlantAnimationType.ON);
         coolingPumpRotors.setAnimation(PlantAnimationType.ON);
 
         
         // Animated Valves
-        valve1 = new AnimatedPlantGUIElement(true, "animations/closevalve", "animations/closevalve", "animations/openvalve", 307, -51, SCALE_AMOUNT + 0.1f, X_OFFSET, Y_OFFSET);
+        valve1 = new AnimatedPlantGUIElement(false, "animations/closevalve", "animations/closevalve", "animations/openvalve", X_OFFSET + 307, Y_OFFSET -51, SCALE_AMOUNT + 0.1f);
 
         // This sets up the transform used to rotate the valve by 90 degrees.
         // Uses getRotateInstance, which takes an origin. The origin is the middle of the image,
@@ -148,56 +171,58 @@ public class PlantInterface extends JPanel implements MouseListener {
         rotateValve90Deg = new AffineTransformOp(
                 AffineTransform.getRotateInstance(
                 Math.PI / 2, // Rotate by 90 degrees
-                valve1.image.getWidth() / 2, // Rotate round this X point
-                (valve1.image.getHeight() / 3) * 2), // Rotate round this Y point
+                valve1.getImage().getWidth() / 2, // Rotate round this X point
+                (valve1.getImage().getHeight() / 3) * 2), // Rotate round this Y point
                 AffineTransformOp.TYPE_BILINEAR // Use bilinear filtering to reconstruct pixels
                 );
 
-        valve2 = new AnimatedPlantGUIElement(true, "animations/closevalve", "animations/closevalve", "animations/openvalve", 761, 170, SCALE_AMOUNT + 0.1f, X_OFFSET, Y_OFFSET, rotateValve90Deg);
+        valve2 = new AnimatedPlantGUIElement(false, "animations/closevalve", "animations/closevalve", "animations/openvalve", X_OFFSET + 761, Y_OFFSET + 170, SCALE_AMOUNT + 0.1f, rotateValve90Deg);
 
         
         // Pipes
-        BufferedImage coolingPipeImage = ImageUtils.loadImage("images/coolingPipe.png");
-        coolingPipe = new PlantGUIElement(coolingPipeImage, 750, 450, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        BufferedImage coolingPipeImage = ImageUtils.loadImage("coolingPipe.png");
+        coolingPipe = new PlantGUIElement(coolingPipeImage, X_OFFSET + 750, Y_OFFSET + 450, SCALE_AMOUNT);
 
-        BufferedImage reactorToCondenserPipeImage = ImageUtils.loadImage("images/reactorToCondenser.png");
-        reactorToCondenserPipe = new PlantGUIElement(reactorToCondenserPipeImage, 137, -2, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        BufferedImage reactorToCondenserPipeImage = ImageUtils.loadImage("reactorToCondenser.png");
+        reactorToCondenserPipe = new PlantGUIElement(reactorToCondenserPipeImage, X_OFFSET + 137, Y_OFFSET -2, SCALE_AMOUNT);
 
-        BufferedImage condenserToReactorPipeImage = ImageUtils.loadImage("images/condenserToReactor.png");
-        condenserToReactorPipe = new PlantGUIElement(condenserToReactorPipeImage, 154, 334, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
+        BufferedImage condenserToReactorPipeImage = ImageUtils.loadImage("condenserToReactor.png");
+        condenserToReactorPipe = new PlantGUIElement(condenserToReactorPipeImage, X_OFFSET + 154, Y_OFFSET + 334, SCALE_AMOUNT + 0.3f);
 
         
         // Fuel rods and glow
-        BufferedImage fuelRodsImage = ImageUtils.loadImage("images/fuel_rods.png");
-        fuelRods = new PlantGUIElement(fuelRodsImage, 63, 216, SCALE_AMOUNT, X_OFFSET, Y_OFFSET);
+        BufferedImage fuelRodsImage = ImageUtils.loadImage("fuel_rods.png");
+        fuelRods = new PlantGUIElement(fuelRodsImage, X_OFFSET + 63, Y_OFFSET + 216, SCALE_AMOUNT);
 
-        BufferedImage controlRodsImage = ImageUtils.loadImage("images/control_rods.png");
-        controlRods = new PlantGUIElement(controlRodsImage, 65, -230, SCALE_AMOUNT + 0.2f, X_OFFSET, Y_OFFSET);
+        BufferedImage controlRodsImage = ImageUtils.loadImage("control_rods.png");
+        controlRods = new PlantGUIElement(controlRodsImage, X_OFFSET + 65, Y_OFFSET -230, SCALE_AMOUNT + 0.2f);
         
-        BufferedImage glowImage = ImageUtils.loadImage("images/glow.png");
-        rodGlow = new PlantGUIElement(glowImage, 47, 206, SCALE_AMOUNT+0.2f, X_OFFSET, Y_OFFSET);
+        BufferedImage glowImage = ImageUtils.loadImage("glow.png");
+        rodGlow = new PlantGUIElement(glowImage, X_OFFSET + 47, Y_OFFSET + 206, SCALE_AMOUNT+0.2f);
         
-        BufferedImage buttonImage = ImageUtils.loadImage("images/button.png");
-        controlRodDownButton = new PlantGUIElement(buttonImage, 180, 150, 0.5f, 0, 0);
-        controlRodUpButton = new PlantGUIElement(buttonImage, 180, 200, 0.5f, 0, 0);
+        controlRodUpButton = new Rectangle(120, 180, 100, 30);
+        controlRodDownButton = new Rectangle(120, 230, 100, 30);
 
         
         // Turbine
-        turbineLeft = new AnimatedPlantGUIElement(false, "animations/leftturbine/on", "animations/leftturbine/start", "animations/leftturbine/stop", 680, 67, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
+        turbineLeft = new AnimatedPlantGUIElement(true, "animations/leftturbine/on", "animations/leftturbine/start", "animations/leftturbine/stop", X_OFFSET + 680, Y_OFFSET + 67, SCALE_AMOUNT + 0.3f);
 
-        BufferedImage turbineMiddleImage = ImageUtils.loadImage("images/turbine_middle.png");
-        turbineMiddle = new PlantGUIElement(turbineMiddleImage, 720, 95, SCALE_AMOUNT + 0.5f, X_OFFSET, Y_OFFSET);
+        BufferedImage turbineMiddleImage = ImageUtils.loadImage("turbine_middle.png");
+        turbineMiddle = new PlantGUIElement(turbineMiddleImage, X_OFFSET + 720, Y_OFFSET + 95, SCALE_AMOUNT + 0.5f);
 
-        turbineRight = new AnimatedPlantGUIElement(false, "animations/rightturbine/on", "animations/rightturbine/on", "animations/rightturbine/off", 810, 60, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
+        turbineRight = new AnimatedPlantGUIElement(true, "animations/rightturbine/on", "animations/rightturbine/start", "animations/rightturbine/stop", X_OFFSET + 810, Y_OFFSET + 60, SCALE_AMOUNT + 0.3f);
 
-        BufferedImage turbineHousingImage = ImageUtils.loadImage("images/turbineC2.png");
-        turbineHousing = new PlantGUIElement(turbineHousingImage, 650, 36, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
-        turbineHousing2 = new PlantGUIElement(turbineHousingImage, 770, 36, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
+        BufferedImage turbineHousingImage = ImageUtils.loadImage("turbineC2.png");
+        turbineHousing = new PlantGUIElement(turbineHousingImage, X_OFFSET + 650, Y_OFFSET + 36, SCALE_AMOUNT + 0.3f);
+        turbineHousing2 = new PlantGUIElement(turbineHousingImage, X_OFFSET + 770, Y_OFFSET + 36, SCALE_AMOUNT + 0.3f);
         
-        BufferedImage computerImage = ImageUtils.loadImage("images/computer.png");
-        computer = new PlantGUIElement(computerImage, 70, 480, SCALE_AMOUNT + 0.2f, 0, 0);
+        
+        // Computer
+        BufferedImage computerImage = ImageUtils.loadImage("computer.png");
+        computer = new PlantGUIElement(computerImage, 70, 480, SCALE_AMOUNT + 0.2f);
         debugButton = new Rectangle(100, 640, 60, 20);
         saveButton = new Rectangle(280, 640, 75, 20);
+        quitButton = new Rectangle(200, 640, 45, 20);
 
         
         // Fonts
@@ -213,7 +238,7 @@ public class PlantInterface extends JPanel implements MouseListener {
      * @param guiElement The GUI element to draw.
      */
     public void drawPlantGUIElement(Graphics2D g, PlantGUIElement guiElement) {
-            g.drawImage(guiElement.image, guiElement.x(), guiElement.y(), null);
+        g.drawImage(guiElement.getImage(), guiElement.x(), guiElement.y(), null);
     }
 
     /**
@@ -225,19 +250,30 @@ public class PlantInterface extends JPanel implements MouseListener {
      */
     public void drawPlantGUIElement(Graphics2D g, PlantGUIElement guiElement, Boolean failed) {
         if (!failed) {
-            g.drawImage(guiElement.image, guiElement.x(), guiElement.y(), null);
+            g.drawImage(guiElement.getImage(), guiElement.x(), guiElement.y(), null);
         } else {
+            // If the element has failed, apply a tint which reddens the image completely.
             BufferedImageOp tintFilter = ImageUtils.createTintOp((short)2, (short).5, (short).5);
-            BufferedImage tintedImage = tintFilter.filter(guiElement.image, null);
+            BufferedImage tintedImage = tintFilter.filter(guiElement.getImage(), null);
             g.drawImage(tintedImage, guiElement.x(), guiElement.y(), null);
         }
         
     }
 
+    /**
+     * Draws an AnimatedPlantGUIElement to a specified Graphics2D (the window). It takes the X position and Y position
+     * and draws a frame of an animation there.
+     * 
+     * @param g                 The screen to draw to.
+     * @param guiElement        The GUI element to draw.
+     * @param failed            If the element has failed.
+     */
     public void drawAnimatedGUIElement(Graphics2D g, AnimatedPlantGUIElement guiElement, Boolean failed) {
         if (!failed) {
+            // If it has not failed, show the next frame of the animation.
             g.drawImage(guiElement.stepImage(), guiElement.x(), guiElement.y(), null);
         } else {
+            // If it has failed, stop the animation and apply the red tint.
             guiElement.setAnimation(PlantAnimationType.OFF);
             BufferedImageOp tintFilter = ImageUtils.createTintOp((short)1.5, (short).5, (short).5);
             BufferedImage tintedImage = tintFilter.filter(guiElement.getImage(), null);
@@ -250,7 +286,7 @@ public class PlantInterface extends JPanel implements MouseListener {
      * passed a 'Graphics' by the library, which represents the part of the screen which will be drawn on. All draw
      * calls are made on this graphics object.
      *
-     * @param _g The Graphics object to draw to.
+     * @param _g        The Graphics object to draw to.
      */
     @Override
     public void paintComponent(Graphics _g) {
@@ -261,7 +297,7 @@ public class PlantInterface extends JPanel implements MouseListener {
         // This makes some method calls more obvious.
         Graphics2D g = (Graphics2D)_g;
         
-        // Turn the turbine animation off if it has failed.
+        // Update locations of components and failure status of the turbine.
         updateComponents();
         
         // Draw the background.
@@ -274,15 +310,19 @@ public class PlantInterface extends JPanel implements MouseListener {
         drawWater(g);
 
         // Draw steam and bubbles.
+        // TODO: this?
         drawEffects(g);
         
         // Draw left hand side information.
         drawInfo(g);
 
-        // Draw any text around the screen.
-        drawText(g);
+        // Draw information about each component.
+        drawComponentStatuses(g);
     }
     
+    /**
+     * Updates the status of the turbine based on the valves. Also sets the control rods to their correct height.
+     */
     private void updateComponents() {
         if (plantStatus.getReactorToTurbine() && !plantStatus.componentList().get("turbine").hasFailed()) {
             if (turbineLeft.getCurrentAnimation() != PlantAnimationType.ON) {
@@ -300,16 +340,27 @@ public class PlantInterface extends JPanel implements MouseListener {
             }
         }
         
-        controlRods.setY(Y_OFFSET + (int)(INITIAL_CONTROL_ROD_HEIGHT + (1.0 - plantStatus.controlRodPosition().ratio()) * CONTROL_ROD_HEIGHT));
+        if (plantStatus.controlRodPosition() != null) {
+            controlRods.setY(Y_OFFSET + (int)(INITIAL_CONTROL_ROD_HEIGHT + (1.0 - plantStatus.controlRodPosition().ratio()) * CONTROL_ROD_HEIGHT));
+        } else {
+            controlRods.setY(Y_OFFSET + (int)(INITIAL_CONTROL_ROD_HEIGHT*5));
+        }
+        
     }
     
+    
+    /**
+     * Draws the background and the logo.
+     * @param g 
+     */
     private void drawBackgroundAndLogo(Graphics2D g) {
         drawPlantGUIElement(g, plantBackground, false);
         drawPlantGUIElement(g, logo, false);
     }
 
     /**
-     * Draws all of the plant components to the screen.
+     * Draws all of the plant components to the screen. Some pass their failure status to determine
+     * if they should be drawn tinted red.
      */
     private void drawPlant(Graphics2D g) {
         drawPlantGUIElement(g, reactor, plantStatus.componentList().get("reactor").hasFailed());
@@ -337,13 +388,12 @@ public class PlantInterface extends JPanel implements MouseListener {
         drawPlantGUIElement(g, controlRods);
         drawPlantGUIElement(g, fuelRods);
         drawPlantGUIElement(g, rodGlow);
-        
-        drawPlantGUIElement(g, controlRodDownButton);
-        drawPlantGUIElement(g, controlRodUpButton);
     }
 
+    
     /**
      * Draws all of the water effects to the screen.
+     * Most of these are just slightly transparent blue rectangles.
      */
     private void drawWater(Graphics2D g) {
         g.setColor(new Color(0.5f, 0.6f, 0.8f, 0.7f));
@@ -410,6 +460,12 @@ public class PlantInterface extends JPanel implements MouseListener {
         g.setColor(Color.BLACK);
     }
 
+    /**
+     * Helper functions for determining the water height of the reactor.
+     * @param maxWaterHeight        The max water height in pixels.
+     * @param waterLevel            The current water level.
+     * @return 
+     */
     private int waterHeight(int maxWaterHeight, Percentage waterLevel) {
         return (int)Math.floor(maxWaterHeight * waterLevel.ratio());
     }
@@ -424,15 +480,34 @@ public class PlantInterface extends JPanel implements MouseListener {
     private void drawEffects(Graphics2D g) {
     }
     
+    
+    /**
+     * Helper function for drawing bordered rectangles for the plant information
+     * @param g                 The screen to draw to.
+     * @param x                 The X location.
+     * @param y                 The Y location.
+     * @param width             The width.
+     * @param height            The height.
+     */
     private void drawBorderRect(Graphics2D g, int x, int y, int width, int height) {
+        // Set the color to a predefined grey and draw the box.
         g.setColor(new Color(0.4f, 0.4f, 0.4f, 0.8f));
         g.fillRect(x, y, width, height);
+        
+        // Draw the border.
         g.setColor(Color.BLACK);
         g.drawRect(x, y, width, height);
     }
     
+    /**
+     * Draw all of the left border information.
+     * @param g 
+     */
     private void drawInfo(Graphics2D g) {
         g.setFont(gameFont);
+        
+        
+        // Damage information.
         drawBorderRect(g, 80, 310 , 190, 130);
         g.drawString("Damage", 140, 330);
         g.drawString("Condenser: " + plantStatus.componentList().get("condenser").wear(), 90, 360);
@@ -440,16 +515,32 @@ public class PlantInterface extends JPanel implements MouseListener {
         g.drawString("Cooling Pump: " + plantStatus.componentList().get("coolingPump").wear(), 90, 400);
         g.drawString("Turbine: " + plantStatus.componentList().get("turbine").wear(), 90, 420);
         
-        
+        // Computer.
         drawPlantGUIElement(g, computer, false);
         
+        // Computer Screen.
         
-        g.setColor(Color.GREEN);
+        // SavedGameTicks used to provide an indication the game has been saved
+        // by setting the button to green for a certain number of game ticks.
+        if(savedGameTicks>0) {
+            g.setColor(Color.GREEN);
+            savedGameTicks--;
+        } else {
+            g.setColor(Color.RED);
+        }
+        
+        // Draw the save button.
         g.fillRect(saveButton.x, saveButton.y, saveButton.width, saveButton.height);
         g.setColor(Color.BLACK);
         g.drawString("SAVE GAME", saveButton.x + 5, saveButton.y + 15);
-
         
+        // Draw the quit button.
+        g.setColor(Color.CYAN);
+        g.fillRect(quitButton.x, quitButton.y, quitButton.width, quitButton.height);
+        g.setColor(Color.BLACK);
+        g.drawString("QUIT", quitButton.x + 10, quitButton.y + 15);
+
+        // Show the software failures.
         if (plantStatus.getSoftwareFailure() != SoftwareFailure.None) {
             g.setColor(Color.GREEN);
             g.drawString("> error", 120, 540);
@@ -466,27 +557,36 @@ public class PlantInterface extends JPanel implements MouseListener {
     }
 
     /**
-     * Draws any text to the screen.
+     * Draws all of the plant status information to the screen.
      */
-    private void drawText(Graphics2D g) {
+    private void drawComponentStatuses(Graphics2D g) {
 
+        // Set antialialising for prettier text.
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g.setFont(gameFont);
 
+        // Reactor information.
         drawBorderRect(g, 500, 230, 170, 110);
         g.drawString("Pressure: " + plantStatus.reactorPressure(), 510, 250);
         g.drawString("Temperature: " + plantStatus.reactorTemperature(), 510, 275);
         g.drawString("Water Level: " + plantStatus.reactorWaterLevel(), 510, 300);
         g.drawString("Control rods: " + plantStatus.controlRodPosition(), 510, 325);
+                
+        // Button text for rod up and rod down.
+        g.setColor(Color.CYAN);
+        g.fillRect(controlRodUpButton.x, controlRodUpButton.y, controlRodUpButton.width, controlRodUpButton.height);
+        g.fillRect(controlRodDownButton.x, controlRodDownButton.y, controlRodDownButton.width, controlRodDownButton.height);
+        g.setColor(Color.BLACK);
+        g.drawString("Rod Up", controlRodUpButton.x + 20, controlRodUpButton.y + 20);
+        g.drawString("Rod Down", controlRodDownButton.x + 20, controlRodDownButton.y + 20);
 
+        // Condenser information.
         drawBorderRect(g, 1165, 460, 170, 80);
         g.drawString("Pressure: " + plantStatus.condenserPressure(), 1175, 480);
         g.drawString("Temperature: " + plantStatus.condenserTemperature(), 1175, 505);
         g.drawString("Water Level: " + plantStatus.condenserWaterLevel(), 1175, 530);
-        
-        g.drawString("Rod Up", 220, 170);
-        g.drawString("Rod Down", 200, 220);
 
+        // Valve 1 information.
         drawBorderRect(g, 575, 130, 110, 30);
         if(plantStatus.getReactorToTurbine()) {
             g.drawString("Valve 1: OPEN", 585, 150);
@@ -494,6 +594,7 @@ public class PlantInterface extends JPanel implements MouseListener {
             g.drawString("Valve 1: CLOSED", 585, 150);
         }
         
+        // Valve 2 information.
         drawBorderRect(g, 940, 305, 110, 30);
         if(plantStatus.getTurbineToCondenser()) {
             g.drawString("Valve 2: OPEN", 950, 325);
@@ -501,6 +602,7 @@ public class PlantInterface extends JPanel implements MouseListener {
             g.drawString("Valve 2: CLOSED", 950, 325);
         }
         
+        // Pump 1 information.
         drawBorderRect(g, 860, 600, 90, 30);
         if(((Pump)plantStatus.componentList().get("pump1")).getStatus()) {
             g.drawString("Pump 1: ON", 870, 620);
@@ -508,6 +610,7 @@ public class PlantInterface extends JPanel implements MouseListener {
             g.drawString("Pump 1: OFF", 870, 620);
         }
         
+        // Cooling Pump information.
         drawBorderRect(g, 1180, 610, 130, 30);
         if(((Pump)plantStatus.componentList().get("coolingPump")).getStatus()) {
             g.drawString("Cooling Pump: ON", 1190, 630);
@@ -515,6 +618,7 @@ public class PlantInterface extends JPanel implements MouseListener {
             g.drawString("Cooling Pump: OFF", 1190, 630);
         }
         
+        // Score.
         drawBorderRect(g, 1080, 10, 260, 50);
         g.setFont(scoreFont); g.setColor(Color.decode("#000000"));
         g.drawString("Score: " + plantStatus.energyGenerated(), 1100, 50);
@@ -532,9 +636,10 @@ public class PlantInterface extends JPanel implements MouseListener {
     public void mouseClicked(MouseEvent click) {
 
         // If the left mouse button is clicked, check if it was clicked on a component.
-        if (SwingUtilities.isLeftMouseButton(click)) {
+        if ( leftClick(click) ) {
             
-            if (pump1.location.contains(click.getPoint())) {
+            // If a pump was clicked, change its status and animate it changing.
+            if ( clicked(pump1, click) ) {
                 if(!(plantStatus.getSoftwareFailure() == SoftwareFailure.pumpStateChange)) {
                     Pump cPump1 = (Pump)plantStatus.componentList().get("pump1");
                     boolean state = cPump1.getStatus();
@@ -549,7 +654,8 @@ public class PlantInterface extends JPanel implements MouseListener {
                 }
             }
 
-            if (coolingPump.location.contains(click.getPoint())) {
+            // If a pump was clicked, change its status and animate it changing.
+            if ( clicked(coolingPump, click) ) {
                 if(!(plantStatus.getSoftwareFailure() == SoftwareFailure.pumpStateChange)) {
                     Pump cCoolingPump = (Pump)plantStatus.componentList().get("coolingPump");
                     boolean state = cCoolingPump.getStatus();
@@ -564,7 +670,8 @@ public class PlantInterface extends JPanel implements MouseListener {
                 }
             }
 
-            if (valve1.location.contains(click.getPoint())) {
+            // If a valve was clicked, change its status and animate it changing.
+            if ( clicked(valve1, click) ) {
                 if(!(plantStatus.getSoftwareFailure() == SoftwareFailure.valveStateChange)) {
                     boolean state = plantStatus.connectionList().get("reactorToTurbine").getOpen();
 
@@ -578,7 +685,8 @@ public class PlantInterface extends JPanel implements MouseListener {
                 }
             }
 
-            if (valve2.location.contains(click.getPoint())) {
+            // If a valve was clicked, change its status and animate it changing.
+            if ( clicked(valve2, click) ) {
                 if(!(plantStatus.getSoftwareFailure() == SoftwareFailure.valveStateChange)) {
                     boolean state = plantStatus.connectionList().get("turbineToCondenser").getOpen();
 
@@ -592,40 +700,56 @@ public class PlantInterface extends JPanel implements MouseListener {
                 }
             }
             
-            if (controlRodUpButton.location.contains(click.getPoint())) {
-                if(plantStatus.controlRodPosition().points() > 0) {
-                    plantController.moveControlRods(plantStatus.controlRodPosition().minus(new Percentage(10.0)));
-                }
-            }
-            
-            if (controlRodDownButton.location.contains(click.getPoint())) {
-                if(plantStatus.controlRodPosition().points() < 100) {
+            // If the control rod up button was clicked, move the control rods up.
+            if ( clicked(controlRodUpButton, click) ) {
+                if(plantStatus.controlRodPosition().points() < 100 && !(plantStatus.getSoftwareFailure() == SoftwareFailure.rodStateChange)) {
                     plantController.moveControlRods(plantStatus.controlRodPosition().plus(new Percentage(10.0)));
                 }
             }
-                        
-            if (debugButton.contains(click.getPoint())) {
+            
+            // If the control rod down button was clicked, move the control rods down.
+            if ( clicked(controlRodDownButton, click) ) {
+                if(plantStatus.controlRodPosition().points() > 0 && !(plantStatus.getSoftwareFailure() == SoftwareFailure.rodStateChange)) {
+                    plantController.moveControlRods(plantStatus.controlRodPosition().minus(new Percentage(10.0)));
+                }
+            }
+
+            // If the debug button was clicked, repair the software.
+            if ( clicked(debugButton, click) ) {
                 plantController.repairSoftware();
             }
             
-            if (saveButton.contains(click.getPoint())) {
+            // If the quit button was clicked, quit to the menu.
+            if ( clicked(quitButton, click) ) {
+                parent.state = GameState.NotStarted;
+                parent.showMenu();
+            }
+            
+            // If the save button was clicked, save the game.
+            if ( clicked(saveButton, click) ) {
                 try {
                     gameManager.saveGame();
+                    
+                    // Set the button to green for 10 game ticks to acknowledge the save.
+                    savedGameTicks = 10;
                 } catch (JsonProcessingException ex) {
                     Logger.getLogger(PlantInterface.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             
-        } else if (SwingUtilities.isRightMouseButton(click)) {
+          // The right mouse button was clicked, check if it was clicked on a component.
+        } else if ( rightClick(click) ) {
             
-            if (condenser.location.contains(click.getPoint())) {
+            // If the mouse was clicked on any component, repair it.
+            
+            if ( clicked(condenser, click) ) {
                 try {
                     plantController.repairCondenser();
                 } catch (CannotRepairException ex) {
                 }
             }
 
-            if (pump1.location.contains(click.getPoint())) {
+            if ( clicked(pump1, click) ) {
                 try {
                     plantController.repairPump(1);
 
@@ -640,7 +764,7 @@ public class PlantInterface extends JPanel implements MouseListener {
                 }
             }
 
-            if (coolingPump.location.contains(click.getPoint())) {
+            if ( clicked(coolingPump, click) ) {
                 try {
                     plantController.repairPump(2);
                     
@@ -654,7 +778,7 @@ public class PlantInterface extends JPanel implements MouseListener {
                 }
             }
 
-            if ((turbineLeft.location.contains(click.getPoint()) || turbineRight.location.contains(click.getPoint()))) {
+            if ( clicked(turbineLeft, click) || clicked(turbineMiddle, click) || clicked(turbineRight, click) ) {
                 try {
                     plantController.repairTurbine();
                 } catch (CannotRepairException ex) {

@@ -4,7 +4,6 @@ import cichlid.seprphase3.TextInterface.TextRenderer;
 import cichlid.seprphase3.TextInterface.DoNotStep;
 import cichlid.seprphase3.TextInterface.Parser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import cichlid.seprphase3.QuitGameException;
 import cichlid.seprphase3.Simulator.CannotControlException;
 import cichlid.seprphase3.Simulator.CannotRepairException;
 import cichlid.seprphase3.Simulator.GameManager;
