@@ -45,7 +45,7 @@ public class GameOverInterface extends BaseInterface implements MouseListener {
         this.name = name;
         
         // Load the button image for the button and make the button.
-        BufferedImage buttonImage = ImageUtils.loadImage("images/button.png");
+        BufferedImage buttonImage = ImageUtils.loadImage("button.png");
         playAgainButton = new PlantGUIElement(buttonImage, 580, 550, 1.2f);
         
         // Add the mouse listener which allows this interface to accept mouse input.
@@ -70,7 +70,7 @@ public class GameOverInterface extends BaseInterface implements MouseListener {
             g.drawString("Game over!", 550, 200);
             g.drawString("Oh no! " + name + ", you blew up the Reactor!", 360, 300);
             g.drawString("However, you generated: " + powerGenerated.toString() + " power before you did!", 210, 400);
-            g.drawString("Click to start a new game!", 350, 450);
+            g.drawString("Click to start a new game!", 450, 450);
             
             // Draw the button.
             g.setColor(Color.BLACK);

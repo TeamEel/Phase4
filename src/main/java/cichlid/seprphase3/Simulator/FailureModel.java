@@ -43,7 +43,7 @@ public class FailureModel implements PlantController, PlantStatus {
     private final Pressure condenserMaxPressure = new Pressure(30662500);
 
     // Software will fail 1 out of softwareFailureProbability times
-    private final int softwareFailureProbability = 1000;
+    private final int softwareFailureProbability = 500;
 
     private FailureModel() {
     }
@@ -149,6 +149,7 @@ public class FailureModel implements PlantController, PlantStatus {
         controller.repairTurbine();
     }
     
+    @Override
     public void repairSoftware() {
         controller.repairSoftware();
     }

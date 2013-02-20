@@ -60,8 +60,8 @@ public class PlantInterface extends BaseInterface implements MouseListener {
     private PlantGUIElement condenserToReactorPipe;
     
     // Reactor elements.
-    private PlantGUIElement controlRodDownButton;
-    private PlantGUIElement controlRodUpButton;
+    private Rectangle controlRodDownButton;
+    private Rectangle controlRodUpButton;
     
     private PlantGUIElement fuelRods;
     private PlantGUIElement controlRods;
@@ -145,14 +145,14 @@ public class PlantInterface extends BaseInterface implements MouseListener {
         
         // Reactor and Condenser
         BufferedImage containerImage = ImageUtils.loadImage("container.png");
-        reactor = new PlantGUIElement(containerImage, X_OFFSET + 0, Y_OFFSET + 0, 0.9f);
-        condenser = new PlantGUIElement(containerImage, 665, 275, Y_OFFSET + 0.9f);
+        reactor = new PlantGUIElement(containerImage, X_OFFSET + 0, Y_OFFSET + 0, SCALE_AMOUNT + 0.3f);
+        condenser = new PlantGUIElement(containerImage, X_OFFSET + 665, Y_OFFSET + 275, SCALE_AMOUNT + 0.3f);
         
         
         // Static Pump Images
         BufferedImage pumpImage = ImageUtils.loadImage("pump.png");
         pump1 = new PlantGUIElement(pumpImage, X_OFFSET + 572, Y_OFFSET + 535, SCALE_AMOUNT);
-        coolingPump = new PlantGUIElement(pumpImage, 915, Y_OFFSET + 545, SCALE_AMOUNT);
+        coolingPump = new PlantGUIElement(pumpImage, X_OFFSET + 915, Y_OFFSET + 545, SCALE_AMOUNT);
 
         
         // Animated Pump Images
@@ -200,9 +200,8 @@ public class PlantInterface extends BaseInterface implements MouseListener {
         BufferedImage glowImage = ImageUtils.loadImage("glow.png");
         rodGlow = new PlantGUIElement(glowImage, X_OFFSET + 47, Y_OFFSET + 206, SCALE_AMOUNT+0.2f);
         
-        BufferedImage buttonImage = ImageUtils.loadImage("button.png");
-        controlRodDownButton = new PlantGUIElement(buttonImage, 180, 150, 0.5f);
-        controlRodUpButton = new PlantGUIElement(buttonImage, 180, 200, 0.5f);
+        controlRodUpButton = new Rectangle(120, 180, 100, 30);
+        controlRodDownButton = new Rectangle(120, 230, 100, 30);
 
         
         // Turbine
@@ -220,7 +219,7 @@ public class PlantInterface extends BaseInterface implements MouseListener {
         
         // Computer
         BufferedImage computerImage = ImageUtils.loadImage("computer.png");
-        computer = new PlantGUIElement(computerImage, X_OFFSET + 70, 480, SCALE_AMOUNT + 0.2f);
+        computer = new PlantGUIElement(computerImage, 70, 480, SCALE_AMOUNT + 0.2f);
         debugButton = new Rectangle(100, 640, 60, 20);
         saveButton = new Rectangle(280, 640, 75, 20);
         quitButton = new Rectangle(200, 640, 45, 20);
@@ -341,11 +340,12 @@ public class PlantInterface extends BaseInterface implements MouseListener {
             }
         }
         
-        controlRods.setY(
-                Y_OFFSET + 
-                (int)(INITIAL_CONTROL_ROD_HEIGHT + 
-                      (1.0 - plantStatus.controlRodPosition().ratio()) * 
-                      CONTROL_ROD_HEIGHT));
+        if (plantStatus.controlRodPosition() != null) {
+            controlRods.setY(Y_OFFSET + (int)(INITIAL_CONTROL_ROD_HEIGHT + (1.0 - plantStatus.controlRodPosition().ratio()) * CONTROL_ROD_HEIGHT));
+        } else {
+            controlRods.setY(Y_OFFSET + (int)(INITIAL_CONTROL_ROD_HEIGHT*5));
+        }
+        
     }
     
     
@@ -388,9 +388,6 @@ public class PlantInterface extends BaseInterface implements MouseListener {
         drawPlantGUIElement(g, controlRods);
         drawPlantGUIElement(g, fuelRods);
         drawPlantGUIElement(g, rodGlow);
-        
-        drawPlantGUIElement(g, controlRodDownButton);
-        drawPlantGUIElement(g, controlRodUpButton);
     }
 
     
@@ -576,8 +573,12 @@ public class PlantInterface extends BaseInterface implements MouseListener {
         g.drawString("Control rods: " + plantStatus.controlRodPosition(), 510, 325);
                 
         // Button text for rod up and rod down.
-        g.drawString("Rod Up", 205, 175);
-        g.drawString("Rod Down", 200, 225);
+        g.setColor(Color.CYAN);
+        g.fillRect(controlRodUpButton.x, controlRodUpButton.y, controlRodUpButton.width, controlRodUpButton.height);
+        g.fillRect(controlRodDownButton.x, controlRodDownButton.y, controlRodDownButton.width, controlRodDownButton.height);
+        g.setColor(Color.BLACK);
+        g.drawString("Rod Up", controlRodUpButton.x + 20, controlRodUpButton.y + 20);
+        g.drawString("Rod Down", controlRodDownButton.x + 20, controlRodDownButton.y + 20);
 
         // Condenser information.
         drawBorderRect(g, 1165, 460, 170, 80);
@@ -701,15 +702,15 @@ public class PlantInterface extends BaseInterface implements MouseListener {
             
             // If the control rod up button was clicked, move the control rods up.
             if ( clicked(controlRodUpButton, click) ) {
-                if(plantStatus.controlRodPosition().points() > 0 && !(plantStatus.getSoftwareFailure() == SoftwareFailure.rodStateChange)) {
-                    plantController.moveControlRods(plantStatus.controlRodPosition().minus(new Percentage(10.0)));
+                if(plantStatus.controlRodPosition().points() < 100 && !(plantStatus.getSoftwareFailure() == SoftwareFailure.rodStateChange)) {
+                    plantController.moveControlRods(plantStatus.controlRodPosition().plus(new Percentage(10.0)));
                 }
             }
             
             // If the control rod down button was clicked, move the control rods down.
             if ( clicked(controlRodDownButton, click) ) {
-                if(plantStatus.controlRodPosition().points() < 100 && !(plantStatus.getSoftwareFailure() == SoftwareFailure.rodStateChange)) {
-                    plantController.moveControlRods(plantStatus.controlRodPosition().plus(new Percentage(10.0)));
+                if(plantStatus.controlRodPosition().points() > 0 && !(plantStatus.getSoftwareFailure() == SoftwareFailure.rodStateChange)) {
+                    plantController.moveControlRods(plantStatus.controlRodPosition().minus(new Percentage(10.0)));
                 }
             }
 
