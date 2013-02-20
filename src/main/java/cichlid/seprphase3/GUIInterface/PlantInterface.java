@@ -219,8 +219,8 @@ public class PlantInterface extends JPanel implements MouseListener {
         } else {
             guiElement.setAnimation(PlantAnimationType.OFF);
             BufferedImageOp tintFilter = ImageUtils.createTintOp((short)1.5, (short).5, (short).5);
-            BufferedImage tintedImage = tintFilter.filter(guiElement.getImage(), null);
-            g.drawImage(tintedImage, guiElement.x(), guiElement.y(), null);
+            
+            //g.drawImage(tintedImage, guiElement.x(), guiElement.y(), null);
         }
     }
 
@@ -601,13 +601,7 @@ public class PlantInterface extends JPanel implements MouseListener {
         }
     }
     
-    public void meltdown() {
-        meltdown = true;
-        reactor.meltdown();
-        condenser.meltdown();
-        turbineHousing.meltdown();
-        turbineHousing2.meltdown();
-    }
+    
 
     @Override
     public void mousePressed(MouseEvent e) {

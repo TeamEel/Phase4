@@ -28,7 +28,7 @@ public class App {
             try {
                 game.run();
             } catch (GameOverException e) {
-                ((PlantInterface)game.getCurrentGUI()).meltdown();
+                
             } catch (QuitGameException e) {
                 System.out.println("");
             }
