@@ -32,6 +32,7 @@ public class PlantInterface extends JPanel implements MouseListener {
     private GameManager gameManager;
     
     private PlantGUIElement plantBackground;
+    private PlantGUIElement logo;
     // These represent parts of the plant which will be drawn to the screen.
     // Each has a location and an image which is set up in setupComponents().
     // Water tanks - the reactor and condenser.
@@ -61,12 +62,10 @@ public class PlantInterface extends JPanel implements MouseListener {
     private PlantGUIElement turbineHousing2;
     
     private PlantGUIElement computer;
+    private Rectangle debugButton;
     
     // Left Panels
     
-    
-    private AnimatedPlantGUIElement explosion;
-    private Boolean meltdown = false;
     // Font for displaying information about the game.
     private Font gameFont;
     private Font scoreFont;
@@ -110,6 +109,9 @@ public class PlantInterface extends JPanel implements MouseListener {
         // Background.
         BufferedImage backgroundImage = ImageUtils.loadImage("images/background.png");
         plantBackground = new PlantGUIElement(backgroundImage, null, 0, 0, 1.0f, 0, 0);
+        
+        BufferedImage logoImage = ImageUtils.loadImage("images/logo.png");
+        logo = new PlantGUIElement(logoImage, null, 30, 30, 0.5f, 0, 0);
 
         
         // Reactor and Condenser
@@ -167,7 +169,7 @@ public class PlantInterface extends JPanel implements MouseListener {
         controlRods = new PlantGUIElement(controlRodsImage, null, 65, -230, SCALE_AMOUNT + 0.2f, X_OFFSET, Y_OFFSET);
         
         BufferedImage glowImage = ImageUtils.loadImage("images/glow.png");
-        rodGlow = new PlantGUIElement(glowImage, null, 46, 206, SCALE_AMOUNT+0.2f, X_OFFSET, Y_OFFSET);
+        rodGlow = new PlantGUIElement(glowImage, null, 48, 206, SCALE_AMOUNT+0.2f, X_OFFSET, Y_OFFSET);
 
         
         // Turbine
@@ -183,10 +185,8 @@ public class PlantInterface extends JPanel implements MouseListener {
         turbineHousing2 = new PlantGUIElement(turbineHousingImage, "animations/meltturbinehouse", 770, 36, SCALE_AMOUNT + 0.3f, X_OFFSET, Y_OFFSET);
         
         BufferedImage computerImage = ImageUtils.loadImage("images/computer.png");
-        computer = new PlantGUIElement(computerImage, null, 100, 500, SCALE_AMOUNT + 0.5f, 0, 0);
-        
-        // Explosion
-        explosion = new AnimatedPlantGUIElement(false, "animations/explosion", null, null, 0, 0, 0.0f, 0, 0);
+        computer = new PlantGUIElement(computerImage, null, 70, 480, SCALE_AMOUNT + 0.2f, 0, 0);
+        debugButton = new Rectangle(100, 640, 60, 20);
 
         
         // Fonts
@@ -244,7 +244,7 @@ public class PlantInterface extends JPanel implements MouseListener {
         updateComponents();
         
         // Draw the background.
-        drawBackground(g);
+        drawBackgroundAndLogo(g);
 
         // Draw all of the plant components.
         drawPlant(g);
@@ -260,11 +260,6 @@ public class PlantInterface extends JPanel implements MouseListener {
 
         // Draw any text around the screen.
         drawText(g);
-        
-        // If the plant is melting down, draw the explosion.
-        if(meltdown) {
-            drawExplosion(g);
-        }
     }
     
     private void updateComponents() {
@@ -285,8 +280,9 @@ public class PlantInterface extends JPanel implements MouseListener {
         }
     }
     
-    private void drawBackground(Graphics2D g) {
+    private void drawBackgroundAndLogo(Graphics2D g) {
         drawPlantGUIElement(g, plantBackground, false);
+        drawPlantGUIElement(g, logo, false);
     }
 
     /**
@@ -389,11 +385,11 @@ public class PlantInterface extends JPanel implements MouseListener {
     }
 
     private int waterHeight(int maxWaterHeight, Percentage waterLevel) {
-        return (int)(maxWaterHeight * waterLevel.ratio());
+        return (int)Math.floor(maxWaterHeight * waterLevel.ratio());
     }
 
     private int inverseWaterHeight(int maxWaterHeight, Percentage waterLevel) {
-        return (int)(maxWaterHeight * (1.0f - waterLevel.ratio()));
+        return (int)Math.floor(maxWaterHeight * (1.0f - waterLevel.ratio()));
     }
 
     /**
@@ -417,9 +413,28 @@ public class PlantInterface extends JPanel implements MouseListener {
     }
     
     private void drawInfo(Graphics2D g) {
-        drawBorderRect(g, 100, 200, 100, 100);
+        g.setFont(gameFont);
+        drawBorderRect(g, 50, 110 , 200, 130);
+        g.drawString("Damage", 120, 130);
+        g.drawString("Condenser: " + plantStatus.componentList().get("condenser").wear(), 70, 160);
+        g.drawString("Pump 1: " + plantStatus.componentList().get("pump1").wear(), 70, 180);
+        g.drawString("Cooling Pump: " + plantStatus.componentList().get("coolingPump").wear(), 70, 200);
+        g.drawString("Turbine: " + plantStatus.componentList().get("turbine").wear(), 70, 220);
         
         drawPlantGUIElement(g, computer, false);
+        if (plantStatus.getSoftwareFailure() != SoftwareFailure.None) {
+            g.setColor(Color.GREEN);
+            g.drawString("> error", 120, 540);
+            g.drawString("> segfault 0xFF3190E", 120, 560);
+            g.drawString("  # stacktrace:", 120, 580);
+            g.drawString("    # " + plantStatus.getSoftwareFailure(), 120, 600);
+            
+            g.fillRect(debugButton.x, debugButton.y, debugButton.width, debugButton.height);
+            
+            g.setColor(Color.BLACK);
+            
+            g.drawString("debug", debugButton.x + 15, debugButton.y + 15);
+        }
     }
 
     /**
@@ -468,20 +483,11 @@ public class PlantInterface extends JPanel implements MouseListener {
         } else {
             g.drawString("Cooling Pump: OFF", 1190, 630);
         }
-
-        if(plantStatus.getSoftwareFailure() != SoftwareFailure.None) {
-            g.setColor(Color.red);
-            g.drawString("Warning!!\n\n A part of the plant's\n software has failed!" + plantStatus.getSoftwareFailure(), 40, 200);
-        }
         
         drawBorderRect(g, 1080, 10, 260, 50);
         g.setFont(scoreFont); g.setColor(Color.decode("#000000"));
         g.drawString("Score: " + plantStatus.energyGenerated(), 1100, 50);
         g.setFont(gameFont); g.setColor(Color.BLACK);
-    }
-    
-    public void drawExplosion(Graphics2D g) {
-        drawAnimatedGUIElement(g, explosion, false);
     }
 
     /**
@@ -554,6 +560,11 @@ public class PlantInterface extends JPanel implements MouseListener {
                     }
                 }
             }
+            
+                        
+            if (debugButton.contains(click.getPoint())) {
+                plantController.repairSoftware();
+            }
         } else if (SwingUtilities.isRightMouseButton(click)) {
             
             if (condenser.location.contains(click.getPoint())) {
@@ -600,8 +611,6 @@ public class PlantInterface extends JPanel implements MouseListener {
             }
         }
     }
-    
-    
 
     @Override
     public void mousePressed(MouseEvent e) {

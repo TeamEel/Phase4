@@ -37,6 +37,7 @@ public class MenuInterface extends JPanel implements MouseListener
     
     private GUIWindow parent;
     private Simulator simulator;
+    private Boolean loading = false;
     
     
    public MenuInterface(GUIWindow _parent, Simulator _simulator)
@@ -70,9 +71,24 @@ public class MenuInterface extends JPanel implements MouseListener
        
    }
    
+    private void LoadScreen(Graphics2D g){
+        g.drawString("LOADING", 600, 400);
+    }
+    
+    private void EndLoadScreen(Graphics2D g){
+        g.clearRect(0, 0, 1366, 768);    
+    }
+    
+   
    @Override
    public void paintComponent(Graphics g) {
        g.drawImage(backgroundImage, 0, 0, null);
+       
+       if (loading == true) {
+            g.setColor(Color.red);
+            g.setFont(g.getFont().deriveFont(30.0f));
+            g.drawString("LOADING", 500, 400);
+       }
    }
    
    @Override
@@ -84,6 +100,8 @@ public class MenuInterface extends JPanel implements MouseListener
                name = JOptionPane.showInputDialog("Enter your name");
            }
            
+           loading = true;
+           paint(this.getGraphics());
            simulator.setUsername(name);
            parent.setWindow(new PlantInterface(simulator, simulator, simulator));
        }

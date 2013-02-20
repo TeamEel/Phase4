@@ -29,6 +29,8 @@ public interface PlantController {
     public void repairCondenser() throws CannotRepairException;
 
     public void repairTurbine() throws CannotRepairException;
+    
+    public void repairSoftware();
 
     public void failCondenser();
 
