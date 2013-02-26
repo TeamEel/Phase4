@@ -131,7 +131,7 @@ public class GUIWindow extends JFrame implements ActionListener {
      * screen.
      */
     public void update() {
-        revalidate();
+        currentWindow.revalidate();
         repaint();
     }
 
