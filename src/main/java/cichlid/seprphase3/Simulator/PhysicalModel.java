@@ -31,6 +31,8 @@ public class PhysicalModel implements PlantController, PlantStatus {
     @JsonProperty
     private Condenser condenser = new Condenser();
     @JsonProperty
+    private Quencher quencher;
+    @JsonProperty
     private Energy energyGenerated = joules(0);
     @JsonProperty
     private Connection reactorToTurbine;
@@ -57,6 +59,8 @@ public class PhysicalModel implements PlantController, PlantStatus {
     public PhysicalModel() {
 
         heatSink = new HeatSink();
+        
+        quencher = new Quencher();
 
         allPumps = new HashMap<Integer, Pump>();
         allConnections = new HashMap<Integer, Connection>();
@@ -168,6 +172,11 @@ public class PhysicalModel implements PlantController, PlantStatus {
     @Override
     public Percentage reactorMinimumWaterLevel() {
         return reactor.minimumWaterLevel();
+    }
+    
+    @Override
+    public boolean quencherUsed() {
+        return quencher.used();
     }
 
     @Override
@@ -291,6 +300,11 @@ public class PhysicalModel implements PlantController, PlantStatus {
 
         allPumps.get(pumpNumber).setStatus(isPumping);
         return true;
+    }
+    
+    @Override
+    public void quenchReactor() {
+        quencher.quenchReactor(reactor);
     }
 
     @Override

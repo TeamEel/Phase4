@@ -133,6 +133,11 @@ public class FailureModel implements PlantController, PlantStatus {
         controller.changePumpState(pumpNumber, isPumping);
         return true;
     }
+    
+    @Override
+    public void quenchReactor() {
+        controller.quenchReactor();
+    }
 
     @Override
     public void repairPump(int pumpNumber) throws KeyNotFoundException, CannotRepairException {
@@ -233,6 +238,11 @@ public class FailureModel implements PlantController, PlantStatus {
     @Override
     public Percentage reactorMinimumWaterLevel() {
         return status.reactorMinimumWaterLevel();
+    }
+    
+    @Override
+    public boolean quencherUsed() {
+        return status.quencherUsed();
     }
 
     @Override

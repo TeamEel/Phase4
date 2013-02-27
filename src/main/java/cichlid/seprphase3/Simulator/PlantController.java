@@ -24,6 +24,8 @@ public interface PlantController {
 
     public Boolean changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException,
                                                                              KeyNotFoundException;
+    
+    public void quenchReactor();
 
     public void repairPump(int pumpNumber) throws KeyNotFoundException, CannotRepairException;
 

@@ -509,11 +509,16 @@ public class PlantInterface extends BaseInterface implements MouseListener {
         g.setFont(gameFont);
 
         // Reactor information.
-        drawBorderRect(g, 500, 230, 170, 110);
+        drawBorderRect(g, 500, 230, 170, 135);
         g.drawString("Pressure: " + plantStatus.reactorPressure(), 510, 250);
         g.drawString("Temperature: " + plantStatus.reactorTemperature(), 510, 275);
         g.drawString("Water Level: " + plantStatus.reactorWaterLevel(), 510, 300);
         g.drawString("Control rods: " + plantStatus.controlRodPosition(), 510, 325);
+        if (plantStatus.quencherUsed()) {
+            g.drawString("Quencher used: YES", 510, 350);
+        } else {
+            g.drawString("Quencher used: NO", 510, 350);
+        }
 
         // Button text for rod up and rod down.
         g.setColor(Color.CYAN);
@@ -675,7 +680,13 @@ public class PlantInterface extends BaseInterface implements MouseListener {
             // The right mouse button was clicked, check if it was clicked on a component.
         } else if (rightClick(click)) {
 
-            // If the mouse was clicked on any component, repair it.
+            // If the mouse was clicked on reactor, quench it.
+            
+            if (reactor.clicked(click)) {
+                plantController.quenchReactor();
+            }
+            
+            // If the mouse was clicked on any other component, repair it.
 
             if (condenser.clicked(click)) {
                 try {

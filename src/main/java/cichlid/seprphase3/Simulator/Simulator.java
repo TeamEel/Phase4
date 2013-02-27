@@ -104,6 +104,11 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
                                                                              KeyNotFoundException {
         return failureModel.changePumpState(pumpNumber, isPumping);
     }
+    
+    @Override
+    public void quenchReactor() {
+        failureModel.quenchReactor();
+    }
 
     @Override
     public void repairPump(int pumpNumber) throws KeyNotFoundException, CannotRepairException {
@@ -183,6 +188,11 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     @Override
     public Percentage reactorMinimumWaterLevel() {
         return failureModel.reactorMinimumWaterLevel();
+    }
+    
+    @Override
+    public boolean quencherUsed() {
+        return failureModel.quencherUsed();
     }
 
     @Override

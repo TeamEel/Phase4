@@ -79,6 +79,10 @@ public class Reactor extends FailableComponent {
     public void moveControlRods(Percentage extracted) {
         fuelPile.moveControlRods(extracted);
     }
+    
+    public void quench() {
+        temperature = kelvin(350);
+    }
 
     /**
      *
