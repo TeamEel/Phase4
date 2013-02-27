@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cichlid</groupId>
-    <artifactId>SeprPhase3</artifactId>
+    <artifactId>SeprPhase4</artifactId>
     <version>0.1</version>
     <packaging>jar</packaging>
 
-    <name>SeprPhase3</name>
+    <name>SeprPhase4</name>
     <url>http://maven.apache.org</url>
 
     <properties>
