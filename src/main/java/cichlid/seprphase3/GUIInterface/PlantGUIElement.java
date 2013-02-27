@@ -3,6 +3,7 @@ package cichlid.seprphase3.GUIInterface;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import javax.swing.SwingUtilities;
 
 /**
  * PlantGUIElement represents anything which can be drawn to a part of the Plant's GUI. It holds an image and a
@@ -60,5 +61,25 @@ public class PlantGUIElement {
     
     public boolean clicked(MouseEvent e) {
         return location.contains(e.getPoint());
+    }
+    
+    public void handleClick(MouseEvent e) {
+        if (clicked(e)) {
+            if (SwingUtilities.isLeftMouseButton(e)) {
+                handleLeftClick();
+            } else if (SwingUtilities.isRightMouseButton(e)) {
+                handleRightClick();
+            }
+        }        
+    }
+    
+    protected void handleLeftClick() {
+        // do nothing
+        // todo: make abstract?
+    }
+    
+    protected void handleRightClick() {
+        // do nothing
+        // todo: make abstract?
     }
 }

@@ -43,7 +43,7 @@ public class PlantInterface extends BaseInterface implements MouseListener {
     private AnimatedPlantGUIElement pump1Rotors;
     private AnimatedPlantGUIElement coolingPumpRotors;
     // Valves.
-    private AnimatedPlantGUIElement valve1;
+    private ValveControl valve1;
     private AnimatedPlantGUIElement valve2;
     // Pipes.
     private PlantGUIElement coolingPipe;
@@ -143,10 +143,8 @@ public class PlantInterface extends BaseInterface implements MouseListener {
         pump1Rotors.setAnimation(PlantAnimationType.ON);
         coolingPumpRotors.setAnimation(PlantAnimationType.ON);
 
-
-        // Animated Valves
-        valve1 = new AnimatedPlantGUIElement(false, "animations/closevalve", "animations/closevalve",
-                                             "animations/openvalve", X_OFFSET + 307, Y_OFFSET - 51, SCALE_AMOUNT + 0.1f);
+        valve1 = new ValveControl(plantStatus, "reactorToTurbine",
+                                  X_OFFSET + 307, Y_OFFSET - 51, SCALE_AMOUNT + 0.1f);
 
         // This sets up the transform used to rotate the valve by 90 degrees.
         // Uses getRotateInstance, which takes an origin. The origin is the middle of the image,
@@ -668,21 +666,8 @@ public class PlantInterface extends BaseInterface implements MouseListener {
                 }
             }
 
-            // If a valve was clicked, change its status and animate it changing.
-            if (valve1.clicked(click)) {
-                if (!(plantStatus.getSoftwareFailure() == SoftwareFailure.valveStateChange)) {
-                    boolean state = plantStatus.connectionList().get("reactorToTurbine").getOpen();
-
-                    if (state) {
-                        plantStatus.connectionList().get("reactorToTurbine").setOpen(false);
-                        valve1.setAnimation(PlantAnimationType.TURNINGON);
-                    } else {
-                        plantStatus.connectionList().get("reactorToTurbine").setOpen(true);
-                        valve1.setAnimation(PlantAnimationType.TURNINGOFF);
-                    }
-                }
-            }
-
+            valve1.handleClick(click);
+            
             // If a valve was clicked, change its status and animate it changing.
             if (valve2.clicked(click)) {
                 if (!(plantStatus.getSoftwareFailure() == SoftwareFailure.valveStateChange)) {
