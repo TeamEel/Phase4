@@ -11,10 +11,9 @@ import java.util.Calendar;
 
 /**
  * Saveable/Loadable game state
- * 
+ *
  * @author David
  */
-
 public class SaveGame {
 
     @JsonProperty
@@ -53,7 +52,7 @@ public class SaveGame {
     public FailureModel getFailureModel() {
         return new FailureModel(physicalModel, physicalModel);
     }
-    
+
     /**
      * generateFileName generates a new unique file name using getTimeInMillis
      *

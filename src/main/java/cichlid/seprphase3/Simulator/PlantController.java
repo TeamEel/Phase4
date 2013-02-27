@@ -22,14 +22,15 @@ public interface PlantController {
      */
     public Boolean changeValveState(int valveNumber, boolean isOpen) throws KeyNotFoundException;
 
-    public Boolean changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException, KeyNotFoundException;
+    public Boolean changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException,
+                                                                             KeyNotFoundException;
 
     public void repairPump(int pumpNumber) throws KeyNotFoundException, CannotRepairException;
 
     public void repairCondenser() throws CannotRepairException;
 
     public void repairTurbine() throws CannotRepairException;
-    
+
     public void repairSoftware();
 
     public void failCondenser();

@@ -9,43 +9,40 @@ import javax.swing.*;
  * This GameState defines the current state of the game.
  */
 enum GameState {
+
     NotStarted, Running, GameOver
 }
 
 /**
- * The GUIWindow class extends JFrame and provides methods for dealing with the current
- * interface. It implements ActionListener so it can work with Swing Timers for scheduling
- * updating at a specified interval.
+ * The GUIWindow class extends JFrame and provides methods for dealing with the current interface. It implements
+ * ActionListener so it can work with Swing Timers for scheduling updating at a specified interval.
  */
 public class GUIWindow extends JFrame implements ActionListener {
 
     // This is the current window which is being displayed.
     JPanel currentWindow;
-    
     // This is the simulator which the plant uses.
     Simulator simulator;
-    
     // This is the state which the game is currently in.
     GameState state = GameState.NotStarted;
-    
-    
     // This is the GameOverInterface which is displayed when the game is over.
     GameOverInterface gameover;
     // The end game explosion animation must be preloaded due to its size, so it is stored here.
     Animation explosion;
-    
+
     /**
      * This creates a GUIWindow with a number of parameters.
-     * @param title         The title to give the window.
-     * @param width         The width of the window.
-     * @param height        The height of the window.
+     *
+     * @param title  The title to give the window.
+     * @param width  The width of the window.
+     * @param height The height of the window.
      */
     public GUIWindow(String title, int width, int height) {
         super(title);
-        
+
         // Allow the window to exit when the close button is pressed.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         // Set the resolution of the window.
         setSize(width, height);
 
@@ -54,7 +51,7 @@ public class GUIWindow extends JFrame implements ActionListener {
         // Do not allow the user to resize the window.
         setResizable(false);
         setVisible(true);
-        
+
         // Preload the Explosion Animation due to its size and store it here to be passed into
         // GameOverInterface.
         explosion = new Animation("animations/explosion", false);
@@ -75,7 +72,8 @@ public class GUIWindow extends JFrame implements ActionListener {
 
     /**
      * Called every 60ms by the Swing Timer.
-     * @param event 
+     *
+     * @param event
      */
     @Override
     public void actionPerformed(ActionEvent event) {
@@ -100,7 +98,7 @@ public class GUIWindow extends JFrame implements ActionListener {
                 update();
                 // gameover.block returns false when the button is pressed to play another game. At this point,
                 // the code to return to the menu interface is ran.
-                if(!gameover.block) {
+                if (!gameover.block) {
                     state = GameState.NotStarted;
                     showMenu();
                 }
@@ -115,7 +113,7 @@ public class GUIWindow extends JFrame implements ActionListener {
     /**
      * Sets the active interface on the jFrame (all interfaces are jPanels).
      *
-     * @param _window       The interface to display.
+     * @param _window The interface to display.
      */
     public void setWindow(JPanel _window) {
         /**
@@ -136,16 +134,16 @@ public class GUIWindow extends JFrame implements ActionListener {
     }
 
     /**
-     * Run game starts a new game. It is called by Load, and takes the loaded simulator, creating the new game with
-     * it.
-     * @param sim 
+     * Run game starts a new game. It is called by Load, and takes the loaded simulator, creating the new game with it.
+     *
+     * @param sim
      */
     public void runGame(Simulator sim) {
         simulator = sim;
         setWindow(new PlantInterface(this, simulator, simulator, simulator));
         state = GameState.Running;
     }
-    
+
     public void showMenu() {
         simulator = new Simulator();
         setWindow(new MenuInterface(this, simulator));

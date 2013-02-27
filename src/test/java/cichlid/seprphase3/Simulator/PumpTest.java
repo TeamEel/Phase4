@@ -91,7 +91,7 @@ public class PumpTest {
         pump.step();
         assertEquals(kilograms(0), output.mass);
     }
-    
+
     @Test
     public void shouldCalculateWearDelta() {
         Port input = new Port();

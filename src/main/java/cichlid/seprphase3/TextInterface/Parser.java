@@ -116,6 +116,7 @@ public class Parser {
 
     /**
      * Set the username
+     *
      * @param username
      */
     public void setUsername(String username) {
@@ -124,7 +125,9 @@ public class Parser {
 
     /**
      * Convenience function for user menus
+     *
      * @param action the input string
+     *
      * @return the integer representing the user's choice
      */
     public int chooseAction(String action) {

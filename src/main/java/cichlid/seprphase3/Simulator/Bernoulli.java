@@ -7,10 +7,9 @@ import cichlid.seprphase3.Utilities.Velocity;
 
 /**
  * Bernoulli's Law
- * 
- * Rearrangements of Bernoulli's Law for fluid flow
- * to find the value of any variable from any of the others.
- * 
+ *
+ * Rearrangements of Bernoulli's Law for fluid flow to find the value of any variable from any of the others.
+ *
  * @author David
  */
 public class Bernoulli {

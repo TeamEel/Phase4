@@ -29,7 +29,7 @@ import java.util.Random;
  *
  * @author Marius Dumitrescu
  */
-@JsonAutoDetect(getterVisibility= JsonAutoDetect.Visibility.NONE, setterVisibility= JsonAutoDetect.Visibility.NONE)
+@JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class FailureModel implements PlantController, PlantStatus {
 
     @JsonProperty
@@ -41,7 +41,6 @@ public class FailureModel implements PlantController, PlantStatus {
     private int numberOfTimesWaterLevelIsTooLow;
     private final int reactorOverheatThreshold = 8;
     private final Pressure condenserMaxPressure = new Pressure(30662500);
-
     // Software will fail 1 out of softwareFailureProbability times
     private final int softwareFailureProbability = 500;
 
@@ -86,7 +85,7 @@ public class FailureModel implements PlantController, PlantStatus {
 
         // There is also a 1 in 1000 chance that a software failure will occur at any step.
         // But only if there is not already a failure!
-        if(status.getSoftwareFailure() == SoftwareFailure.None) {
+        if (status.getSoftwareFailure() == SoftwareFailure.None) {
             failValue = failChance.nextInt(softwareFailureProbability);
             if (failValue == 0) {
                 failSoftware();
@@ -98,7 +97,7 @@ public class FailureModel implements PlantController, PlantStatus {
     public String[] listFailedComponents() {
         return status.listFailedComponents();
     }
-    
+
     @Override
     public SoftwareFailure getSoftwareFailure() {
         return status.getSoftwareFailure();
@@ -125,7 +124,8 @@ public class FailureModel implements PlantController, PlantStatus {
     }
 
     @Override
-    public Boolean changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException, KeyNotFoundException {
+    public Boolean changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException,
+                                                                             KeyNotFoundException {
         if (status.getSoftwareFailure() == SoftwareFailure.pumpStateChange) {
             randomSoftwareFailure();
             return false;
@@ -148,7 +148,7 @@ public class FailureModel implements PlantController, PlantStatus {
     public void repairTurbine() throws CannotRepairException {
         controller.repairTurbine();
     }
-    
+
     @Override
     public void repairSoftware() {
         controller.repairSoftware();
@@ -200,7 +200,7 @@ public class FailureModel implements PlantController, PlantStatus {
     public boolean getReactorToTurbine() {
         return status.getReactorToTurbine();
     }
-    
+
     @Override
     public boolean getTurbineToCondenser() {
         return status.getTurbineToCondenser();
@@ -264,12 +264,12 @@ public class FailureModel implements PlantController, PlantStatus {
     public ArrayList<FailableComponent> components() {
         return status.components();
     }
-    
+
     @Override
     public HashMap<String, FailableComponent> componentList() {
         return status.componentList();
     }
-    
+
     @Override
     public HashMap<String, Connection> connectionList() {
         return status.connectionList();
@@ -302,7 +302,7 @@ public class FailureModel implements PlantController, PlantStatus {
         RandomAction actionToFailWith = RandomAction.pickRandom();
 
         try {
-            switch(actionToFailWith) {
+            switch (actionToFailWith) {
                 case pumpOff:
                     controller.changePumpState(0, false);
                 case coolantPumpOff:

@@ -34,7 +34,7 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     public void setUsername(String userName) {
         this.userName = userName;
     }
-    
+
     public String getUsername() {
         return userName;
     }
@@ -70,7 +70,7 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     public String[] listFailedComponents() {
         return failureModel.listFailedComponents();
     }
-    
+
     @Override
     public SoftwareFailure getSoftwareFailure() {
         return failureModel.getSoftwareFailure();
@@ -100,7 +100,8 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     }
 
     @Override
-    public Boolean changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException, KeyNotFoundException {
+    public Boolean changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException,
+                                                                             KeyNotFoundException {
         return failureModel.changePumpState(pumpNumber, isPumping);
     }
 
@@ -118,7 +119,7 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     public void repairTurbine() throws CannotRepairException {
         failureModel.repairTurbine();
     }
-    
+
     @Override
     public void repairSoftware() {
         failureModel.repairSoftware();
@@ -158,7 +159,7 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     public boolean getReactorToTurbine() {
         return failureModel.getReactorToTurbine();
     }
-    
+
     @Override
     public boolean getTurbineToCondenser() {
         return failureModel.getTurbineToCondenser();
@@ -193,7 +194,7 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     public void failReactor() {
         throw new UnsupportedOperationException("Not meaningful at this level.");
     }
-    
+
     @Override
     public void failSoftware() {
         throw new UnsupportedOperationException("Not meaningful at this level.");
@@ -213,12 +214,12 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     public ArrayList<FailableComponent> components() {
         throw new UnsupportedOperationException("Not supported yet");
     }
-    
+
     @Override
     public HashMap<String, FailableComponent> componentList() {
         return failureModel.componentList();
     }
-    
+
     @Override
     public HashMap<String, Connection> connectionList() {
         return failureModel.connectionList();

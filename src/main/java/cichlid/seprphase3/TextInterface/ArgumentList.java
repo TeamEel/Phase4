@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 /**
  * Provide an error-handling, bounds-checked argument list for user commands
- * 
+ *
  * Throws exceptions with user-helpful error messages
- * 
+ *
  * @author David
  */
 public class ArgumentList {
@@ -21,6 +21,7 @@ public class ArgumentList {
 
     /**
      * Add an argument to the list
+     *
      * @param argument the string representing the argument
      */
     public void add(String argument) {
@@ -29,8 +30,11 @@ public class ArgumentList {
 
     /**
      * Return the argument at a position, doint error checking
+     *
      * @param index the zero-based index of the argument to retrieve
+     *
      * @return the argument at index
+     *
      * @throws ArgumentCountException when there are insufficient arguments
      */
     public Argument at(int index) throws ArgumentCountException {
@@ -48,6 +52,7 @@ public class ArgumentList {
 
     /**
      * Count arguments in list
+     *
      * @return the number of arguments in the list
      */
     public int count() {

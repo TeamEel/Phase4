@@ -6,9 +6,9 @@ import static cichlid.seprphase3.Utilities.Units.*;
 
 /**
  * Fluid flow connection between two components.
- * 
+ *
  * Optionally, can be turned on/off to form a valve.
- * 
+ *
  * @author David
  */
 public class Connection extends Valve {

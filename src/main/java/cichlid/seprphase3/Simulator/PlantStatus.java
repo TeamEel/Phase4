@@ -48,7 +48,7 @@ public interface PlantStatus {
      * @return
      */
     public boolean getReactorToTurbine();
-    
+
     public boolean getTurbineToCondenser();
 
     public Temperature condenserTemperature();
@@ -60,13 +60,14 @@ public interface PlantStatus {
     public Percentage reactorMinimumWaterLevel();
 
     public String[] listFailedComponents();
-    
+
     public SoftwareFailure getSoftwareFailure();
 
     public boolean turbineHasFailed();
 
     public ArrayList<FailableComponent> components();
-    
+
     public HashMap<String, FailableComponent> componentList();
+
     public HashMap<String, Connection> connectionList();
 }

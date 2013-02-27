@@ -165,7 +165,7 @@ public class PercentageTest {
         Percentage p2 = new Percentage(2);
         assertEquals(new Percentage(55), p1.minus(p2));
     }
-    
+
     @Test
     public void handleFPErrorInAddition() {
         Percentage p1 = new Percentage(50.0000001);
@@ -180,7 +180,6 @@ public class PercentageTest {
         assertEquals(new Percentage(0), p1.minus(p2));
     }
 
-    
     @Test(expected = IllegalArgumentException.class)
     public void outOfRangeAddition() {
         Percentage p1 = new Percentage(55);

@@ -6,12 +6,14 @@ import java.io.InputStreamReader;
 
 /**
  * Concrete implementation of LineReader for use with Standard Input
+ *
  * @author David
  */
 public class TerminalReader implements LineReader {
 
     /**
      * Read a line from the terminal
+     *
      * @return the line read from the terminal
      */
     @Override

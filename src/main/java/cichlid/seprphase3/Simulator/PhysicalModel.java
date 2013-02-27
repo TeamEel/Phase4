@@ -21,7 +21,7 @@ import java.util.Map;
  * @author Marius
  */
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
-@JsonAutoDetect(getterVisibility= JsonAutoDetect.Visibility.NONE, setterVisibility= JsonAutoDetect.Visibility.NONE)
+@JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class PhysicalModel implements PlantController, PlantStatus {
 
     @JsonProperty
@@ -48,7 +48,6 @@ public class PhysicalModel implements PlantController, PlantStatus {
     private HashMap<Integer, Connection> allConnections;
     @JsonProperty
     private HeatSink heatSink;
-    
     @JsonProperty
     private SoftwareFailure currentSoftwareFailure;
 
@@ -234,7 +233,7 @@ public class PhysicalModel implements PlantController, PlantStatus {
     public boolean getReactorToTurbine() {
         return reactorToTurbine.getOpen();
     }
-    
+
     public boolean getTurbineToCondenser() {
         return turbineToCondenser.getOpen();
     }
@@ -249,7 +248,7 @@ public class PhysicalModel implements PlantController, PlantStatus {
         c.add(4, heatsinkToCondenser);
         return c;
     }
-    
+
     @Override
     public HashMap<String, FailableComponent> componentList() {
         HashMap<String, FailableComponent> c = new HashMap<String, FailableComponent>();
@@ -260,7 +259,7 @@ public class PhysicalModel implements PlantController, PlantStatus {
         c.put("coolingPump", heatsinkToCondenser);
         return c;
     }
-    
+
     @Override
     public HashMap<String, Connection> connectionList() {
         HashMap<String, Connection> c = new HashMap<String, Connection>();
@@ -280,7 +279,8 @@ public class PhysicalModel implements PlantController, PlantStatus {
     }
 
     @Override
-    public Boolean changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException, KeyNotFoundException {
+    public Boolean changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException,
+                                                                             KeyNotFoundException {
         if (!allPumps.containsKey(pumpNumber)) {
             throw new KeyNotFoundException("Pump " + pumpNumber + " does not exist");
         }
@@ -318,7 +318,7 @@ public class PhysicalModel implements PlantController, PlantStatus {
     public void repairTurbine() throws CannotRepairException {
         turbine.repair();
     }
-    
+
     @Override
     public void repairSoftware() {
         currentSoftwareFailure = SoftwareFailure.None;
@@ -343,7 +343,7 @@ public class PhysicalModel implements PlantController, PlantStatus {
     public boolean turbineHasFailed() {
         return turbine.hasFailed();
     }
-    
+
     public boolean getPumpStatus(int pumpNumber) {
         return allPumps.get(pumpNumber).getStatus();
     }

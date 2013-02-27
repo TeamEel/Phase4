@@ -32,21 +32,20 @@ public class PhysicalModelTest {
         assertThat(model.energyGenerated().inJoules(), greaterThan(0.0));
     }
 
-    
     @Test
     public void shouldSetControlRodPosition() throws GameOverException {
         PhysicalModel model = new PhysicalModel();
         model.moveControlRods(percent(100));
         assertTrue(model.controlRodPosition().equals(percent(100)));
     }
-    
+
     @Test
     public void shouldSetConnectionToOpena() {
         PhysicalModel model = new PhysicalModel();
         model.setReactorToTurbine(true);
         assertEquals(true, model.getReactorToTurbine());
     }
-    
+
     @Test
     public void shouldSetConnectionToClosed() {
         PhysicalModel model = new PhysicalModel();
@@ -61,7 +60,7 @@ public class PhysicalModelTest {
         assertEquals(true, model.getReactorToTurbine());
 
     }
-     
+
     @Test
     public void shouldSetCondenserBackToNormalFailureState() {
         PhysicalModel model = new PhysicalModel();
@@ -162,7 +161,7 @@ public class PhysicalModelTest {
         model.changePumpState(1, true);
         assertTrue(model.getPumpStatus(1));
     }
-    
+
     @Test(expected = KeyNotFoundException.class)
     public void shouldRefuseToRepairInvalidPump() throws KeyNotFoundException, CannotRepairException {
         PhysicalModel model = new PhysicalModel();

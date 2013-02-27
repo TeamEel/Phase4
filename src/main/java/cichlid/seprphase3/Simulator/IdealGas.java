@@ -9,10 +9,9 @@ import static cichlid.seprphase3.Utilities.Units.*;
 
 /**
  * Ideal Gas Equation
- * 
- * Rearrangements of the Ideal Gas Equation to find any one variable
- * given the others.
- * 
+ *
+ * Rearrangements of the Ideal Gas Equation to find any one variable given the others.
+ *
  * @author David
  */
 public class IdealGas {

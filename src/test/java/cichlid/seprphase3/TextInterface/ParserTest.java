@@ -40,7 +40,8 @@ public class ParserTest {
     }
 
     @Test
-    public void shouldMoveControlRods() throws CannotControlException, KeyNotFoundException, DoNotStep, QuitGameException {
+    public void shouldMoveControlRods() throws CannotControlException, KeyNotFoundException, DoNotStep,
+                                               QuitGameException {
         context.checking(new Expectations() {
             {
                 oneOf(plantController).moveControlRods(percent(50));

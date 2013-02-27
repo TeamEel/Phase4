@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import static cichlid.seprphase3.Utilities.Units.*;
 
 /**
- * 
+ *
  * @author Marius
  */
 public class Condenser extends FailableComponent {

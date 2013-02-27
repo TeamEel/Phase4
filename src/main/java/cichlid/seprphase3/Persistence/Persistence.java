@@ -11,12 +11,12 @@ import java.io.IOException;
 
 /**
  * JSON Serialization
+ *
  * @author David
  */
 public class Persistence {
 
     private ObjectMapper mapper = new ObjectMapper();
-    
 
     /**
      *

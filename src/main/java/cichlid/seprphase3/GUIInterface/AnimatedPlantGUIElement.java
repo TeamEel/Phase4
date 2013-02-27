@@ -5,94 +5,104 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 /**
- * This class represents something which can be displayed on the GUI which can be animated.
- * It holds three animations; On, TurningOn and TurningOff.
+ * This class represents something which can be displayed on the GUI which can be animated. It holds three animations;
+ * On, TurningOn and TurningOff.
+ *
  * @author jonny
  */
 public class AnimatedPlantGUIElement extends PlantGUIElement {
-    
+
     // These are the three animations which the GUI element can display.
     private Animation on;
     private Animation turningon;
     private Animation turningoff;
-    
     // The animation that is currently displaying.
     private PlantAnimationType currentAnimation = PlantAnimationType.OFF;
-    
+
     /**
      * Creates an animatedGUIElement without a transformation.
-     * @param _loop                 Whether the element should loop or not.
-     * @param onPath                The path of the on animation.
-     * @param turningOnPath         The path of the turningOn animation.
-     * @param turningOffPath        The path of the turningOff animation.
-     * @param x                     The X location of the element on the screen.
-     * @param y                     The Y location of the element on the screen.
-     * @param scaling               The scaling of the element.
+     *
+     * @param _loop          Whether the element should loop or not.
+     * @param onPath         The path of the on animation.
+     * @param turningOnPath  The path of the turningOn animation.
+     * @param turningOffPath The path of the turningOff animation.
+     * @param x              The X location of the element on the screen.
+     * @param y              The Y location of the element on the screen.
+     * @param scaling        The scaling of the element.
      */
-    public AnimatedPlantGUIElement(Boolean _loop, String onPath, String turningOnPath, String turningOffPath, int x, int y, float scaling) {
+    public AnimatedPlantGUIElement(Boolean _loop, String onPath, String turningOnPath, String turningOffPath, int x,
+                                   int y, float scaling) {
         // Create the three animations.
         on = new Animation(onPath, scaling, _loop);
         turningon = new Animation(turningOnPath, scaling, false);
         turningoff = new Animation(turningOffPath, scaling, false);
-        
+
         // Create a static image just in case it is needed. Take this from the first frame of the ON animation.
         image = on.staticImage();
-        
+
         // Automatically calculate the rectangle on the screen that the image will occupy.
         location = new Rectangle(x, y, image.getWidth(), image.getHeight());
     }
-    
+
     /**
      * Creates a new AnimatedPlantGUIElement while applying a transform to all of the frames.
-     * @param transform         The transform to apply.
+     *
+     * @param transform The transform to apply.
      */
-    public AnimatedPlantGUIElement(Boolean _loop, String onPath, String turningOnPath, String turningOffPath, int x, int y, float scaling, AffineTransformOp transform) {
+    public AnimatedPlantGUIElement(Boolean _loop, String onPath, String turningOnPath, String turningOffPath, int x,
+                                   int y, float scaling, AffineTransformOp transform) {
         // Create the three animations.
         on = new Animation(onPath, scaling, transform, _loop);
         turningon = new Animation(turningOnPath, scaling, transform, false);
         turningoff = new Animation(turningOffPath, scaling, transform, false);
-        
+
         // Create a static image just in case it is needed. Take this from the first frame of the ON animation.
         this.image = on.staticImage();
-        
+
         // Automatically calculate the rectangle on the screen that the image will occupy.
         location = new Rectangle(x, y, image.getWidth(), image.getHeight());
     }
-    
+
     /**
      * Get the current animation that is playing.
-     * @return 
+     *
+     * @return
      */
     public PlantAnimationType getCurrentAnimation() {
         return currentAnimation;
     }
-    
+
     /**
      * Set the animation to play.
-     * @param aniType       The animation type to play.
+     *
+     * @param aniType The animation type to play.
      */
     public void setAnimation(PlantAnimationType aniType) {
         // Reset the current animation to frame 0 so it is ready to be replayed.
-        switch(currentAnimation) {
+        switch (currentAnimation) {
             case ON:
-                on.reset(); break;
+                on.reset();
+                break;
             case TURNINGON:
-                turningon.reset(); break;
+                turningon.reset();
+                break;
             case TURNINGOFF:
-                turningoff.reset(); break;
+                turningoff.reset();
+                break;
         }
-        
+
         // Change the animation type to the new animation type.
         currentAnimation = aniType;
     }
-    
+
     /**
      * Get the next image in the current animation.
-     * @return              The next image in the current animation.
+     *
+     * @return The next image in the current animation.
      */
     public BufferedImage stepImage() {
-        
-        switch(currentAnimation) {
+
+        switch (currentAnimation) {
             case ON:
                 return on.stepImage();
             case OFF:

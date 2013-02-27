@@ -97,7 +97,8 @@ public class TextInterfaceTest {
     }
 
     @Test
-    public void shouldProcessACommand() throws CannotControlException, KeyNotFoundException, DoNotStep, QuitGameException {
+    public void shouldProcessACommand() throws CannotControlException, KeyNotFoundException, DoNotStep,
+                                               QuitGameException {
         context.checking(new Expectations() {
             {
 

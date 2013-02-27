@@ -5,17 +5,15 @@ import cichlid.seprphase3.Utilities.Percentage;
 
 /**
  * Base Class for all components which can fail.
- * 
+ *
  * FailableComponents maintain their state of repair and their wear.
- * 
- * Wear is accumulated by the template method stepWear; particular
- * FailableComponents should implement an appropriate calculateWearDelta
- * function to provide the wear characteristic of that component.
- * 
- * Components which can fail but which do not suffer from wear
- * (such as the reactor) can provide a calculateWearDelta function which
- * always returns a Percentage of zero.
- * 
+ *
+ * Wear is accumulated by the template method stepWear; particular FailableComponents should implement an appropriate
+ * calculateWearDelta function to provide the wear characteristic of that component.
+ *
+ * Components which can fail but which do not suffer from wear (such as the reactor) can provide a calculateWearDelta
+ * function which always returns a Percentage of zero.
+ *
  * @author Marius Dumetrescu
  */
 public abstract class FailableComponent {

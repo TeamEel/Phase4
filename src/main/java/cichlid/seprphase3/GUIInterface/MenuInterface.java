@@ -83,7 +83,7 @@ public class MenuInterface extends BaseInterface implements MouseListener {
             if (name == null || name.equals("")) {
                 return;
             }
-            
+
             // Set the username of the simulator to the user's name.
             simulator.setUsername(name);
 
@@ -98,7 +98,7 @@ public class MenuInterface extends BaseInterface implements MouseListener {
             parent.setWindow(new PlantInterface(parent, simulator, simulator, simulator));
         }
 
-        if ( clicked(loadGameButton, click) ) {
+        if (clicked(loadGameButton, click)) {
 
             // Get the name to index saved games by.
             String name = JOptionPane.showInputDialog("Enter your name");

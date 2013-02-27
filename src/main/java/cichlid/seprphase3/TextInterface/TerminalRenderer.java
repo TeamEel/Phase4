@@ -2,12 +2,14 @@ package cichlid.seprphase3.TextInterface;
 
 /**
  * Concrete TextRenderer for use with Standard Output
+ *
  * @author David
  */
 public class TerminalRenderer implements TextRenderer {
 
     /**
      * Write a line to the terminal
+     *
      * @param s the line to write
      */
     @Override

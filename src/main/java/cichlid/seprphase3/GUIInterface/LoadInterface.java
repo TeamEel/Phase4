@@ -25,23 +25,18 @@ public class LoadInterface extends BaseInterface implements MouseListener {
                "sepr.teameel.gamesaves" +
                System.getProperty("file.separator");
     }
-    
     // Background Image.
     private BufferedImage backgroundImage;
-    
     // Buttons and Labels
     PlantGUIElement menuButton;
     public ArrayList<PlantGUIElement> loadButtons;
     public ArrayList<String> savelbls;
-    
     // Useful references
     public SaveGame saveGame;
     public Simulator simulator;
     public GUIWindow parent;
-    
     // Maps a space on the screen to a particular save.
     Map<Rectangle, Integer> m;
-    
     public int y;
     public int i;
     private String userName;
@@ -78,15 +73,15 @@ public class LoadInterface extends BaseInterface implements MouseListener {
         for (String string : listGames()) {
             y = y + 8;
             i = i + 1;
-            
+
             PlantGUIElement loadButton = new PlantGUIElement(buttonImage, 600, 10 * y, 1.0f);
             loadButtons.add(loadButton);
-            
+
 
             String[] bits = string.split("\\.");
             Timestamp t = new Timestamp(Long.parseLong(bits[3]));
             Date d = new Date(t.getTime());
-            
+
             String saveLbl = i + " " + userName + ": " + d;
             savelbls.add(saveLbl);
         }
@@ -117,12 +112,12 @@ public class LoadInterface extends BaseInterface implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent click) {
 
-        if ( clicked(menuButton, click) ) {
+        if (clicked(menuButton, click)) {
             parent.setWindow(new MenuInterface(parent, simulator));
         }
-        
-        for(PlantGUIElement button : loadButtons) {
-            if ( clicked(button, click) ) {
+
+        for (PlantGUIElement button : loadButtons) {
+            if (clicked(button, click)) {
                 int gameNumber = m.get(button.location);
                 Simulator sim = new Simulator();
                 sim.setUsername(userName);

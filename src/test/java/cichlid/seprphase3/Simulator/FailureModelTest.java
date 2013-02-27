@@ -35,11 +35,13 @@ public class FailureModelTest {
         model = new FailureModel(plantController, plantStatus);
     }
 
-    @Ignore @Test
+    @Ignore
+    @Test
     public void testStep_0args() throws Exception {
     }
 
-    @Ignore @Test
+    @Ignore
+    @Test
     public void testFailStateCheck() {
     }
 
@@ -144,7 +146,7 @@ public class FailureModelTest {
         });
         assertEquals(percent(28), model.controlRodPosition());
     }
-    
+
     @Test
     public void shouldGetFailedControlRodPosition() {
         context.checking(new Expectations() {
@@ -157,7 +159,7 @@ public class FailureModelTest {
         });
         assertEquals(null, model.controlRodPosition());
     }
-    
+
     @Test
     public void shouldGetReactorPressure() {
         context.checking(new Expectations() {
@@ -170,7 +172,7 @@ public class FailureModelTest {
         });
         assertEquals(pascals(10), model.reactorPressure());
     }
-    
+
     @Test
     public void shouldGetFailedReactorPressure() {
         context.checking(new Expectations() {
@@ -196,7 +198,7 @@ public class FailureModelTest {
         });
         assertEquals(kelvin(1000), model.reactorTemperature());
     }
-    
+
     @Test
     public void shouldGetFailedReactorTemperature() {
         context.checking(new Expectations() {
@@ -222,8 +224,7 @@ public class FailureModelTest {
         });
         assertEquals(percent(89), model.reactorWaterLevel());
     }
-    
-    
+
     @Test
     public void shouldGetFailedReactorWaterLevel() {
         context.checking(new Expectations() {
@@ -281,7 +282,7 @@ public class FailureModelTest {
         });
         assertEquals(kelvin(100), model.condenserTemperature());
     }
-    
+
     @Test
     public void shouldGetFailedCondenserTemperature() {
         context.checking(new Expectations() {
@@ -307,7 +308,7 @@ public class FailureModelTest {
         });
         assertEquals(pascals(1000), model.condenserPressure());
     }
-    
+
     @Test
     public void shouldGetFailedCondenserPressure() {
         context.checking(new Expectations() {
@@ -333,7 +334,7 @@ public class FailureModelTest {
         });
         assertEquals(percent(56), model.condenserWaterLevel());
     }
-    
+
     @Test
     public void shouldGetFailedCondenserWaterLevel() {
         context.checking(new Expectations() {
@@ -378,7 +379,8 @@ public class FailureModelTest {
         model.failReactor();
     }
 
-    @Ignore @Test
+    @Ignore
+    @Test
     public void testStep_int() throws Exception {
     }
 
@@ -393,7 +395,8 @@ public class FailureModelTest {
         assertEquals(true, model.turbineHasFailed());
     }
 
-    @Ignore @Test
+    @Ignore
+    @Test
     public void testComponents() {
     }
 }

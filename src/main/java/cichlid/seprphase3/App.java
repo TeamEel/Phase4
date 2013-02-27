@@ -8,7 +8,7 @@ import java.io.IOException;
  *
  */
 public class App {
-    
+
     /**
      * The main entry point for the application
      *
@@ -19,7 +19,7 @@ public class App {
     public static void main(String[] args) throws IOException {
         // Create a new GUIWindow - this is a JFrame which is the window.
         GUIWindow gameWindow = new GUIWindow("Nuke Dukem", 1377, 768);
-        
+
         // Run the game. This shows the menu screen and sets up a timer to update everything.
         gameWindow.run();
     }
