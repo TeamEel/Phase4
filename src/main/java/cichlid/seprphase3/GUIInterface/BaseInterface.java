@@ -10,11 +10,6 @@ import javax.swing.SwingUtilities;
  */
 public class BaseInterface extends JPanel {
 
-    // Convenience method to check if a particular mouse event is inside a PlantGUIElement.
-    public boolean clicked(PlantGUIElement element, MouseEvent click) {
-        return element.clicked(click);
-    }
-
     // Convenience method to check if a particular mouse event is inside a Rectangle.
     public boolean clicked(Rectangle rectangle, MouseEvent click) {
         return rectangle.contains(click.getPoint());

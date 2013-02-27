@@ -637,7 +637,7 @@ public class PlantInterface extends BaseInterface implements MouseListener {
         if (leftClick(click)) {
 
             // If a pump was clicked, change its status and animate it changing.
-            if (clicked(pump1, click)) {
+            if (pump1.clicked(click)) {
                 if (!(plantStatus.getSoftwareFailure() == SoftwareFailure.pumpStateChange)) {
                     Pump cPump1 = (Pump)plantStatus.componentList().get("pump1");
                     boolean state = cPump1.getStatus();
@@ -653,7 +653,7 @@ public class PlantInterface extends BaseInterface implements MouseListener {
             }
 
             // If a pump was clicked, change its status and animate it changing.
-            if (clicked(coolingPump, click)) {
+            if (coolingPump.clicked(click)) {
                 if (!(plantStatus.getSoftwareFailure() == SoftwareFailure.pumpStateChange)) {
                     Pump cCoolingPump = (Pump)plantStatus.componentList().get("coolingPump");
                     boolean state = cCoolingPump.getStatus();
@@ -669,7 +669,7 @@ public class PlantInterface extends BaseInterface implements MouseListener {
             }
 
             // If a valve was clicked, change its status and animate it changing.
-            if (clicked(valve1, click)) {
+            if (valve1.clicked(click)) {
                 if (!(plantStatus.getSoftwareFailure() == SoftwareFailure.valveStateChange)) {
                     boolean state = plantStatus.connectionList().get("reactorToTurbine").getOpen();
 
@@ -684,7 +684,7 @@ public class PlantInterface extends BaseInterface implements MouseListener {
             }
 
             // If a valve was clicked, change its status and animate it changing.
-            if (clicked(valve2, click)) {
+            if (valve2.clicked(click)) {
                 if (!(plantStatus.getSoftwareFailure() == SoftwareFailure.valveStateChange)) {
                     boolean state = plantStatus.connectionList().get("turbineToCondenser").getOpen();
 
@@ -742,14 +742,14 @@ public class PlantInterface extends BaseInterface implements MouseListener {
 
             // If the mouse was clicked on any component, repair it.
 
-            if (clicked(condenser, click)) {
+            if (condenser.clicked(click)) {
                 try {
                     plantController.repairCondenser();
                 } catch (CannotRepairException ex) {
                 }
             }
 
-            if (clicked(pump1, click)) {
+            if (pump1.clicked(click)) {
                 try {
                     plantController.repairPump(1);
 
@@ -764,7 +764,7 @@ public class PlantInterface extends BaseInterface implements MouseListener {
                 }
             }
 
-            if (clicked(coolingPump, click)) {
+            if (coolingPump.clicked(click)) {
                 try {
                     plantController.repairPump(2);
 
@@ -778,7 +778,7 @@ public class PlantInterface extends BaseInterface implements MouseListener {
                 }
             }
 
-            if (clicked(turbineLeft, click) || clicked(turbineMiddle, click) || clicked(turbineRight, click)) {
+            if (turbineLeft.clicked(click) || turbineMiddle.clicked(click) || turbineRight.clicked(click)) {
                 try {
                     plantController.repairTurbine();
                 } catch (CannotRepairException ex) {

@@ -88,7 +88,7 @@ public class GameOverInterface extends BaseInterface implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent click) {
 
-        if (clicked(playAgainButton, click)) {
+        if (playAgainButton.clicked(click)) {
             block = false;
         }
 

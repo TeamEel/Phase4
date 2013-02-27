@@ -74,7 +74,7 @@ public class MenuInterface extends BaseInterface implements MouseListener {
     public void mouseClicked(MouseEvent click) {
 
         // If the user clicked the new game button.
-        if (clicked(newGameButton, click)) {
+        if (newGameButton.clicked(click)) {
 
             // Get the name from an input dialog.
             String name = JOptionPane.showInputDialog("Enter your name");
@@ -98,7 +98,7 @@ public class MenuInterface extends BaseInterface implements MouseListener {
             parent.setWindow(new PlantInterface(parent, simulator, simulator, simulator));
         }
 
-        if (clicked(loadGameButton, click)) {
+        if (loadGameButton.clicked(click)) {
 
             // Get the name to index saved games by.
             String name = JOptionPane.showInputDialog("Enter your name");

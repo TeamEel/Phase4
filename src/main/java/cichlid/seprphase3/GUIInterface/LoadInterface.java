@@ -112,12 +112,12 @@ public class LoadInterface extends BaseInterface implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent click) {
 
-        if (clicked(menuButton, click)) {
+        if (menuButton.clicked(click)) {
             parent.setWindow(new MenuInterface(parent, simulator));
         }
 
         for (PlantGUIElement button : loadButtons) {
-            if (clicked(button, click)) {
+            if (button.clicked(click)) {
                 int gameNumber = m.get(button);
                 Simulator sim = new Simulator();
                 sim.setUsername(userName);
