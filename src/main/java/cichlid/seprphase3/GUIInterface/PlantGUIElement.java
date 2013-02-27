@@ -1,6 +1,7 @@
 package cichlid.seprphase3.GUIInterface;
 
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 /**
@@ -10,7 +11,7 @@ import java.awt.image.BufferedImage;
 public class PlantGUIElement {
 
     // This rectangle will  be used to detect mouse collision with PlantGUIComponents.
-    public Rectangle location;
+    protected Rectangle location;
     // This is the image that will be drawn to the screen while the PlantGUIComponent is static.
     // Protected means it is accessible to AnimatedPlantGUIElement, since it inherits from PlantGUIElement.
     protected BufferedImage image;
@@ -55,5 +56,9 @@ public class PlantGUIElement {
 
     public BufferedImage getImage() {
         return image;
+    }
+    
+    public boolean clicked(MouseEvent e) {
+        return location.contains(e.getPoint());
     }
 }

@@ -36,7 +36,7 @@ public class LoadInterface extends BaseInterface implements MouseListener {
     public Simulator simulator;
     public GUIWindow parent;
     // Maps a space on the screen to a particular save.
-    Map<Rectangle, Integer> m;
+    Map<PlantGUIElement, Integer> m;
     public int y;
     public int i;
     private String userName;
@@ -57,7 +57,7 @@ public class LoadInterface extends BaseInterface implements MouseListener {
         loadButtons = new ArrayList<PlantGUIElement>();
         savelbls = new ArrayList<String>();
 
-        m = new HashMap<Rectangle, Integer>();
+        m = new HashMap<PlantGUIElement, Integer>();
 
         saveGame = new SaveGame();
 
@@ -105,7 +105,7 @@ public class LoadInterface extends BaseInterface implements MouseListener {
             g.drawString(savelbls.get(i), 70, loadButtons.get(i).y() + 50);
             g.drawImage(loadButtons.get(i).image, loadButtons.get(i).x(), loadButtons.get(i).y(), null);
             g.drawString("Load Game", loadButtons.get(i).x() + 25, loadButtons.get(i).y() + 50);
-            m.put(loadButtons.get(i).location, i);
+            m.put(loadButtons.get(i), i);
         }
     }
 
@@ -118,7 +118,7 @@ public class LoadInterface extends BaseInterface implements MouseListener {
 
         for (PlantGUIElement button : loadButtons) {
             if (clicked(button, click)) {
-                int gameNumber = m.get(button.location);
+                int gameNumber = m.get(button);
                 Simulator sim = new Simulator();
                 sim.setUsername(userName);
                 sim.loadGame(gameNumber);

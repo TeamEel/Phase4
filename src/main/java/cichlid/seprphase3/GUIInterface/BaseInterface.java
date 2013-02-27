@@ -12,7 +12,7 @@ public class BaseInterface extends JPanel {
 
     // Convenience method to check if a particular mouse event is inside a PlantGUIElement.
     public boolean clicked(PlantGUIElement element, MouseEvent click) {
-        return element.location.contains(click.getPoint());
+        return element.clicked(click);
     }
 
     // Convenience method to check if a particular mouse event is inside a Rectangle.
