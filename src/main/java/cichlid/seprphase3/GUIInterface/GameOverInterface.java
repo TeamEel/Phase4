@@ -73,7 +73,7 @@ public class GameOverInterface extends BaseInterface implements MouseListener {
 
             // Draw the button.
             g.setColor(Color.BLACK);
-            g.drawImage(playAgainButton.getImage(), playAgainButton.x(), playAgainButton.y(), null);
+            playAgainButton.draw((Graphics2D)g);
             g.drawString("Play Again!", playAgainButton.x() + 20, playAgainButton.y() + 60);
         }
 

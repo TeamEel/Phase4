@@ -58,9 +58,9 @@ public class MenuInterface extends BaseInterface implements MouseListener {
         g.setColor(Color.BLACK);
 
         // Draw the buttons.
-        g.drawImage(newGameButton.getImage(), newGameButton.x(), newGameButton.y(), null);
+        newGameButton.draw((Graphics2D)g);
         g.drawString("New Game", newGameButton.x() + 30, newGameButton.y() + 47);
-        g.drawImage(loadGameButton.getImage(), loadGameButton.x(), loadGameButton.y(), null);
+        loadGameButton.draw((Graphics2D)g);
         g.drawString("Load Game", loadGameButton.x() + 25, loadGameButton.y() + 50);
 
         // If the images are currently loading, show this.

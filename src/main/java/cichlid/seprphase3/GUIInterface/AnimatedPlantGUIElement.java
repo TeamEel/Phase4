@@ -1,8 +1,10 @@
 package cichlid.seprphase3.GUIInterface;
 
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
 
 /**
  * This class represents something which can be displayed on the GUI which can be animated. It holds three animations;
@@ -115,5 +117,24 @@ public class AnimatedPlantGUIElement extends PlantGUIElement {
 
         // Edge case if no animation is set, return the static image.
         return image;
+    }
+
+    @Override
+    public void draw(Graphics2D g) {
+        g.drawImage(stepImage(), x(), y(), null);
+    }
+    
+    @Override
+    public void draw(Graphics2D g, boolean failed) {
+        if (!failed) {
+            // If it has not failed, show the next frame of the animation.
+            g.drawImage(stepImage(), x(), y(), null);
+        } else {
+            // If it has failed, stop the animation and apply the red tint.
+            setAnimation(PlantAnimationType.OFF);
+            BufferedImageOp tintFilter = ImageUtils.createTintOp((short)1.5, (short).5, (short).5);
+            BufferedImage tintedImage = tintFilter.filter(getImage(), null);
+            g.drawImage(tintedImage, x(), y(), null);
+        }
     }
 }

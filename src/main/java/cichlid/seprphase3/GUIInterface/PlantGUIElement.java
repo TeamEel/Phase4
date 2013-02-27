@@ -1,8 +1,10 @@
 package cichlid.seprphase3.GUIInterface;
 
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
 import javax.swing.SwingUtilities;
 
 /**
@@ -58,11 +60,11 @@ public class PlantGUIElement {
     public BufferedImage getImage() {
         return image;
     }
-    
+
     public boolean clicked(MouseEvent e) {
         return location.contains(e.getPoint());
     }
-    
+
     public void handleClick(MouseEvent e) {
         if (clicked(e)) {
             if (SwingUtilities.isLeftMouseButton(e)) {
@@ -70,14 +72,29 @@ public class PlantGUIElement {
             } else if (SwingUtilities.isRightMouseButton(e)) {
                 handleRightClick();
             }
-        }        
+        }
     }
-    
+
+    public void draw(Graphics2D g) {
+        g.drawImage(getImage(), x(), y(), null);
+    }
+
+    public void draw(Graphics2D g, boolean failed) {
+        if (!failed) {
+            g.drawImage(getImage(), x(), y(), null);
+        } else {
+            // If the element has failed, apply a tint which reddens the image completely.
+            BufferedImageOp tintFilter = ImageUtils.createTintOp((short)2, (short).5, (short).5);
+            BufferedImage tintedImage = tintFilter.filter(getImage(), null);
+            g.drawImage(tintedImage, x(), y(), null);
+        }
+    }
+
     protected void handleLeftClick() {
         // do nothing
         // todo: make abstract?
     }
-    
+
     protected void handleRightClick() {
         // do nothing
         // todo: make abstract?

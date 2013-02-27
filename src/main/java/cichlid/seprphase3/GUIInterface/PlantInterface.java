@@ -220,57 +220,6 @@ public class PlantInterface extends BaseInterface implements MouseListener {
     }
 
     /**
-     * Draws a plantGUIElement to a specified Graphics2D (the window). It takes the X position and Y position and draws
-     * the specified image there.
-     *
-     * @param g          The screen to draw the image to.
-     * @param guiElement The GUI element to draw.
-     */
-    public void drawPlantGUIElement(Graphics2D g, PlantGUIElement guiElement) {
-        g.drawImage(guiElement.getImage(), guiElement.x(), guiElement.y(), null);
-    }
-
-    /**
-     * Draws a plantGUIElement to a specified Graphics2D (the window). It takes the X position and Y position and draws
-     * the specified image there.
-     *
-     * @param g          The screen to draw the image to.
-     * @param guiElement The GUI element to draw.
-     */
-    public void drawPlantGUIElement(Graphics2D g, PlantGUIElement guiElement, Boolean failed) {
-        if (!failed) {
-            g.drawImage(guiElement.getImage(), guiElement.x(), guiElement.y(), null);
-        } else {
-            // If the element has failed, apply a tint which reddens the image completely.
-            BufferedImageOp tintFilter = ImageUtils.createTintOp((short)2, (short).5, (short).5);
-            BufferedImage tintedImage = tintFilter.filter(guiElement.getImage(), null);
-            g.drawImage(tintedImage, guiElement.x(), guiElement.y(), null);
-        }
-
-    }
-
-    /**
-     * Draws an AnimatedPlantGUIElement to a specified Graphics2D (the window). It takes the X position and Y position
-     * and draws a frame of an animation there.
-     *
-     * @param g          The screen to draw to.
-     * @param guiElement The GUI element to draw.
-     * @param failed     If the element has failed.
-     */
-    public void drawAnimatedGUIElement(Graphics2D g, AnimatedPlantGUIElement guiElement, Boolean failed) {
-        if (!failed) {
-            // If it has not failed, show the next frame of the animation.
-            g.drawImage(guiElement.stepImage(), guiElement.x(), guiElement.y(), null);
-        } else {
-            // If it has failed, stop the animation and apply the red tint.
-            guiElement.setAnimation(PlantAnimationType.OFF);
-            BufferedImageOp tintFilter = ImageUtils.createTintOp((short)1.5, (short).5, (short).5);
-            BufferedImage tintedImage = tintFilter.filter(guiElement.getImage(), null);
-            g.drawImage(tintedImage, guiElement.x(), guiElement.y(), null);
-        }
-    }
-
-    /**
      * This overrides the jPanel's paintComponent method and is called every time the jPanel is repainted. The method is
      * passed a 'Graphics' by the library, which represents the part of the screen which will be drawn on. All draw
      * calls are made on this graphics object.
@@ -344,8 +293,8 @@ public class PlantInterface extends BaseInterface implements MouseListener {
      * @param g
      */
     private void drawBackgroundAndLogo(Graphics2D g) {
-        drawPlantGUIElement(g, plantBackground, false);
-        drawPlantGUIElement(g, logo, false);
+        plantBackground.draw(g);
+        logo.draw(g);
     }
 
     /**
@@ -353,31 +302,32 @@ public class PlantInterface extends BaseInterface implements MouseListener {
      * drawn tinted red.
      */
     private void drawPlant(Graphics2D g) {
-        drawPlantGUIElement(g, reactor, plantStatus.componentList().get("reactor").hasFailed());
-        drawPlantGUIElement(g, condenser, plantStatus.componentList().get("condenser").hasFailed());
+        reactor.draw(g, failureState("reactor"));
+        condenser.draw(g, failureState("condenser"));
 
-        drawPlantGUIElement(g, reactorToCondenserPipe);
-        drawPlantGUIElement(g, condenserToReactorPipe);
-        drawPlantGUIElement(g, coolingPipe);
+        reactorToCondenserPipe.draw(g);
+        condenserToReactorPipe.draw(g);
+        coolingPipe.draw(g);
+        
+        pump1.draw(g, failureState("pump1"));
+        coolingPump.draw(g, failureState("coolingPump"));
 
-        drawPlantGUIElement(g, pump1, plantStatus.componentList().get("pump1").hasFailed());
-        drawPlantGUIElement(g, coolingPump, plantStatus.componentList().get("coolingPump").hasFailed());
-
-        drawAnimatedGUIElement(g, pump1Rotors, plantStatus.componentList().get("pump1").hasFailed());
-        drawAnimatedGUIElement(g, coolingPumpRotors, plantStatus.componentList().get("coolingPump").hasFailed());
-
-        drawPlantGUIElement(g, turbineHousing);
-        drawPlantGUIElement(g, turbineHousing2);
-        drawPlantGUIElement(g, turbineMiddle, plantStatus.componentList().get("turbine").hasFailed());
-        drawAnimatedGUIElement(g, turbineLeft, plantStatus.componentList().get("turbine").hasFailed());
-        drawAnimatedGUIElement(g, turbineRight, plantStatus.componentList().get("turbine").hasFailed());
-
-        drawAnimatedGUIElement(g, valve1, false);
-        drawAnimatedGUIElement(g, valve2, false);
-
-        drawPlantGUIElement(g, controlRods);
-        drawPlantGUIElement(g, fuelRods);
-        drawPlantGUIElement(g, rodGlow);
+        pump1Rotors.draw(g, failureState("pump1"));
+        coolingPumpRotors.draw(g, failureState("coolingPump"));
+        
+        turbineHousing.draw(g);
+        turbineHousing2.draw(g);
+        
+        turbineMiddle.draw(g, failureState("turbine"));
+        turbineLeft.draw(g, failureState("turbine"));
+        turbineRight.draw(g, failureState("turbine"));
+        
+        valve1.draw(g);
+        valve2.draw(g);
+        
+        controlRods.draw(g);
+        fuelRods.draw(g);
+        rodGlow.draw(g);
     }
 
     /**
@@ -509,7 +459,7 @@ public class PlantInterface extends BaseInterface implements MouseListener {
         g.drawString("Turbine: " + plantStatus.componentList().get("turbine").wear(), 90, 420);
 
         // Computer.
-        drawPlantGUIElement(g, computer, false);
+        computer.draw(g);
 
         // Computer Screen.
 
@@ -786,5 +736,9 @@ public class PlantInterface extends BaseInterface implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+    }
+
+    private boolean failureState(String id) {
+        return plantStatus.componentList().get(id).hasFailed();
     }
 }
