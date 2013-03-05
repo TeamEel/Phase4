@@ -60,10 +60,19 @@ class MultiPlayerKeyListener implements KeyListener{
                 /*
                  * To do: Fail turbine
                  */
+                plant.failTurbine();
             }
             else if(ke.getKeyChar() == 's' )
             {
                 plant.failSoftware();
+            }
+            else if(ke.getKeyChar() == '1' )
+            {
+                plant.failPump(1);
+            }
+            else if(ke.getKeyChar() == '2' )
+            {
+                plant.failPump(2);
             }
         }
     }

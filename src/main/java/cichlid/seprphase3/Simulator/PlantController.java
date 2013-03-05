@@ -41,6 +41,10 @@ public interface PlantController {
 
     public void failSoftware();
 
+    public void failTurbine();
+    
+    public void failPump(int pump);
+    
     public void setReactorToTurbine(boolean open);
 
     public void step(int steps) throws GameOverException;

@@ -251,4 +251,14 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
         return failureModel.allowsRandomFailures();
     }
 
+    @Override
+    public void failTurbine() {
+        failureModel.failTurbine();
+    }
+
+    @Override
+    public void failPump(int pump) {
+        failureModel.failPump(pump);
+    }
+
 }

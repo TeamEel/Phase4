@@ -372,8 +372,31 @@ public class PhysicalModel implements PlantController, PlantStatus {
         currentSoftwareFailure = SoftwareFailure.pickRandom();
     }
 
+    @Override 
+    public void failTurbine() {
+        turbine.fail();
+    }
+    
+    @Override 
+    public void failPump(int pump) {
+        if(pump==1)
+        {
+            condenserToReactor.fail();
+        }
+        if(pump == 2)
+        {
+            heatsinkToCondenser.fail();
+        }
+        
+    }
+
     @Override
-    public boolean isMultiPlayer() {
-        throw new UnsupportedOperationException("Not supported from this class.");
+    public void allowRandomFailures(boolean yes) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean allowsRandomFailures() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

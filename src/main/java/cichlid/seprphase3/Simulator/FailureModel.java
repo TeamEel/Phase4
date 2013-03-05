@@ -294,6 +294,16 @@ public class FailureModel implements PlantController, PlantStatus {
         return status.connectionList();
     }
 
+    @Override
+    public void failTurbine() {
+        controller.failTurbine();
+    }
+
+    @Override
+    public void failPump(int pump) {
+        controller.failPump(pump);
+    }
+
 
     private void checkReactorWaterLevel() {
         if (status.reactorWaterLevel().points() < status.reactorMinimumWaterLevel().points()) {
