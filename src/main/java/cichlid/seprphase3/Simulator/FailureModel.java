@@ -43,13 +43,14 @@ public class FailureModel implements PlantController, PlantStatus {
     private final Pressure condenserMaxPressure = new Pressure(30662500);
     // Software will fail 1 out of softwareFailureProbability times
     private final int softwareFailureProbability = 500;
-
+    private boolean randomFailures = true;
     private FailureModel() {
     }
 
     public FailureModel(PlantController plantController, PlantStatus plantStatus) {
         this.controller = plantController;
         this.status = plantStatus;
+    
     }
 
     /**
@@ -59,11 +60,19 @@ public class FailureModel implements PlantController, PlantStatus {
      *
      */
     public void step() throws GameOverException {
+        
+        
         controller.step(1);
-        failStateCheck();
+        
+        if(randomFailures)
+        {
+            failStateCheck();
+        }
+        
         checkReactorWaterLevel();
         checkCondenserPressure();
         checkTurbineFailure();
+        
     }
 
     /**
@@ -285,6 +294,7 @@ public class FailureModel implements PlantController, PlantStatus {
         return status.connectionList();
     }
 
+
     private void checkReactorWaterLevel() {
         if (status.reactorWaterLevel().points() < status.reactorMinimumWaterLevel().points()) {
             numberOfTimesWaterLevelIsTooLow += 1;
@@ -331,5 +341,16 @@ public class FailureModel implements PlantController, PlantStatus {
         } catch (KeyNotFoundException e) {
             throw new RuntimeException("This should never happen as values are known.");
         }
+    }
+    
+    
+    @Override
+    public boolean allowsRandomFailures() {
+        return this.randomFailures;
+    }
+
+    @Override
+    public void allowRandomFailures(boolean yes) {
+        this.randomFailures = yes;
     }
 }

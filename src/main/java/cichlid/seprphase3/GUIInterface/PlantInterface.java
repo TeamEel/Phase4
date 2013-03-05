@@ -98,7 +98,7 @@ public class PlantInterface extends BaseInterface implements MouseListener {
         this.gameManager = gameManager;
 
         this.parent = parent;
-
+        
         // Give all of the plant components the right images and location on the screen.
         setupComponents();
 
@@ -157,9 +157,10 @@ public class PlantInterface extends BaseInterface implements MouseListener {
                 AffineTransformOp.TYPE_BILINEAR // Use bilinear filtering to reconstruct pixels
                 );
 
-        valve2 = new AnimatedPlantGUIElement(false, "animations/closevalve", "animations/closevalve",
-                                             "animations/openvalve", X_OFFSET + 761, Y_OFFSET + 170, SCALE_AMOUNT + 0.1f,
-                                             rotateValve90Deg);
+        valve2 =
+        new AnimatedPlantGUIElement(false, "animations/closevalve", "animations/closevalve",
+                                    "animations/openvalve", X_OFFSET + 761, Y_OFFSET + 170, SCALE_AMOUNT + 0.1f,
+                                    rotateValve90Deg);
 
 
         // Pipes
@@ -308,23 +309,23 @@ public class PlantInterface extends BaseInterface implements MouseListener {
         reactorToCondenserPipe.draw(g);
         condenserToReactorPipe.draw(g);
         coolingPipe.draw(g);
-        
+
         pump1.draw(g, failureState("pump1"));
         coolingPump.draw(g, failureState("coolingPump"));
 
         pump1Rotors.draw(g, failureState("pump1"));
         coolingPumpRotors.draw(g, failureState("coolingPump"));
-        
+
         turbineHousing.draw(g);
         turbineHousing2.draw(g);
-        
+
         turbineMiddle.draw(g, failureState("turbine"));
         turbineLeft.draw(g, failureState("turbine"));
         turbineRight.draw(g, failureState("turbine"));
-        
+
         valve1.draw(g);
         valve2.draw(g);
-        
+
         controlRods.draw(g);
         fuelRods.draw(g);
         rodGlow.draw(g);
@@ -622,7 +623,7 @@ public class PlantInterface extends BaseInterface implements MouseListener {
             }
 
             valve1.handleClick(click);
-            
+
             // If a valve was clicked, change its status and animate it changing.
             if (valve2.clicked(click)) {
                 if (!(plantStatus.getSoftwareFailure() == SoftwareFailure.valveStateChange)) {
@@ -681,11 +682,11 @@ public class PlantInterface extends BaseInterface implements MouseListener {
         } else if (rightClick(click)) {
 
             // If the mouse was clicked on reactor, quench it.
-            
+
             if (reactor.clicked(click)) {
                 plantController.quenchReactor();
             }
-            
+
             // If the mouse was clicked on any other component, repair it.
 
             if (condenser.clicked(click)) {

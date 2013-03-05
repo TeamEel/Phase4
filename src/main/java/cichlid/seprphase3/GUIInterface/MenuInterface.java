@@ -19,6 +19,7 @@ public class MenuInterface extends BaseInterface implements MouseListener {
     private BufferedImage backgroundImage;
     // The two buttons.
     private PlantGUIElement newGameButton;
+    private PlantGUIElement newMultiplayerGameButton;
     private PlantGUIElement loadGameButton;
     // The parent GUIWindow
     private GUIWindow parent;
@@ -37,8 +38,9 @@ public class MenuInterface extends BaseInterface implements MouseListener {
 
         // Load the button image and setup the buttons.
         BufferedImage buttonImage = ImageUtils.loadImage("button.png");
-        newGameButton = new PlantGUIElement(buttonImage, 200, 500, 1.0f);
-        loadGameButton = new PlantGUIElement(buttonImage, 200, 600, 1.0f);
+        newGameButton = new PlantGUIElement(buttonImage, 200, 450, 1.0f);
+        newMultiplayerGameButton = new PlantGUIElement(buttonImage, 200, 550, 1.0f);
+        loadGameButton = new PlantGUIElement(buttonImage, 200, 650, 1.0f);
 
         // Add a mouse listener to allow this class to deal with mouse input.
         this.addMouseListener(this);
@@ -59,7 +61,12 @@ public class MenuInterface extends BaseInterface implements MouseListener {
 
         // Draw the buttons.
         newGameButton.draw((Graphics2D)g);
-        g.drawString("New Game", newGameButton.x() + 30, newGameButton.y() + 47);
+        g.drawString("1P Game", newGameButton.x() + 30, newGameButton.y() + 47);
+        
+        newMultiplayerGameButton.draw((Graphics2D)g);
+        g.drawString("2P Game", newMultiplayerGameButton.x() + 30, newMultiplayerGameButton.y() + 47);
+        
+        
         loadGameButton.draw((Graphics2D)g);
         g.drawString("Load Game", loadGameButton.x() + 25, loadGameButton.y() + 50);
 
@@ -96,6 +103,32 @@ public class MenuInterface extends BaseInterface implements MouseListener {
             // Start the game.
             parent.state = GameState.Running;
             parent.setWindow(new PlantInterface(parent, simulator, simulator, simulator));
+            
+        }
+        
+        if (newMultiplayerGameButton.clicked(click)) {
+
+            // Get the name from an input dialog.
+            String name = JOptionPane.showInputDialog("Enter your name");
+
+            // If the name is unusable, do nothing with this mouse click.
+            if (name == null || name.equals("")) {
+                return;
+            }
+
+            // Set the username of the simulator to the user's name.
+            simulator.setUsername(name);
+            simulator.allowRandomFailures(false);
+            // Set loading to true.
+            loading = true;
+
+            // The screen must be explicitly repainted here.
+            paint(this.getGraphics());
+
+            // Start the game.
+            parent.state = GameState.Running;
+            parent.setWindow(new PlantInterface(parent, simulator, simulator, simulator));
+            
         }
 
         if (loadGameButton.clicked(click)) {

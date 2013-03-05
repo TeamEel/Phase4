@@ -50,6 +50,9 @@ public class SaveGame {
     }
 
     public FailureModel getFailureModel() {
+        /*
+         * TODO load multiplayer state from save
+         */
         return new FailureModel(physicalModel, physicalModel);
     }
 

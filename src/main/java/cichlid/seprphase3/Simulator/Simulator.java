@@ -24,6 +24,8 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     private FailureModel failureModel;
     private String userName;
 
+
+
     public Simulator() {
         physicalModel = new PhysicalModel();
         failureModel = new FailureModel(physicalModel, physicalModel);
@@ -195,20 +197,7 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
         return failureModel.quencherUsed();
     }
 
-    @Override
-    public void failCondenser() {
-        throw new UnsupportedOperationException("Not meaningful at this level.");
-    }
 
-    @Override
-    public void failReactor() {
-        throw new UnsupportedOperationException("Not meaningful at this level.");
-    }
-
-    @Override
-    public void failSoftware() {
-        throw new UnsupportedOperationException("Not meaningful at this level.");
-    }
 
     @Override
     public void step(int steps) throws GameOverException {
@@ -234,4 +223,32 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     public HashMap<String, Connection> connectionList() {
         return failureModel.connectionList();
     }
+
+    @Override
+    public void failCondenser() {
+        failureModel.failCondenser();
+    }
+
+    @Override
+    public void failReactor() {
+        failureModel.failReactor();
+    }
+
+    @Override
+    public void failSoftware() {
+        failureModel.failSoftware();
+    }
+
+
+    @Override
+    public void allowRandomFailures(boolean yes) {
+        failureModel.allowRandomFailures(yes);
+    }
+    
+    @Override
+    public boolean allowsRandomFailures()
+    {
+        return failureModel.allowsRandomFailures();
+    }
+
 }

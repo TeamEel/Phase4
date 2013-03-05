@@ -44,4 +44,6 @@ public interface PlantController {
     public void setReactorToTurbine(boolean open);
 
     public void step(int steps) throws GameOverException;
+    
+    public void allowRandomFailures(boolean yes);
 }

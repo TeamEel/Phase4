@@ -371,4 +371,9 @@ public class PhysicalModel implements PlantController, PlantStatus {
     public void failSoftware() {
         currentSoftwareFailure = SoftwareFailure.pickRandom();
     }
+
+    @Override
+    public boolean isMultiPlayer() {
+        throw new UnsupportedOperationException("Not supported from this class.");
+    }
 }

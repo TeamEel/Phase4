@@ -72,4 +72,6 @@ public interface PlantStatus {
     public HashMap<String, FailableComponent> componentList();
 
     public HashMap<String, Connection> connectionList();
+
+    public boolean allowsRandomFailures();
 }

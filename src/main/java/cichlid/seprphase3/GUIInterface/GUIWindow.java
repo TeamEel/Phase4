@@ -18,7 +18,7 @@ enum GameState {
  * ActionListener so it can work with Swing Timers for scheduling updating at a specified interval.
  */
 public class GUIWindow extends JFrame implements ActionListener {
-
+    MultiPlayerKeyListener kl;
     // This is the current window which is being displayed.
     JPanel currentWindow;
     // This is the simulator which the plant uses.
@@ -64,6 +64,7 @@ public class GUIWindow extends JFrame implements ActionListener {
         // Show the menu screen.
         showMenu();
 
+        
         // Setup the timer which is used to update the plant.
         // This makes actionPerformed() be called every 60ms.
         Timer timer = new Timer(60, this);
@@ -140,12 +141,15 @@ public class GUIWindow extends JFrame implements ActionListener {
      */
     public void runGame(Simulator sim) {
         simulator = sim;
+        this.kl.update(sim,sim);
         setWindow(new PlantInterface(this, simulator, simulator, simulator));
         state = GameState.Running;
     }
 
     public void showMenu() {
         simulator = new Simulator();
+        this.kl = new MultiPlayerKeyListener(this,simulator,simulator);
+        this.addKeyListener(kl);
         setWindow(new MenuInterface(this, simulator));
     }
 }
