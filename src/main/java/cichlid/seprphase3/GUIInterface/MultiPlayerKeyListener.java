@@ -41,6 +41,14 @@ class MultiPlayerKeyListener implements KeyListener{
             else 
         */
  
+        if(ke.getKeyChar() == ' ')
+        {
+            /*
+             * Toggle allow random failures on space
+             */
+            plant.allowRandomFailures(!status.allowsRandomFailures());
+        }
+        
         if(parent.state == GameState.Running && !status.allowsRandomFailures())
         {
             if(ke.getKeyChar() == 'c' )
