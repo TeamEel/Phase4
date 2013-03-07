@@ -120,7 +120,7 @@ public class Animation {
         currentFrame++;
 
         // If the current frame is at the end of the animation, set the current frame to 0.
-        if (isAtEnd()) {
+        if (hasFinished()) {
             if (loop) {
                 reset();
             } else {
@@ -147,7 +147,7 @@ public class Animation {
      *
      * @return
      */
-    public Boolean isAtEnd() {
+    public Boolean hasFinished() {
         return currentFrame >= images.length - 1;
     }
 
@@ -156,5 +156,5 @@ public class Animation {
      */
     public void reset() {
         currentFrame = 0;
-    }
+    }    
 }

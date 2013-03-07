@@ -57,7 +57,7 @@ public class GameOverInterface extends BaseInterface implements MouseListener {
         g.drawImage(explosion.stepImage(), 0, 0, null);
 
         // If the explosion is over, show the text and the buttons.
-        if (explosion.isAtEnd()) {
+        if (explosion.hasFinished()) {
 
             // Allow text anti-alialising for prettier text and set the font.
             ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,

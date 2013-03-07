@@ -15,7 +15,6 @@ import java.awt.geom.*;
 import java.awt.image.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
 
 /**
  * This is the main interface which will be shown during the game. It is responsible for drawing the representation of
@@ -37,11 +36,9 @@ public class PlantInterface extends BaseInterface implements MouseListener {
     // Water tanks - the reactor and condenser.
     private PlantGUIElement reactor;
     private PlantGUIElement condenser;
-    // The pumps (static images) and the rotors (animations).
-    private PlantGUIElement pump1;
-    private PlantGUIElement coolingPump;
-    private AnimatedPlantGUIElement pump1Rotors;
-    private AnimatedPlantGUIElement coolingPumpRotors;
+    // Pumps
+    private PumpControl pump1;
+    private PumpControl coolingPump;
     // Valves.
     private ValveControl valve1;
     private AnimatedPlantGUIElement valve2;
@@ -128,21 +125,11 @@ public class PlantInterface extends BaseInterface implements MouseListener {
         condenser = new PlantGUIElement(containerImage, X_OFFSET + 665, Y_OFFSET + 275, SCALE_AMOUNT + 0.3f);
 
 
-        // Static Pump Images
-        BufferedImage pumpImage = ImageUtils.loadImage("pump.png");
-        pump1 = new PlantGUIElement(pumpImage, X_OFFSET + 572, Y_OFFSET + 535, SCALE_AMOUNT);
-        coolingPump = new PlantGUIElement(pumpImage, X_OFFSET + 915, Y_OFFSET + 545, SCALE_AMOUNT);
-
-
-        // Animated Pump Images
-        pump1Rotors = new AnimatedPlantGUIElement(true, "animations/workingpump", "animations/startpump",
-                                                  "animations/stoppump", X_OFFSET + 598, Y_OFFSET + 567, SCALE_AMOUNT);
-        coolingPumpRotors = new AnimatedPlantGUIElement(true, "animations/workingpump", "animations/startpump",
-                                                        "animations/stoppump", X_OFFSET + 941, Y_OFFSET + 577,
-                                                        SCALE_AMOUNT);
-        pump1Rotors.setAnimation(PlantAnimationType.ON);
-        coolingPumpRotors.setAnimation(PlantAnimationType.ON);
-
+        pump1 = new PumpControl(X_OFFSET + 572, Y_OFFSET + 535, SCALE_AMOUNT);
+        coolingPump = new PumpControl(X_OFFSET + 915, Y_OFFSET + 545, SCALE_AMOUNT);
+        pump1.turnOn();
+        coolingPump.turnOn();
+        
         valve1 = new ValveControl(plantStatus, "reactorToTurbine",
                                   X_OFFSET + 307, Y_OFFSET - 51, SCALE_AMOUNT + 0.1f);
 
@@ -313,8 +300,6 @@ public class PlantInterface extends BaseInterface implements MouseListener {
         pump1.draw(g, failureState("pump1"));
         coolingPump.draw(g, failureState("coolingPump"));
 
-        pump1Rotors.draw(g, failureState("pump1"));
-        coolingPumpRotors.draw(g, failureState("coolingPump"));
 
         turbineHousing.draw(g);
         turbineHousing2.draw(g);
@@ -598,10 +583,10 @@ public class PlantInterface extends BaseInterface implements MouseListener {
 
                     if (state) {
                         cPump1.setStatus(false);
-                        pump1Rotors.setAnimation(PlantAnimationType.TURNINGOFF);
+                        pump1.turnOff();
                     } else {
                         cPump1.setStatus(true);
-                        pump1Rotors.setAnimation(PlantAnimationType.TURNINGON);
+                        pump1.turnOn();
                     }
                 }
             }
@@ -614,10 +599,10 @@ public class PlantInterface extends BaseInterface implements MouseListener {
 
                     if (state) {
                         cCoolingPump.setStatus(false);
-                        coolingPumpRotors.setAnimation(PlantAnimationType.TURNINGOFF);
+                        coolingPump.turnOff();
                     } else {
                         cCoolingPump.setStatus(true);
-                        coolingPumpRotors.setAnimation(PlantAnimationType.TURNINGON);
+                        coolingPump.turnOn();
                     }
                 }
             }
@@ -701,9 +686,9 @@ public class PlantInterface extends BaseInterface implements MouseListener {
                     plantController.repairPump(1);
 
                     if (((Pump)plantStatus.componentList().get("pump1")).getStatus()) {
-                        pump1Rotors.setAnimation(PlantAnimationType.ON);
+                        pump1.turnOn();
                     } else {
-                        pump1Rotors.setAnimation(PlantAnimationType.OFF);
+                        pump1.turnOff();
                     }
 
                 } catch (KeyNotFoundException ex) {
@@ -716,9 +701,9 @@ public class PlantInterface extends BaseInterface implements MouseListener {
                     plantController.repairPump(2);
 
                     if (((Pump)plantStatus.componentList().get("coolingPump")).getStatus()) {
-                        coolingPumpRotors.setAnimation(PlantAnimationType.ON);
+                        coolingPump.turnOn();
                     } else {
-                        coolingPumpRotors.setAnimation(PlantAnimationType.OFF);
+                        coolingPump.turnOff();
                     }
                 } catch (KeyNotFoundException ex) {
                 } catch (CannotRepairException ex) {

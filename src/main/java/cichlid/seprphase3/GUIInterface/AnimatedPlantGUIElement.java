@@ -137,4 +137,19 @@ public class AnimatedPlantGUIElement extends PlantGUIElement {
             g.drawImage(tintedImage, x(), y(), null);
         }
     }
+    
+    public boolean animationFinished() {
+        switch (currentAnimation) {
+            case ON:
+                return on.hasFinished();
+            case OFF:
+                return true;
+            case TURNINGON:
+                return turningon.hasFinished();
+            case TURNINGOFF:
+                return turningoff.hasFinished();
+            default:
+                throw new AssertionError(currentAnimation.name());            
+        }
+    }
 }
