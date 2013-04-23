@@ -24,6 +24,7 @@ public class GameOverScreen extends BaseScreen implements MouseListener {
     // The variables passed in from the simulator, to be displayed on the GameOverScreen.
     private Energy powerGenerated;
     private String name;
+    
 
     /**
      * Creates a new GameOverScreen.
@@ -33,7 +34,7 @@ public class GameOverScreen extends BaseScreen implements MouseListener {
      * @param name               The name of the player.
      */
     public GameOverScreen(Animation preloadedExplosion, Energy powerGenerated, String name) {
-        explosion = preloadedExplosion;
+        explosion = new Animation("animations/explosion", false);
 
         // Make sure that the explosion plays from the start.
         explosion.reset();
@@ -94,19 +95,16 @@ public class GameOverScreen extends BaseScreen implements MouseListener {
 
     }
 
-    @Override
-    public void mouseExited(MouseEvent e) {
-    }
+  
 
     @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
+    public void actionPerformed(ActionEvent event) {
+        super.update();
+                // block returns false when the button is pressed to play another game. At this point,
+                // the code to return to the menu interface is ran.
+                if (!block) {
+                   
+                    showMenu();
+                }
     }
 }

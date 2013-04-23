@@ -17,19 +17,18 @@ enum GameState {
  * The GUIWindow class extends JFrame and provides methods for dealing with the current interface. It implements
  * ActionListener so it can work with Swing Timers for scheduling updating at a specified interval.
  */
-public class GUIWindow extends JFrame implements ActionListener {
+public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
     MultiPlayerKeyListener kl;
     // This is the current window which is being displayed.
     JPanel currentWindow;
+    
+    BaseScreen currentScreen;
     // This is the simulator which the plant uses.
     Simulator simulator;
     // This is the state which the game is currently in.
     GameState state = GameState.NotStarted;
-    // This is the GameOverScreen which is displayed when the game is over.
-    GameOverScreen gameover;
-    // The end game explosion animation must be preloaded due to its size, so it is stored here.
-    Animation explosion;
 
+    
     /**
      * This creates a GUIWindow with a number of parameters.
      *
@@ -52,17 +51,26 @@ public class GUIWindow extends JFrame implements ActionListener {
         setResizable(false);
         setVisible(true);
 
-        // Preload the Explosion Animation due to its size and store it here to be passed into
-        // GameOverScreen.
-        explosion = new Animation("animations/explosion", false);
+        
     }
 
+    
+    public void SetScreen(BaseScreen newScreen)
+    {
+        this.currentScreen = newScreen;
+        setContentPane(newScreen);
+
+
+    }
+    
+    
     /**
      * This is called to run the game when it first starts.
      */
     public void run() {
-        // Show the menu screen.
-        showMenu();
+        
+       //SET MENUPANE?
+        
 
         
         // Setup the timer which is used to update the plant.
@@ -78,37 +86,8 @@ public class GUIWindow extends JFrame implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent event) {
-        // Decide which action to take based on what state the interface is currently in.
-        switch (state) {
-            // If the game is running, step the simulator and update.
-            case Running:
-                // Simulator.step returns false if the game is over, in which case the else clause is ran:
-                if (simulator.step()) {
-                    update();
-                } else {
-                    // Set the game state to GameOver (so the plant stops updating).
-                    // And set the interface to the GameOverScreen.
-                    // Some values to display are passed in from the simulator.
-                    state = GameState.GameOver;
-                    gameover = new GameOverScreen(explosion, simulator.energyGenerated(), simulator.getUsername());
-                    setWindow(gameover);
-                }
-                break;
-            // If the game is over, just continue repainting to show the GameOverScreen.
-            case GameOver:
-                update();
-                // gameover.block returns false when the button is pressed to play another game. At this point,
-                // the code to return to the menu interface is ran.
-                if (!gameover.block) {
-                    state = GameState.NotStarted;
-                    showMenu();
-                }
-                break;
-            // If the game is in any other screen, just continue as normal.
-            default:
-                update();
-                break;
-        }
+ 
+        currentScreen.actionPerformed(event);
     }
 
     /**
@@ -116,6 +95,7 @@ public class GUIWindow extends JFrame implements ActionListener {
      *
      * @param _window The interface to display.
      */
+    @Deprecated
     public void setWindow(JPanel _window) {
         /**
          * The content pane represents the area of the window where content is shown - all of the window except the

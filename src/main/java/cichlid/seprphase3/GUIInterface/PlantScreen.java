@@ -103,6 +103,20 @@ public class PlantScreen extends BaseScreen implements MouseListener {
         addMouseListener(this);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        if (simulator.step()) {
+                    super.update();
+                } else {
+                    // Set the game state to GameOver (so the plant stops updating).
+                    // And set the interface to the GameOverScreen.
+                    // Some values to display are passed in from the simulator.
+                    state = GameState.GameOver;
+                    gameover = new GameOverScreen(explosion, simulator.energyGenerated(), simulator.getUsername());
+                    setWindow(gameover);
+                }
+    }
+
     /**
      * Gives all of the plant components the right images and locations on the screen. Each component has the form:
      * BufferedImage image = loadImage("images/image.png"); component = new PlantGUIElement( image, location x, location
@@ -719,21 +733,7 @@ public class PlantScreen extends BaseScreen implements MouseListener {
         }
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-    }
+    
 
     private boolean failureState(String id) {
         return plantStatus.componentList().get(id).hasFailed();
