@@ -16,7 +16,7 @@ import java.util.*;
 /**
  * This interface allows games to be loaded from a list of games.
  */
-public class LoadScreen extends BaseScreen implements MouseListener {
+public class LoadScreen extends BaseScreen {
 
     // Automatically build a save path for saved games.
     public static String savePath() {
@@ -34,21 +34,21 @@ public class LoadScreen extends BaseScreen implements MouseListener {
     // Useful references
     public SaveGame saveGame;
     public Simulator simulator;
-    public GUIWindow parent;
+    public ScreenContext context;
     // Maps a space on the screen to a particular save.
     Map<PlantGUIElement, Integer> m;
     public int y;
     public int i;
     private String userName;
 
-    public LoadScreen(GUIWindow _parent, Simulator _simulator, String _username) {
+    public LoadScreen(ScreenContext context) {
         y = 0;
         i = 0;
 
-        simulator = _simulator;
-        parent = _parent;
-        userName = _username;
+        this.context = context;
 
+        //TODO: Set username.
+        userName = "";
         backgroundImage = ImageUtils.loadImage("menu.png");
 
         BufferedImage buttonImage = ImageUtils.loadImage("button.png");
@@ -112,8 +112,9 @@ public class LoadScreen extends BaseScreen implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent click) {
 
+        /*
         if (menuButton.clicked(click)) {
-            parent.setWindow(new MenuScreen(parent, simulator));
+            context.setWindow(new MenuScreen(parent, simulator));
         }
 
         for (PlantGUIElement button : loadButtons) {
@@ -122,9 +123,10 @@ public class LoadScreen extends BaseScreen implements MouseListener {
                 Simulator sim = new Simulator();
                 sim.setUsername(userName);
                 sim.loadGame(gameNumber);
-                parent.runGame(sim);
+                context.runGame(sim);
             }
         }
+        */
     }
 
    

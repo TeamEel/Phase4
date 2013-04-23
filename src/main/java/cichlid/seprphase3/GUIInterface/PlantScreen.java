@@ -1,11 +1,13 @@
 package cichlid.seprphase3.GUIInterface;
 
+import cichlid.seprphase3.GameOverException;
 import cichlid.seprphase3.Simulator.CannotRepairException;
 import cichlid.seprphase3.Simulator.GameManager;
 import cichlid.seprphase3.Simulator.KeyNotFoundException;
 import cichlid.seprphase3.Simulator.PlantController;
 import cichlid.seprphase3.Simulator.PlantStatus;
 import cichlid.seprphase3.Simulator.Pump;
+import cichlid.seprphase3.Simulator.Simulator;
 import cichlid.seprphase3.Simulator.SoftwareFailure;
 import cichlid.seprphase3.Utilities.Percentage;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,14 +22,14 @@ import java.util.logging.Logger;
  * This is the main interface which will be shown during the game. It is responsible for drawing the representation of
  * the plant to the screen.
  */
-public class PlantScreen extends BaseScreen implements MouseListener {
+public class PlantScreen extends BaseScreen {
 
     // These allow access to the plant's methods.
     private PlantController plantController;
     private PlantStatus plantStatus;
     private GameManager gameManager;
     // This is the GUIWindow the interface is being shown in.
-    private GUIWindow parent;
+    private ScreenContext parent;
     // Misc UI elements.
     private PlantGUIElement plantBackground;
     private PlantGUIElement logo;
@@ -88,13 +90,42 @@ public class PlantScreen extends BaseScreen implements MouseListener {
      * @param plantStatus
      * @param gameManager
      */
-    public PlantScreen(GUIWindow parent, PlantController plantController, PlantStatus plantStatus,
-                          GameManager gameManager) {
-        this.plantController = plantController;
-        this.plantStatus = plantStatus;
-        this.gameManager = gameManager;
+    
+    public PlantScreen(ScreenContext parent, String username, boolean multiplayer){
+        Simulator simulator = new Simulator();
+        this.plantController = simulator;
+        this.plantStatus = simulator;
+        this.gameManager = simulator;
 
         this.parent = parent;
+        
+        simulator.allowRandomFailures(multiplayer);
+        
+        this.gameManager.setUsername(username);
+        
+        
+        // Give all of the plant components the right images and location on the screen.
+        setupComponents();
+
+        // Add a mouse listener to listen to mouse events (so we can click things!)
+        addMouseListener(this);
+        
+        MultiPlayerKeyListener listener = new MultiPlayerKeyListener(simulator,simulator);
+        this.addKeyListener(listener);
+    } 
+            
+    public PlantScreen(ScreenContext parent, String username) {
+        
+        Simulator simulator = new Simulator();
+        this.plantController = simulator;
+        this.plantStatus = simulator;
+        this.gameManager = simulator;
+
+        this.parent = parent;
+        
+        
+        this.gameManager.setUsername(username);
+        
         
         // Give all of the plant components the right images and location on the screen.
         setupComponents();
@@ -105,18 +136,16 @@ public class PlantScreen extends BaseScreen implements MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        if (simulator.step()) {
-                    super.update();
-                } else {
-                    // Set the game state to GameOver (so the plant stops updating).
-                    // And set the interface to the GameOverScreen.
-                    // Some values to display are passed in from the simulator.
-                    state = GameState.GameOver;
-                    gameover = new GameOverScreen(explosion, simulator.energyGenerated(), simulator.getUsername());
-                    setWindow(gameover);
-                }
+        try{
+            plantController.step(1);
+            super.update();
+        } catch (GameOverException ex) {
+            parent.SetScreen(new GameOverScreen(this.parent, plantStatus.energyGenerated(), gameManager.getUsername()));
+            super.update();
+        }
     }
 
+   
     /**
      * Gives all of the plant components the right images and locations on the screen. Each component has the form:
      * BufferedImage image = loadImage("images/image.png"); component = new PlantGUIElement( image, location x, location
@@ -661,8 +690,7 @@ public class PlantScreen extends BaseScreen implements MouseListener {
 
             // If the quit button was clicked, quit to the menu.
             if (clicked(quitButton, click)) {
-                parent.state = GameState.NotStarted;
-                parent.showMenu();
+                parent.SetScreen(new MenuScreen(this.parent));
             }
 
             // If the save button was clicked, save the game.

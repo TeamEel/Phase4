@@ -3,13 +3,15 @@ package cichlid.seprphase3.GUIInterface;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
  * This class is the base type for all interfaces in the game. It provides convenience methods for these classes.
  */
-public abstract class BaseScreen extends JPanel {
+public abstract class BaseScreen extends JPanel implements MouseListener {
+    
 
     // Convenience method to check if a particular mouse event is inside a Rectangle.
     public boolean clicked(Rectangle rectangle, MouseEvent click) {
@@ -38,4 +40,25 @@ public abstract class BaseScreen extends JPanel {
         revalidate();
         repaint();
     }
+    
+     @Override
+    public void mousePressed(MouseEvent me) {
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {
+        
+    }
+
 }

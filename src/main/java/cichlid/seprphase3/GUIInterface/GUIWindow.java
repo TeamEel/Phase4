@@ -37,8 +37,14 @@ public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
      * @param height The height of the window.
      */
     public GUIWindow(String title, int width, int height) {
+        
         super(title);
 
+        
+        SetScreen(new MenuScreen(this));
+        
+        
+        
         // Allow the window to exit when the close button is pressed.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -114,22 +120,6 @@ public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
         repaint();
     }
 
-    /**
-     * Run game starts a new game. It is called by Load, and takes the loaded simulator, creating the new game with it.
-     *
-     * @param sim
-     */
-    public void runGame(Simulator sim) {
-        simulator = sim;
-        this.kl.update(sim,sim);
-        setWindow(new PlantScreen(this, simulator, simulator, simulator));
-        state = GameState.Running;
-    }
 
-    public void showMenu() {
-        simulator = new Simulator();
-        this.kl = new MultiPlayerKeyListener(this,simulator,simulator);
-        this.addKeyListener(kl);
-        setWindow(new MenuScreen(this, simulator));
-    }
+
 }

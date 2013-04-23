@@ -17,10 +17,9 @@ import java.awt.event.KeyListener;
 class MultiPlayerKeyListener implements KeyListener{
     PlantController plant;
     PlantStatus status;
-    GUIWindow parent;
-    public MultiPlayerKeyListener(GUIWindow parentWindow, PlantController plantController, PlantStatus plantStatus) {
+    
+    public MultiPlayerKeyListener(PlantController plantController, PlantStatus plantStatus) {
        plant = plantController;
-       parent = parentWindow;
        status = plantStatus;
        System.out.println("kl init");
     }
@@ -49,7 +48,7 @@ class MultiPlayerKeyListener implements KeyListener{
             plant.allowRandomFailures(!status.allowsRandomFailures());
         }
         
-        if(parent.state == GameState.Running && !status.allowsRandomFailures())
+        if(!status.allowsRandomFailures())
         {
             if(ke.getKeyChar() == 'c' )
             {

@@ -74,4 +74,5 @@ public interface PlantStatus {
     public HashMap<String, Connection> connectionList();
 
     public boolean allowsRandomFailures();
+    
 }

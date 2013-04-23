@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 /**
  * This is displayed at the start of the game and lets the player start or load a game.
  */
-public class MenuScreen extends BaseScreen implements MouseListener {
+public class MenuScreen extends BaseScreen  {
 
     // The background image.
     private BufferedImage backgroundImage;
@@ -21,17 +21,15 @@ public class MenuScreen extends BaseScreen implements MouseListener {
     private PlantGUIElement newGameButton;
     private PlantGUIElement newMultiplayerGameButton;
     private PlantGUIElement loadGameButton;
-    // The parent GUIWindow
-    private GUIWindow parent;
-    // The simulator to use.
-    private Simulator simulator;
+    // The context GUIWindow
+    private ScreenContext context;
+    
     // Whether images are currently loading.
     private Boolean loading = false;
 
-    public MenuScreen(GUIWindow _parent, Simulator _simulator) {
+    public MenuScreen(ScreenContext context) {
         // Setup references.
-        parent = _parent;
-        simulator = _simulator;
+        this.context = context;
 
         // Load the background image.
         backgroundImage = ImageUtils.loadImage("menu.png");
@@ -91,8 +89,6 @@ public class MenuScreen extends BaseScreen implements MouseListener {
                 return;
             }
 
-            // Set the username of the simulator to the user's name.
-            simulator.setUsername(name);
 
             // Set loading to true.
             loading = true;
@@ -100,9 +96,8 @@ public class MenuScreen extends BaseScreen implements MouseListener {
             // The screen must be explicitly repainted here.
             paint(this.getGraphics());
 
-            // Start the game.
-            parent.state = GameState.Running;
-            parent.setWindow(new PlantScreen(parent, simulator, simulator, simulator));
+    
+            context.SetScreen(new PlantScreen(context,name));
             
         }
         
@@ -116,36 +111,25 @@ public class MenuScreen extends BaseScreen implements MouseListener {
                 return;
             }
 
-            // Set the username of the simulator to the user's name.
-            simulator.setUsername(name);
-            simulator.allowRandomFailures(false);
             // Set loading to true.
             loading = true;
 
             // The screen must be explicitly repainted here.
             paint(this.getGraphics());
 
-            // Start the game.
-            parent.state = GameState.Running;
-            parent.setWindow(new PlantScreen(parent, simulator, simulator, simulator));
+         
+            context.SetScreen(new PlantScreen(context, name, true));
             
         }
 
         if (loadGameButton.clicked(click)) {
 
-            // Get the name to index saved games by.
-            String name = JOptionPane.showInputDialog("Enter your name");
-
-            // If the name is unusable, do nothing with this mouse click.
-            if (name == null || name.equals("")) {
-                return;
-            }
 
             // Set the window to the interface for loading games.
-            parent.setWindow(new LoadScreen(parent, simulator, name));
+            context.SetScreen(new LoadScreen(context));
         }
     }
 
-   
+ 
    
 }

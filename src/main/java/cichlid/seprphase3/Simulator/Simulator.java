@@ -36,7 +36,8 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     public void setUsername(String userName) {
         this.userName = userName;
     }
-
+    
+    @Override
     public String getUsername() {
         return userName;
     }
@@ -201,7 +202,7 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
 
     @Override
     public void step(int steps) throws GameOverException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        failureModel.step(steps);
     }
 
     @Override
@@ -260,5 +261,7 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     public void failPump(int pump) {
         failureModel.failPump(pump);
     }
+    
+   
 
 }

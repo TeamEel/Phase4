@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 /**
  * This interface is shown when the game is over.
  */
-public class GameOverScreen extends BaseScreen implements MouseListener {
+public class GameOverScreen extends BaseScreen {
 
     // This animation is used to show the nuclear explosion.
     private Animation explosion;
@@ -24,7 +24,7 @@ public class GameOverScreen extends BaseScreen implements MouseListener {
     // The variables passed in from the simulator, to be displayed on the GameOverScreen.
     private Energy powerGenerated;
     private String name;
-    
+    private ScreenContext context;
 
     /**
      * Creates a new GameOverScreen.
@@ -33,11 +33,14 @@ public class GameOverScreen extends BaseScreen implements MouseListener {
      * @param powerGenerated     The power generated in the previous game.
      * @param name               The name of the player.
      */
-    public GameOverScreen(Animation preloadedExplosion, Energy powerGenerated, String name) {
+    public GameOverScreen(ScreenContext context, Energy powerGenerated, String name) {
         explosion = new Animation("animations/explosion", false);
 
         // Make sure that the explosion plays from the start.
         explosion.reset();
+        
+        
+        this.context = context;
 
         // Set the misc. variables.
         this.powerGenerated = powerGenerated;
@@ -50,7 +53,7 @@ public class GameOverScreen extends BaseScreen implements MouseListener {
         // Add the mouse listener which allows this interface to accept mouse input.
         this.addMouseListener(this);
     }
-
+    
     @Override
     public void paintComponent(Graphics g) {
 
@@ -77,8 +80,8 @@ public class GameOverScreen extends BaseScreen implements MouseListener {
             playAgainButton.draw((Graphics2D)g);
             g.drawString("Play Again!", playAgainButton.x() + 20, playAgainButton.y() + 60);
         }
-
-
+        
+        
     }
 
     /**
@@ -88,23 +91,21 @@ public class GameOverScreen extends BaseScreen implements MouseListener {
      */
     @Override
     public void mouseClicked(MouseEvent click) {
-
+        
         if (playAgainButton.clicked(click)) {
             block = false;
         }
-
+        
     }
-
-  
-
+    
     @Override
     public void actionPerformed(ActionEvent event) {
         super.update();
-                // block returns false when the button is pressed to play another game. At this point,
-                // the code to return to the menu interface is ran.
-                if (!block) {
-                   
-                    showMenu();
-                }
+        // block returns false when the button is pressed to play another game. At this point,
+        // the code to return to the menu interface is ran.
+        if (!block) {
+            
+            context.SetScreen(new MenuScreen(context));
+        }
     }
 }
