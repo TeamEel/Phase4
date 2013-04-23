@@ -25,8 +25,8 @@ public class GUIWindow extends JFrame implements ActionListener {
     Simulator simulator;
     // This is the state which the game is currently in.
     GameState state = GameState.NotStarted;
-    // This is the GameOverInterface which is displayed when the game is over.
-    GameOverInterface gameover;
+    // This is the GameOverScreen which is displayed when the game is over.
+    GameOverScreen gameover;
     // The end game explosion animation must be preloaded due to its size, so it is stored here.
     Animation explosion;
 
@@ -53,7 +53,7 @@ public class GUIWindow extends JFrame implements ActionListener {
         setVisible(true);
 
         // Preload the Explosion Animation due to its size and store it here to be passed into
-        // GameOverInterface.
+        // GameOverScreen.
         explosion = new Animation("animations/explosion", false);
     }
 
@@ -87,14 +87,14 @@ public class GUIWindow extends JFrame implements ActionListener {
                     update();
                 } else {
                     // Set the game state to GameOver (so the plant stops updating).
-                    // And set the interface to the GameOverInterface.
+                    // And set the interface to the GameOverScreen.
                     // Some values to display are passed in from the simulator.
                     state = GameState.GameOver;
-                    gameover = new GameOverInterface(explosion, simulator.energyGenerated(), simulator.getUsername());
+                    gameover = new GameOverScreen(explosion, simulator.energyGenerated(), simulator.getUsername());
                     setWindow(gameover);
                 }
                 break;
-            // If the game is over, just continue repainting to show the GameOverInterface.
+            // If the game is over, just continue repainting to show the GameOverScreen.
             case GameOver:
                 update();
                 // gameover.block returns false when the button is pressed to play another game. At this point,
@@ -142,7 +142,7 @@ public class GUIWindow extends JFrame implements ActionListener {
     public void runGame(Simulator sim) {
         simulator = sim;
         this.kl.update(sim,sim);
-        setWindow(new PlantInterface(this, simulator, simulator, simulator));
+        setWindow(new PlantScreen(this, simulator, simulator, simulator));
         state = GameState.Running;
     }
 
@@ -150,6 +150,6 @@ public class GUIWindow extends JFrame implements ActionListener {
         simulator = new Simulator();
         this.kl = new MultiPlayerKeyListener(this,simulator,simulator);
         this.addKeyListener(kl);
-        setWindow(new MenuInterface(this, simulator));
+        setWindow(new MenuScreen(this, simulator));
     }
 }

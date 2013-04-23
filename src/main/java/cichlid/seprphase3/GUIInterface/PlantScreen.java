@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  * This is the main interface which will be shown during the game. It is responsible for drawing the representation of
  * the plant to the screen.
  */
-public class PlantInterface extends BaseInterface implements MouseListener {
+public class PlantScreen extends BaseScreen implements MouseListener {
 
     // These allow access to the plant's methods.
     private PlantController plantController;
@@ -88,7 +88,7 @@ public class PlantInterface extends BaseInterface implements MouseListener {
      * @param plantStatus
      * @param gameManager
      */
-    public PlantInterface(GUIWindow parent, PlantController plantController, PlantStatus plantStatus,
+    public PlantScreen(GUIWindow parent, PlantController plantController, PlantStatus plantStatus,
                           GameManager gameManager) {
         this.plantController = plantController;
         this.plantStatus = plantStatus;
@@ -659,7 +659,7 @@ public class PlantInterface extends BaseInterface implements MouseListener {
                     // Set the button to green for 10 game ticks to acknowledge the save.
                     savedGameTicks = 10;
                 } catch (JsonProcessingException ex) {
-                    Logger.getLogger(PlantInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(PlantScreen.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 

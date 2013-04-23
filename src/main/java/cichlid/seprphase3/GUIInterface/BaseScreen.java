@@ -8,7 +8,7 @@ import javax.swing.SwingUtilities;
 /**
  * This class is the base type for all interfaces in the game. It provides convenience methods for these classes.
  */
-public class BaseInterface extends JPanel {
+public class BaseScreen extends JPanel {
 
     // Convenience method to check if a particular mouse event is inside a Rectangle.
     public boolean clicked(Rectangle rectangle, MouseEvent click) {

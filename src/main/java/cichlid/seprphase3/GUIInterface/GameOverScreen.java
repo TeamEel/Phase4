@@ -12,13 +12,13 @@ import java.awt.image.BufferedImage;
 /**
  * This interface is shown when the game is over.
  */
-public class GameOverInterface extends BaseInterface implements MouseListener {
+public class GameOverScreen extends BaseScreen implements MouseListener {
 
     // This animation is used to show the nuclear explosion.
     private Animation explosion;
     // This button is to allow the player to start a new game.
     private PlantGUIElement playAgainButton;
-    // This is polled by the GUIWindow - when it is set to false, the GameOverInterface is no
+    // This is polled by the GUIWindow - when it is set to false, the GameOverScreen is no
     // longer displayed and the menu is displayed instead.
     public Boolean block = true;
     // The variables passed in from the simulator, to be displayed on the GameOverScreen.
@@ -26,13 +26,13 @@ public class GameOverInterface extends BaseInterface implements MouseListener {
     private String name;
 
     /**
-     * Creates a new GameOverInterface.
+     * Creates a new GameOverScreen.
      *
      * @param preloadedExplosion The explosion animation.
      * @param powerGenerated     The power generated in the previous game.
      * @param name               The name of the player.
      */
-    public GameOverInterface(Animation preloadedExplosion, Energy powerGenerated, String name) {
+    public GameOverScreen(Animation preloadedExplosion, Energy powerGenerated, String name) {
         explosion = preloadedExplosion;
 
         // Make sure that the explosion plays from the start.

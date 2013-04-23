@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 /**
  * This is displayed at the start of the game and lets the player start or load a game.
  */
-public class MenuInterface extends BaseInterface implements MouseListener {
+public class MenuScreen extends BaseScreen implements MouseListener {
 
     // The background image.
     private BufferedImage backgroundImage;
@@ -28,7 +28,7 @@ public class MenuInterface extends BaseInterface implements MouseListener {
     // Whether images are currently loading.
     private Boolean loading = false;
 
-    public MenuInterface(GUIWindow _parent, Simulator _simulator) {
+    public MenuScreen(GUIWindow _parent, Simulator _simulator) {
         // Setup references.
         parent = _parent;
         simulator = _simulator;
@@ -102,7 +102,7 @@ public class MenuInterface extends BaseInterface implements MouseListener {
 
             // Start the game.
             parent.state = GameState.Running;
-            parent.setWindow(new PlantInterface(parent, simulator, simulator, simulator));
+            parent.setWindow(new PlantScreen(parent, simulator, simulator, simulator));
             
         }
         
@@ -127,7 +127,7 @@ public class MenuInterface extends BaseInterface implements MouseListener {
 
             // Start the game.
             parent.state = GameState.Running;
-            parent.setWindow(new PlantInterface(parent, simulator, simulator, simulator));
+            parent.setWindow(new PlantScreen(parent, simulator, simulator, simulator));
             
         }
 
@@ -142,7 +142,7 @@ public class MenuInterface extends BaseInterface implements MouseListener {
             }
 
             // Set the window to the interface for loading games.
-            parent.setWindow(new LoadInterface(parent, simulator, name));
+            parent.setWindow(new LoadScreen(parent, simulator, name));
         }
     }
 

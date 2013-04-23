@@ -16,7 +16,7 @@ import java.util.*;
 /**
  * This interface allows games to be loaded from a list of games.
  */
-public class LoadInterface extends BaseInterface implements MouseListener {
+public class LoadScreen extends BaseScreen implements MouseListener {
 
     // Automatically build a save path for saved games.
     public static String savePath() {
@@ -41,7 +41,7 @@ public class LoadInterface extends BaseInterface implements MouseListener {
     public int i;
     private String userName;
 
-    public LoadInterface(GUIWindow _parent, Simulator _simulator, String _username) {
+    public LoadScreen(GUIWindow _parent, Simulator _simulator, String _username) {
         y = 0;
         i = 0;
 
@@ -113,7 +113,7 @@ public class LoadInterface extends BaseInterface implements MouseListener {
     public void mouseClicked(MouseEvent click) {
 
         if (menuButton.clicked(click)) {
-            parent.setWindow(new MenuInterface(parent, simulator));
+            parent.setWindow(new MenuScreen(parent, simulator));
         }
 
         for (PlantGUIElement button : loadButtons) {
