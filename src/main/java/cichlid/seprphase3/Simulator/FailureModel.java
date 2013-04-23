@@ -39,10 +39,10 @@ public class FailureModel implements PlantController, PlantStatus {
     private Random failChance = new Random();
     @JsonProperty
     private int numberOfTimesWaterLevelIsTooLow;
-    private final int reactorOverheatThreshold = 8;
+    private final int reactorOverheatThreshold = 50;
     private final Pressure condenserMaxPressure = new Pressure(30662500);
     // Software will fail 1 out of softwareFailureProbability times
-    private final int softwareFailureProbability = 500;
+    private final int softwareFailureProbability = 1000;
     private boolean randomFailures = true;
     private FailureModel() {
     }

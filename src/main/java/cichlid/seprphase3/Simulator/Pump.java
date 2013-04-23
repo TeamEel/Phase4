@@ -54,7 +54,7 @@ public class Pump extends FailableComponent {
 
     @Override
     public Percentage calculateWearDelta() {
-        return percent(1);
+        return new Percentage(0.05);
     }
 
     public void setStatus(boolean newStatus) {

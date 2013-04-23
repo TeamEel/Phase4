@@ -177,7 +177,7 @@ public class Condenser extends FailableComponent {
 
     @Override
     public Percentage calculateWearDelta() {
-        return percent(1);
+        return new Percentage(0.02);
     }
 
     @Override

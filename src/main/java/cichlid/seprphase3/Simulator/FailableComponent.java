@@ -38,6 +38,7 @@ public abstract class FailableComponent {
 
     public void fail() {
         hasFailed = true;
+
         stepWear();
     }
 

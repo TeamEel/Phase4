@@ -85,6 +85,6 @@ public class Turbine extends FailableComponent {
      */
     @Override
     public Percentage calculateWearDelta() {
-        return new Percentage(1);
+        return new Percentage(0.01);
     }
 }
