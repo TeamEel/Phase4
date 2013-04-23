@@ -59,6 +59,7 @@ public class FailureModel implements PlantController, PlantStatus {
      * Also implements reactor safety rules.
      *
      */
+    @Deprecated
     public void step() throws GameOverException {
         
         
@@ -272,6 +273,15 @@ public class FailureModel implements PlantController, PlantStatus {
     @Override
     public void step(int i) throws GameOverException {
         controller.step(i);
+        
+        if(randomFailures)
+        {
+            failStateCheck();
+        }
+        
+        checkReactorWaterLevel();
+        checkCondenserPressure();
+        checkTurbineFailure();
     }
 
     @Override

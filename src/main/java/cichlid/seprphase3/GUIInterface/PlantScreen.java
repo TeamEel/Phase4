@@ -99,7 +99,7 @@ public class PlantScreen extends BaseScreen {
 
         this.parent = parent;
         
-        simulator.allowRandomFailures(multiplayer);
+        simulator.allowRandomFailures(!multiplayer);
         
         this.gameManager.setUsername(username);
         
@@ -125,7 +125,6 @@ public class PlantScreen extends BaseScreen {
         
         
         this.gameManager.setUsername(username);
-        
         
         // Give all of the plant components the right images and location on the screen.
         setupComponents();
