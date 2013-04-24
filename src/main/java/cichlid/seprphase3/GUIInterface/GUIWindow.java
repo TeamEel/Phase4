@@ -75,7 +75,7 @@ public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
         
         // Setup the timer which is used to update the plant.
         // This makes actionPerformed() be called every 60ms.
-        Timer timer = new Timer(60, this);
+        Timer timer = new Timer(120, this);
         timer.start();
     }
 

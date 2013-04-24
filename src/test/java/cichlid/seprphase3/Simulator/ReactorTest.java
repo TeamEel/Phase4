@@ -123,4 +123,13 @@ public class ReactorTest {
         assertThat(reactor.waterLevel().points(), not(equalTo(100.0)));
 
     }
+    
+    @Test
+    public void QuenchShouldDecreaseTemperature() {
+        Reactor reactor = new Reactor(new Percentage(100), new Percentage(100),
+                                      new Temperature(1000), new Pressure(101325));
+        reactor.quench();
+        assertThat(reactor.temperature().inKelvin(), not(equalTo(1000.0)));
+    }
+    
 }
