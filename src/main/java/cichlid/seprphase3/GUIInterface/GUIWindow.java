@@ -18,16 +18,10 @@ enum GameState {
  * ActionListener so it can work with Swing Timers for scheduling updating at a specified interval.
  */
 public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
-    MultiPlayerKeyListener kl;
-    // This is the current window which is being displayed.
-    JPanel currentWindow;
-    
+
     BaseScreen currentScreen;
     // This is the simulator which the plant uses.
-    Simulator simulator;
-    // This is the state which the game is currently in.
-    GameState state = GameState.NotStarted;
-
+   
     
     /**
      * This creates a GUIWindow with a number of parameters.
@@ -107,7 +101,7 @@ public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
          * The content pane represents the area of the window where content is shown - all of the window except the
          * title bar. Setting the content panel to a jPanel causes the jPanel to draw to the window.
          */
-        currentWindow = _window;
+        //currentWindow = _window;
         setContentPane(_window);
     }
 
@@ -116,7 +110,7 @@ public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
      * screen.
      */
     public void update() {
-        currentWindow.revalidate();
+        currentScreen.revalidate();
         repaint();
     }
 
