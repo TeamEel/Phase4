@@ -6,6 +6,7 @@ package cichlid.seprphase3.Simulator;
 
 import cichlid.seprphase3.Simulator.Port;
 import cichlid.seprphase3.Simulator.Pump;
+import cichlid.seprphase3.Utilities.Percentage;
 import static cichlid.seprphase3.Utilities.Units.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -102,6 +103,6 @@ public class PumpTest {
         Pump pump = new Pump(input, output);
         pump.setCapacity(kilograms(10));
         pump.step();
-        assertEquals(percent(1), pump.wear());
+        assertEquals(new Percentage(0.05), pump.wear());
     }
 }
