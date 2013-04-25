@@ -139,7 +139,7 @@ public class PlantScreen extends BaseScreen {
             plantController.step(1);
             super.update();
         } catch (GameOverException ex) {
-            parent.Navigate(new GameOverScreen(this.parent, plantStatus.energyGenerated(), gameManager.getUsername()));
+            parent.transitionTo(new GameOverScreen(this.parent, plantStatus.energyGenerated(), gameManager.getUsername()));
             super.update();
         }
     }
@@ -689,7 +689,7 @@ public class PlantScreen extends BaseScreen {
 
             // If the quit button was clicked, quit to the menu.
             if (clicked(quitButton, click)) {
-                parent.Navigate(new MenuScreen(this.parent));
+                parent.transitionTo(new MenuScreen(this.parent));
             }
 
             // If the save button was clicked, save the game.

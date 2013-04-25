@@ -35,7 +35,7 @@ public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
         super(title);
 
         
-        Navigate(new MenuScreen(this));
+        transitionTo(new MenuScreen(this));
         
         
         
@@ -55,7 +55,7 @@ public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
     }
 
     
-    public void Navigate(BaseScreen newScreen)
+    public void transitionTo(BaseScreen newScreen)
     {
         this.currentScreen = newScreen;
         setContentPane(newScreen);
