@@ -9,5 +9,5 @@ package cichlid.seprphase3.GUIInterface;
  * @author csdt500
  */
 public interface ScreenContext {
-    public void SetScreen(BaseScreen newScreen);
+    public void Navigate(BaseScreen newScreen);
 }

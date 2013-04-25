@@ -97,7 +97,7 @@ public class MenuScreen extends BaseScreen  {
             paint(this.getGraphics());
 
     
-            context.SetScreen(new PlantScreen(context,name));
+            context.Navigate(new PlantScreen(context,name));
             
         }
         
@@ -118,7 +118,7 @@ public class MenuScreen extends BaseScreen  {
             paint(this.getGraphics());
 
          
-            context.SetScreen(new PlantScreen(context, name, true));
+            context.Navigate(new PlantScreen(context, name, true));
             
         }
 
@@ -126,7 +126,7 @@ public class MenuScreen extends BaseScreen  {
 
 
             // Set the window to the interface for loading games.
-            context.SetScreen(new LoadScreen(context));
+            context.Navigate(new LoadScreen(context));
         }
     }
 

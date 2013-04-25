@@ -105,7 +105,7 @@ public class GameOverScreen extends BaseScreen {
         // the code to return to the menu interface is ran.
         if (!block) {
             
-            context.SetScreen(new MenuScreen(context));
+            context.Navigate(new MenuScreen(context));
         }
     }
 }
