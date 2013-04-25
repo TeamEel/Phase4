@@ -16,7 +16,7 @@ import java.util.*;
 /**
  * This interface allows games to be loaded from a list of games.
  */
-public class LoadScreen extends BaseScreen {
+public class LoadScreen extends Screen {
 
     // Automatically build a save path for saved games.
     public static String savePath() {

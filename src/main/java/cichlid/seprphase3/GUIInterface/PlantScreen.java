@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  * This is the main interface which will be shown during the game. It is responsible for drawing the representation of
  * the plant to the screen.
  */
-public class PlantScreen extends BaseScreen {
+public class PlantScreen extends Screen {
 
     // These allow access to the plant's methods.
     protected PlantController plantController;

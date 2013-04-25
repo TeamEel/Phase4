@@ -19,7 +19,7 @@ enum GameState {
  */
 public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
 
-    BaseScreen currentScreen;
+    Screen currentScreen;
     // This is the simulator which the plant uses.
    
     
@@ -34,7 +34,7 @@ public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
         
         super(title);
 
-        
+        setFocusable( true );
         transitionTo(new MenuScreen(this));
         
         
@@ -55,7 +55,7 @@ public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
     }
 
     
-    public void transitionTo(BaseScreen newScreen)
+    public void transitionTo(Screen newScreen)
     {
         this.currentScreen = newScreen;
         setContentPane(newScreen);

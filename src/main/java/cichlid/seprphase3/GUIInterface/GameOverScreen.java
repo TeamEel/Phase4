@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 /**
  * This interface is shown when the game is over.
  */
-public class GameOverScreen extends BaseScreen {
+public class GameOverScreen extends Screen {
 
     // This animation is used to show the nuclear explosion.
     private Animation explosion;

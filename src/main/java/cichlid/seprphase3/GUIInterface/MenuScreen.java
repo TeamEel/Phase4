@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 /**
  * This is displayed at the start of the game and lets the player start or load a game.
  */
-public class MenuScreen extends BaseScreen  {
+public class MenuScreen extends Screen  {
 
     // The background image.
     private BufferedImage backgroundImage;
