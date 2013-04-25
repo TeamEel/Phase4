@@ -25,8 +25,8 @@ import java.util.logging.Logger;
 public class PlantScreen extends BaseScreen {
 
     // These allow access to the plant's methods.
-    private PlantController plantController;
-    private PlantStatus plantStatus;
+    protected PlantController plantController;
+    protected PlantStatus plantStatus;
     private GameManager gameManager;
     // This is the GUIWindow the interface is being shown in.
     private ScreenContext parent;
@@ -91,28 +91,7 @@ public class PlantScreen extends BaseScreen {
      * @param gameManager
      */
     
-    public PlantScreen(ScreenContext parent, String username, boolean multiplayer){
-        Simulator simulator = new Simulator();
-        this.plantController = simulator;
-        this.plantStatus = simulator;
-        this.gameManager = simulator;
-
-        this.parent = parent;
-        
-        simulator.allowRandomFailures(!multiplayer);
-        
-        this.gameManager.setUsername(username);
-        
-        
-        // Give all of the plant components the right images and location on the screen.
-        setupComponents();
-
-        // Add a mouse listener to listen to mouse events (so we can click things!)
-        addMouseListener(this);
-        
-        MultiPlayerKeyListener listener = new MultiPlayerKeyListener(simulator,simulator);
-        this.addKeyListener(listener);
-    } 
+    
             
     public PlantScreen(ScreenContext parent, String username) {
         

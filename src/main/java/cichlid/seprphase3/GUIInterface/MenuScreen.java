@@ -118,7 +118,7 @@ public class MenuScreen extends BaseScreen  {
             paint(this.getGraphics());
 
          
-            context.transitionTo(new PlantScreen(context, name, true));
+            context.transitionTo(new MultiplayerPlantScreen(context, name));
             
         }
 
