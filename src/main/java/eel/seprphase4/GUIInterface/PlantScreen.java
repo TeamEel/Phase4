@@ -668,7 +668,13 @@ public class PlantScreen extends Screen {
 
             // If the quit button was clicked, quit to the menu.
             if (clicked(quitButton, click)) {
-                parent.transitionTo(new MenuScreen(this.parent));
+                try
+                {
+                    parent.transitionTo(new MenuScreen(this.parent));
+                }
+                catch(Exception e)
+                        {
+                        }
             }
 
             // If the save button was clicked, save the game.

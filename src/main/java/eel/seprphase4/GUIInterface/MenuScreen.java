@@ -4,10 +4,15 @@
  */
 package eel.seprphase4.GUIInterface;
 
-import eel.seprphase4.Simulator.Simulator;
+
+import eel.seprphase4.GUIInterface.Sprites.Menu.*;
+import eel.seprphase4.GUIInterface.Sprites.SimpleSprite;
+import eel.seprphase4.drawing.ImageLoader;
+import eel.seprphase4.drawing.SpriteCanvas;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,6 +20,8 @@ import javax.swing.JOptionPane;
  */
 public class MenuScreen extends Screen  {
 
+    
+    
     // The background image.
     private BufferedImage backgroundImage;
     // The two buttons.
@@ -26,11 +33,23 @@ public class MenuScreen extends Screen  {
     
     // Whether images are currently loading.
     private Boolean loading = false;
-
-    public MenuScreen(ScreenContext context) {
+    SpriteCanvas canvas;
+    public MenuScreen(ScreenContext context) throws IOException {
         // Setup references.
         this.context = context;
+       
+        canvas = new SpriteCanvas(ImageLoader.imageResource("/shared/white.png"));
 
+        canvas.setFrameInterval(10);
+        canvas.setScaleFactor(1);
+                add(canvas);
+        canvas.start();
+
+
+        addSprite(new MenuBackgroundImage(), 0, 0);
+        addSprite(new MenuLogo(), 483, 92);
+        
+        /*
         // Load the background image.
         backgroundImage = ImageUtils.loadImage("menu.png");
 
@@ -42,38 +61,15 @@ public class MenuScreen extends Screen  {
 
         // Add a mouse listener to allow this class to deal with mouse input.
         this.addMouseListener(this);
+        */
     }
 
-    /**
-     * Draws the interface to the screen.
-     */
-    @Override
-    public void paintComponent(Graphics g) {
-        // Draw the background first since it is under everything.
-        g.drawImage(backgroundImage, 0, 0, null);
-
-        // Enable image anti-aliasing for prettier text.
-        ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g.setFont(new Font("Impact", Font.BOLD, 30));
-        g.setColor(Color.BLACK);
-
-        // Draw the buttons.
-        newGameButton.draw((Graphics2D)g);
-        g.drawString("1P Game", newGameButton.x() + 30, newGameButton.y() + 47);
-        
-        newMultiplayerGameButton.draw((Graphics2D)g);
-        g.drawString("2P Game", newMultiplayerGameButton.x() + 30, newMultiplayerGameButton.y() + 47);
-        
-        
-        loadGameButton.draw((Graphics2D)g);
-        g.drawString("Load Game", loadGameButton.x() + 25, loadGameButton.y() + 50);
-
-        // If the images are currently loading, show this.
-        if (loading == true) {
-            g.setColor(Color.WHITE);
-            g.drawString("Loading...", 450, 550);
-        }
+    private void addSprite(SimpleSprite sprite,
+                                    int x, int y) {
+        sprite.addToCanvas(canvas);
+        sprite.moveTo(x, y);
     }
+    
 
     @Override
     public void mouseClicked(MouseEvent click) {

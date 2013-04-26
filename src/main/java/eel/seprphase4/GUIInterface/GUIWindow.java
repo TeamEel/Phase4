@@ -3,6 +3,7 @@ package eel.seprphase4.GUIInterface;
 import eel.seprphase4.Simulator.Simulator;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import javax.swing.*;
 
 /**
@@ -30,7 +31,7 @@ public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
      * @param width  The width of the window.
      * @param height The height of the window.
      */
-    public GUIWindow(String title, int width, int height) {
+    public GUIWindow(String title, int width, int height) throws IOException {
         
         super(title);
 

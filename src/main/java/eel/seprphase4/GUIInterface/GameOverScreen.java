@@ -104,8 +104,13 @@ public class GameOverScreen extends Screen {
         // block returns false when the button is pressed to play another game. At this point,
         // the code to return to the menu interface is ran.
         if (!block) {
-            
-            context.transitionTo(new MenuScreen(context));
+            try
+            {
+                context.transitionTo(new MenuScreen(context));
+            }
+            catch(Exception e)
+            {
+            }
         }
     }
 }

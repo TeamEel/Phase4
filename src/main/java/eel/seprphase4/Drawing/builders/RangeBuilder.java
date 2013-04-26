@@ -20,7 +20,8 @@ import java.util.ArrayList;
  * creation of 'reversed' animations.
  * 
  * @author drm
- */public class RangeBuilder {
+ */
+public class RangeBuilder {
 
     private String format;
     private int start;
