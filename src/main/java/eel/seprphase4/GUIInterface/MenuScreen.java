@@ -48,7 +48,9 @@ public class MenuScreen extends Screen  {
 
         addSprite(new MenuBackgroundImage(), 0, 0);
         addSprite(new MenuLogo(), 483, 92);
-        
+        addSprite(new MenuButton("singleplayer"), 834, 384);
+        addSprite(new MenuButton("multiplayer"), 834, 476);
+        addSprite(new MenuButton("load"), 834, 573);
         /*
         // Load the background image.
         backgroundImage = ImageUtils.loadImage("menu.png");
