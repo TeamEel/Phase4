@@ -7,9 +7,9 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.event.MouseInputListener;
 
 /**
  * Provide a painting surface for Sprites
@@ -19,8 +19,9 @@ import javax.swing.Timer;
  * 
  * @author drm
  */
-public class SpriteCanvas extends JPanel implements ActionListener, MouseListener {
+public class SpriteCanvas extends JPanel implements ActionListener, MouseInputListener {
 
+    private Screen screen;
     private Image background;
     private SpriteSet sprites;
     private Timer timer;
@@ -32,6 +33,15 @@ public class SpriteCanvas extends JPanel implements ActionListener, MouseListene
         this.timer = new Timer(1000, this);
         this.scaleFactor = 1;
         setPreferredSize(new Dimension(background.getWidth(null), background.getHeight(null)));
+        addMouseListener(this);
+        addMouseMotionListener(this);
+    }
+
+    public SpriteCanvas() {
+        this.timer = new Timer(10, this);
+        this.scaleFactor = 1;
+        addMouseListener(this);
+        addMouseMotionListener(this);
     }
 
     public void setScaleFactor(double scaleFactor) {
@@ -71,6 +81,11 @@ public class SpriteCanvas extends JPanel implements ActionListener, MouseListene
         timer.stop();
     }
 
+    public void setScreen(Screen screen) {
+        this.screen = screen;
+        setPreferredSize(screen.size());
+    }
+    
     /**
      * Add a sprite to the Canvas.
      * 
@@ -92,8 +107,9 @@ public class SpriteCanvas extends JPanel implements ActionListener, MouseListene
     public void paintComponent(Graphics g) {
         // mildly hacky scaling to fit onto smaller screens
         ((Graphics2D)g).scale(scaleFactor, scaleFactor);
-        g.drawImage(background, 0, 0, this);
-        sprites.paint(g);
+        //g.drawImage(background, 0, 0, this);
+        screen.drawBackground(g);
+        screen.sprites.paint(g);
     }
 
     @Override
@@ -104,32 +120,42 @@ public class SpriteCanvas extends JPanel implements ActionListener, MouseListene
     }
 
     @Override
-    public void mouseClicked(MouseEvent me) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void mouseClicked(MouseEvent e) {
+        // ignore click events
     }
 
     @Override
-    public void mousePressed(MouseEvent me) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void mousePressed(MouseEvent e) {
+        // ignore press events
     }
 
     @Override
-    public void mouseReleased(MouseEvent me) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void mouseReleased(MouseEvent e) {
+        screen.sprites.mouseReleased(e);
     }
 
     @Override
-    public void mouseEntered(MouseEvent me) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void mouseEntered(MouseEvent e) {
+        // ignore enter events
     }
 
     @Override
-    public void mouseExited(MouseEvent me) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void mouseExited(MouseEvent e) {
+        screen.sprites.mouseExited(e);
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        // ignore drag events
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        screen.sprites.mouseMoved(e);
     }
 
     private void advance() {
-        sprites.advance();
+        screen.sprites.advance();
         repaint();
     }
 }

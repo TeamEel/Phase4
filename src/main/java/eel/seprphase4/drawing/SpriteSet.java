@@ -1,8 +1,11 @@
 package eel.seprphase4.drawing;
 
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.ListIterator;
 
 /**
  * Manage a collection of Sprites for a SpriteCanvas
@@ -10,6 +13,7 @@ import java.util.Collections;
  * @author drm
  */
 public class SpriteSet {
+    private ZSprite previousMouseSprite;
 
     ArrayList<ZSprite> sprites;
 
@@ -52,5 +56,47 @@ public class SpriteSet {
         for (ZSprite s : sprites) {
             s.advance();
         }
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        ZSprite s = spriteFor(e.getPoint());
+        if (s == null) {
+            return;
+        }
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            s.leftClicked();
+        } else if (e.getButton() == MouseEvent.BUTTON2) {
+            s.rightClicked();
+        }
+    }
+
+    public void mouseExited(MouseEvent e) {
+        previousMouseSprite = null;
+    }
+
+    public void mouseMoved(MouseEvent e) {
+        ZSprite s = spriteFor(e.getPoint());
+        if (s == null) {
+            return;
+        }
+        if (s != previousMouseSprite) {
+            if (previousMouseSprite != null) {
+                previousMouseSprite.mouseExited();
+            }
+            s.mouseEntered();
+            previousMouseSprite = s;
+        }
+    }
+    
+    private ZSprite spriteFor(Point p) {
+        for (ListIterator<ZSprite> i = sprites.listIterator(sprites.size());
+             i.hasPrevious();
+             ) {
+            ZSprite s = i.previous();
+            if (s.contains(p)) {
+                return s;
+            }
+        }
+        return null;
     }
 }

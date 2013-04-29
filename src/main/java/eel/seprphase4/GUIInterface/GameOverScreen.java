@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 /**
  * This interface is shown when the game is over.
  */
-public class GameOverScreen extends Screen {
+public class GameOverScreen extends GameScreen {
 
     // This animation is used to show the nuclear explosion.
     private Animation explosion;
@@ -51,7 +51,7 @@ public class GameOverScreen extends Screen {
         playAgainButton = new PlantGUIElement(buttonImage, 580, 550, 1.2f);
 
         // Add the mouse listener which allows this interface to accept mouse input.
-        this.addMouseListener(this);
+        //this.addMouseListener(this);
     }
     
     @Override
@@ -89,14 +89,14 @@ public class GameOverScreen extends Screen {
      *
      * @param click The click event, containing the location.
      */
-    @Override
-    public void mouseClicked(MouseEvent click) {
-        
-        if (playAgainButton.clicked(click)) {
-            block = false;
-        }
-        
-    }
+//    @Override
+//    public void mouseClicked(MouseEvent click) {
+//        
+//        if (playAgainButton.clicked(click)) {
+//            block = false;
+//        }
+//        
+//    }
     
     @Override
     public void actionPerformed(ActionEvent event) {
@@ -106,7 +106,7 @@ public class GameOverScreen extends Screen {
         if (!block) {
             try
             {
-                context.transitionTo(new MenuScreen(context));
+               // context.transitionTo(new MenuScreen());
             }
             catch(Exception e)
             {

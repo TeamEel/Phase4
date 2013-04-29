@@ -9,5 +9,5 @@ package eel.seprphase4.GUIInterface;
  * @author csdt500
  */
 public interface ScreenContext {
-    public void transitionTo(Screen newScreen);
+    public void transitionTo(GameScreen newScreen);
 }

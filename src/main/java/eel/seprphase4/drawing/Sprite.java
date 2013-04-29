@@ -2,17 +2,16 @@ package eel.seprphase4.drawing;
 
 import eel.seprphase4.drawing.animation.AnimationSet;
 import java.awt.Graphics;
-import java.awt.event.MouseListener;
 
 /**
  *
  * @author drm
  */
-public class Sprite {
+public class Sprite implements MouseControllable {
 
     private AnimationSet animations;
     private Coordinate position;
-    private MouseListener mouseListener;
+    private MouseControllable mouseControl;
     
     public Sprite(AnimationSet animations) {
         this(animations, new Coordinate(0, 0));
@@ -70,13 +69,45 @@ public class Sprite {
         animations.paint(g, position);
     }
 
-    public void setMouseListener(MouseListener mouseListener) {
-        this.mouseListener = mouseListener;
+    public void setMouseListener(MouseControllable mouseControl) {
+        this.mouseControl = mouseControl;
     }
       
-    private boolean contains(Coordinate c) {
+    public boolean contains(Coordinate c) {
         return c.southEastOf(position) &&
                c.northWestOf(bottomRight());
+    }
+
+    @Override
+    public void mouseEntered() {
+        if (mouseControl == null) {
+            return;
+        }
+        mouseControl.mouseEntered();
+    }
+
+    @Override
+    public void mouseExited() {
+        if (mouseControl == null) {
+            return;
+        }
+        mouseControl.mouseExited();
+    }
+
+    @Override
+    public void leftClicked() {
+        if (mouseControl == null) {
+            return;
+        }
+        mouseControl.leftClicked();
+    }
+
+    @Override
+    public void rightClicked() {
+        if (mouseControl == null) {
+            return;
+        }
+        mouseControl.rightClicked();
     }
     
     private Coordinate bottomRight() {

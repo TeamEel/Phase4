@@ -10,7 +10,7 @@ import javax.swing.SwingUtilities;
 /**
  * This class is the base type for all interfaces in the game. It provides convenience methods for these classes.
  */
-public abstract class Screen extends JPanel implements MouseListener {
+public abstract class GameScreen extends JPanel {
     
 
     // Convenience method to check if a particular mouse event is inside a Rectangle.
@@ -40,25 +40,25 @@ public abstract class Screen extends JPanel implements MouseListener {
         revalidate();
         repaint();
     }
-    
-     @Override
-    public void mousePressed(MouseEvent me) {
-        
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent me) {
-        
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent me) {
-        
-    }
-
-    @Override
-    public void mouseExited(MouseEvent me) {
-        
-    }
+//    
+//     @Override
+//    public void mousePressed(MouseEvent me) {
+//        
+//    }
+//
+//    @Override
+//    public void mouseReleased(MouseEvent me) {
+//        
+//    }
+//
+//    @Override
+//    public void mouseEntered(MouseEvent me) {
+//        
+//    }
+//
+//    @Override
+//    public void mouseExited(MouseEvent me) {
+//        
+//    }
 
 }

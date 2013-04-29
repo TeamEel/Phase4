@@ -1,6 +1,7 @@
 package eel.seprphase4.GUIInterface;
 
 import eel.seprphase4.Simulator.Simulator;
+import eel.seprphase4.drawing.SpriteCanvas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -20,7 +21,8 @@ enum GameState {
  */
 public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
 
-    Screen currentScreen;
+    GameScreen currentScreen;
+    private SpriteCanvas canvas;
     // This is the simulator which the plant uses.
    
     
@@ -36,7 +38,11 @@ public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
         super(title);
 
         setFocusable( true );
-        transitionTo(new MenuScreen(this));
+        canvas = new SpriteCanvas();
+        canvas.setScreen(new MenuScreen());
+        add(canvas);
+        canvas.start();
+        //transitionTo(new MenuScreen(this));
         
         
         
@@ -56,7 +62,8 @@ public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
     }
 
     
-    public void transitionTo(Screen newScreen)
+    @Override
+    public void transitionTo(GameScreen newScreen)
     {
         this.currentScreen = newScreen;
         setContentPane(newScreen);
@@ -77,7 +84,7 @@ public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
         // Setup the timer which is used to update the plant.
         // This makes actionPerformed() be called every 60ms.
         Timer timer = new Timer(120, this);
-        timer.start();
+       // timer.start();
     }
 
     /**

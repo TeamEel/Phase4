@@ -6,6 +6,7 @@ package eel.seprphase4.GUIInterface.Sprites.Menu;
 
 import eel.seprphase4.GUIInterface.Sprites.SimpleSprite;
 import eel.seprphase4.drawing.Coordinate;
+import eel.seprphase4.drawing.Screen;
 import eel.seprphase4.drawing.Sprite;
 import eel.seprphase4.drawing.SpriteCanvas;
 import static eel.seprphase4.drawing.builders.BuildAnimation.singleFrame;
@@ -29,8 +30,8 @@ public class MenuLogo implements SimpleSprite {
     }
 
     @Override
-    public void addToCanvas(SpriteCanvas canvas) {
-        canvas.add(sprite, 3);
+    public void addToScreen(Screen screen) {
+        screen.addSprite(sprite, 1);
     }
 
     @Override

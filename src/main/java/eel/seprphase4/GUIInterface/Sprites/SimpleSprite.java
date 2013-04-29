@@ -4,6 +4,7 @@
  */
 package eel.seprphase4.GUIInterface.Sprites;
 
+import eel.seprphase4.drawing.Screen;
 import eel.seprphase4.drawing.SpriteCanvas;
 
 /**
@@ -12,7 +13,7 @@ import eel.seprphase4.drawing.SpriteCanvas;
  */
 public interface SimpleSprite {
 
-    public void addToCanvas(SpriteCanvas canvas);
+    public void addToScreen(Screen screen);
 
     public void moveTo(int x, int y);
 }

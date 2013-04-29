@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  * This is the main interface which will be shown during the game. It is responsible for drawing the representation of
  * the plant to the screen.
  */
-public class PlantScreen extends Screen {
+public class PlantScreen extends GameScreen {
 
     // These allow access to the plant's methods.
     protected PlantController plantController;
@@ -109,7 +109,7 @@ public class PlantScreen extends Screen {
         setupComponents();
 
         // Add a mouse listener to listen to mouse events (so we can click things!)
-        addMouseListener(this);
+        //addMouseListener(this);
     }
 
     @Override
@@ -590,160 +590,160 @@ public class PlantScreen extends Screen {
      *
      * @param click The event information for the mouse click.
      */
-    @Override
-    public void mouseClicked(MouseEvent click) {
-
-        // If the left mouse button is clicked, check if it was clicked on a component.
-        if (leftClick(click)) {
-
-            // If a pump was clicked, change its status and animate it changing.
-            if (pump1.clicked(click)) {
-                if (!(plantStatus.getSoftwareFailure() == SoftwareFailure.pumpStateChange)) {
-                    Pump cPump1 = (Pump)plantStatus.componentList().get("pump1");
-                    boolean state = cPump1.getStatus();
-
-                    if (state) {
-                        cPump1.setStatus(false);
-                        pump1.turnOff();
-                    } else {
-                        cPump1.setStatus(true);
-                        pump1.turnOn();
-                    }
-                }
-            }
-
-            // If a pump was clicked, change its status and animate it changing.
-            if (coolingPump.clicked(click)) {
-                if (!(plantStatus.getSoftwareFailure() == SoftwareFailure.pumpStateChange)) {
-                    Pump cCoolingPump = (Pump)plantStatus.componentList().get("coolingPump");
-                    boolean state = cCoolingPump.getStatus();
-
-                    if (state) {
-                        cCoolingPump.setStatus(false);
-                        coolingPump.turnOff();
-                    } else {
-                        cCoolingPump.setStatus(true);
-                        coolingPump.turnOn();
-                    }
-                }
-            }
-
-            valve1.handleClick(click);
-
-            // If a valve was clicked, change its status and animate it changing.
-            if (valve2.clicked(click)) {
-                if (!(plantStatus.getSoftwareFailure() == SoftwareFailure.valveStateChange)) {
-                    boolean state = plantStatus.connectionList().get("turbineToCondenser").getOpen();
-
-                    if (state) {
-                        plantStatus.connectionList().get("turbineToCondenser").setOpen(false);
-                        valve2.setAnimation(PlantAnimationType.TURNINGON);
-                    } else {
-                        plantStatus.connectionList().get("turbineToCondenser").setOpen(true);
-                        valve2.setAnimation(PlantAnimationType.TURNINGOFF);
-                    }
-                }
-            }
-
-            // If the control rod up button was clicked, move the control rods up.
-            if (clicked(controlRodUpButton, click)) {
-                if (plantStatus.controlRodPosition().points() < 100 && !(plantStatus.getSoftwareFailure() ==
-                                                                         SoftwareFailure.rodStateChange)) {
-                    plantController.moveControlRods(plantStatus.controlRodPosition().plus(new Percentage(10.0)));
-                }
-            }
-
-            // If the control rod down button was clicked, move the control rods down.
-            if (clicked(controlRodDownButton, click)) {
-                if (plantStatus.controlRodPosition().points() > 0 && !(plantStatus.getSoftwareFailure() ==
-                                                                       SoftwareFailure.rodStateChange)) {
-                    plantController.moveControlRods(plantStatus.controlRodPosition().minus(new Percentage(10.0)));
-                }
-            }
-
-            // If the debug button was clicked, repair the software.
-            if (clicked(debugButton, click)) {
-                plantController.repairSoftware();
-            }
-
-            // If the quit button was clicked, quit to the menu.
-            if (clicked(quitButton, click)) {
-                try
-                {
-                    parent.transitionTo(new MenuScreen(this.parent));
-                }
-                catch(Exception e)
-                        {
-                        }
-            }
-
-            // If the save button was clicked, save the game.
-            if (clicked(saveButton, click)) {
-                try {
-                    gameManager.saveGame();
-
-                    // Set the button to green for 10 game ticks to acknowledge the save.
-                    savedGameTicks = 10;
-                } catch (JsonProcessingException ex) {
-                    Logger.getLogger(PlantScreen.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-            // The right mouse button was clicked, check if it was clicked on a component.
-        } else if (rightClick(click)) {
-
-            // If the mouse was clicked on reactor, quench it.
-
-            if (reactor.clicked(click)) {
-                plantController.quenchReactor();
-            }
-
-            // If the mouse was clicked on any other component, repair it.
-
-            if (condenser.clicked(click)) {
-                try {
-                    plantController.repairCondenser();
-                } catch (CannotRepairException ex) {
-                }
-            }
-
-            if (pump1.clicked(click)) {
-                try {
-                    plantController.repairPump(1);
-
-                    if (((Pump)plantStatus.componentList().get("pump1")).getStatus()) {
-                        pump1.turnOn();
-                    } else {
-                        pump1.turnOff();
-                    }
-
-                } catch (KeyNotFoundException ex) {
-                } catch (CannotRepairException ex) {
-                }
-            }
-
-            if (coolingPump.clicked(click)) {
-                try {
-                    plantController.repairPump(2);
-
-                    if (((Pump)plantStatus.componentList().get("coolingPump")).getStatus()) {
-                        coolingPump.turnOn();
-                    } else {
-                        coolingPump.turnOff();
-                    }
-                } catch (KeyNotFoundException ex) {
-                } catch (CannotRepairException ex) {
-                }
-            }
-
-            if (turbineLeft.clicked(click) || turbineMiddle.clicked(click) || turbineRight.clicked(click)) {
-                try {
-                    plantController.repairTurbine();
-                } catch (CannotRepairException ex) {
-                }
-            }
-        }
-    }
+//    @Override
+//    public void mouseClicked(MouseEvent click) {
+//
+//        // If the left mouse button is clicked, check if it was clicked on a component.
+//        if (leftClick(click)) {
+//
+//            // If a pump was clicked, change its status and animate it changing.
+//            if (pump1.clicked(click)) {
+//                if (!(plantStatus.getSoftwareFailure() == SoftwareFailure.pumpStateChange)) {
+//                    Pump cPump1 = (Pump)plantStatus.componentList().get("pump1");
+//                    boolean state = cPump1.getStatus();
+//
+//                    if (state) {
+//                        cPump1.setStatus(false);
+//                        pump1.turnOff();
+//                    } else {
+//                        cPump1.setStatus(true);
+//                        pump1.turnOn();
+//                    }
+//                }
+//            }
+//
+//            // If a pump was clicked, change its status and animate it changing.
+//            if (coolingPump.clicked(click)) {
+//                if (!(plantStatus.getSoftwareFailure() == SoftwareFailure.pumpStateChange)) {
+//                    Pump cCoolingPump = (Pump)plantStatus.componentList().get("coolingPump");
+//                    boolean state = cCoolingPump.getStatus();
+//
+//                    if (state) {
+//                        cCoolingPump.setStatus(false);
+//                        coolingPump.turnOff();
+//                    } else {
+//                        cCoolingPump.setStatus(true);
+//                        coolingPump.turnOn();
+//                    }
+//                }
+//            }
+//
+//            valve1.handleClick(click);
+//
+//            // If a valve was clicked, change its status and animate it changing.
+//            if (valve2.clicked(click)) {
+//                if (!(plantStatus.getSoftwareFailure() == SoftwareFailure.valveStateChange)) {
+//                    boolean state = plantStatus.connectionList().get("turbineToCondenser").getOpen();
+//
+//                    if (state) {
+//                        plantStatus.connectionList().get("turbineToCondenser").setOpen(false);
+//                        valve2.setAnimation(PlantAnimationType.TURNINGON);
+//                    } else {
+//                        plantStatus.connectionList().get("turbineToCondenser").setOpen(true);
+//                        valve2.setAnimation(PlantAnimationType.TURNINGOFF);
+//                    }
+//                }
+//            }
+//
+//            // If the control rod up button was clicked, move the control rods up.
+//            if (clicked(controlRodUpButton, click)) {
+//                if (plantStatus.controlRodPosition().points() < 100 && !(plantStatus.getSoftwareFailure() ==
+//                                                                         SoftwareFailure.rodStateChange)) {
+//                    plantController.moveControlRods(plantStatus.controlRodPosition().plus(new Percentage(10.0)));
+//                }
+//            }
+//
+//            // If the control rod down button was clicked, move the control rods down.
+//            if (clicked(controlRodDownButton, click)) {
+//                if (plantStatus.controlRodPosition().points() > 0 && !(plantStatus.getSoftwareFailure() ==
+//                                                                       SoftwareFailure.rodStateChange)) {
+//                    plantController.moveControlRods(plantStatus.controlRodPosition().minus(new Percentage(10.0)));
+//                }
+//            }
+//
+//            // If the debug button was clicked, repair the software.
+//            if (clicked(debugButton, click)) {
+//                plantController.repairSoftware();
+//            }
+//
+//            // If the quit button was clicked, quit to the menu.
+//            if (clicked(quitButton, click)) {
+//                try
+//                {
+//                    parent.transitionTo(new MenuScreen(this.parent));
+//                }
+//                catch(Exception e)
+//                        {
+//                        }
+//            }
+//
+//            // If the save button was clicked, save the game.
+//            if (clicked(saveButton, click)) {
+//                try {
+//                    gameManager.saveGame();
+//
+//                    // Set the button to green for 10 game ticks to acknowledge the save.
+//                    savedGameTicks = 10;
+//                } catch (JsonProcessingException ex) {
+//                    Logger.getLogger(PlantScreen.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//
+//            // The right mouse button was clicked, check if it was clicked on a component.
+//        } else if (rightClick(click)) {
+//
+//            // If the mouse was clicked on reactor, quench it.
+//
+//            if (reactor.clicked(click)) {
+//                plantController.quenchReactor();
+//            }
+//
+//            // If the mouse was clicked on any other component, repair it.
+//
+//            if (condenser.clicked(click)) {
+//                try {
+//                    plantController.repairCondenser();
+//                } catch (CannotRepairException ex) {
+//                }
+//            }
+//
+//            if (pump1.clicked(click)) {
+//                try {
+//                    plantController.repairPump(1);
+//
+//                    if (((Pump)plantStatus.componentList().get("pump1")).getStatus()) {
+//                        pump1.turnOn();
+//                    } else {
+//                        pump1.turnOff();
+//                    }
+//
+//                } catch (KeyNotFoundException ex) {
+//                } catch (CannotRepairException ex) {
+//                }
+//            }
+//
+//            if (coolingPump.clicked(click)) {
+//                try {
+//                    plantController.repairPump(2);
+//
+//                    if (((Pump)plantStatus.componentList().get("coolingPump")).getStatus()) {
+//                        coolingPump.turnOn();
+//                    } else {
+//                        coolingPump.turnOff();
+//                    }
+//                } catch (KeyNotFoundException ex) {
+//                } catch (CannotRepairException ex) {
+//                }
+//            }
+//
+//            if (turbineLeft.clicked(click) || turbineMiddle.clicked(click) || turbineRight.clicked(click)) {
+//                try {
+//                    plantController.repairTurbine();
+//                } catch (CannotRepairException ex) {
+//                }
+//            }
+//        }
+//    }
 
     
 

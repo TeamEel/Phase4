@@ -1,5 +1,7 @@
 package eel.seprphase4.drawing;
 
+import java.awt.Point;
+
 /**
  * Encapsulate an x,y coordinate pair
  * 
@@ -12,6 +14,11 @@ public class Coordinate {
     public Coordinate(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+    
+    public Coordinate(Point p) {
+        this.x = p.x;
+        this.y = p.y;
     }
 
     public Coordinate plus(Coordinate other) {

@@ -16,7 +16,7 @@ import java.util.*;
 /**
  * This interface allows games to be loaded from a list of games.
  */
-public class LoadScreen extends Screen {
+public class LoadScreen extends GameScreen {
 
     // Automatically build a save path for saved games.
     public static String savePath() {
@@ -63,7 +63,7 @@ public class LoadScreen extends Screen {
 
         setUpComponents();
 
-        this.addMouseListener(this);
+//        this.addMouseListener(this);
     }
 
     public void setUpComponents() {
@@ -109,25 +109,25 @@ public class LoadScreen extends Screen {
         }
     }
 
-    @Override
-    public void mouseClicked(MouseEvent click) {
-
-        /*
-        if (menuButton.clicked(click)) {
-            context.setWindow(new MenuScreen(parent, simulator));
-        }
-
-        for (PlantGUIElement button : loadButtons) {
-            if (button.clicked(click)) {
-                int gameNumber = m.get(button);
-                Simulator sim = new Simulator();
-                sim.setUsername(userName);
-                sim.loadGame(gameNumber);
-                context.runGame(sim);
-            }
-        }
-        */
-    }
+//    @Override
+//    public void mouseClicked(MouseEvent click) {
+//
+//        /*
+//        if (menuButton.clicked(click)) {
+//            context.setWindow(new MenuScreen(parent, simulator));
+//        }
+//
+//        for (PlantGUIElement button : loadButtons) {
+//            if (button.clicked(click)) {
+//                int gameNumber = m.get(button);
+//                Simulator sim = new Simulator();
+//                sim.setUsername(userName);
+//                sim.loadGame(gameNumber);
+//                context.runGame(sim);
+//            }
+//        }
+//        */
+//    }
 
    
    

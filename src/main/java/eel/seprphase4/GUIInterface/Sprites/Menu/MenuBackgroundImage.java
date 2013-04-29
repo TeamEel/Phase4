@@ -6,6 +6,7 @@ package eel.seprphase4.GUIInterface.Sprites.Menu;
 
 import eel.seprphase4.GUIInterface.Sprites.SimpleSprite;
 import eel.seprphase4.drawing.Coordinate;
+import eel.seprphase4.drawing.Screen;
 import eel.seprphase4.drawing.Sprite;
 import eel.seprphase4.drawing.SpriteCanvas;
 import static eel.seprphase4.drawing.builders.BuildAnimation.singleFrame;
@@ -27,8 +28,8 @@ public class MenuBackgroundImage implements SimpleSprite {
     }
 
     @Override
-    public void addToCanvas(SpriteCanvas canvas) {
-        canvas.add(sprite, 2);
+    public void addToScreen(Screen screen) {
+        screen.addSprite(sprite, 0);
     }
 
     @Override
@@ -36,7 +37,4 @@ public class MenuBackgroundImage implements SimpleSprite {
         sprite.moveTo(new Coordinate(x, y));
     }
 
-   
-
- 
 }
