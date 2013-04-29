@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ListIterator;
+import javax.swing.SwingUtilities;
 
 /**
  * Manage a collection of Sprites for a SpriteCanvas
@@ -63,9 +64,9 @@ public class SpriteSet {
         if (s == null) {
             return;
         }
-        if (e.getButton() == MouseEvent.BUTTON1) {
+        if (SwingUtilities.isLeftMouseButton(e)) {
             s.leftClicked();
-        } else if (e.getButton() == MouseEvent.BUTTON2) {
+        } else if (SwingUtilities.isRightMouseButton(e)) {
             s.rightClicked();
         }
     }
