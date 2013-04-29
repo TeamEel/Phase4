@@ -88,18 +88,15 @@ public class PlantScreen extends GameScreen {
      * @param plantStatus
      * @param gameManager
      */
-    
-    
-            
     public PlantScreen(String username) {
-        
+
         Simulator simulator = new Simulator();
         this.plantController = simulator;
         this.plantStatus = simulator;
         this.gameManager = simulator;
 
         this.gameManager.setUsername(username);
-        
+
         // Give all of the plant components the right images and location on the screen.
         setupComponents();
 
@@ -109,7 +106,7 @@ public class PlantScreen extends GameScreen {
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        try{
+        try {
             plantController.step(1);
             super.update();
         } catch (GameOverException ex) {
@@ -117,7 +114,6 @@ public class PlantScreen extends GameScreen {
         }
     }
 
-   
     /**
      * Gives all of the plant components the right images and locations on the screen. Each component has the form:
      * BufferedImage image = loadImage("images/image.png"); component = new PlantGUIElement( image, location x, location
@@ -144,7 +140,7 @@ public class PlantScreen extends GameScreen {
         coolingPump = new PumpControl(X_OFFSET + 915, Y_OFFSET + 545, SCALE_AMOUNT);
         pump1.turnOn();
         coolingPump.turnOn();
-        
+
         valve1 = new ValveControl(plantStatus, "reactorToTurbine",
                                   X_OFFSET + 307, Y_OFFSET - 51, SCALE_AMOUNT + 0.1f);
 
@@ -738,9 +734,6 @@ public class PlantScreen extends GameScreen {
 //            }
 //        }
 //    }
-
-    
-
     private boolean failureState(String id) {
         return plantStatus.componentList().get(id).hasFailed();
     }

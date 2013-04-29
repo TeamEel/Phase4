@@ -14,14 +14,15 @@ import java.awt.event.KeyListener;
  *
  * @author James
  */
-class MultiPlayerKeyListener implements KeyListener{
+class MultiPlayerKeyListener implements KeyListener {
+
     PlantController plant;
     PlantStatus status;
-    
+
     public MultiPlayerKeyListener(PlantController plantController, PlantStatus plantStatus) {
-       plant = plantController;
-       status = plantStatus;
-       System.out.println("kl init");
+        plant = plantController;
+        status = plantStatus;
+        System.out.println("kl init");
     }
 
     @Override
@@ -33,44 +34,33 @@ class MultiPlayerKeyListener implements KeyListener{
     public void keyPressed(KeyEvent ke) {
         System.out.println(ke);
         /*
-            if(ke.getKeyChar() == 'r' )
-            {
-                plant.failReactor();
-            }
-            else 
-        */
- 
-        if(ke.getKeyChar() == ' ')
-        {
+         if(ke.getKeyChar() == 'r' )
+         {
+         plant.failReactor();
+         }
+         else 
+         */
+
+        if (ke.getKeyChar() == ' ') {
             /*
              * Toggle allow random failures on space
              */
             plant.allowRandomFailures(!status.allowsRandomFailures());
         }
-        
-        if(!status.allowsRandomFailures())
-        {
-            if(ke.getKeyChar() == 'c' )
-            {
+
+        if (!status.allowsRandomFailures()) {
+            if (ke.getKeyChar() == 'c') {
                 plant.failCondenser();
-            }
-            else if(ke.getKeyChar() == 't' )
-            {
+            } else if (ke.getKeyChar() == 't') {
                 /*
                  * To do: Fail turbine
                  */
                 plant.failTurbine();
-            }
-            else if(ke.getKeyChar() == 's' )
-            {
+            } else if (ke.getKeyChar() == 's') {
                 plant.failSoftware();
-            }
-            else if(ke.getKeyChar() == '1' )
-            {
+            } else if (ke.getKeyChar() == '1') {
                 plant.failPump(1);
-            }
-            else if(ke.getKeyChar() == '2' )
-            {
+            } else if (ke.getKeyChar() == '2') {
                 plant.failPump(2);
             }
         }
@@ -78,16 +68,10 @@ class MultiPlayerKeyListener implements KeyListener{
 
     @Override
     public void keyReleased(KeyEvent ke) {
-        
     }
-
-  
 
     void update(PlantController plantController, PlantStatus plantStatus) {
         plant = plantController;
         status = plantStatus;
     }
-    
-    
-    
 }

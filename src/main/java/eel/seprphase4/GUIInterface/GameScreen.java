@@ -11,7 +11,6 @@ import javax.swing.SwingUtilities;
  * This class is the base type for all interfaces in the game. It provides convenience methods for these classes.
  */
 public abstract class GameScreen extends JPanel {
-    
 
     // Convenience method to check if a particular mouse event is inside a Rectangle.
     public boolean clicked(Rectangle rectangle, MouseEvent click) {
@@ -27,16 +26,14 @@ public abstract class GameScreen extends JPanel {
 
     public boolean rightClick(MouseEvent click) {
         return SwingUtilities.isRightMouseButton(click);
-        
+
     }
-    
-    public void actionPerformed(ActionEvent event)
-    {
+
+    public void actionPerformed(ActionEvent event) {
         update();
     }
-    
-    public void update()
-    {
+
+    public void update() {
         revalidate();
         repaint();
     }
@@ -60,5 +57,4 @@ public abstract class GameScreen extends JPanel {
 //    public void mouseExited(MouseEvent me) {
 //        
 //    }
-
 }

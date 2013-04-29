@@ -22,7 +22,7 @@ public class Screen {
         this.background = background;
         this.sprites = new SpriteSet();
     }
-    
+
     public Dimension size() {
         return new Dimension(background.getWidth(null), background.getHeight(null));
     }
@@ -42,16 +42,16 @@ public class Screen {
     public void addSprite(Sprite s, int z) {
         sprites.add(s, z);
     }
-    
+
     public void paint(Graphics g) {
         drawBackground(g);
         sprites.paint(g);
     }
-    
+
     public void advance() {
         sprites.advance();
     }
-    
+
     private void drawBackground(Graphics g) {
         g.drawImage(background, 0, 0, null);
     }

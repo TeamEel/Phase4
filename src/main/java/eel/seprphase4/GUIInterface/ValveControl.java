@@ -15,7 +15,7 @@ public class ValveControl extends AnimatedPlantGUIElement {
 
     private PlantStatus plantStatus;
     private String id;
-    
+
     public ValveControl(PlantStatus plantStatus,
                         String id,
                         int x, int y, float scaling) {
@@ -46,5 +46,5 @@ public class ValveControl extends AnimatedPlantGUIElement {
 
     private Connection component() {
         return plantStatus.connectionList().get(id);
-    }    
+    }
 }

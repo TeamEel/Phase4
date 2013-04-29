@@ -13,10 +13,10 @@ import javax.swing.event.MouseInputListener;
 
 /**
  * Provide a painting surface for Sprites
- * 
- * Allows for static Z-ordering of Sprites, and arbitrary movement and animation selection
- * for Sprites. Does not allow for changes in the Z-ordering of sprites which have already been added.
- * 
+ *
+ * Allows for static Z-ordering of Sprites, and arbitrary movement and animation selection for Sprites. Does not allow
+ * for changes in the Z-ordering of sprites which have already been added.
+ *
  * @author drm
  */
 public class SpriteCanvas extends JPanel implements ActionListener, MouseInputListener {
@@ -24,7 +24,7 @@ public class SpriteCanvas extends JPanel implements ActionListener, MouseInputLi
     private Screen screen;
     private Timer timer;
     private double scaleFactor;
-    
+
     public SpriteCanvas(Image background) {
         this.screen = new Screen(background);
         this.timer = new Timer(1000, this);
@@ -48,13 +48,13 @@ public class SpriteCanvas extends JPanel implements ActionListener, MouseInputLi
         this.scaleFactor = scaleFactor;
         resizeToScale();
     }
-    
+
     /**
      * Set the interval between animation frames for the canvas
-     * 
-     * For example, a calling setFrameInterval(100) will cause the frame to
-     * advance every 100ms, for a 10-frame-per-second animation.
-     * 
+     *
+     * For example, a calling setFrameInterval(100) will cause the frame to advance every 100ms, for a
+     * 10-frame-per-second animation.
+     *
      * @param ms the number of milliseconds to delay between frames
      */
     public void setFrameInterval(int ms) {
@@ -63,7 +63,7 @@ public class SpriteCanvas extends JPanel implements ActionListener, MouseInputLi
 
     /**
      * Begin animating sprites.
-     * 
+     *
      * Sprites can be added freely after calling start.
      */
     public void start() {
@@ -81,7 +81,7 @@ public class SpriteCanvas extends JPanel implements ActionListener, MouseInputLi
         this.screen = screen;
         resizeToScale();
     }
-    
+
     @Override
     public void paintComponent(Graphics g) {
         // mildly hacky scaling to fit onto smaller screens

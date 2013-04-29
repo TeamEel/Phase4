@@ -22,11 +22,10 @@ public class MenuLogo implements SimpleSprite {
 
     private Sprite sprite;
 
-
     public MenuLogo() throws IOException {
         sprite = new Sprite(buildAnimationSet()
-                                .animation(singleFrame("/menu/logo.png"))
-                                .done());
+                .animation(singleFrame("/menu/logo.png"))
+                .done());
     }
 
     @Override
@@ -38,9 +37,4 @@ public class MenuLogo implements SimpleSprite {
     public void moveTo(int x, int y) {
         sprite.moveTo(new Coordinate(x, y));
     }
-
-   
-
- 
-
 }

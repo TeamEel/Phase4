@@ -5,8 +5,8 @@ import eel.seprphase4.drawing.animation.AnimationSet;
 import java.util.ArrayList;
 
 /**
- * Fluent ExpressionBuilder [See Fowler&Parsons, Domain Specific Languages]
- * to allow easy creation of animation sets.
+ * Fluent ExpressionBuilder [See Fowler&Parsons, Domain Specific Languages] to allow easy creation of animation sets.
+ *
  * @author drm
  */
 public class AnimationSetBuilder {
@@ -19,8 +19,9 @@ public class AnimationSetBuilder {
 
     /**
      * Fluent helper to add an animation to the AnimationSet
-     * 
+     *
      * @param animation the Animation to add
+     *
      * @return the Expression Builder to continue the invocation
      */
     public AnimationSetBuilder animation(Animation animation) {
@@ -30,7 +31,7 @@ public class AnimationSetBuilder {
 
     /**
      * Method chain terminator
-     * 
+     *
      * @return the generated AnimationSet
      */
     public AnimationSet done() {

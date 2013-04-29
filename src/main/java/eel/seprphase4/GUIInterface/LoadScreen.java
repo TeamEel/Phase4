@@ -105,7 +105,6 @@ public class LoadScreen extends GameScreen {
             m.put(loadButtons.get(i), i);
         }
     }
-
 //    @Override
 //    public void mouseClicked(MouseEvent click) {
 //
@@ -125,7 +124,4 @@ public class LoadScreen extends GameScreen {
 //        }
 //        */
 //    }
-
-   
-   
 }

@@ -13,18 +13,19 @@ import static eel.seprphase4.drawing.builders.BuildAnimation.singleFrame;
 import static eel.seprphase4.drawing.builders.BuildAnimationSet.buildAnimationSet;
 import static eel.seprphase4.drawing.builders.BuildAnimation.range;
 import java.io.IOException;
+
 /**
  *
  * @author James
  */
 public class MenuBackgroundImage implements SimpleSprite {
-    private Sprite sprite;
 
+    private Sprite sprite;
 
     public MenuBackgroundImage() throws IOException {
         sprite = new Sprite(buildAnimationSet()
-                                .animation(singleFrame("/menu/background.png"))
-                                .done());
+                .animation(singleFrame("/menu/background.png"))
+                .done());
     }
 
     @Override
@@ -36,5 +37,4 @@ public class MenuBackgroundImage implements SimpleSprite {
     public void moveTo(int x, int y) {
         sprite.moveTo(new Coordinate(x, y));
     }
-
 }

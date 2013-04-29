@@ -24,8 +24,7 @@ public class GUIWindow extends JFrame implements ActionListener {
     GameScreen currentScreen;
     private SpriteCanvas canvas;
     // This is the simulator which the plant uses.
-   
-    
+
     /**
      * This creates a GUIWindow with a number of parameters.
      *
@@ -34,18 +33,18 @@ public class GUIWindow extends JFrame implements ActionListener {
      * @param height The height of the window.
      */
     public GUIWindow(String title, int width, int height) throws IOException {
-        
+
         super(title);
 
-        setFocusable( true );
+        setFocusable(true);
         canvas = new SpriteCanvas();
         canvas.setScreen(new MenuScreen());
         add(canvas);
         canvas.start();
         //transitionTo(new MenuScreen(this));
-        
-        
-        
+
+
+
         // Allow the window to exit when the close button is pressed.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -58,22 +57,22 @@ public class GUIWindow extends JFrame implements ActionListener {
         setResizable(false);
         setVisible(true);
 
-        
+
     }
-   
+
     /**
      * This is called to run the game when it first starts.
      */
     public void run() {
-        
-       //SET MENUPANE?
-        
 
-        
+        //SET MENUPANE?
+
+
+
         // Setup the timer which is used to update the plant.
         // This makes actionPerformed() be called every 60ms.
         Timer timer = new Timer(120, this);
-       // timer.start();
+        // timer.start();
     }
 
     /**
@@ -83,7 +82,7 @@ public class GUIWindow extends JFrame implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent event) {
- 
+
         currentScreen.actionPerformed(event);
     }
 
@@ -110,7 +109,4 @@ public class GUIWindow extends JFrame implements ActionListener {
         currentScreen.revalidate();
         repaint();
     }
-
-
-
 }

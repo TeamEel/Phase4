@@ -24,8 +24,6 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     private FailureModel failureModel;
     private String userName;
 
-
-
     public Simulator() {
         physicalModel = new PhysicalModel();
         failureModel = new FailureModel(physicalModel, physicalModel);
@@ -36,7 +34,7 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     public void setUsername(String userName) {
         this.userName = userName;
     }
-    
+
     @Override
     public String getUsername() {
         return userName;
@@ -107,7 +105,7 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
                                                                              KeyNotFoundException {
         return failureModel.changePumpState(pumpNumber, isPumping);
     }
-    
+
     @Override
     public void quenchReactor() {
         failureModel.quenchReactor();
@@ -192,13 +190,11 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     public Percentage reactorMinimumWaterLevel() {
         return failureModel.reactorMinimumWaterLevel();
     }
-    
+
     @Override
     public boolean quencherUsed() {
         return failureModel.quencherUsed();
     }
-
-
 
     @Override
     public void step(int steps) throws GameOverException {
@@ -240,15 +236,13 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
         failureModel.failSoftware();
     }
 
-
     @Override
     public void allowRandomFailures(boolean yes) {
         failureModel.allowRandomFailures(yes);
     }
-    
+
     @Override
-    public boolean allowsRandomFailures()
-    {
+    public boolean allowsRandomFailures() {
         return failureModel.allowsRandomFailures();
     }
 
@@ -261,7 +255,4 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     public void failPump(int pump) {
         failureModel.failPump(pump);
     }
-    
-   
-
 }

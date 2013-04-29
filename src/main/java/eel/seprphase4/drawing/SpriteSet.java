@@ -14,8 +14,8 @@ import javax.swing.SwingUtilities;
  * @author drm
  */
 public class SpriteSet {
-    private ZSprite previousMouseSprite;
 
+    private ZSprite previousMouseSprite;
     ArrayList<ZSprite> sprites;
 
     public SpriteSet() {
@@ -41,7 +41,7 @@ public class SpriteSet {
 
     /**
      * Paint all sprites, in order, onto the given Graphics object
-     * 
+     *
      * @param g the Graphics object to paint onto
      */
     public void paint(Graphics g) {
@@ -88,11 +88,10 @@ public class SpriteSet {
             previousMouseSprite = s;
         }
     }
-    
+
     private ZSprite spriteFor(Point p) {
         for (ListIterator<ZSprite> i = sprites.listIterator(sprites.size());
-             i.hasPrevious();
-             ) {
+             i.hasPrevious();) {
             ZSprite s = i.previous();
             if (s.contains(p)) {
                 return s;

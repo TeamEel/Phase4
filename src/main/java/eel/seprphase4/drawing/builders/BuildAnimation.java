@@ -5,6 +5,7 @@ import java.io.IOException;
 
 /**
  * Helper methods to create Expression Builders for Animations
+ *
  * @author drm
  */
 public class BuildAnimation {

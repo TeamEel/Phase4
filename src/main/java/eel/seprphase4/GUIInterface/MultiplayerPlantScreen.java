@@ -4,21 +4,19 @@
  */
 package eel.seprphase4.GUIInterface;
 
-import eel.seprphase4.Simulator.Simulator;
-
 /**
  *
  * @author James
  */
 public class MultiplayerPlantScreen extends PlantScreen {
+
     MultiPlayerKeyListener listener;
-    public MultiplayerPlantScreen(String username){
-        
-        
+
+    public MultiplayerPlantScreen(String username) {
         super(username);
-        setFocusable( true );
+        setFocusable(true);
         super.plantController.allowRandomFailures(false);
-        listener = new MultiPlayerKeyListener(super.plantController,super.plantStatus);
+        listener = new MultiPlayerKeyListener(super.plantController, super.plantStatus);
         this.addKeyListener(listener);
-    } 
+    }
 }

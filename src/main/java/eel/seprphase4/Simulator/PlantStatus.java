@@ -58,7 +58,7 @@ public interface PlantStatus {
     public Percentage condenserWaterLevel();
 
     public Percentage reactorMinimumWaterLevel();
-    
+
     public boolean quencherUsed();
 
     public String[] listFailedComponents();
@@ -74,5 +74,4 @@ public interface PlantStatus {
     public HashMap<String, Connection> connectionList();
 
     public boolean allowsRandomFailures();
-    
 }

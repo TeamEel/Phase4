@@ -59,7 +59,7 @@ public class PhysicalModel implements PlantController, PlantStatus {
     public PhysicalModel() {
 
         heatSink = new HeatSink();
-        
+
         quencher = new Quencher();
 
         allPumps = new HashMap<Integer, Pump>();
@@ -173,7 +173,7 @@ public class PhysicalModel implements PlantController, PlantStatus {
     public Percentage reactorMinimumWaterLevel() {
         return reactor.minimumWaterLevel();
     }
-    
+
     @Override
     public boolean quencherUsed() {
         return quencher.used();
@@ -301,7 +301,7 @@ public class PhysicalModel implements PlantController, PlantStatus {
         allPumps.get(pumpNumber).setStatus(isPumping);
         return true;
     }
-    
+
     @Override
     public void quenchReactor() {
         quencher.quenchReactor(reactor);
@@ -372,22 +372,20 @@ public class PhysicalModel implements PlantController, PlantStatus {
         currentSoftwareFailure = SoftwareFailure.pickRandom();
     }
 
-    @Override 
+    @Override
     public void failTurbine() {
         turbine.fail();
     }
-    
-    @Override 
+
+    @Override
     public void failPump(int pump) {
-        if(pump==1)
-        {
+        if (pump == 1) {
             condenserToReactor.fail();
         }
-        if(pump == 2)
-        {
+        if (pump == 2) {
             heatsinkToCondenser.fail();
         }
-        
+
     }
 
     @Override

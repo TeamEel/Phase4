@@ -156,5 +156,5 @@ public class Animation {
      */
     public void reset() {
         currentFrame = 0;
-    }    
+    }
 }

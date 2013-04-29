@@ -123,7 +123,7 @@ public class AnimatedPlantGUIElement extends PlantGUIElement {
     public void draw(Graphics2D g) {
         g.drawImage(stepImage(), x(), y(), null);
     }
-    
+
     @Override
     public void draw(Graphics2D g, boolean failed) {
         if (!failed) {
@@ -137,7 +137,7 @@ public class AnimatedPlantGUIElement extends PlantGUIElement {
             g.drawImage(tintedImage, x(), y(), null);
         }
     }
-    
+
     public boolean animationFinished() {
         switch (currentAnimation) {
             case ON:
@@ -149,7 +149,7 @@ public class AnimatedPlantGUIElement extends PlantGUIElement {
             case TURNINGOFF:
                 return turningoff.hasFinished();
             default:
-                throw new AssertionError(currentAnimation.name());            
+                throw new AssertionError(currentAnimation.name());
         }
     }
 }

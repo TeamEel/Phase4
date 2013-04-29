@@ -44,13 +44,14 @@ public class FailureModel implements PlantController, PlantStatus {
     // Software will fail 1 out of softwareFailureProbability times
     private final int softwareFailureProbability = 1000;
     private boolean randomFailures = true;
+
     private FailureModel() {
     }
 
     public FailureModel(PlantController plantController, PlantStatus plantStatus) {
         this.controller = plantController;
         this.status = plantStatus;
-    
+
     }
 
     /**
@@ -61,19 +62,18 @@ public class FailureModel implements PlantController, PlantStatus {
      */
     @Deprecated
     public void step() throws GameOverException {
-        
-        
+
+
         controller.step(1);
-        
-        if(randomFailures)
-        {
+
+        if (randomFailures) {
             failStateCheck();
         }
-        
+
         checkReactorWaterLevel();
         checkCondenserPressure();
         checkTurbineFailure();
-        
+
     }
 
     /**
@@ -143,7 +143,7 @@ public class FailureModel implements PlantController, PlantStatus {
         controller.changePumpState(pumpNumber, isPumping);
         return true;
     }
-    
+
     @Override
     public void quenchReactor() {
         controller.quenchReactor();
@@ -249,7 +249,7 @@ public class FailureModel implements PlantController, PlantStatus {
     public Percentage reactorMinimumWaterLevel() {
         return status.reactorMinimumWaterLevel();
     }
-    
+
     @Override
     public boolean quencherUsed() {
         return status.quencherUsed();
@@ -273,12 +273,11 @@ public class FailureModel implements PlantController, PlantStatus {
     @Override
     public void step(int i) throws GameOverException {
         controller.step(i);
-        
-        if(randomFailures)
-        {
+
+        if (randomFailures) {
             failStateCheck();
         }
-        
+
         checkReactorWaterLevel();
         checkCondenserPressure();
         checkTurbineFailure();
@@ -313,7 +312,6 @@ public class FailureModel implements PlantController, PlantStatus {
     public void failPump(int pump) {
         controller.failPump(pump);
     }
-
 
     private void checkReactorWaterLevel() {
         if (status.reactorWaterLevel().points() < status.reactorMinimumWaterLevel().points()) {
@@ -362,8 +360,7 @@ public class FailureModel implements PlantController, PlantStatus {
             throw new RuntimeException("This should never happen as values are known.");
         }
     }
-    
-    
+
     @Override
     public boolean allowsRandomFailures() {
         return this.randomFailures;
