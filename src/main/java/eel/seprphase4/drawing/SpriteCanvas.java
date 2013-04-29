@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.event.MouseInputListener;
@@ -25,11 +26,11 @@ public class SpriteCanvas extends JPanel implements ActionListener, MouseInputLi
     private Timer timer;
     private double scaleFactor;
 
-    public SpriteCanvas(Image background) {
-        this.screen = new Screen(background);
+    public SpriteCanvas(String backgroundResource) throws IOException {
+        this.screen = new Screen(backgroundResource);
         this.timer = new Timer(1000, this);
         this.scaleFactor = 1;
-        setPreferredSize(new Dimension(background.getWidth(null), background.getHeight(null)));
+        resizeToScale();
         addMouseListener(this);
         addMouseMotionListener(this);
     }

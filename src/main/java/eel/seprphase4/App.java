@@ -17,10 +17,6 @@ public class App {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        // Create a new GUIWindow - this is a JFrame which is the window.
-        GUIWindow gameWindow = new GUIWindow("Nuke Dukem", 1377, 768);
-
-        // Run the game. This shows the menu screen and sets up a timer to update everything.
-        gameWindow.run();
+        GUIWindow gameWindow = new GUIWindow("Atom Lab", 1377, 768);
     }
 }

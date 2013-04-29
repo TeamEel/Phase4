@@ -24,7 +24,7 @@ public class AnimatedPlantGUIElement extends PlantGUIElement {
     /**
      * Creates an animatedGUIElement without a transformation.
      *
-     * @param _loop          Whether the element should loop or not.
+     * @param loop          Whether the element should loop or not.
      * @param onPath         The path of the on animation.
      * @param turningOnPath  The path of the turningOn animation.
      * @param turningOffPath The path of the turningOff animation.
@@ -32,10 +32,10 @@ public class AnimatedPlantGUIElement extends PlantGUIElement {
      * @param y              The Y location of the element on the screen.
      * @param scaling        The scaling of the element.
      */
-    public AnimatedPlantGUIElement(Boolean _loop, String onPath, String turningOnPath, String turningOffPath, int x,
+    public AnimatedPlantGUIElement(Boolean loop, String onPath, String turningOnPath, String turningOffPath, int x,
                                    int y, float scaling) {
         // Create the three animations.
-        on = new Animation(onPath, scaling, _loop);
+        on = new Animation(onPath, scaling, loop);
         turningon = new Animation(turningOnPath, scaling, false);
         turningoff = new Animation(turningOffPath, scaling, false);
 
@@ -51,10 +51,10 @@ public class AnimatedPlantGUIElement extends PlantGUIElement {
      *
      * @param transform The transform to apply.
      */
-    public AnimatedPlantGUIElement(Boolean _loop, String onPath, String turningOnPath, String turningOffPath, int x,
+    public AnimatedPlantGUIElement(Boolean loop, String onPath, String turningOnPath, String turningOffPath, int x,
                                    int y, float scaling, AffineTransformOp transform) {
         // Create the three animations.
-        on = new Animation(onPath, scaling, transform, _loop);
+        on = new Animation(onPath, scaling, transform, loop);
         turningon = new Animation(turningOnPath, scaling, transform, false);
         turningoff = new Animation(turningOffPath, scaling, transform, false);
 

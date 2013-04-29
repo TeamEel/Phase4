@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
 /**
@@ -28,7 +27,6 @@ public class GameOverScreen extends GameScreen {
     /**
      * Creates a new GameOverScreen.
      *
-     * @param preloadedExplosion The explosion animation.
      * @param powerGenerated     The power generated in the previous game.
      * @param name               The name of the player.
      */
@@ -75,34 +73,6 @@ public class GameOverScreen extends GameScreen {
             g.setColor(Color.BLACK);
             playAgainButton.draw((Graphics2D)g);
             g.drawString("Play Again!", playAgainButton.x() + 20, playAgainButton.y() + 60);
-        }
-
-
-    }
-
-    /**
-     * Called when the mouse is clicked on the screen.
-     *
-     * @param click The click event, containing the location.
-     */
-//    @Override
-//    public void mouseClicked(MouseEvent click) {
-//        
-//        if (playAgainButton.clicked(click)) {
-//            block = false;
-//        }
-//        
-//    }
-    @Override
-    public void actionPerformed(ActionEvent event) {
-        super.update();
-        // block returns false when the button is pressed to play another game. At this point,
-        // the code to return to the menu interface is ran.
-        if (!block) {
-            try {
-                // context.transitionTo(new MenuScreen());
-            } catch (Exception e) {
-            }
         }
     }
 }

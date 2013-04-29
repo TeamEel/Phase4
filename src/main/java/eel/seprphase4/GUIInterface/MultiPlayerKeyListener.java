@@ -6,7 +6,6 @@ package eel.seprphase4.GUIInterface;
 
 import eel.seprphase4.Simulator.PlantController;
 import eel.seprphase4.Simulator.PlantStatus;
-import eel.seprphase4.Simulator.Simulator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 

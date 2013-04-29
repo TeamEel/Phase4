@@ -18,26 +18,20 @@ import java.util.*;
  */
 public class LoadScreen extends GameScreen {
 
-    // Automatically build a save path for saved games.
-    public static String savePath() {
-        return System.getProperty("user.home") +
-               System.getProperty("file.separator") +
-               "sepr.teameel.gamesaves" +
-               System.getProperty("file.separator");
-    }
+
     // Background Image.
     private BufferedImage backgroundImage;
     // Buttons and Labels
     PlantGUIElement menuButton;
-    public ArrayList<PlantGUIElement> loadButtons;
-    public ArrayList<String> savelbls;
+    private ArrayList<PlantGUIElement> loadButtons;
+    private ArrayList<String> savelbls;
     // Useful references
-    public SaveGame saveGame;
-    public Simulator simulator;
+    private SaveGame saveGame;
+    private Simulator simulator;
     // Maps a space on the screen to a particular save.
     Map<PlantGUIElement, Integer> m;
-    public int y;
-    public int i;
+    private int y;
+    private int i;
     private String userName;
 
     public LoadScreen() {
@@ -104,6 +98,14 @@ public class LoadScreen extends GameScreen {
             g.drawString("Load Game", loadButtons.get(i).x() + 25, loadButtons.get(i).y() + 50);
             m.put(loadButtons.get(i), i);
         }
+    }
+    
+    // Automatically build a save path for saved games.
+    public static String savePath() {
+        return System.getProperty("user.home") +
+               System.getProperty("file.separator") +
+               "sepr.teameel.gamesaves" +
+               System.getProperty("file.separator");
     }
 //    @Override
 //    public void mouseClicked(MouseEvent click) {

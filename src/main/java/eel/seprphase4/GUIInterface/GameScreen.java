@@ -37,24 +37,4 @@ public abstract class GameScreen extends JPanel {
         revalidate();
         repaint();
     }
-//    
-//     @Override
-//    public void mousePressed(MouseEvent me) {
-//        
-//    }
-//
-//    @Override
-//    public void mouseReleased(MouseEvent me) {
-//        
-//    }
-//
-//    @Override
-//    public void mouseEntered(MouseEvent me) {
-//        
-//    }
-//
-//    @Override
-//    public void mouseExited(MouseEvent me) {
-//        
-//    }
 }

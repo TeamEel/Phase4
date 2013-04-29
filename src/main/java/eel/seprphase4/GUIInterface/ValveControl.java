@@ -3,9 +3,6 @@ package eel.seprphase4.GUIInterface;
 import eel.seprphase4.Simulator.Connection;
 import eel.seprphase4.Simulator.PlantStatus;
 import eel.seprphase4.Simulator.SoftwareFailure;
-import eel.seprphase4.Simulator.Valve;
-import java.awt.event.MouseEvent;
-import javax.swing.SwingUtilities;
 
 /**
  *

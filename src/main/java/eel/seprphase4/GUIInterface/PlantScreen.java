@@ -1,22 +1,17 @@
 package eel.seprphase4.GUIInterface;
 
 import eel.seprphase4.GameOverException;
-import eel.seprphase4.Simulator.CannotRepairException;
 import eel.seprphase4.Simulator.GameManager;
-import eel.seprphase4.Simulator.KeyNotFoundException;
 import eel.seprphase4.Simulator.PlantController;
 import eel.seprphase4.Simulator.PlantStatus;
 import eel.seprphase4.Simulator.Pump;
 import eel.seprphase4.Simulator.Simulator;
 import eel.seprphase4.Simulator.SoftwareFailure;
 import eel.seprphase4.Utilities.Percentage;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
 import java.awt.image.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This is the main interface which will be shown during the game. It is responsible for drawing the representation of
@@ -79,7 +74,7 @@ public class PlantScreen extends GameScreen {
     private int savedGameTicks = 0;
     // An AffineTransform is one which preserves straight lines. This is used to rotate the valve image
     // by 90 degrees so the valve above the condenser can be drawn in the right orientation.
-    AffineTransformOp rotateValve90Deg;
+    private AffineTransformOp rotateValve90Deg;
 
     /**
      * The interface is set up with references to the plant classes it needs for getting and setting information.
@@ -223,37 +218,22 @@ public class PlantScreen extends GameScreen {
      * passed a 'Graphics' by the library, which represents the part of the screen which will be drawn on. All draw
      * calls are made on this graphics object.
      *
-     * @param _g The Graphics object to draw to.
+     * @param graphics The Graphics object to draw to.
      */
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics graphics) {
         // Calls the jPanel method paintComponent() which clears the screen.
-        super.paintComponent(_g);
+        super.paintComponent(graphics);
 
         // Casts the Graphics object to a Graphics2D since we are drawing to a 2D screen.
         // This makes some method calls more obvious.
-        Graphics2D g = (Graphics2D)_g;
+        Graphics2D g = (Graphics2D)graphics;
 
-        // Update locations of components and failure status of the turbine.
         updateComponents();
-
-        // Draw the background.
         drawBackgroundAndLogo(g);
-
-        // Draw all of the plant components.
         drawPlant(g);
-
-        // Draw water in the plant and in the pipes.
         drawWater(g);
-
-        // Draw steam and bubbles.
-        // TODO: this?
-        drawEffects(g);
-
-        // Draw left hand side information.
         drawInfo(g);
-
-        // Draw information about each component.
         drawComponentStatuses(g);
     }
 
@@ -411,12 +391,6 @@ public class PlantScreen extends GameScreen {
 
     private int inverseWaterHeight(int maxWaterHeight, Percentage waterLevel) {
         return (int)Math.floor(maxWaterHeight * (1.0f - waterLevel.ratio()));
-    }
-
-    /**
-     * Draws any effects e.g. bubbles or steam.
-     */
-    private void drawEffects(Graphics2D g) {
     }
 
     /**

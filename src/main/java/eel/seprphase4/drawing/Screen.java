@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 /**
  *
@@ -18,8 +19,8 @@ public class Screen {
     private Image background;
     private SpriteSet sprites;
 
-    public Screen(Image background) {
-        this.background = background;
+    public Screen(String background) throws IOException {
+        this.background = ImageLoader.imageResource(background);
         this.sprites = new SpriteSet();
     }
 

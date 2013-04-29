@@ -19,7 +19,7 @@ enum GameState {
  * The GUIWindow class extends JFrame and provides methods for dealing with the current interface. It implements
  * ActionListener so it can work with Swing Timers for scheduling updating at a specified interval.
  */
-public class GUIWindow extends JFrame implements ActionListener {
+public class GUIWindow extends JFrame {
 
     GameScreen currentScreen;
     private SpriteCanvas canvas;
@@ -56,49 +56,6 @@ public class GUIWindow extends JFrame implements ActionListener {
         // Do not allow the user to resize the window.
         setResizable(false);
         setVisible(true);
-
-
-    }
-
-    /**
-     * This is called to run the game when it first starts.
-     */
-    public void run() {
-
-        //SET MENUPANE?
-
-
-
-        // Setup the timer which is used to update the plant.
-        // This makes actionPerformed() be called every 60ms.
-        Timer timer = new Timer(120, this);
-        // timer.start();
-    }
-
-    /**
-     * Called every 60ms by the Swing Timer.
-     *
-     * @param event
-     */
-    @Override
-    public void actionPerformed(ActionEvent event) {
-
-        currentScreen.actionPerformed(event);
-    }
-
-    /**
-     * Sets the active interface on the jFrame (all interfaces are jPanels).
-     *
-     * @param _window The interface to display.
-     */
-    @Deprecated
-    public void setWindow(JPanel _window) {
-        /**
-         * The content pane represents the area of the window where content is shown - all of the window except the
-         * title bar. Setting the content panel to a jPanel causes the jPanel to draw to the window.
-         */
-        //currentWindow = _window;
-        setContentPane(_window);
     }
 
     /**
