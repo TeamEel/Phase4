@@ -29,8 +29,6 @@ public class MenuScreen extends Screen  {
     private PlantGUIElement newGameButton;
     private PlantGUIElement newMultiplayerGameButton;
     private PlantGUIElement loadGameButton;
-    // The context GUIWindow
-    private ScreenContext context;
     
     // Whether images are currently loading.
     private Boolean loading = false;

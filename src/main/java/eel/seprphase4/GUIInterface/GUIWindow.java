@@ -19,7 +19,7 @@ enum GameState {
  * The GUIWindow class extends JFrame and provides methods for dealing with the current interface. It implements
  * ActionListener so it can work with Swing Timers for scheduling updating at a specified interval.
  */
-public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
+public class GUIWindow extends JFrame implements ActionListener {
 
     GameScreen currentScreen;
     private SpriteCanvas canvas;
@@ -60,18 +60,7 @@ public class GUIWindow extends JFrame implements ActionListener, ScreenContext {
 
         
     }
-
-    
-    @Override
-    public void transitionTo(GameScreen newScreen)
-    {
-        this.currentScreen = newScreen;
-        setContentPane(newScreen);
-
-
-    }
-    
-    
+   
     /**
      * This is called to run the game when it first starts.
      */

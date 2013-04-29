@@ -34,18 +34,15 @@ public class LoadScreen extends GameScreen {
     // Useful references
     public SaveGame saveGame;
     public Simulator simulator;
-    public ScreenContext context;
     // Maps a space on the screen to a particular save.
     Map<PlantGUIElement, Integer> m;
     public int y;
     public int i;
     private String userName;
 
-    public LoadScreen(ScreenContext context) {
+    public LoadScreen() {
         y = 0;
         i = 0;
-
-        this.context = context;
 
         //TODO: Set username.
         userName = "";

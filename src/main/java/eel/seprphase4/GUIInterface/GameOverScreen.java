@@ -24,8 +24,7 @@ public class GameOverScreen extends GameScreen {
     // The variables passed in from the simulator, to be displayed on the GameOverScreen.
     private Energy powerGenerated;
     private String name;
-    private ScreenContext context;
-
+    
     /**
      * Creates a new GameOverScreen.
      *
@@ -33,15 +32,12 @@ public class GameOverScreen extends GameScreen {
      * @param powerGenerated     The power generated in the previous game.
      * @param name               The name of the player.
      */
-    public GameOverScreen(ScreenContext context, Energy powerGenerated, String name) {
+    public GameOverScreen(Energy powerGenerated, String name) {
         explosion = new Animation("animations/explosion", false);
 
         // Make sure that the explosion plays from the start.
         explosion.reset();
         
-        
-        this.context = context;
-
         // Set the misc. variables.
         this.powerGenerated = powerGenerated;
         this.name = name;

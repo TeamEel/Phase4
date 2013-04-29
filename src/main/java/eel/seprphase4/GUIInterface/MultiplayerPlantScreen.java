@@ -12,10 +12,10 @@ import eel.seprphase4.Simulator.Simulator;
  */
 public class MultiplayerPlantScreen extends PlantScreen {
     MultiPlayerKeyListener listener;
-    public MultiplayerPlantScreen(ScreenContext parent, String username){
+    public MultiplayerPlantScreen(String username){
         
         
-        super(parent,username);
+        super(username);
         setFocusable( true );
         super.plantController.allowRandomFailures(false);
         listener = new MultiPlayerKeyListener(super.plantController,super.plantStatus);

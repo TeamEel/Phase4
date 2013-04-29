@@ -28,8 +28,6 @@ public class PlantScreen extends GameScreen {
     protected PlantController plantController;
     protected PlantStatus plantStatus;
     private GameManager gameManager;
-    // This is the GUIWindow the interface is being shown in.
-    private ScreenContext parent;
     // Misc UI elements.
     private PlantGUIElement plantBackground;
     private PlantGUIElement logo;
@@ -93,16 +91,13 @@ public class PlantScreen extends GameScreen {
     
     
             
-    public PlantScreen(ScreenContext parent, String username) {
+    public PlantScreen(String username) {
         
         Simulator simulator = new Simulator();
         this.plantController = simulator;
         this.plantStatus = simulator;
         this.gameManager = simulator;
 
-        this.parent = parent;
-        
-        
         this.gameManager.setUsername(username);
         
         // Give all of the plant components the right images and location on the screen.
@@ -118,7 +113,6 @@ public class PlantScreen extends GameScreen {
             plantController.step(1);
             super.update();
         } catch (GameOverException ex) {
-            parent.transitionTo(new GameOverScreen(this.parent, plantStatus.energyGenerated(), gameManager.getUsername()));
             super.update();
         }
     }
