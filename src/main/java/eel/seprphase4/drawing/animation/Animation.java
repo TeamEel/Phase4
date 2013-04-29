@@ -15,6 +15,8 @@ public abstract class Animation {
     protected int currentFrame;
 
     public Animation(Image[] images) {
+        // TODO: validate that there is at least one frame
+        // TODO: validate that all frames are the same size
         frames = images;
         currentFrame = 0;
     }
@@ -38,6 +40,11 @@ public abstract class Animation {
         currentFrame = 0;
     }
 
+    public Coordinate bottomRight() {
+        return new Coordinate(frames[0].getWidth(null),
+                              frames[0].getHeight(null));
+    }
+    
     /**
      * Check whether the animation is on its last frame
      * 

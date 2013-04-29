@@ -2,6 +2,7 @@ package eel.seprphase4.drawing;
 
 import eel.seprphase4.drawing.animation.AnimationSet;
 import java.awt.Graphics;
+import java.awt.event.MouseListener;
 
 /**
  *
@@ -11,11 +12,12 @@ public class Sprite {
 
     private AnimationSet animations;
     private Coordinate position;
-
+    private MouseListener mouseListener;
+    
     public Sprite(AnimationSet animations) {
         this(animations, new Coordinate(0, 0));
     }
-
+    
     public Sprite(AnimationSet animations, Coordinate position) {
         this.animations = animations;
         this.position = position;
@@ -67,4 +69,18 @@ public class Sprite {
     public void paint(Graphics g) {
         animations.paint(g, position);
     }
+
+    public void setMouseListener(MouseListener mouseListener) {
+        this.mouseListener = mouseListener;
+    }
+      
+    private boolean contains(Coordinate c) {
+        return c.southEastOf(position) &&
+               c.northWestOf(bottomRight());
+    }
+    
+    private Coordinate bottomRight() {
+        return position.plus(animations.bottomRight());
+    }
+    
 }

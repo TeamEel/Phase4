@@ -14,6 +14,8 @@ public class AnimationSet {
     private int currentAnimation;
 
     public AnimationSet(Animation[] animations) {
+        // TODO: validate that at least one animation is given
+        // TODO: validate that all animations are the same size
         this.animations = animations;
     }
 
@@ -71,6 +73,10 @@ public class AnimationSet {
         return animation >= 0 && animation < animations.length;
     }
 
+    public Coordinate bottomRight() {
+        return animations[0].bottomRight();
+    }
+    
     private void validateAnimation(int animation) {
         if (!validAnimation(animation)) {
             throw new IllegalArgumentException("Trying to select animation " + animation +

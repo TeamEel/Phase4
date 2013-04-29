@@ -17,4 +17,12 @@ public class Coordinate {
     public Coordinate plus(Coordinate other) {
         return new Coordinate(x + other.x, y + other.y);
     }
+    
+    public boolean northWestOf(Coordinate other) {
+        return x <= other.x && y <= other.y;
+    }
+    
+    public boolean southEastOf(Coordinate other) {
+        return x >= other.x && y >= other.y;
+    }
 }

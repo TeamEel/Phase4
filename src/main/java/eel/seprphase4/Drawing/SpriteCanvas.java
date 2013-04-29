@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -17,7 +19,7 @@ import javax.swing.Timer;
  * 
  * @author drm
  */
-public class SpriteCanvas extends JPanel implements ActionListener {
+public class SpriteCanvas extends JPanel implements ActionListener, MouseListener {
 
     private Image background;
     private SpriteSet sprites;
@@ -99,6 +101,31 @@ public class SpriteCanvas extends JPanel implements ActionListener {
         if (ae.getSource() == timer) {
             advance();
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent me) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void mousePressed(MouseEvent me) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     private void advance() {
