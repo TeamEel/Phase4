@@ -79,14 +79,15 @@ public class SpriteSet {
 
     public void mouseMoved(MouseEvent e) {
         ZSprite s = spriteFor(e.getPoint());
-        if (s == null) {
-            return;
-        }
+        
+        
         if (s != previousMouseSprite) {
             if (previousMouseSprite != null) {
                 previousMouseSprite.mouseExited();
             }
-            s.mouseEntered();
+            if (s != null) {
+                s.mouseEntered();
+            }
             previousMouseSprite = s;
         }
     }
