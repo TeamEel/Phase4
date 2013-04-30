@@ -17,6 +17,6 @@ public class App {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        GUIWindow gameWindow = new GUIWindow("Atom Lab", 1377, 768);
+        GUIWindow gameWindow = new GUIWindow("Atom Lab", 1376, 768);
     }
 }

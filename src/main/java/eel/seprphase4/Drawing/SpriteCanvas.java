@@ -7,31 +7,39 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.io.IOException;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.event.MouseInputListener;
 
 /**
  * Provide a painting surface for Sprites
- * 
- * Allows for static Z-ordering of Sprites, and arbitrary movement and animation selection
- * for Sprites. Does not allow for changes in the Z-ordering of sprites which have already been added.
- * 
+ *
+ * Allows for static Z-ordering of Sprites, and arbitrary movement and animation selection for Sprites. Does not allow
+ * for changes in the Z-ordering of sprites which have already been added.
+ *
  * @author drm
  */
-public class SpriteCanvas extends JPanel implements ActionListener, MouseListener {
+public class SpriteCanvas extends JPanel implements ActionListener, MouseInputListener {
 
-    private Image background;
-    private SpriteSet sprites;
+    private Screen screen;
     private Timer timer;
     private double scaleFactor;
-    
-    public SpriteCanvas(Image background) {
-        this.background = background;
-        this.sprites = new SpriteSet();
+
+    public SpriteCanvas(String backgroundResource) throws IOException {
+        this.screen = new Screen(backgroundResource);
         this.timer = new Timer(1000, this);
         this.scaleFactor = 1;
-        setPreferredSize(new Dimension(background.getWidth(null), background.getHeight(null)));
+        resizeToScale();
+        addMouseListener(this);
+        addMouseMotionListener(this);
+    }
+
+    public SpriteCanvas() {
+        this.timer = new Timer(10, this);
+        this.scaleFactor = 1;
+        addMouseListener(this);
+        addMouseMotionListener(this);
     }
 
     public void setScaleFactor(double scaleFactor) {
@@ -39,16 +47,15 @@ public class SpriteCanvas extends JPanel implements ActionListener, MouseListene
             throw new IllegalArgumentException("Cannot set scale factor outside the range (0,1]");
         }
         this.scaleFactor = scaleFactor;
-        setPreferredSize(new Dimension((int)Math.ceil(background.getWidth(null) * scaleFactor),
-                                       (int)Math.ceil(background.getHeight(null) * scaleFactor)));
+        resizeToScale();
     }
-    
+
     /**
      * Set the interval between animation frames for the canvas
-     * 
-     * For example, a calling setFrameInterval(100) will cause the frame to
-     * advance every 100ms, for a 10-frame-per-second animation.
-     * 
+     *
+     * For example, a calling setFrameInterval(100) will cause the frame to advance every 100ms, for a
+     * 10-frame-per-second animation.
+     *
      * @param ms the number of milliseconds to delay between frames
      */
     public void setFrameInterval(int ms) {
@@ -57,7 +64,7 @@ public class SpriteCanvas extends JPanel implements ActionListener, MouseListene
 
     /**
      * Begin animating sprites.
-     * 
+     *
      * Sprites can be added freely after calling start.
      */
     public void start() {
@@ -71,29 +78,17 @@ public class SpriteCanvas extends JPanel implements ActionListener, MouseListene
         timer.stop();
     }
 
-    /**
-     * Add a sprite to the Canvas.
-     * 
-     * The z-parameter controls depth or stacking of sprites. Sprites with a higher z-value
-     * will be drawn 'closer to' the user - i.e. they will be drawn over sprites with a lower
-     * z-value.
-     * 
-     * The background is always drawn first - negative z-values will not cause sprites
-     * to be drawn behind the background.
-     * 
-     * @param s the sprite to add
-     * @param z the z-axis position of the sprite
-     */
-    public void add(Sprite s, int z) {
-        sprites.add(s, z);
+    public void setScreen(Screen screen) {
+        this.screen = screen;
+        resizeToScale();
     }
 
     @Override
     public void paintComponent(Graphics g) {
         // mildly hacky scaling to fit onto smaller screens
         ((Graphics2D)g).scale(scaleFactor, scaleFactor);
-        g.drawImage(background, 0, 0, this);
-        sprites.paint(g);
+        //g.drawImage(background, 0, 0, this);
+        screen.paint(g);
     }
 
     @Override
@@ -104,32 +99,47 @@ public class SpriteCanvas extends JPanel implements ActionListener, MouseListene
     }
 
     @Override
-    public void mouseClicked(MouseEvent me) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void mouseClicked(MouseEvent e) {
+        // ignore click events
     }
 
     @Override
-    public void mousePressed(MouseEvent me) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void mousePressed(MouseEvent e) {
+        // ignore press events
     }
 
     @Override
-    public void mouseReleased(MouseEvent me) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void mouseReleased(MouseEvent e) {
+        screen.mouseReleased(e);
     }
 
     @Override
-    public void mouseEntered(MouseEvent me) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void mouseEntered(MouseEvent e) {
+        // ignore enter events
     }
 
     @Override
-    public void mouseExited(MouseEvent me) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void mouseExited(MouseEvent e) {
+        screen.mouseExited(e);
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        // ignore drag events
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        screen.mouseMoved(e);
     }
 
     private void advance() {
-        sprites.advance();
+        screen.advance();
         repaint();
+    }
+
+    private void resizeToScale() {
+        setPreferredSize(new Dimension((int)Math.ceil(screen.size().width * scaleFactor),
+                                       (int)Math.ceil(screen.size().width * scaleFactor)));
     }
 }

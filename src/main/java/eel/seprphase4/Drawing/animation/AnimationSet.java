@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 /**
  * Manage a set of animations for a Sprite
- * 
+ *
  * @author drm
  */
 public class AnimationSet {
@@ -21,12 +21,11 @@ public class AnimationSet {
 
     /**
      * Select an animation from the set of animations
-     * 
-     * Resets the animation back to the beginning of the sequence of frames.
-     * Should therefore only be called when the animation should *change* in some way.
-     * Calling this function multiple times with the same argument may cause the animation
-     * to skip
-     * 
+     *
+     * Resets the animation back to the beginning of the sequence of frames. Should therefore only be called when the
+     * animation should *change* in some way. Calling this function multiple times with the same argument may cause the
+     * animation to skip
+     *
      * @param state the 0-based index of the animation to select
      */
     public void select(int animation) {
@@ -37,12 +36,11 @@ public class AnimationSet {
 
     /**
      * Ensure that an animation is selected for the
-     * 
-     * If the animation is already selected, does *not* reset it.
-     * Can therefore be called as many times as is convenient, without causing
-     * the animation to skip
-     * 
-     * 
+     *
+     * If the animation is already selected, does *not* reset it. Can therefore be called as many times as is
+     * convenient, without causing the animation to skip
+     *
+     *
      * @param state the 0-based index of the animation to select
      */
     public void ensureSelected(int animation) {
@@ -63,10 +61,10 @@ public class AnimationSet {
     }
 
     /**
-     * Query whether a given animation index refers to a valid animation
-     * for this animation set
-     * 
+     * Query whether a given animation index refers to a valid animation for this animation set
+     *
      * @param animation the animation index to check
+     *
      * @return true if the index refers to a valid animation
      */
     public boolean validAnimation(int animation) {
@@ -76,7 +74,7 @@ public class AnimationSet {
     public Coordinate bottomRight() {
         return animations[0].bottomRight();
     }
-    
+
     private void validateAnimation(int animation) {
         if (!validAnimation(animation)) {
             throw new IllegalArgumentException("Trying to select animation " + animation +

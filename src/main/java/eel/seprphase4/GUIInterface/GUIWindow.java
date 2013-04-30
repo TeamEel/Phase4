@@ -8,14 +8,6 @@ import java.io.IOException;
 import javax.swing.*;
 
 /**
- * This GameState defines the current state of the game.
- */
-enum GameState {
-
-    NotStarted, Running, GameOver
-}
-
-/**
  * The GUIWindow class extends JFrame and provides methods for dealing with the current interface. It implements
  * ActionListener so it can work with Swing Timers for scheduling updating at a specified interval.
  */

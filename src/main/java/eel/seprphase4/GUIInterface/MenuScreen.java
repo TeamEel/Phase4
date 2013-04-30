@@ -39,5 +39,6 @@ public class MenuScreen extends Screen {
         sprite.addToScreen(this);
         sprite.moveTo(x, y);
     }
+    
 
 }

@@ -4,6 +4,7 @@ import java.awt.Image;
 
 /**
  * Concrete Animation implementation for looping animations
+ *
  * @author david
  */
 public class LoopingAnimation extends Animation {

@@ -1,8 +1,12 @@
 package eel.seprphase4.drawing;
 
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.ListIterator;
+import javax.swing.SwingUtilities;
 
 /**
  * Manage a collection of Sprites for a SpriteCanvas
@@ -11,6 +15,7 @@ import java.util.Collections;
  */
 public class SpriteSet {
 
+    private ZSprite previousMouseSprite;
     ArrayList<ZSprite> sprites;
 
     public SpriteSet() {
@@ -36,7 +41,7 @@ public class SpriteSet {
 
     /**
      * Paint all sprites, in order, onto the given Graphics object
-     * 
+     *
      * @param g the Graphics object to paint onto
      */
     public void paint(Graphics g) {
@@ -52,5 +57,49 @@ public class SpriteSet {
         for (ZSprite s : sprites) {
             s.advance();
         }
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        ZSprite s = spriteFor(e.getPoint());
+        if (s == null) {
+            return;
+        }
+        if (SwingUtilities.isLeftMouseButton(e)) {
+            s.leftClicked();
+        } else if (SwingUtilities.isRightMouseButton(e)) {
+            s.rightClicked();
+        }
+    }
+
+    public void mouseExited(MouseEvent e) {
+        if (previousMouseSprite != null) {
+                previousMouseSprite.mouseExited();
+        }
+    }
+
+    public void mouseMoved(MouseEvent e) {
+        ZSprite s = spriteFor(e.getPoint());
+        
+        
+        if (s != previousMouseSprite) {
+            if (previousMouseSprite != null) {
+                previousMouseSprite.mouseExited();
+            }
+            if (s != null) {
+                s.mouseEntered();
+            }
+            previousMouseSprite = s;
+        }
+    }
+
+    private ZSprite spriteFor(Point p) {
+        for (ListIterator<ZSprite> i = sprites.listIterator(sprites.size());
+             i.hasPrevious();) {
+            ZSprite s = i.previous();
+            if (s.contains(p)) {
+                return s;
+            }
+        }
+        return null;
     }
 }

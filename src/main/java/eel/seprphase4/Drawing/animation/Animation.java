@@ -6,7 +6,7 @@ import java.awt.Image;
 
 /**
  * Encapsulate an animation (a sequence of image frames).
- * 
+ *
  * @author drm
  */
 public abstract class Animation {
@@ -27,9 +27,9 @@ public abstract class Animation {
 
     /**
      * Advance the animation by one frame.
-     * 
-     * Different concrete subclasses override this method to provide
-     * different animation types, either one-shot or looping.
+     *
+     * Different concrete subclasses override this method to provide different animation types, either one-shot or
+     * looping.
      */
     public abstract void advance();
 
@@ -44,10 +44,10 @@ public abstract class Animation {
         return new Coordinate(frames[0].getWidth(null),
                               frames[0].getHeight(null));
     }
-    
+
     /**
      * Check whether the animation is on its last frame
-     * 
+     *
      * @return whether or not the current frame is the last of this animation
      */
     protected boolean lastFrame() {

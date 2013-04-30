@@ -6,6 +6,7 @@ import java.io.IOException;
 
 /**
  * Helper methods to create Sprites
+ *
  * @author drm
  */
 public class BuildSprite {
