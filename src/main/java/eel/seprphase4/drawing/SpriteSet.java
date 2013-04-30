@@ -72,7 +72,9 @@ public class SpriteSet {
     }
 
     public void mouseExited(MouseEvent e) {
-        previousMouseSprite = null;
+        if (previousMouseSprite != null) {
+                previousMouseSprite.mouseExited();
+        }
     }
 
     public void mouseMoved(MouseEvent e) {
