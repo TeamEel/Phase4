@@ -10,11 +10,11 @@ import java.util.Iterator;
  *
  * @author David
  */
-public class ControlContainer implements Screen {
+public class CompositeControl implements Control {
 
     private ZList<Control> controls;
 
-    public ControlContainer() {
+    public CompositeControl() {
         this.controls = new ZList<Control>();
     }
 
@@ -60,38 +60,52 @@ public class ControlContainer implements Screen {
     }
 
     @Override
-    public void onMousePressed(Point point) {
+    public boolean onMousePressed(Point point) {
         for (Control c : controls.backwards()) {
             if (c.onMousePressed(point)) {
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     @Override
-    public void onMouseReleased(Point point) {
+    public boolean onMouseReleased(Point point) {
         for (Control c : controls.backwards()) {
             if (c.onMouseReleased(point)) {
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     @Override
-    public void onKeyPressed(KeyEvent e) {
+    public boolean onKeyPressed(KeyEvent e) {
         for (Control c : controls.backwards()) {
             if (c.onKeyPressed(e)) {
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     @Override
-    public void onKeyReleased(KeyEvent e) {
+    public boolean onKeyReleased(KeyEvent e) {
         for (Control c : controls.backwards()) {
             if (c.onKeyReleased(e)) {
-                break;
+                return true;
             }
         }
+        return false;
+    }
+
+    @Override
+    public boolean onKeyTyped(KeyEvent e) {
+        for (Control c : controls.backwards()) {
+            if (c.onKeyTyped(e)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

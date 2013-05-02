@@ -27,11 +27,11 @@ public class DisplayTest extends JFrame {
         sm = new ScreenManager(1000, 600);
         add(sm);
 
-        ControlContainer cc = new ControlContainer();
+        Screen sc = new Screen();
 
-        sm.setScreen(cc);
+        sm.setScreen(sc);
 
-        cc.add(new ImageControl(new DrawableImage("/menu/background.png"), 0, WIDTH), 0);
+        sc.add(new ImageControl(new DrawableImage("/menu/background.png"), 0, WIDTH), 0);
         
         //cc.add(new ButtonControl(new DrawableImage("/menu/button_multiplayer.png"),
         //                         new DrawableImage("/menu/button_multiplayer_sel.png"),
@@ -39,7 +39,7 @@ public class DisplayTest extends JFrame {
 
         //cc.add(new ImageControl(new DrawableImage("/menu/button_multiplayer_sel.png"), 100, 100), 1);
         //cc.add(new TextFieldControl("test", new Font("Arial", Font.BOLD, 50), 100, 200), 2);
-        cc.add(new ImageControl(new DrawableText("Testing", new Font("Arial", Font.BOLD, 20)), 100, 100), 2);
+        sc.add(new ImageControl(new DrawableText("Testing", new Font("Arial", Font.BOLD, 20)), 100, 100), 2);
         sm.start();
     }
 

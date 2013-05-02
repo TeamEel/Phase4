@@ -8,21 +8,64 @@ import java.awt.event.KeyEvent;
  *
  * @author David
  */
-public interface Screen {
+public class Screen implements Control {
 
-    public void paint(Graphics g);
+    protected CompositeControl controls;
     
-    public void advance(int ms);
+    public Screen() {
+        this.controls = new CompositeControl();
+    }
 
-    public void onMouseExited();
+    public void add(Control c, int z) {
+        controls.add(c, z);
+    }
 
-    public void onMouseMoved(Point point);
+    public void remove(Control c) {
+        controls.remove(c);
+    }
 
-    public void onMousePressed(Point point);
+    @Override
+    public void paint(Graphics g) {
+        controls.paint(g);
+    }
 
-    public void onMouseReleased(Point point);
+    @Override
+    public void advance(int ms) {
+        controls.advance(ms);
+    }
 
-    public void onKeyPressed(KeyEvent e);
+    @Override
+    public void onMouseExited() {
+        controls.onMouseExited();
+    }
 
-    public void onKeyReleased(KeyEvent e);
+    @Override
+    public void onMouseMoved(Point point) {
+        controls.onMouseMoved(point);
+    }
+
+    @Override
+    public boolean onMousePressed(Point point) {
+        return controls.onMousePressed(point);
+    }
+
+    @Override
+    public boolean onMouseReleased(Point point) {
+        return controls.onMouseReleased(point);
+    }
+
+    @Override
+    public boolean onKeyPressed(KeyEvent e) {
+        return controls.onKeyPressed(e);
+    }
+
+    @Override
+    public boolean onKeyReleased(KeyEvent e) {
+        return controls.onKeyReleased(e);
+    }
+
+    @Override
+    public boolean onKeyTyped(KeyEvent e) {
+        return controls.onKeyTyped(e);
+    }
 }
