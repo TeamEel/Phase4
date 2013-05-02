@@ -1,5 +1,6 @@
 package eel.seprphase4.GUIInterface;
 
+import display.ScreenManager;
 import eel.seprphase4.Simulator.Simulator;
 import eel.seprphase4.drawing.SpriteCanvas;
 import java.awt.event.ActionEvent;
@@ -13,8 +14,7 @@ import javax.swing.*;
  */
 public class GUIWindow extends JFrame {
 
-    GameScreen currentScreen;
-    private SpriteCanvas canvas;
+
     // This is the simulator which the plant uses.
 
     /**
@@ -27,12 +27,26 @@ public class GUIWindow extends JFrame {
     public GUIWindow(String title, int width, int height) throws IOException {
 
         super(title);
-
+        setSize(width, height);
+        setLocationRelativeTo(null);
+        
+        setResizable(false);
+        setVisible(true);
         setFocusable(true);
-        canvas = new SpriteCanvas();
-        canvas.setScreen(new MenuScreen());
-        add(canvas);
-        canvas.start();
+        
+        
+        
+        
+        add(ScreenManager.getInstance(width,height));
+        
+        
+        
+        //ScreenManager.getInstance().setScreen();
+        
+        //canvas = new SpriteCanvas();
+        //canvas.setScreen(new MenuScreen());
+        //add(canvas);
+        //canvas.start();
         //transitionTo(new MenuScreen(this));
 
 
@@ -41,13 +55,7 @@ public class GUIWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Set the resolution of the window.
-        setSize(width, height);
-
-        // If the location is relative to nothing, the window always starts in the middle of the screen.
-        setLocationRelativeTo(null);
-        // Do not allow the user to resize the window.
-        setResizable(false);
-        setVisible(true);
+        
     }
 
     /**
@@ -55,7 +63,7 @@ public class GUIWindow extends JFrame {
      * screen.
      */
     public void update() {
-        currentScreen.revalidate();
+        ScreenManager.getInstance().revalidate();
         repaint();
     }
 }
