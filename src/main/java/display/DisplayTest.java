@@ -1,5 +1,7 @@
 package display;
 
+import display.drawable.DrawableImage;
+import display.drawable.DrawableText;
 import java.awt.Font;
 import javax.swing.JFrame;
 
@@ -31,12 +33,13 @@ public class DisplayTest extends JFrame {
 
         cc.add(new ImageControl(new DrawableImage("/menu/background.png"), 0, WIDTH), 0);
         
-        cc.add(new ButtonControl(new DrawableImage("/menu/button_multiplayer.png"),
-                                 new DrawableImage("/menu/button_multiplayer_sel.png"),
-                                 new DrawableImage("/menu/button_multiplayer_press.png"), 100, 100), 1);
+        //cc.add(new ButtonControl(new DrawableImage("/menu/button_multiplayer.png"),
+        //                         new DrawableImage("/menu/button_multiplayer_sel.png"),
+        //                         new DrawableImage("/menu/button_multiplayer_press.png"), 100, 100), 1);
 
         //cc.add(new ImageControl(new DrawableImage("/menu/button_multiplayer_sel.png"), 100, 100), 1);
-        cc.add(new TextFieldControl("test", new Font("Arial", Font.PLAIN, 16), 100, 200), 1);
+        //cc.add(new TextFieldControl("test", new Font("Arial", Font.BOLD, 50), 100, 200), 2);
+        cc.add(new ImageControl(new DrawableText("Testing", new Font("Arial", Font.BOLD, 20)), 100, 100), 2);
         sm.start();
     }
 

@@ -1,7 +1,7 @@
 package display;
 
+import display.drawable.Drawable;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 

@@ -1,5 +1,6 @@
 package display;
 
+import display.drawable.Drawable;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionListener;

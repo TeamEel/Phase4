@@ -28,10 +28,10 @@ public class DrawableText implements Drawable {
 
     @Override
     public void draw(Graphics g, int x, int y) {
-        //Font oldFont = g.getFont();
-        //g.setFont(font);
+        Font oldFont = g.getFont();
+        g.setFont(font);
         g.drawString(text, x, y);
-        //g.setFont(oldFont);
+        g.setFont(oldFont);
     }
 
     @Override
