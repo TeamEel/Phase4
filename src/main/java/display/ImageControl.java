@@ -19,6 +19,10 @@ public class ImageControl implements Control {
         this.x = x;
         this.y = y;
     }
+    
+    public ImageControl(Asset asset, int x, int y) {
+        this(DrawableFactory.create(asset), x, y);
+    }
 
     @Override
     public void paint(Graphics g) {

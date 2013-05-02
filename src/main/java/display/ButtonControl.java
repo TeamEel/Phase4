@@ -43,6 +43,16 @@ public class ButtonControl implements Control {
         this.actionListeners = new ArrayList<ActionListener>();
     }
 
+    public ButtonControl(Asset defaultAsset,
+                         Asset mouseOverAsset,
+                         Asset pressedAsset,
+                         int x, int y) {
+        this(DrawableFactory.create(defaultAsset),
+             DrawableFactory.create(mouseOverAsset),
+             DrawableFactory.create(pressedAsset),
+             x, y);
+    }
+    
     public void addActionListener(ActionListener al) {
         actionListeners.add(al);
     }

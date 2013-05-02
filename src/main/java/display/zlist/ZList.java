@@ -24,7 +24,7 @@ public class ZList<E> implements Iterable<E> {
 
         @Override
         public Iterator<E> iterator() {
-            return new RIter<E>(zlist.elements);
+            return new RIter<E>((ArrayList<Pair<E>>)zlist.elements.clone());
         }
     }
 
@@ -43,6 +43,6 @@ public class ZList<E> implements Iterable<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new FIter(elements);
+        return new FIter((ArrayList<Pair<E>>)elements.clone());
     }
 }

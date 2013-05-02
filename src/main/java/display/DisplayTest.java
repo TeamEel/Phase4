@@ -1,7 +1,9 @@
 package display;
 
+import display.screens.MainMenuScreen;
 import display.drawable.DrawableImage;
 import display.drawable.DrawableText;
+import display.screens.SingleplayerStartScreen;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JFrame;
@@ -25,22 +27,10 @@ public class DisplayTest extends JFrame {
         setResizable(false);
         setVisible(true);
 
-        sm = new ScreenManager(1366, 786);
+        sm = ScreenManager.getInstance();
         add(sm);
 
-        Screen sc = new Screen();
-
-        sm.setScreen(sc);
-
-        sc.add(new ImageControl(new DrawableImage("/menu/background.png"), 0, 0), 0);
-
-        sc.add(new ButtonControl(new DrawableImage("/menu/button_multiplayer.png"),
-                                 new DrawableImage("/menu/button_multiplayer_sel.png"),
-                                 new DrawableImage("/menu/button_multiplayer_press.png"), 100, 100), 1);
-
-        //sc.add(new ImageControl(new DrawableImage("/menu/button_multiplayer_sel.png"), 100, 100), 1);
-        sc.add(new TextFieldControl("test", new Font("Courier New", Font.BOLD, 50), Color.WHITE, 100, 200), 2);
-        //sc.add(new ImageControl(new DrawableText("Testing", new Font("Arial", Font.BOLD, 100), Color.BLUE), 100, 500), 2);
+        sm.setScreen(new MainMenuScreen());
         sm.start();
     }
 
