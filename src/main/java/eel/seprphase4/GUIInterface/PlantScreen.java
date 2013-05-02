@@ -84,13 +84,16 @@ public class PlantScreen extends GameScreen {
      * @param gameManager
      */
     public PlantScreen(String username) {
-
-        Simulator simulator = new Simulator();
-        this.plantController = simulator;
-        this.plantStatus = simulator;
-        this.gameManager = simulator;
-
-        this.gameManager.setUsername(username);
+        this(new Simulator(username));
+    }
+    
+    public PlantScreen(Simulator newGame)
+    {
+        this.plantController = newGame;
+        this.plantStatus = newGame;
+        this.gameManager = newGame;
+        
+ 
 
         // Give all of the plant components the right images and location on the screen.
         setupComponents();

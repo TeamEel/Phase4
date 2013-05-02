@@ -13,8 +13,7 @@ public interface GameManager {
     void loadGame(int gameNumber);
 
     void saveGame() throws JsonProcessingException;
-
-    void setUsername(String userName);
-
+    
+   
     String getUsername();
 }

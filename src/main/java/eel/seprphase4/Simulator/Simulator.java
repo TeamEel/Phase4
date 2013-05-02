@@ -24,16 +24,14 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     private FailureModel failureModel;
     private String userName;
 
-    public Simulator() {
+    public Simulator(String userName) {
         physicalModel = new PhysicalModel();
         failureModel = new FailureModel(physicalModel, physicalModel);
-        userName = "";
-    }
-
-    @Override
-    public void setUsername(String userName) {
         this.userName = userName;
     }
+
+    
+ 
 
     @Override
     public String getUsername() {
