@@ -1,5 +1,6 @@
 package display;
 
+import display.drawable.Drawable;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionListener;
@@ -42,6 +43,16 @@ public class ButtonControl implements Control {
         this.actionListeners = new ArrayList<ActionListener>();
     }
 
+    public ButtonControl(Asset defaultAsset,
+                         Asset mouseOverAsset,
+                         Asset pressedAsset,
+                         int x, int y) {
+        this(DrawableFactory.create(defaultAsset),
+             DrawableFactory.create(mouseOverAsset),
+             DrawableFactory.create(pressedAsset),
+             x, y);
+    }
+    
     public void addActionListener(ActionListener al) {
         actionListeners.add(al);
     }
@@ -110,17 +121,16 @@ public class ButtonControl implements Control {
     public boolean onKeyReleased(KeyEvent e) {
         return false;
     }
-    
+
     @Override
     public boolean onKeyTyped(KeyEvent e) {
         return false;
     }
-    
+
     @Override
     public void advance(int ms) {
         defaultImage.advance(ms);
         mouseOverImage.advance(ms);
         pressedImage.advance(ms);
     }
-
 }

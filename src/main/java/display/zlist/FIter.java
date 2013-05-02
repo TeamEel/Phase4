@@ -10,7 +10,7 @@ import java.util.Iterator;
 public class FIter<E> implements Iterator<E> {
 
     private Iterator<Pair<E>> iterator;
-    
+
     public FIter(ArrayList<Pair<E>> list) {
         this.iterator = list.iterator();
     }
@@ -29,6 +29,4 @@ public class FIter<E> implements Iterator<E> {
     public E next() {
         return iterator.next().element;
     }
-    
-    
 }

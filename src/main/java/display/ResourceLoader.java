@@ -33,7 +33,6 @@ public class ResourceLoader {
         }
         return images;
     }
-    
 //    public static Animation animationResource(String resourcePath) {
 //        try {
 //            URL resourceURL = ResourceLoader.class.getResource(resourcePath);

@@ -1,7 +1,7 @@
 package display;
 
+import display.drawable.Drawable;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 
@@ -16,6 +16,12 @@ public class ImageControl implements Control {
 
     public ImageControl(Drawable resource, int x, int y) {
         this.image = resource;
+        this.x = x;
+        this.y = y;
+    }
+    
+    public ImageControl(Asset asset, int x, int y) {
+        this(DrawableFactory.create(asset), x, y);
     }
 
     @Override
@@ -52,7 +58,7 @@ public class ImageControl implements Control {
     public boolean onKeyReleased(KeyEvent e) {
         return false;
     }
-    
+
     @Override
     public boolean onKeyTyped(KeyEvent e) {
         return false;
@@ -60,7 +66,6 @@ public class ImageControl implements Control {
 
     @Override
     public void advance(int ms) {
-        image.advance(ms);        
+        image.advance(ms);
     }
-    
 }

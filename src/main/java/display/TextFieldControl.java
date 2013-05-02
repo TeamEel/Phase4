@@ -1,6 +1,7 @@
 package display;
 
 import display.drawable.DrawableText;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -15,11 +16,14 @@ public class TextFieldControl implements Control {
     private DrawableText text;
     private int x, y;
     private boolean hasFocus;
-    
-    public TextFieldControl(String text, Font font, int x, int y) {
-        this.text = new DrawableText(text, font);
+
+    public TextFieldControl(String text, Font font, Color color, int x, int y) {
+        this.text = new DrawableText(text, font, color);
+        this.x = x;
+        this.y = y;
+        this.hasFocus = true;
     }
-    
+
     @Override
     public void paint(Graphics g) {
         text.draw(g, x, y);
@@ -54,29 +58,38 @@ public class TextFieldControl implements Control {
     @Override
     public boolean onKeyPressed(KeyEvent e) {
         if (hasFocus) {
-            if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                String s = text.getText();
-                s = s.substring(0, s.length()-1);
-                text.setText(s);
-            }
+            return true;
         }
         return false;
     }
 
     @Override
     public boolean onKeyReleased(KeyEvent e) {
+        if (hasFocus) {
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean onKeyTyped(KeyEvent e) {
         if (hasFocus) {
-            String s = text.getText();
-            s = s + e.getKeyChar();
-            text.setText(s);
+            if (!e.isActionKey()) {
+                if (e.getKeyChar() == '\b') {
+                    String s = text.getText();
+                    if (s.length() == 0) {
+                        return true;
+                    }
+                    s = s.substring(0, s.length() - 1);
+                    text.setText(s);
+                } else {
+                    String s = text.getText();
+                    s = s + e.getKeyChar();
+                    text.setText(s);
+                }
+            }
             return true;
         }
         return false;
     }
-    
 }

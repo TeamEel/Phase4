@@ -11,11 +11,11 @@ import java.awt.Image;
 public class DrawableImage implements Drawable {
 
     private Image image;
-    
+
     public DrawableImage(String resource) {
         this.image = ResourceLoader.imageResource(resource);
     }
-    
+
     @Override
     public void draw(Graphics g, int x, int y) {
         g.drawImage(image, x, y, null);

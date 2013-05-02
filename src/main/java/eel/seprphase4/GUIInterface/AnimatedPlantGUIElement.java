@@ -24,7 +24,7 @@ public class AnimatedPlantGUIElement extends PlantGUIElement {
     /**
      * Creates an animatedGUIElement without a transformation.
      *
-     * @param loop          Whether the element should loop or not.
+     * @param loop           Whether the element should loop or not.
      * @param onPath         The path of the on animation.
      * @param turningOnPath  The path of the turningOn animation.
      * @param turningOffPath The path of the turningOff animation.

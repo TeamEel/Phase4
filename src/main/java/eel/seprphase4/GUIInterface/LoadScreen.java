@@ -18,7 +18,6 @@ import java.util.*;
  */
 public class LoadScreen extends GameScreen {
 
-
     // Background Image.
     private BufferedImage backgroundImage;
     // Buttons and Labels
@@ -99,7 +98,7 @@ public class LoadScreen extends GameScreen {
             m.put(loadButtons.get(i), i);
         }
     }
-    
+
     // Automatically build a save path for saved games.
     public static String savePath() {
         return System.getProperty("user.home") +
