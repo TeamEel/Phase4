@@ -25,8 +25,10 @@ public class ScreenManager extends JPanel implements MouseInputListener, KeyList
     public ScreenManager(int width, int height) {
         setPreferredSize(new Dimension(width, height));
         this.timer = new Timer(10, this);
+        setFocusable(true);
         addMouseMotionListener(this);
         addMouseListener(this);
+        addKeyListener(this);
     }
 
     public static ScreenManager getInstance() {
@@ -62,6 +64,7 @@ public class ScreenManager extends JPanel implements MouseInputListener, KeyList
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        requestFocusInWindow();
         // ignore composite event
     }
 
@@ -97,17 +100,20 @@ public class ScreenManager extends JPanel implements MouseInputListener, KeyList
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // ignore composite event
+        currentScreen.onKeyTyped(e);
+        repaint();
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         currentScreen.onKeyPressed(e);
+        repaint();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         currentScreen.onKeyReleased(e);
+        repaint();
     }
 
     @Override

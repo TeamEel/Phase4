@@ -16,6 +16,8 @@ public class ImageControl implements Control {
 
     public ImageControl(Drawable resource, int x, int y) {
         this.image = resource;
+        this.x = x;
+        this.y = y;
     }
 
     @Override
