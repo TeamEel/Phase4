@@ -17,7 +17,7 @@ public class ZList<E> implements Iterable<E> {
     public class ReverseZList<E> implements Iterable<E> {
 
         private ZList<E> zlist;
-        
+
         public ReverseZList(ZList<E> zlist) {
             this.zlist = zlist;
         }
@@ -31,7 +31,7 @@ public class ZList<E> implements Iterable<E> {
     public ZList() {
         this.elements = new ArrayList<Pair<E>>();
     }
-    
+
     public ReverseZList<E> backwards() {
         return new ReverseZList<E>(this);
     }

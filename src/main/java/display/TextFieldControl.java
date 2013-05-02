@@ -15,11 +15,11 @@ public class TextFieldControl implements Control {
     private DrawableText text;
     private int x, y;
     private boolean hasFocus;
-    
+
     public TextFieldControl(String text, Font font, int x, int y) {
         this.text = new DrawableText(text, font);
     }
-    
+
     @Override
     public void paint(Graphics g) {
         text.draw(g, x, y);
@@ -56,7 +56,7 @@ public class TextFieldControl implements Control {
         if (hasFocus) {
             if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
                 String s = text.getText();
-                s = s.substring(0, s.length()-1);
+                s = s.substring(0, s.length() - 1);
                 text.setText(s);
             }
         }
@@ -78,5 +78,4 @@ public class TextFieldControl implements Control {
         }
         return false;
     }
-    
 }

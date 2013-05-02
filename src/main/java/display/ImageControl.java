@@ -52,7 +52,7 @@ public class ImageControl implements Control {
     public boolean onKeyReleased(KeyEvent e) {
         return false;
     }
-    
+
     @Override
     public boolean onKeyTyped(KeyEvent e) {
         return false;
@@ -60,7 +60,6 @@ public class ImageControl implements Control {
 
     @Override
     public void advance(int ms) {
-        image.advance(ms);        
+        image.advance(ms);
     }
-    
 }

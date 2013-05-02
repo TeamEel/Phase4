@@ -13,7 +13,7 @@ import java.awt.event.KeyEvent;
 public interface Control {
 
     public void paint(Graphics g);
-    
+
     public void advance(int ms);
 
     /**
@@ -64,10 +64,10 @@ public interface Control {
      * @return true if the release was intercepted by this control
      */
     public boolean onMouseReleased(Point point);
-    
+
     public boolean onKeyTyped(KeyEvent e);
-    
+
     public boolean onKeyPressed(KeyEvent e);
-    
+
     public boolean onKeyReleased(KeyEvent e);
 }

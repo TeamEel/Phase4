@@ -26,7 +26,7 @@ public class CompositeControl implements Control {
         Iterator<Control> i = controls.iterator();
         while (i.hasNext()) {
             if (i.next() == c) {
-                i.remove();                
+                i.remove();
             }
         }
     }
@@ -37,7 +37,7 @@ public class CompositeControl implements Control {
             c.paint(g);
         }
     }
-    
+
     @Override
     public void advance(int ms) {
         for (Control c : controls) {

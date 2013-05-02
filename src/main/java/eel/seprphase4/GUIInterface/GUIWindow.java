@@ -14,9 +14,7 @@ import javax.swing.*;
  */
 public class GUIWindow extends JFrame {
 
-
     // This is the simulator which the plant uses.
-
     /**
      * This creates a GUIWindow with a number of parameters.
      *
@@ -29,20 +27,20 @@ public class GUIWindow extends JFrame {
         super(title);
         setSize(width, height);
         setLocationRelativeTo(null);
-        
+
         setResizable(false);
         setVisible(true);
         setFocusable(true);
-        
-        
-        
-        
-        add(ScreenManager.getInstance(width,height));
-        
-        
-        
+
+
+
+
+        add(ScreenManager.getInstance(width, height));
+
+
+
         //ScreenManager.getInstance().setScreen();
-        
+
         //canvas = new SpriteCanvas();
         //canvas.setScreen(new MenuScreen());
         //add(canvas);
@@ -55,7 +53,7 @@ public class GUIWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Set the resolution of the window.
-        
+
     }
 
     /**

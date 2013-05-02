@@ -27,8 +27,8 @@ public class GameOverScreen extends GameScreen {
     /**
      * Creates a new GameOverScreen.
      *
-     * @param powerGenerated     The power generated in the previous game.
-     * @param name               The name of the player.
+     * @param powerGenerated The power generated in the previous game.
+     * @param name           The name of the player.
      */
     public GameOverScreen(Energy powerGenerated, String name) {
         explosion = new Animation("animations/explosion", false);

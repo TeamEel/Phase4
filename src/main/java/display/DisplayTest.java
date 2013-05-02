@@ -32,7 +32,7 @@ public class DisplayTest extends JFrame {
         sm.setScreen(sc);
 
         sc.add(new ImageControl(new DrawableImage("/menu/background.png"), 0, WIDTH), 0);
-        
+
         //cc.add(new ButtonControl(new DrawableImage("/menu/button_multiplayer.png"),
         //                         new DrawableImage("/menu/button_multiplayer_sel.png"),
         //                         new DrawableImage("/menu/button_multiplayer_press.png"), 100, 100), 1);

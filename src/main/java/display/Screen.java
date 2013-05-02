@@ -11,7 +11,7 @@ import java.awt.event.KeyEvent;
 public class Screen implements Control {
 
     protected CompositeControl controls;
-    
+
     public Screen() {
         this.controls = new CompositeControl();
     }

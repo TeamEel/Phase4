@@ -111,17 +111,16 @@ public class ButtonControl implements Control {
     public boolean onKeyReleased(KeyEvent e) {
         return false;
     }
-    
+
     @Override
     public boolean onKeyTyped(KeyEvent e) {
         return false;
     }
-    
+
     @Override
     public void advance(int ms) {
         defaultImage.advance(ms);
         mouseOverImage.advance(ms);
         pressedImage.advance(ms);
     }
-
 }
