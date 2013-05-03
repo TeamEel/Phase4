@@ -83,27 +83,6 @@ public class PhysicalModelTest {
 
     }
 
-    /*@Test
-     public void shouldSetPumpBackToPumping() {
-     PhysicalModel model = new PhysicalModel();
-     model.changePumpState(1, false);
-     model.repairPump(1);
-     assertEquals(true, model.);
-     }*/
-    @Test
-    public void listNoFailures() {
-        PhysicalModel pm = new PhysicalModel();
-        assertEquals(0, pm.listFailedComponents().length);
-    }
-
-    @Test
-    public void listSeveralFailures() {
-        PhysicalModel pm = new PhysicalModel();
-        pm.failCondenser();
-        pm.failReactor();
-        String[] expected = {"Reactor", "Condenser"};
-        assertArrayEquals(expected, pm.listFailedComponents());
-    }
 
     @Test(expected = CannotRepairException.class)
     public void shouldNotSetPumpBackToNormalFailureState() throws CannotRepairException, KeyNotFoundException {
@@ -114,32 +93,32 @@ public class PhysicalModelTest {
     @Test
     public void shouldInitializePump2ToPumping() {
         PhysicalModel model = new PhysicalModel();
-        assertTrue(model.getPumpStatus(2));
+        assertTrue(model.pumpStatus(2));
     }
 
     @Test
     public void shouldInitializePump1ToPumping() {
         PhysicalModel model = new PhysicalModel();
-        assertTrue(model.getPumpStatus(1));
+        assertTrue(model.pumpStatus(1));
 
     }
 
     @Test
     public void shouldSetPumpStateToOff() throws CannotControlException, KeyNotFoundException {
         PhysicalModel model = new PhysicalModel();
-        assertTrue(model.getPumpStatus(1));
+        assertTrue(model.pumpStatus(1));
         model.changePumpState(1, false);
-        assertFalse(model.getPumpStatus(1));
+        assertFalse(model.pumpStatus(1));
     }
 
     @Test
     public void shouldSetPumpStateToOn() throws CannotControlException, KeyNotFoundException {
         PhysicalModel model = new PhysicalModel();
-        assertTrue(model.getPumpStatus(1));
+        assertTrue(model.pumpStatus(1));
         model.changePumpState(1, false);
-        assertFalse(model.getPumpStatus(1));
+        assertFalse(model.pumpStatus(1));
         model.changePumpState(1, true);
-        assertTrue(model.getPumpStatus(1));
+        assertTrue(model.pumpStatus(1));
     }
 
     @Test(expected = KeyNotFoundException.class)

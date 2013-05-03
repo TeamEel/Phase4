@@ -226,17 +226,6 @@ public class FailureModelTest {
         });
         assertEquals(joules(100000), model.energyGenerated());
     }
-
-    @Test
-    public void shouldSetReactorToTurbine() {
-        context.checking(new Expectations() {
-            {
-                oneOf(plantController).setReactorToTurbine(true);
-            }
-        });
-        model.setReactorToTurbine(true);
-    }
-
     
     @Test
     public void shouldGetCondenserTemperature() {
