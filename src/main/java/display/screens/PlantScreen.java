@@ -7,7 +7,6 @@ package display.screens;
 import display.Asset;
 import display.ImageControl;
 import display.Screen;
-
 import eel.seprphase4.Simulator.Simulator;
 
 /**
@@ -15,9 +14,9 @@ import eel.seprphase4.Simulator.Simulator;
  * @author James
  */
 public class PlantScreen extends Screen {
-    public PlantScreen() {
+    public PlantScreen(String playerName) {
         super();
-        Simulator s = new Simulator("bill");
+        Simulator s = new Simulator(playerName);
         add(new ImageControl(Asset.PlantDefaultWater, 0, 0), 0);
         add(new ImageControl(Asset.PlantBackground, 0, 0), 1);
         
@@ -26,6 +25,10 @@ public class PlantScreen extends Screen {
         
         
         add(new display.ValveControl(s,s,1,1010, 300),2);
-        
+    }
+    
+    @Deprecated
+    public PlantScreen() {
+        this("bill");
     }
 }
