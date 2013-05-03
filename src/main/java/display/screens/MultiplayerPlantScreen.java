@@ -15,7 +15,8 @@ import java.awt.event.KeyListener;
 public class MultiplayerPlantScreen extends PlantScreen implements KeyListener {
     public MultiplayerPlantScreen(String userName) {
         super(userName);
-        ScreenManager.getInstance().addKeyListener(this);    
+        ScreenManager.getInstance().addKeyListener(this);
+        s.allowRandomFailures(false);
     }
     
     

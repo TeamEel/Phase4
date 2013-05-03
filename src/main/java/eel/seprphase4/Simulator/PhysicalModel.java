@@ -46,8 +46,7 @@ public class PhysicalModel implements PlantController, PlantStatus {
     private String username;
     @JsonProperty
     private HeatSink heatSink;
-    @JsonProperty
-    private SoftwareFailure currentSoftwareFailure;
+    
 
     /**
      *
@@ -66,8 +65,6 @@ public class PhysicalModel implements PlantController, PlantStatus {
         condenserToReactor = new Pump(condenser.outputPort(), reactor.inputPort());
         heatsinkToCondenser = new Pump(heatSink.outputPort(), condenser.coolantInputPort());
 
-
-        currentSoftwareFailure = SoftwareFailure.None;
     }
 
     
@@ -258,11 +255,6 @@ public class PhysicalModel implements PlantController, PlantStatus {
     @Override
     public void repairTurbine() throws CannotRepairException {
         turbine.repair();
-    }
-
-    @Override
-    public void repairSoftware() {
-        currentSoftwareFailure = SoftwareFailure.None;
     }
 
     @Override

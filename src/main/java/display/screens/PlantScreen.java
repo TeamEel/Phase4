@@ -16,7 +16,7 @@ import java.awt.event.KeyEvent;
  * @author James
  */
 public class PlantScreen extends Screen {
-    Simulator s;
+    protected Simulator s;
     public PlantScreen(String playerName) {
         super();
         s = new Simulator(playerName);

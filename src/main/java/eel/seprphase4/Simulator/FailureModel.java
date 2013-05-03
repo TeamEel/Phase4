@@ -162,12 +162,7 @@ public class FailureModel implements PlantController, PlantStatus {
     public void repairTurbine() throws CannotRepairException {
         controller.repairTurbine();
     }
-
-    @Override
-    public void repairSoftware() {
-        controller.repairSoftware();
-    }
-
+    
     @Override
     public Percentage controlRodPosition() {
         return status.controlRodPosition();

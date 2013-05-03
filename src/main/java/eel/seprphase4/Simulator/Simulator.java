@@ -12,13 +12,13 @@ import eel.seprphase4.Utilities.Temperature;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Observable;
 
 /**
  *
  * @author David
  */
-public class Simulator implements PlantController, PlantStatus, GameManager {
+public class Simulator extends Observable implements PlantController, PlantStatus, GameManager {
 
     private PhysicalModel physicalModel;
     private FailureModel failureModel;
@@ -32,7 +32,10 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
         
     }
 
-    
+    private void updateAndNotify() {
+        setChanged();
+        notifyObservers();
+    }
  
 
     @Override
@@ -84,42 +87,45 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     @Override
     public void moveControlRods(Percentage extracted) {
         failureModel.moveControlRods(extracted);
+        updateAndNotify();
     }
 
     @Override
     public void changeValveState(int valveNumber, boolean isOpen) {
         failureModel.changeValveState(valveNumber, isOpen);
+        updateAndNotify();
     }
 
     @Override
     public void changePumpState(int pumpNumber, boolean isPumping) {
         failureModel.changePumpState(pumpNumber, isPumping);
+        updateAndNotify();
     }
 
     @Override
     public void quenchReactor() {
         failureModel.quenchReactor();
+        updateAndNotify();
     }
 
     @Override
     public void repairPump(int pumpNumber) throws KeyNotFoundException, CannotRepairException {
         failureModel.repairPump(pumpNumber);
+        updateAndNotify();
     }
 
     @Override
     public void repairCondenser() throws CannotRepairException {
         failureModel.repairCondenser();
+        updateAndNotify();
     }
 
     @Override
     public void repairTurbine() throws CannotRepairException {
         failureModel.repairTurbine();
+        updateAndNotify();
     }
 
-    @Override
-    public void repairSoftware() {
-        failureModel.repairSoftware();
-    }
 
     @Override
     public Percentage controlRodPosition() {
@@ -175,6 +181,7 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     @Override
     public void step(int steps) throws GameOverException {
         failureModel.step(steps);
+        updateAndNotify();
     }
 
     @Override
@@ -206,6 +213,7 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     @Override
     public void allowRandomFailures(boolean yes) {
         failureModel.allowRandomFailures(yes);
+        updateAndNotify();
     }
 
     @Override
