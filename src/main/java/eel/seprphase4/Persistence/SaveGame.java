@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eel.seprphase4.Simulator.FailureModel;
 import eel.seprphase4.Simulator.PhysicalModel;
+import eel.seprphase4.Simulator.RandomProbabilitySource;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Calendar;
@@ -53,7 +54,7 @@ public class SaveGame {
         /*
          * TODO load multiplayer state from save
          */
-        return new FailureModel(physicalModel, physicalModel);
+        return new FailureModel(physicalModel, physicalModel, new RandomProbabilitySource());
     }
 
     /**

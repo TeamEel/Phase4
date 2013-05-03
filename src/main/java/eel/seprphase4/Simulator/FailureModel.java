@@ -140,19 +140,7 @@ public class FailureModel implements PlantController, PlantStatus {
 
         }
 
-        // There is also a 1 in 1000 chance that a software failure will occur at any step.
-        // But only if there is not already a failure!
-        if (status.getSoftwareFailure() == SoftwareFailure.None) {
-            failValue = failChance.nextInt(softwareFailureProbability);
-            if (failValue == 0) {
-                failSoftware();
-            }
-        }
-    }
-
-    @Override
-    public SoftwareFailure getSoftwareFailure() {
-        return status.getSoftwareFailure();
+       
     }
 
     @Override
@@ -182,33 +170,23 @@ public class FailureModel implements PlantController, PlantStatus {
 
     @Override
     public Percentage controlRodPosition() {
-        if (status.getSoftwareFailure() == SoftwareFailure.controlRodRead) {
-            return null;
-        }
         return status.controlRodPosition();
     }
 
     @Override
     public Pressure reactorPressure() {
-        if (status.getSoftwareFailure() == SoftwareFailure.reactorPressureRead) {
-            return null;
-        }
+
         return status.reactorPressure();
     }
 
     @Override
     public Temperature reactorTemperature() {
-        if (status.getSoftwareFailure() == SoftwareFailure.reactorTemperatureRead) {
-            return null;
-        }
         return status.reactorTemperature();
     }
 
     @Override
     public Percentage reactorWaterLevel() {
-        if (status.getSoftwareFailure() == SoftwareFailure.reactorWaterRead) {
-            return null;
-        }
+        
         return status.reactorWaterLevel();
     }
 
@@ -221,25 +199,19 @@ public class FailureModel implements PlantController, PlantStatus {
 
     @Override
     public Temperature condenserTemperature() {
-        if (status.getSoftwareFailure() == SoftwareFailure.condenserTemperatureRead) {
-            return null;
-        }
+        
         return status.condenserTemperature();
     }
 
     @Override
     public Pressure condenserPressure() {
-        if (status.getSoftwareFailure() == SoftwareFailure.condenserPressureRead) {
-            return null;
-        }
+        
         return status.condenserPressure();
     }
 
     @Override
     public Percentage condenserWaterLevel() {
-        if (status.getSoftwareFailure() == SoftwareFailure.condenserWaterRead) {
-            return null;
-        }
+        
         return status.condenserWaterLevel();
     }
 
@@ -265,7 +237,7 @@ public class FailureModel implements PlantController, PlantStatus {
 
     @Override
     public void failSoftware() {
-        controller.failSoftware();
+        randomCommand();
     }
 
     @Override
@@ -372,23 +344,5 @@ public class FailureModel implements PlantController, PlantStatus {
         }
     }
 
-    private void randomSoftwareFailure() {
-        RandomAction actionToFailWith = RandomAction.pickRandom();
-            switch (actionToFailWith) {
-                case pumpOff:
-                    controller.changePumpState(0, false);
-                case coolantPumpOff:
-                    controller.changePumpState(1, false);
-                case reactorControlRodsLower:
-                    controller.moveControlRods(new Percentage(100.0));
-                case reactorControlRodsRaise:
-                    controller.moveControlRods(new Percentage(0.0));
-                case valve1Close:
-                    controller.changeValveState(1, false);
-                default:
-                    break;
-            }
-        
-    }
-
+  
 }

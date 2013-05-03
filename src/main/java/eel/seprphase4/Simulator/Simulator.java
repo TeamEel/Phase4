@@ -68,12 +68,6 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     }
 
 
-
-    @Override
-    public SoftwareFailure getSoftwareFailure() {
-        return failureModel.getSoftwareFailure();
-    }
-
     public boolean step() {
         try {
             failureModel.step();

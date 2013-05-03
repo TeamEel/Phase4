@@ -285,14 +285,10 @@ public class PhysicalModel implements PlantController, PlantStatus {
         return turbine.hasFailed();
     }
 
-    @Override
-    public SoftwareFailure getSoftwareFailure() {
-        return currentSoftwareFailure;
-    }
 
     @Override
     public void failSoftware() {
-        currentSoftwareFailure = SoftwareFailure.pickRandom();
+        throw new UnsupportedOperationException("Not supported from this class");
     }
 
     @Override

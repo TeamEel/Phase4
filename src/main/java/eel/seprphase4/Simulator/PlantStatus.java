@@ -52,8 +52,6 @@ public interface PlantStatus {
 
     public boolean quencherUsed();
 
-    public SoftwareFailure getSoftwareFailure();
-
     public boolean turbineHasFailed();
     
     public boolean pumpStatus(int pumpNumber);
