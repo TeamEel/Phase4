@@ -10,13 +10,12 @@ import display.Screen;
 import display.ScreenManager;
 import eel.seprphase4.Simulator.Simulator;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 /**
  *
  * @author James
  */
-public class PlantScreen extends Screen implements KeyListener{
+public class PlantScreen extends Screen {
     Simulator s;
     public PlantScreen(String playerName) {
         super();
@@ -31,7 +30,7 @@ public class PlantScreen extends Screen implements KeyListener{
         add(new display.ValveControl(s,s,1,1010, 300),2);
         add(new display.ValveControl(s,s,2,598, 115),2);
         
-        ScreenManager.getInstance().addKeyListener(this);
+      
     }
     
     @Deprecated
@@ -39,40 +38,4 @@ public class PlantScreen extends Screen implements KeyListener{
         this("bill");
     }
 
-    @Override
-    public void keyTyped(KeyEvent ke) {
-        
-    }
-
-    @Override
-    public void keyPressed(KeyEvent ke) {
-        char c = ke.getKeyChar();
-        
-        if(c=='1')
-        {
-            s.failPump(1);
-        }
-        else if(c=='2')
-        {
-            s.failPump(2);
-        }
-        else if(c=='c')
-        {
-            s.failCondenser();
-        }
-        else if(c=='t')
-        {
-            s.failTurbine();
-        }
-        else if(c=='s')
-        {
-            s.failSoftware();
-        }
-        
-    }
-
-    @Override
-    public void keyReleased(KeyEvent ke) {
-        
-    }
 }
