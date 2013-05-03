@@ -4,9 +4,12 @@
  */
 package display;
 
+import display.drawable.Animation;
 import display.drawable.Drawable;
 import display.drawable.DrawableImage;
 
+import static eel.seprphase4.drawing.builders.BuildAnimation.*;
+import static eel.seprphase4.drawing.builders.BuildAnimationSet.buildAnimationSet;
 /**
  *
  * @author drm511
@@ -39,6 +42,12 @@ public class DrawableFactory {
             case LoadgamePressed:
                 //TODO: properly
                 return new DrawableImage("/menu/button_load.png");
+            case PlantBackground:
+                return new DrawableImage("/plant/background.png");
+            case PlantDefaultWater:
+                return new DrawableImage("/plant/waterbaseline.png");  
+            case PlantPump:
+                return new Animation(Range.Formatted("/plant/pump/s%02d.png", 1,60), true,22);  
             default:
                 throw new Error("Invalid asset requested");
         }

@@ -44,6 +44,6 @@ public class Animation implements Drawable {
 
     @Override
     public HitBox hitBox(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return HitBox.fromImage(frames[currentFrame], x, y);
     }
 }

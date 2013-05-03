@@ -19,5 +19,9 @@ public enum Asset {
     MultiplayerPressed,
     LoadgameDefault,
     LoadgameOver,
-    LoadgamePressed
+    LoadgamePressed,
+    PlantDefaultWater,
+    PlantBackground,
+    PlantPump,
+    
 }
