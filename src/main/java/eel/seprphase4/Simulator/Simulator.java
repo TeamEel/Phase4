@@ -26,7 +26,7 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
 
     public Simulator(String userName) {
         physicalModel = new PhysicalModel();
-        failureModel = new FailureModel(physicalModel, physicalModel);
+        failureModel = new FailureModel(physicalModel, physicalModel, new RandomProbabilitySource());
         this.userName = userName;
         
         

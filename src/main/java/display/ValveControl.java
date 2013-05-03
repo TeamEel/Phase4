@@ -107,7 +107,7 @@ public class ValveControl implements Control, ActionListener {
         
         try
         {
-            control.changeValveState(1, !status.valveState(valveNumber));
+            control.changeValveState(valveNumber, !status.valveState(valveNumber));
         }
         catch(Exception e){}
         

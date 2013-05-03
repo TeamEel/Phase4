@@ -44,16 +44,63 @@ public class FailureModel implements PlantController, PlantStatus {
     // Software will fail 1 out of softwareFailureProbability times
     private final int softwareFailureProbability = 1000;
     private boolean randomFailures = true;
-
+    private ProbabilitySource probability;
+    private final int pumpCount = 2;
+    private final int valveCount = 2;
+    private final int maxControlRodPosition = 10;
+    
     private FailureModel() {
     }
 
-    public FailureModel(PlantController plantController, PlantStatus plantStatus) {
+    public FailureModel(PlantController plantController, PlantStatus plantStatus, ProbabilitySource probability) {
         this.controller = plantController;
         this.status = plantStatus;
+        this.probability = probability;
 
     }
 
+    private boolean softwareFailure() {
+        /*
+         * A 1 in 8 chance of a software failure occuring
+         */
+        if (probability.trueOnceIn(10)) {
+            randomCommand();
+            return true;
+        }
+        return false;
+    }
+    
+    private void randomCommand() {
+        /*
+         * Pick a random command and execute it.
+         */
+        try {
+            switch (probability.choiceFromZeroTo(5)) {
+                case 0:
+                    controller.changePumpState(probability.choiceFromZeroTo(pumpCount),true);
+                    break;
+                case 1:
+                    controller.changePumpState(probability.choiceFromZeroTo(pumpCount),false);
+                    break;
+                case 2:
+                    controller.changeValveState(probability.choiceFromZeroTo(valveCount),true);
+                    break;
+                case 3:
+                    controller.changePumpState(probability.choiceFromZeroTo(valveCount),false);
+                    break;
+                case 4:
+                    controller.moveControlRods(percent(probability.choiceFromZeroTo(maxControlRodPosition*10)));
+                    break;
+                case 5: 
+                    //do nothing
+                    break;
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+    
     /**
      * Step the PhysicalModel and determine any failures.
      *
@@ -255,20 +302,25 @@ public class FailureModel implements PlantController, PlantStatus {
         controller.failPump(pump);
     }
 
+    @Override
     public void changePumpState(int pumpNumber, boolean isPumping) {
-        controller.changePumpState(pumpNumber, isPumping);
+        if(!softwareFailure()) {
+            controller.changePumpState(pumpNumber, isPumping);
+        }
     }
 
     @Override
     public void moveControlRods(Percentage extracted) {
-        //TODO XXX software failure
-        controller.moveControlRods(extracted);
+        if(!softwareFailure()) {
+            controller.moveControlRods(extracted);
+        }
     }
 
     @Override
     public void changeValveState(int valveNumber, boolean isOpen) {
-        //TODO XXX software failure
-        controller.changeValveState(valveNumber, isOpen);
+        if(!softwareFailure()) {
+            controller.changeValveState(valveNumber, isOpen);
+        }
     }
 
    

@@ -25,6 +25,7 @@ public class PlantScreen extends Screen {
         
         
         add(new display.ValveControl(s,s,1,1010, 300),2);
+        add(new display.ValveControl(s,s,2,598, 115),2);
     }
     
     @Deprecated
