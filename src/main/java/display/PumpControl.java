@@ -17,11 +17,11 @@ import java.util.Observer;
  *
  * @author James
  */
-public class PumpControl implements Control {
+public class PumpControl implements Control, ActionListener {
 
   
     private int x, y;
-    private ArrayList<ActionListener> actionListeners;
+    
 
     private int pumpNumber;
     
@@ -29,6 +29,7 @@ public class PumpControl implements Control {
     private PlantController control;
    
     private ButtonControl buttonControl;
+    private ButtonControl failedPump;
 
     public PumpControl(PlantStatus status, PlantController control, int pumpNumber,
                          int x, int y) {
@@ -41,26 +42,37 @@ public class PumpControl implements Control {
             DrawableFactory.create(Asset.PlantPump),
             DrawableFactory.create(Asset.PlantPump),
             DrawableFactory.create(Asset.PlantPump),
+        
             x,y);
         
-        
+        this.failedPump = new ButtonControl(
+            DrawableFactory.create(Asset.PlantFailedPump),
+            DrawableFactory.create(Asset.PlantFailedPump),
+            DrawableFactory.create(Asset.PlantFailedPump),
+            x,y);
         
         this.x = x;
         this.y = y;
    
        
-        
-        this.actionListeners = new ArrayList<ActionListener>();
+        this.buttonControl.addActionListener(this);
+        this.failedPump.addActionListener(this);
    
+        control.failPump(1);
     }
     
-    public void addActionListener(ActionListener al) {
-        actionListeners.add(al);
-    }
+   
 
     @Override
     public void paint(Graphics g) {
+        
+        if(!status.componentList().get("pump1").hasFailed()){
         buttonControl.paint(g);
+        }
+        else
+        {
+            failedPump.paint(g);
+        }
     }
 
     @Override
@@ -100,9 +112,27 @@ public class PumpControl implements Control {
 
     @Override
     public void advance(int ms) {
-        if(!status.componentList().get("pump1").hasFailed() && ((Pump)status.componentList().get("pump1")).getStatus())
+        if(!status.componentList().get("pump1").hasFailed())
         {
-            buttonControl.advance(ms);
+            if(!((Pump)status.componentList().get("pump1")).getStatus())
+            {
+                buttonControl.advance(ms);
+            }
         }
+        else
+        {
+            this.failedPump.advance(ms);
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        System.out.println(ae.getSource());
+        
+        try
+        {
+            control.changePumpState(1, !((Pump)status.componentList().get("pump1")).getStatus());
+        }
+        catch(Exception e){}
     }
 }

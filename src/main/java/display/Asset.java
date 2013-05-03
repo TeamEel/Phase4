@@ -23,5 +23,6 @@ public enum Asset {
     PlantDefaultWater,
     PlantBackground,
     PlantPump,
+    PlantFailedPump
     
 }

@@ -47,7 +47,9 @@ public class DrawableFactory {
             case PlantDefaultWater:
                 return new DrawableImage("/plant/waterbaseline.png");  
             case PlantPump:
-                return new Animation(Range.Formatted("/plant/pump/s%02d.png", 1,60), true,22);  
+                return new Animation(Range.Formatted("/plant/pump/s%02d.png", 1,60), true,22);
+            case PlantFailedPump:
+                return new DrawableImage("/plant/pumpfault.png");
             default:
                 throw new Error("Invalid asset requested");
         }
