@@ -1,6 +1,5 @@
 package eel.seprphase4;
 
-import eel.seprphase4.GUIInterface.GUIWindow;
 import java.io.IOException;
 
 /**
@@ -17,6 +16,6 @@ public class App {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        GUIWindow gameWindow = new GUIWindow("Atom Lab", 1376, 768);
+        //GUIWindow gameWindow = new GUIWindow("Atom Lab", 1376, 768);
     }
 }

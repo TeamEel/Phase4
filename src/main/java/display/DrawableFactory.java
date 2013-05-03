@@ -8,8 +8,6 @@ import display.drawable.Animation;
 import display.drawable.Drawable;
 import display.drawable.DrawableImage;
 
-import static eel.seprphase4.drawing.builders.BuildAnimation.*;
-import static eel.seprphase4.drawing.builders.BuildAnimationSet.buildAnimationSet;
 /**
  *
  * @author drm511
