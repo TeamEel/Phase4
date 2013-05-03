@@ -84,11 +84,7 @@ public class PhysicalModelTest {
     }
 
 
-    @Test(expected = CannotRepairException.class)
-    public void shouldNotSetPumpBackToNormalFailureState() throws CannotRepairException, KeyNotFoundException {
-        PhysicalModel model = new PhysicalModel();
-        model.repairPump(1);
-    }
+   
 
     @Test
     public void shouldInitializePump2ToPumping() {
@@ -121,21 +117,7 @@ public class PhysicalModelTest {
         assertTrue(model.pumpStatus(1));
     }
 
-    @Test(expected = KeyNotFoundException.class)
-    public void shouldRefuseToRepairInvalidPump() throws KeyNotFoundException, CannotRepairException {
-        PhysicalModel model = new PhysicalModel();
-        model.repairPump(100);
-    }
+   
 
-    @Test(expected = KeyNotFoundException.class)
-    public void shouldRefuseToControlInvalidPump() throws CannotControlException, KeyNotFoundException {
-        PhysicalModel model = new PhysicalModel();
-        model.changePumpState(100, true);
-    }
-
-    @Test(expected = KeyNotFoundException.class)
-    public void shouldRefuseToControlInvalidValve() throws KeyNotFoundException {
-        PhysicalModel model = new PhysicalModel();
-        model.changeValveState(100, true);
-    }
+    
 }
