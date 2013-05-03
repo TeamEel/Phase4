@@ -5,6 +5,7 @@
 package display.screens;
 
 import display.ScreenManager;
+import eel.seprphase4.Simulator.ButtonBash;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -13,10 +14,12 @@ import java.awt.event.KeyListener;
  * @author James
  */
 public class MultiplayerPlantScreen extends PlantScreen implements KeyListener {
+    ButtonBash b;
     public MultiplayerPlantScreen(String userName) {
         super(userName);
         ScreenManager.getInstance().addKeyListener(this);
         s.allowRandomFailures(false);
+        b = new ButtonBash(s);
     }
     
     
@@ -31,23 +34,23 @@ public class MultiplayerPlantScreen extends PlantScreen implements KeyListener {
         
         if(c=='1')
         {
-            s.failPump(1);
+            b.failPump(1);
         }
         else if(c=='2')
         {
-            s.failPump(2);
+            b.failPump(2);
         }
         else if(c=='c')
         {
-            s.failCondenser();
+            b.failCondenser();
         }
         else if(c=='t')
         {
-            s.failTurbine();
+            b.failTurbine();
         }
         else if(c=='s')
         {
-            s.failSoftware();
+            b.failSoftware();
         }
         
     }

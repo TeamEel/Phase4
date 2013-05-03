@@ -20,6 +20,9 @@ public class PlantScreen extends Screen {
     public PlantScreen(String playerName) {
         super();
         s = new Simulator(playerName);
+        
+        
+        
         add(new ImageControl(Asset.PlantDefaultWater, 0, 0), 0);
         add(new ImageControl(Asset.PlantBackground, 0, 0), 1);
         

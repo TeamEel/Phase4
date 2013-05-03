@@ -3,6 +3,7 @@ package display;
 import display.screens.MainMenuScreen;
 import display.drawable.DrawableImage;
 import display.drawable.DrawableText;
+import display.screens.MultiplayerPlantScreen;
 import display.screens.PlantScreen;
 import display.screens.SingleplayerStartScreen;
 import java.awt.Color;
@@ -32,7 +33,7 @@ public class PlantScreenTest extends JFrame {
         sm = ScreenManager.getInstance();
         add(sm);
         
-        sm.setScreen(new PlantScreen());
+        sm.setScreen(new MultiplayerPlantScreen("rob"));
         sm.start();
     }
 
