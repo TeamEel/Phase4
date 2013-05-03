@@ -24,6 +24,14 @@ public class TextFieldControl implements Control {
         this.hasFocus = true;
     }
 
+    public void setText(String s) {
+        text.setText(s);
+    }
+    
+    public String getText() {
+        return text.getText();
+    }
+    
     @Override
     public void paint(Graphics g) {
         text.draw(g, x, y);
