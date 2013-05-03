@@ -89,6 +89,7 @@ public class AnimationControl implements AnimatedControl {
         
     }
     
+    @Override
     public void addActionListener(ActionListener al) {
         actionListeners.add(al);
     }

@@ -28,8 +28,8 @@ public class PumpControl implements Control, ActionListener {
     private PlantStatus status;
     private PlantController control;
    
-    private ButtonControl buttonControl;
-    private ButtonControl failedPump;
+    private AnimatedControl buttonControl;
+    private ImageControl failedPump;
 
     public PumpControl(PlantStatus status, PlantController control, int pumpNumber,
                          int x, int y) {
@@ -38,18 +38,9 @@ public class PumpControl implements Control, ActionListener {
         this.status = status;
         this.control = control; 
         
-        this.buttonControl = new ButtonControl(
-            DrawableFactory.create(Asset.PlantPump),
-            DrawableFactory.create(Asset.PlantPump),
-            DrawableFactory.create(Asset.PlantPump),
+        this.buttonControl = new AnimationControl(DrawableFactory.create(Asset.PlantPump),x,y);
         
-            x,y);
-        
-        this.failedPump = new ButtonControl(
-            DrawableFactory.create(Asset.PlantFailedPump),
-            DrawableFactory.create(Asset.PlantFailedPump),
-            DrawableFactory.create(Asset.PlantFailedPump),
-            x,y);
+        this.failedPump = new ImageControl(DrawableFactory.create(Asset.PlantFailedPump),x,y);
         
         this.x = x;
         this.y = y;
@@ -58,7 +49,6 @@ public class PumpControl implements Control, ActionListener {
         this.buttonControl.addActionListener(this);
         this.failedPump.addActionListener(this);
    
-        control.failPump(1);
     }
     
    
@@ -114,7 +104,7 @@ public class PumpControl implements Control, ActionListener {
     public void advance(int ms) {
         if(!status.componentList().get("pump1").hasFailed())
         {
-            if(!((Pump)status.componentList().get("pump1")).getStatus())
+            if(((Pump)status.componentList().get("pump1")).getStatus())
             {
                 buttonControl.advance(ms);
             }
