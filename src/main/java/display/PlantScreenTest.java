@@ -23,6 +23,7 @@ public class PlantScreenTest extends JFrame {
         setFocusable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1366, 788);
+        
         // If the location is relative to nothing, the window always starts in the middle of the screen.
         setLocationRelativeTo(null);
         setResizable(false);
@@ -30,7 +31,7 @@ public class PlantScreenTest extends JFrame {
 
         sm = ScreenManager.getInstance();
         add(sm);
-
+        
         sm.setScreen(new PlantScreen());
         sm.start();
     }

@@ -36,14 +36,22 @@ public class Animation implements Drawable {
         currentFrame += (ms + spareMs) / msPerFrame;
         spareMs = (ms + spareMs) % msPerFrame;
         if (currentFrame >= frames.length && !loop) {
-            currentFrame = frames.length;
+            currentFrame = frames.length-1;
             return;
         }
+        else if(currentFrame < 0 && !loop)
+        {
+            currentFrame = 0;
+            return;
+        }
+        
         currentFrame %= frames.length;
     }
-
+    
     @Override
     public HitBox hitBox(int x, int y) {
         return HitBox.fromImage(frames[currentFrame], x, y);
     }
+    
+   
 }

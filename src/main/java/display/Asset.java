@@ -23,6 +23,9 @@ public enum Asset {
     PlantDefaultWater,
     PlantBackground,
     PlantPump,
-    PlantFailedPump
+    PlantFailedPump,
+    PlantValveOpen,
+    PlantValveClosed,
+    PlantValveAnimation
     
 }
