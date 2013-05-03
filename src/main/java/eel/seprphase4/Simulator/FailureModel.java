@@ -63,9 +63,12 @@ public class FailureModel implements PlantController, PlantStatus {
         /*
          * A 1 in 8 chance of a software failure occuring
          */
-        if (probability.trueOnceIn(10)) {
-            randomCommand();
-            return true;
+        if(status.allowsRandomFailures())
+        {
+            if (probability.trueOnceIn(10)) {
+                randomCommand();
+                return true;
+            }
         }
         return false;
     }

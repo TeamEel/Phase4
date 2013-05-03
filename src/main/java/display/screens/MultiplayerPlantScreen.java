@@ -52,6 +52,13 @@ public class MultiplayerPlantScreen extends PlantScreen implements KeyListener {
         {
             b.failSoftware();
         }
+        else if(c==' ')
+        {
+            /*
+             * Toggle between random failure mode
+             */
+            s.allowRandomFailures(!s.allowsRandomFailures());
+        }
         
     }
 
