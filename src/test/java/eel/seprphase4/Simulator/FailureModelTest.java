@@ -45,31 +45,9 @@ public class FailureModelTest {
     public void testFailStateCheck() {
     }
 
-    @Test
-    public void listNoFailedComponents() {
-        final String[] componentList = {};
-        String[] expected = {};
-        context.checking(new Expectations() {
-            {
-                allowing(plantStatus).listFailedComponents();
-                will(returnValue(componentList));
-            }
-        });
-        assertArrayEquals(expected, model.listFailedComponents());
-    }
 
-    @Test
-    public void listFailedCondenser() {
-        final String[] componentList = {"Condenser"};
-        String[] expected = {"Condenser"};
-        context.checking(new Expectations() {
-            {
-                allowing(plantStatus).listFailedComponents();
-                will(returnValue(componentList));
-            }
-        });
-        assertArrayEquals(expected, model.listFailedComponents());
-    }
+
+
 
     @Test
     public void testMoveControlRods() throws Exception {
@@ -259,17 +237,7 @@ public class FailureModelTest {
         model.setReactorToTurbine(true);
     }
 
-    @Test
-    public void shouldGetReactorToTurbine() {
-        context.checking(new Expectations() {
-            {
-                allowing(plantStatus).getReactorToTurbine();
-                will(returnValue(false));
-            }
-        });
-        assertEquals(false, model.getReactorToTurbine());
-    }
-
+    
     @Test
     public void shouldGetCondenserTemperature() {
         context.checking(new Expectations() {

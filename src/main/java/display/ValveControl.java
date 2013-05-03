@@ -21,15 +21,15 @@ public class ValveControl implements Control, ActionListener {
 
  
 
-    private int pumpNumber;
+    private int valveNumber;
     
     
     private PlantStatus status;
     private PlantController control;
 
-    private AnimatedControl valveAnimation;
+    private AnimationControl valveAnimation;
     
-    public ValveControl(PlantStatus status, PlantController control, int pumpNumber,
+    public ValveControl(PlantStatus status, PlantController control, int valveNumber,
                          int x, int y) {
         
         
@@ -37,6 +37,7 @@ public class ValveControl implements Control, ActionListener {
         this.control = control; 
         
      
+        this.valveNumber = valveNumber;
         this.valveAnimation = new AnimationControl(Asset.PlantValveAnimation,x,y);
   
         this.valveAnimation.addActionListener(this);
@@ -91,7 +92,7 @@ public class ValveControl implements Control, ActionListener {
     @Override
     public void advance(int ms) {
         
-        if(!status.getReactorToTurbine())
+        if(!status.valveState(valveNumber))
         {
             valveAnimation.reverse(ms);
         }
@@ -106,7 +107,7 @@ public class ValveControl implements Control, ActionListener {
         
         try
         {
-            control.changeValveState(1, !status.getReactorToTurbine());
+            control.changeValveState(1, !status.valveState(valveNumber));
         }
         catch(Exception e){}
         

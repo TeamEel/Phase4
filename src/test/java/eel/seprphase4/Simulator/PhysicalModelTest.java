@@ -39,27 +39,7 @@ public class PhysicalModelTest {
         assertTrue(model.controlRodPosition().equals(percent(100)));
     }
 
-    @Test
-    public void shouldSetConnectionToOpena() {
-        PhysicalModel model = new PhysicalModel();
-        model.setReactorToTurbine(true);
-        assertEquals(true, model.getReactorToTurbine());
-    }
 
-    @Test
-    public void shouldSetConnectionToClosed() {
-        PhysicalModel model = new PhysicalModel();
-        model.setReactorToTurbine(false);
-        assertEquals(false, model.getReactorToTurbine());
-    }
-
-    @Test
-    public void shouldSetConnectionToOpen() {
-        PhysicalModel model = new PhysicalModel();
-        model.setReactorToTurbine(true);
-        assertEquals(true, model.getReactorToTurbine());
-
-    }
 
     @Test
     public void shouldSetCondenserBackToNormalFailureState() {

@@ -67,10 +67,7 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
         return FileSystem.listSaveGames(userName);
     }
 
-    @Override
-    public String[] listFailedComponents() {
-        return failureModel.listFailedComponents();
-    }
+
 
     @Override
     public SoftwareFailure getSoftwareFailure() {
@@ -91,19 +88,18 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     }
 
     @Override
-    public Boolean moveControlRods(Percentage extracted) {
-        return failureModel.moveControlRods(extracted);
+    public void moveControlRods(Percentage extracted) {
+        failureModel.moveControlRods(extracted);
     }
 
     @Override
-    public Boolean changeValveState(int valveNumber, boolean isOpen) throws KeyNotFoundException {
-        return failureModel.changeValveState(valveNumber, isOpen);
+    public void changeValveState(int valveNumber, boolean isOpen) {
+        failureModel.changeValveState(valveNumber, isOpen);
     }
 
     @Override
-    public Boolean changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException,
-                                                                             KeyNotFoundException {
-        return failureModel.changePumpState(pumpNumber, isPumping);
+    public void changePumpState(int pumpNumber, boolean isPumping) {
+        failureModel.changePumpState(pumpNumber, isPumping);
     }
 
     @Override
@@ -156,20 +152,6 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
         return failureModel.energyGenerated();
     }
 
-    @Override
-    public void setReactorToTurbine(boolean open) {
-        failureModel.setReactorToTurbine(open);
-    }
-
-    @Override
-    public boolean getReactorToTurbine() {
-        return failureModel.getReactorToTurbine();
-    }
-
-    @Override
-    public boolean getTurbineToCondenser() {
-        return failureModel.getTurbineToCondenser();
-    }
 
     @Override
     public Temperature condenserTemperature() {
@@ -211,15 +193,6 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
         throw new UnsupportedOperationException("Not supported yet");
     }
 
-    @Override
-    public HashMap<String, FailableComponent> componentList() {
-        return failureModel.componentList();
-    }
-
-    @Override
-    public HashMap<String, Connection> connectionList() {
-        return failureModel.connectionList();
-    }
 
     @Override
     public void failCondenser() {
@@ -255,4 +228,19 @@ public class Simulator implements PlantController, PlantStatus, GameManager {
     public void failPump(int pump) {
         failureModel.failPump(pump);
     }
+@Override
+    public boolean pumpStatus(int pumpNumber) {
+        return failureModel.pumpStatus(pumpNumber);
+    }
+
+    @Override
+    public boolean pumpFailed(int pumpNumber) {
+        return failureModel.pumpFailed(pumpNumber);
+    }
+
+    @Override
+    public boolean valveState(int valveNumber) {
+        return failureModel.valveState(valveNumber);
+    }
+
 }

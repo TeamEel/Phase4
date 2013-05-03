@@ -104,44 +104,8 @@ public class FailureModel implements PlantController, PlantStatus {
     }
 
     @Override
-    public String[] listFailedComponents() {
-        return status.listFailedComponents();
-    }
-
-    @Override
     public SoftwareFailure getSoftwareFailure() {
         return status.getSoftwareFailure();
-    }
-
-    @Override
-    public Boolean moveControlRods(Percentage extracted) {
-        if (status.getSoftwareFailure() == SoftwareFailure.rodStateChange) {
-            //randomSoftwareFailure();
-            return false;
-        }
-        controller.moveControlRods(extracted);
-        return true;
-    }
-
-    @Override
-    public Boolean changeValveState(int valveNumber, boolean isOpen) throws KeyNotFoundException {
-        if (status.getSoftwareFailure() == SoftwareFailure.valveStateChange) {
-            //randomSoftwareFailure();
-            return false;
-        }
-        controller.changeValveState(valveNumber, isOpen);
-        return true;
-    }
-
-    @Override
-    public Boolean changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException,
-                                                                             KeyNotFoundException {
-        if (status.getSoftwareFailure() == SoftwareFailure.pumpStateChange) {
-            randomSoftwareFailure();
-            return false;
-        }
-        controller.changePumpState(pumpNumber, isPumping);
-        return true;
     }
 
     @Override
@@ -206,20 +170,7 @@ public class FailureModel implements PlantController, PlantStatus {
         return status.energyGenerated();
     }
 
-    @Override
-    public void setReactorToTurbine(boolean open) {
-        controller.setReactorToTurbine(open);
-    }
 
-    @Override
-    public boolean getReactorToTurbine() {
-        return status.getReactorToTurbine();
-    }
-
-    @Override
-    public boolean getTurbineToCondenser() {
-        return status.getTurbineToCondenser();
-    }
 
     @Override
     public Temperature condenserTemperature() {
@@ -293,15 +244,6 @@ public class FailureModel implements PlantController, PlantStatus {
         return status.components();
     }
 
-    @Override
-    public HashMap<String, FailableComponent> componentList() {
-        return status.componentList();
-    }
-
-    @Override
-    public HashMap<String, Connection> connectionList() {
-        return status.connectionList();
-    }
 
     @Override
     public void failTurbine() {
@@ -311,6 +253,48 @@ public class FailureModel implements PlantController, PlantStatus {
     @Override
     public void failPump(int pump) {
         controller.failPump(pump);
+    }
+
+    public void changePumpState(int pumpNumber, boolean isPumping) {
+        controller.changePumpState(pumpNumber, isPumping);
+    }
+
+    @Override
+    public void moveControlRods(Percentage extracted) {
+        //TODO XXX software failure
+        controller.moveControlRods(extracted);
+    }
+
+    @Override
+    public void changeValveState(int valveNumber, boolean isOpen) {
+        //TODO XXX software failure
+        controller.changeValveState(valveNumber, isOpen);
+    }
+
+   
+    @Override
+    public boolean allowsRandomFailures() {
+        return this.randomFailures;
+    }
+
+    @Override
+    public void allowRandomFailures(boolean yes) {
+        this.randomFailures = yes;
+    }
+
+    @Override
+    public boolean pumpStatus(int pumpNumber) {
+        return status.pumpStatus(pumpNumber);
+    }
+
+    @Override
+    public boolean pumpFailed(int pumpNumber) {
+        return status.pumpFailed(pumpNumber);
+    }
+
+    @Override
+    public boolean valveState(int valveNumber) {
+        return status.valveState(valveNumber);
     }
 
     private void checkReactorWaterLevel() {
@@ -338,8 +322,6 @@ public class FailureModel implements PlantController, PlantStatus {
 
     private void randomSoftwareFailure() {
         RandomAction actionToFailWith = RandomAction.pickRandom();
-
-        try {
             switch (actionToFailWith) {
                 case pumpOff:
                     controller.changePumpState(0, false);
@@ -354,20 +336,7 @@ public class FailureModel implements PlantController, PlantStatus {
                 default:
                     break;
             }
-        } catch (CannotControlException e) {
-            throw new RuntimeException("This should never happen as values are known.");
-        } catch (KeyNotFoundException e) {
-            throw new RuntimeException("This should never happen as values are known.");
-        }
+        
     }
 
-    @Override
-    public boolean allowsRandomFailures() {
-        return this.randomFailures;
-    }
-
-    @Override
-    public void allowRandomFailures(boolean yes) {
-        this.randomFailures = yes;
-    }
 }

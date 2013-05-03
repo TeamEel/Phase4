@@ -45,10 +45,6 @@ public class PhysicalModel implements PlantController, PlantStatus {
     @JsonProperty
     private String username;
     @JsonProperty
-    private HashMap<Integer, Pump> allPumps;
-    @JsonProperty
-    private HashMap<Integer, Connection> allConnections;
-    @JsonProperty
     private HeatSink heatSink;
     @JsonProperty
     private SoftwareFailure currentSoftwareFailure;
@@ -62,9 +58,7 @@ public class PhysicalModel implements PlantController, PlantStatus {
 
         quencher = new Quencher();
 
-        allPumps = new HashMap<Integer, Pump>();
-        allConnections = new HashMap<Integer, Connection>();
-
+  
         reactorToTurbine = new Connection(reactor.outputPort(), turbine.inputPort(), 0.05);
         turbineToCondenser = new Connection(turbine.outputPort(), condenser.inputPort(), 0.05);
 
@@ -73,56 +67,10 @@ public class PhysicalModel implements PlantController, PlantStatus {
         heatsinkToCondenser = new Pump(heatSink.outputPort(), condenser.coolantInputPort());
 
 
-        allConnections.put(1, reactorToTurbine);
-        allConnections.put(2, turbineToCondenser);
-
-        allPumps.put(1, condenserToReactor);
-        allPumps.put(2, heatsinkToCondenser);
-
         currentSoftwareFailure = SoftwareFailure.None;
     }
 
-    @Override
-    public String[] listFailedComponents() {
-        ArrayList<String> out = new ArrayList<String>();
-
-        /*
-         * Iterate through all pumps to get their IDs
-         */
-        Iterator pumpIterator = allPumps.entrySet().iterator();
-        while (pumpIterator.hasNext()) {
-            Map.Entry pump = (Map.Entry)pumpIterator.next();
-
-            if (((Pump)pump.getValue()).hasFailed()) {
-                out.add("Pump " + pump.getKey());
-            }
-        }
-
-        /*
-         * Check if reactor failed
-         */
-        if (reactor.hasFailed()) {
-            out.add("Reactor");
-        }
-
-        /*
-         * Check if turbine failed
-         */
-        if (turbine.hasFailed()) {
-            out.add("Turbine");
-        }
-
-        /*
-         * Check if condenser failed
-         */
-        if (condenser.hasFailed()) {
-            out.add("Condenser");
-        }
-
-        return out.toArray(new String[out.size()]);
-
-    }
-
+    
     /**
      *
      * @param steps
@@ -147,9 +95,9 @@ public class PhysicalModel implements PlantController, PlantStatus {
      * @param percent
      */
     @Override
-    public Boolean moveControlRods(Percentage percent) {
+    public void moveControlRods(Percentage percent) {
         reactor.moveControlRods(percent);
-        return true;
+        
     }
 
     /**
@@ -225,28 +173,8 @@ public class PhysicalModel implements PlantController, PlantStatus {
         return reactor.waterLevel();
     }
 
-    /**
-     *
-     * @param open
-     */
-    @Override
-    public void setReactorToTurbine(boolean open) {
-        reactorToTurbine.setOpen(open);
-    }
 
-    /**
-     *
-     * @return
-     */
-    @Override
-    public boolean getReactorToTurbine() {
-        return reactorToTurbine.getOpen();
-    }
-
-    public boolean getTurbineToCondenser() {
-        return turbineToCondenser.getOpen();
-    }
-
+    
     @Override
     public ArrayList<FailableComponent> components() {
         ArrayList<FailableComponent> c = new ArrayList<FailableComponent>();
@@ -257,49 +185,49 @@ public class PhysicalModel implements PlantController, PlantStatus {
         c.add(4, heatsinkToCondenser);
         return c;
     }
-
+    
     @Override
-    public HashMap<String, FailableComponent> componentList() {
-        HashMap<String, FailableComponent> c = new HashMap<String, FailableComponent>();
-        c.put("reactor", reactor);
-        c.put("condenser", condenser);
-        c.put("turbine", turbine);
-        c.put("pump1", condenserToReactor);
-        c.put("coolingPump", heatsinkToCondenser);
-        return c;
+    public void changeValveState(int valveNumber, boolean isOpen) {
+        if (valveNumber == 1) {
+            reactorToTurbine.setOpen(isOpen);
+            return;
+        }
+        
+        if (valveNumber == 2) {
+            turbineToCondenser.setOpen(isOpen);
+            return;
+        }
+        
+        throw new IllegalArgumentException("Valve number out of range");
     }
 
     @Override
-    public HashMap<String, Connection> connectionList() {
-        HashMap<String, Connection> c = new HashMap<String, Connection>();
-        c.put("reactorToTurbine", reactorToTurbine);
-        c.put("turbineToCondenser", turbineToCondenser);
-        return c;
+    public boolean valveState(int valveNumber) {
+        if (valveNumber == 1) {
+            return reactorToTurbine.getOpen();
+        }
+        
+        if (valveNumber == 2) {
+            return turbineToCondenser.getOpen();
+        }
+        
+        throw new IllegalArgumentException("Valve number out of range");
     }
 
     @Override
-    public Boolean changeValveState(int valveNumber, boolean isOpen) throws KeyNotFoundException {
-        if (allConnections.containsKey(valveNumber)) {
-            allConnections.get(valveNumber).setOpen(isOpen);
-        } else {
-            throw new KeyNotFoundException("Valve " + valveNumber + " does not exist");
+    public void changePumpState(int pumpNumber, boolean isPumping) {
+        
+        if (pumpNumber == 1) {
+            condenserToReactor.setStatus(isPumping);
+            return;
         }
-        return true;
-    }
-
-    @Override
-    public Boolean changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException,
-                                                                             KeyNotFoundException {
-        if (!allPumps.containsKey(pumpNumber)) {
-            throw new KeyNotFoundException("Pump " + pumpNumber + " does not exist");
+        
+        if (pumpNumber == 2) {
+            heatsinkToCondenser.setStatus(isPumping);
+            return;
         }
-
-        if (allPumps.get(pumpNumber).hasFailed()) {
-            throw new CannotControlException("Pump " + pumpNumber + " is failed");
-        }
-
-        allPumps.get(pumpNumber).setStatus(isPumping);
-        return true;
+        
+        throw new IllegalArgumentException("Pump number out of range");
     }
 
     @Override
@@ -308,19 +236,18 @@ public class PhysicalModel implements PlantController, PlantStatus {
     }
 
     @Override
-    public void repairPump(int pumpNumber) throws KeyNotFoundException, CannotRepairException {
-        if (allPumps.containsKey(pumpNumber)) {
-            allPumps.get(pumpNumber).repair();
-
-
-            //These shouldn't need to be changed
-            //allPumps.get(pumpNumber).setStatus(true);
-            //allPumps.get(pumpNumber).setCapacity(kilograms(3));
-            //allPumps.get(pumpNumber).stepWear(new Percentage(0));
-
-        } else {
-            throw new KeyNotFoundException("Pump " + pumpNumber + " does not exist");
+    public void repairPump(int pumpNumber) {
+        if (pumpNumber == 1) {
+            condenserToReactor.fail();
+            return;
         }
+        
+        if (pumpNumber == 2) {
+            heatsinkToCondenser.fail();
+            return;
+        }
+        
+        throw new IllegalArgumentException("Pump number out of range");
     }
 
     @Override
@@ -358,10 +285,6 @@ public class PhysicalModel implements PlantController, PlantStatus {
         return turbine.hasFailed();
     }
 
-    public boolean getPumpStatus(int pumpNumber) {
-        return allPumps.get(pumpNumber).getStatus();
-    }
-
     @Override
     public SoftwareFailure getSoftwareFailure() {
         return currentSoftwareFailure;
@@ -381,20 +304,49 @@ public class PhysicalModel implements PlantController, PlantStatus {
     public void failPump(int pump) {
         if (pump == 1) {
             condenserToReactor.fail();
+            return;
         }
+        
         if (pump == 2) {
             heatsinkToCondenser.fail();
+            return;
         }
+        
+        throw new IllegalArgumentException("Pump number out of range");
 
     }
 
     @Override
     public void allowRandomFailures(boolean yes) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported by this object.");
     }
 
     @Override
     public boolean allowsRandomFailures() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported by this object.");
+    }
+
+    @Override
+    public boolean pumpStatus(int pumpNumber) {
+        if (pumpNumber == 1) {
+            return condenserToReactor.getStatus();
+        }
+        if (pumpNumber == 2) {
+            return heatsinkToCondenser.getStatus();
+        }
+        
+        throw new IllegalArgumentException("Pump number out of range");
+    }
+
+    @Override
+    public boolean pumpFailed(int pumpNumber) {
+        if (pumpNumber == 1) {
+            return condenserToReactor.hasFailed();
+        }
+        if (pumpNumber == 2) {
+            return heatsinkToCondenser.hasFailed();
+        }
+        
+        throw new IllegalArgumentException("Pump number out of range");
     }
 }

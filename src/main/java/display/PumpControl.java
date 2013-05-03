@@ -28,7 +28,7 @@ public class PumpControl implements Control, ActionListener {
     private PlantStatus status;
     private PlantController control;
    
-    private AnimatedControl buttonControl;
+    private AnimationControl pumpAnimation;
     private ImageControl failedPump;
 
     public PumpControl(PlantStatus status, PlantController control, int pumpNumber,
@@ -38,15 +38,16 @@ public class PumpControl implements Control, ActionListener {
         this.status = status;
         this.control = control; 
         
-        this.buttonControl = new AnimationControl(DrawableFactory.create(Asset.PlantPump),x,y);
+        this.pumpAnimation = new AnimationControl(DrawableFactory.create(Asset.PlantPump),x,y);
         
         this.failedPump = new ImageControl(DrawableFactory.create(Asset.PlantFailedPump),x,y);
         
         this.x = x;
         this.y = y;
    
-       
-        this.buttonControl.addActionListener(this);
+        this.pumpNumber= pumpNumber;
+        
+        this.pumpAnimation.addActionListener(this);
         this.failedPump.addActionListener(this);
    
     }
@@ -56,8 +57,8 @@ public class PumpControl implements Control, ActionListener {
     @Override
     public void paint(Graphics g) {
         
-        if(!status.componentList().get("pump1").hasFailed()){
-        buttonControl.paint(g);
+        if(!status.pumpFailed(pumpNumber)){
+            pumpAnimation.paint(g);
         }
         else
         {
@@ -67,22 +68,22 @@ public class PumpControl implements Control, ActionListener {
 
     @Override
     public void onMouseExited() {
-        buttonControl.onMouseExited();
+        pumpAnimation.onMouseExited();
     }
 
     @Override
     public void onMouseMoved(Point point) {
-        buttonControl.onMouseMoved(point);
+        pumpAnimation.onMouseMoved(point);
     }
 
     @Override
     public boolean onMousePressed(Point point) {
-        return buttonControl.onMousePressed(point);
+        return pumpAnimation.onMousePressed(point);
     }
 
     @Override
     public boolean onMouseReleased(Point point) {
-        return buttonControl.onMouseReleased(point);
+        return pumpAnimation.onMouseReleased(point);
     }
 
     @Override
@@ -102,11 +103,11 @@ public class PumpControl implements Control, ActionListener {
 
     @Override
     public void advance(int ms) {
-        if(!status.componentList().get("pump1").hasFailed())
+        if(!status.pumpFailed(pumpNumber))
         {
-            if(((Pump)status.componentList().get("pump1")).getStatus())
+            if(status.pumpStatus(pumpNumber))
             {
-                buttonControl.advance(ms);
+                pumpAnimation.advance(ms);
             }
         }
         else
@@ -121,7 +122,7 @@ public class PumpControl implements Control, ActionListener {
         
         try
         {
-            control.changePumpState(1, !((Pump)status.componentList().get("pump1")).getStatus());
+            control.changePumpState(pumpNumber, !status.pumpStatus(pumpNumber));
         }
         catch(Exception e){}
     }

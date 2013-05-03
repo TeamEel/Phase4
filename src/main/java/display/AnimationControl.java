@@ -16,13 +16,10 @@ import java.util.ArrayList;
  *
  * @author James
  */
-public class AnimationControl implements AnimatedControl {
+public class AnimationControl implements Control {
 
     private Drawable image;
-    private enum AnimationState { 
-        Running, NotRunning
-    }
-    private AnimationState state;
+   
     private final ArrayList<ActionListener> actionListeners;
     private HitBox hitBox;
     
@@ -33,7 +30,7 @@ public class AnimationControl implements AnimatedControl {
         this.x = x;
         this.y = y;
         
-        this.state = AnimationControl.AnimationState.Running;
+        
         this.actionListeners = new ArrayList<ActionListener>();
         this.hitBox = this.image.hitBox(x, y);
     }
@@ -64,32 +61,21 @@ public class AnimationControl implements AnimatedControl {
 
     @Override
     public void advance(int ms) {
-        if(this.state == AnimationControl.AnimationState.Running)
-        {
+        
             image.advance(ms);
-        }
-    }
-    
-    @Override
-    public void reverse(int ms) {
-        if(this.state == AnimationControl.AnimationState.Running)
-        {
-            image.advance(-ms);
-        }
-    }
-    
-    @Override 
-    public void start() {
-        this.state = AnimationControl.AnimationState.Running;
-    }
-    
-    @Override
-    public void stop() {
-        this.state = AnimationControl.AnimationState.NotRunning;
         
     }
     
-    @Override
+
+    public void reverse(int ms) {
+        
+            image.advance(-ms);
+        
+    }
+    
+  
+    
+
     public void addActionListener(ActionListener al) {
         actionListeners.add(al);
     }

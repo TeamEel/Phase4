@@ -15,15 +15,11 @@ public interface PlantController {
      *
      * @param extracted
      */
-    public Boolean moveControlRods(Percentage extracted);
+    public void moveControlRods(Percentage extracted);
 
-    /**
-     *
-     */
-    public Boolean changeValveState(int valveNumber, boolean isOpen) throws KeyNotFoundException;
+    public void changeValveState(int valveNumber, boolean isOpen);
 
-    public Boolean changePumpState(int pumpNumber, boolean isPumping) throws CannotControlException,
-                                                                             KeyNotFoundException;
+    public void changePumpState(int pumpNumber, boolean isPumping);
 
     public void quenchReactor();
 
@@ -45,9 +41,9 @@ public interface PlantController {
 
     public void failPump(int pump);
 
-    public void setReactorToTurbine(boolean open);
-
     public void step(int steps) throws GameOverException;
 
     public void allowRandomFailures(boolean yes);
+    
+  
 }
