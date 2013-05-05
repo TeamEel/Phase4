@@ -54,6 +54,14 @@ public class DrawableFactory {
                 return new DrawableImage("/plant/valve/s10.png");
             case PlantValveAnimation:
                 return new Animation(Range.Formatted("/plant/valve/s%02d.png", 1,10), false,20);
+            case PlantUpArrow:
+                return new DrawableImage("/plant/uparrow.png");
+            case PlantUpArrowOver:
+                return new DrawableImage("/plant/uparrow_sel.png");
+            case PlantDownArrow:
+                return new DrawableImage("/plant/downarrow.png");
+            case PlantDownArrowOver:
+                return new DrawableImage("/plant/downarrow_sel.png");
             default:
                 throw new Error("Invalid asset requested");
         }

@@ -26,6 +26,9 @@ public enum Asset {
     PlantFailedPump,
     PlantValveOpen,
     PlantValveClosed,
-    PlantValveAnimation
-    
+    PlantValveAnimation,
+    PlantUpArrow,
+    PlantUpArrowOver,
+    PlantDownArrow,
+    PlantDownArrowOver,
 }

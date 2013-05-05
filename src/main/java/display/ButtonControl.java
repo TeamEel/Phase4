@@ -29,6 +29,7 @@ public class ButtonControl implements Control {
     private HitBox hitBox;
     private ArrayList<ActionListener> actionListeners;
 
+    
     public ButtonControl(Drawable defaultImage,
                          Drawable mouseOverImage,
                          Drawable pressedImage,
@@ -52,6 +53,8 @@ public class ButtonControl implements Control {
              DrawableFactory.create(pressedAsset),
              x, y);
     }
+    
+    
     
     public void addActionListener(ActionListener al) {
         actionListeners.add(al);
