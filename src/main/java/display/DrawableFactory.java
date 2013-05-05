@@ -62,6 +62,8 @@ public class DrawableFactory {
                 return new DrawableImage("/plant/downarrow.png");
             case PlantDownArrowOver:
                 return new DrawableImage("/plant/downarrow_sel.png");
+            case PlantDanger:
+                return new DrawableImage("/plant/danger.png");
             default:
                 throw new Error("Invalid asset requested");
         }

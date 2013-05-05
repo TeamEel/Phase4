@@ -17,13 +17,15 @@ public class ControlRodPositionControl extends CompositeControl implements Actio
    
     private PlantController controller;
     private PlantStatus status;
+    private int x,y;
     
-    public ControlRodPositionControl(PlantController controller,PlantStatus status) {
+    public ControlRodPositionControl(PlantController controller,PlantStatus status, int x, int y) {
         this.controller = controller;
         this.status = status;
-        
-        addWithActionListner(new NamedButtonControl("up",Asset.PlantUpArrow,Asset.PlantUpArrowOver, Asset.PlantUpArrow,150,450),5);
-        addWithActionListner(new NamedButtonControl("down",Asset.PlantDownArrow,Asset.PlantDownArrowOver, Asset.PlantDownArrow,150,550),5);
+        this.x=x;
+        this.y=y;
+        addWithActionListner(new NamedButtonControl("up",Asset.PlantUpArrow,Asset.PlantUpArrowOver, Asset.PlantUpArrow,x,y),5);
+        addWithActionListner(new NamedButtonControl("down",Asset.PlantDownArrow,Asset.PlantDownArrowOver, Asset.PlantDownArrow,x,y+100),5);
     }
 
     @Override

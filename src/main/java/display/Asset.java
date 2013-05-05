@@ -31,4 +31,5 @@ public enum Asset {
     PlantUpArrowOver,
     PlantDownArrow,
     PlantDownArrowOver,
+    PlantDanger
 }
