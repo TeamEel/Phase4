@@ -1,5 +1,6 @@
-package display;
+package display.controls;
 
+import display.Control;
 import display.drawable.DrawableText;
 import java.awt.Color;
 import java.awt.Font;

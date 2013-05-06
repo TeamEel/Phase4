@@ -4,9 +4,9 @@
  */
 package display.screens;
 
-import display.ButtonControl;
+import display.controls.ButtonControl;
 import display.ScreenManager;
-import display.TextFieldControl;
+import display.controls.TextFieldControl;
 import display.drawable.DrawableText;
 import java.awt.Color;
 import java.awt.Font;

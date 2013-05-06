@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package display;
+package display.controls;
 
+import display.Asset;
 import eel.seprphase4.Simulator.PlantController;
 import eel.seprphase4.Simulator.PlantStatus;
 import java.awt.event.ActionEvent;

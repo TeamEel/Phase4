@@ -33,7 +33,7 @@ public class PlantScreenTest extends JFrame {
         sm = ScreenManager.getInstance();
         add(sm);
         
-        sm.setScreen(new PlantScreen("rob"));
+        sm.setScreen(new MultiplayerPlantScreen("rob"));
         sm.start();
     }
 

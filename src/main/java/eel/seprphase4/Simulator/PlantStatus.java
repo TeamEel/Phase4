@@ -6,12 +6,13 @@ import eel.seprphase4.Utilities.Pressure;
 import eel.seprphase4.Utilities.Temperature;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observable;
 
 /**
  *
  * @author David
  */
-public interface PlantStatus {
+public interface PlantStatus extends Observable {
 
     /**
      *

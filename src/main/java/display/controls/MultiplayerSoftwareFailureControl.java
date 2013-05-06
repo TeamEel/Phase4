@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package display;
+package display.controls;
 
+import display.Control;
 import eel.seprphase4.Simulator.PlantController;
 import eel.seprphase4.Simulator.PlantStatus;
 import java.awt.Graphics;
@@ -92,9 +93,7 @@ public class MultiplayerSoftwareFailureControl implements Control {
             case 's':
                 tryFailSoftware();
                 return true;
-            case ' ':
-                controller.allowRandomFailures(!status.allowsRandomFailures());
-                return true;
+            
         }
         return false;
      

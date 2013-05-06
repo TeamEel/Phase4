@@ -5,8 +5,8 @@
 package display.screens;
 
 import display.Asset;
-import display.ButtonControl;
-import display.ImageControl;
+import display.controls.ButtonControl;
+import display.controls.ImageControl;
 import display.Screen;
 import display.ScreenManager;
 import java.awt.event.ActionEvent;

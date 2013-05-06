@@ -1,5 +1,6 @@
-package display;
+package display.controls;
 
+import display.Control;
 import display.zlist.ZList;
 import java.awt.Graphics;
 import java.awt.Point;

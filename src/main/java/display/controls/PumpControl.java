@@ -1,5 +1,8 @@
-package display;
+package display.controls;
 
+import display.Asset;
+import display.Control;
+import display.DrawableFactory;
 import display.drawable.Drawable;
 import eel.seprphase4.Simulator.PlantController;
 import eel.seprphase4.Simulator.PlantStatus;

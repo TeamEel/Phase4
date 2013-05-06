@@ -1,5 +1,9 @@
-package display;
+package display.controls;
 
+import display.Asset;
+import display.Control;
+import display.DrawableFactory;
+import display.HitBox;
 import display.drawable.Drawable;
 import java.awt.Graphics;
 import java.awt.Point;

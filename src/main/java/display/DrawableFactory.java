@@ -14,7 +14,7 @@ import display.drawable.DrawableImage;
  */
 public class DrawableFactory {
 
-    static Drawable create(Asset id) {
+    public static Drawable create(Asset id) {
         switch (id) {
             case MenuBackground:
                 return new DrawableImage("/menu/background.png");

@@ -5,7 +5,7 @@
 package display.screens;
 
 import display.Asset;
-import display.ImageControl;
+import display.controls.ImageControl;
 import display.Screen;
 
 /**
