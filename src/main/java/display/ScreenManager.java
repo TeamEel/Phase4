@@ -91,7 +91,7 @@ public class ScreenManager extends JPanel implements MouseInputListener, KeyList
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        //currentScreen.onMouseMoved(e.getPoint());
+        currentScreen.onMouseMoved(e.getPoint());
     }
 
     @Override

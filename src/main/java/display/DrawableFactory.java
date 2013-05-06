@@ -25,21 +25,19 @@ public class DrawableFactory {
             case SingleplayerOver:
                 return new DrawableImage("/menu/button_singleplayer_sel.png");
             case SingleplayerPressed:
-                return new DrawableImage("/menu/button_singleplayer.png");
+                return new DrawableImage("/menu/button_singleplayer_press.png");
             case MultiplayerDefault:
                 return new DrawableImage("/menu/button_multiplayer.png");
             case MultiplayerOver:
                 return new DrawableImage("/menu/button_multiplayer_sel.png");
             case MultiplayerPressed:
-                //TODO: properly
                 return new DrawableImage("/menu/button_multiplayer_press.png");
             case LoadgameDefault:
                 return new DrawableImage("/menu/button_load.png");
             case LoadgameOver:
                 return new DrawableImage("/menu/button_load_sel.png");
             case LoadgamePressed:
-                //TODO: properly
-                return new DrawableImage("/menu/button_load.png");
+                return new DrawableImage("/menu/button_load_press.png");
             case PlantBackground:
                 return new DrawableImage("/plant/background.png");
             case PlantDefaultWater:
@@ -68,7 +66,28 @@ public class DrawableFactory {
                 return new Animation(Range.Formatted("/plant/reactor/s%02d.png", 0,10), false,1);
             case PlantCondenserWaterLevelAnimation:
                 return new Animation(Range.Formatted("/plant/reactor/s%02d.png", 0,10), false,1);
-                    
+            case TextFieldBackground:
+                return new DrawableImage("/menu/textfield.png");
+            case TextFieldSelectedBackground:
+                return new DrawableImage("/menu/textfield_selected.png");
+            case EnterName:
+                return new DrawableImage("/menu/enter_name.png");
+            case EnterPlayer1Name:
+                return new DrawableImage("/menu/enter_player_1_name.png");
+            case EnterPlayer2Name:
+                return new DrawableImage("/menu/enter_player_2_name.png");
+            case BackDefault:
+                return new DrawableImage("/menu/back.png");
+            case BackOver:
+                return new DrawableImage("/menu/back_sel.png");
+            case BackPressed:
+                return new DrawableImage("/menu/back_press.png");
+            case StartDefault:
+                return new DrawableImage("/menu/start.png");
+            case StartOver:
+                return new DrawableImage("/menu/start_sel.png");
+            case StartPressed:
+                return new DrawableImage("/menu/start_press.png");
             default:
                 throw new Error("Invalid asset requested");
         }
