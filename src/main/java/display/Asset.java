@@ -39,5 +39,17 @@ public enum Asset {
     PlantFailedTurbine,
     PlantTurbine,
     PlantControlRods,
-    MenuScientists
+    MenuScientists,
+    TextFieldBackground,
+    TextFieldSelectedBackground,
+    EnterName,
+    EnterPlayer1Name,
+    EnterPlayer2Name,
+    BackDefault,
+    BackOver,
+    BackPressed,
+    StartDefault,
+    StartOver,
+    StartPressed,
+
 }

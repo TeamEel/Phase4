@@ -25,27 +25,29 @@ public class ButtonControl implements Control {
         MouseOver,
         Pressed
     }
+    private final Drawable defaultImage;
+    private final Drawable mouseOverImage;
+    private final Drawable pressedImage;
+    private final HitBox hitBox;
     private State state;
-    private Drawable defaultImage;
-    private Drawable mouseOverImage;
-    private Drawable pressedImage;
     private int x, y;
-    private HitBox hitBox;
     private ArrayList<ActionListener> actionListeners;
+    private boolean pressed;
 
-    
     public ButtonControl(Drawable defaultImage,
                          Drawable mouseOverImage,
                          Drawable pressedImage,
                          int x, int y) {
-        this.state = State.Default;
+
         this.defaultImage = defaultImage;
         this.mouseOverImage = mouseOverImage;
         this.pressedImage = pressedImage;
+        this.hitBox = this.defaultImage.hitBox(x, y);
+        this.state = State.Default;
         this.x = x;
         this.y = y;
-        this.hitBox = this.defaultImage.hitBox(x, y);
         this.actionListeners = new ArrayList<ActionListener>();
+        this.pressed = false;
     }
 
     public ButtonControl(Asset defaultAsset,
@@ -57,9 +59,7 @@ public class ButtonControl implements Control {
              DrawableFactory.create(pressedAsset),
              x, y);
     }
-    
-    
-    
+
     public void addActionListener(ActionListener al) {
         actionListeners.add(al);
     }
@@ -90,7 +90,7 @@ public class ButtonControl implements Control {
     @Override
     public void onMouseMoved(Point point) {
         if (hitBox.contains(point)) {
-            state = State.MouseOver;
+            state = pressed ? State.Pressed : State.MouseOver;
         } else {
             state = State.Default;
         }
@@ -98,6 +98,7 @@ public class ButtonControl implements Control {
 
     @Override
     public boolean onMousePressed(Point point) {
+        pressed = true;
         if (hitBox.contains(point)) {
             state = State.Pressed;
             return true;
@@ -108,6 +109,7 @@ public class ButtonControl implements Control {
 
     @Override
     public boolean onMouseReleased(Point point) {
+        pressed = false;
         if (hitBox.contains(point)) {
             ActionEvent ae = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "");
             for (ActionListener al : actionListeners) {

@@ -14,6 +14,9 @@ import display.Screen;
  */
 public abstract class MenuScreen extends Screen {
 
+    protected final static int LEFT_MARGIN = 700;
+    protected final static int TOP_MARGIN = 290;
+    
     public MenuScreen() {
         add(new ImageControl(Asset.MenuBackground, 0, 0), 0);
         add(new ImageControl(Asset.MenuLogo, 483, 92), 1);

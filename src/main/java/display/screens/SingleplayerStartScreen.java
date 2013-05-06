@@ -1,11 +1,15 @@
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 package display.screens;
 
+import display.Asset;
+import display.Control;
 import display.controls.ButtonControl;
 import display.ScreenManager;
+import display.controls.ImageControl;
 import display.controls.TextFieldControl;
 import display.drawable.DrawableText;
 import java.awt.Color;
@@ -19,28 +23,27 @@ import java.awt.event.ActionListener;
  */
 public class SingleplayerStartScreen extends MenuScreen implements ActionListener {
 
-    private TextFieldControl playerName;
-    private ButtonControl backButton;
-    private ButtonControl startButton;
+    private final TextFieldControl playerName;
+    private final ButtonControl backButton;
+    private final ButtonControl startButton;
 
     public SingleplayerStartScreen() {
-        playerName = new TextFieldControl("Player 1", new Font("Courier New", Font.BOLD, 50), Color.white, 800, 300);
-        final Font font = new Font("Arial", Font.BOLD, 24);
-        backButton = new ButtonControl(new DrawableText("BACK", font, Color.orange),
-                                       new DrawableText("BACK", font, Color.white),
-                                       new DrawableText("BACK", font, Color.red),
-                                       800, 600);
-        startButton = new ButtonControl(new DrawableText("START", font, Color.orange),
-                                        new DrawableText("START", font, Color.white),
-                                        new DrawableText("START", font, Color.red),
-                                        1100, 600);
-        
-        startButton.addActionListener(this);
-        backButton.addActionListener(this);
-        
+        Control enterName = new ImageControl(Asset.EnterName, LEFT_MARGIN, TOP_MARGIN);
+        playerName = new TextFieldControl("Player 1", LEFT_MARGIN, TOP_MARGIN + 50);
+        backButton = new ButtonControl(Asset.BackDefault,
+                                       Asset.BackOver,
+                                       Asset.BackPressed,
+                                       LEFT_MARGIN, TOP_MARGIN + 350);
+        startButton = new ButtonControl(Asset.StartDefault,
+                                        Asset.StartOver,
+                                        Asset.StartPressed,
+                                        LEFT_MARGIN + 400, TOP_MARGIN + 350);
+        add(enterName, 2);
         add(playerName, 2);
-        add(backButton, 3);
-        add(startButton, 3);
+        add(backButton, 2);
+        add(startButton, 2);
+        backButton.addActionListener(this);
+        startButton.addActionListener(this);
     }
 
     @Override
@@ -53,3 +56,5 @@ public class SingleplayerStartScreen extends MenuScreen implements ActionListene
         }
     }
 }
+
+
