@@ -41,13 +41,13 @@ public class PlantScreen extends Screen {
         
         
         add(new display.controls.FailedCondenserControl(s,s,955, 511),3);
-        
+        add(new display.controls.FailedTurbineControl(s,s,953, 30),3);
         
         add(new display.controls.ControlRodPositionControl(s, s,150,450),5);
         add(new display.controls.ReactorWaterLevelAlarmControl(s, s, 50, 50),5);
         
         
-        s.failCondenser();
+        s.failTurbine();
     }
     
     @Deprecated

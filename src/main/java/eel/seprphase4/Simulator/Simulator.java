@@ -191,7 +191,7 @@ public class Simulator extends Observable implements PlantController, PlantStatu
 
     @Override
     public boolean turbineHasFailed() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return failureModel.turbineHasFailed();
     }
 
     @Override
