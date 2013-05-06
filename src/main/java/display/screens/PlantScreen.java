@@ -24,14 +24,18 @@ public class PlantScreen extends Screen {
         
         
         add(new ImageControl(Asset.PlantDefaultWater, 0, 0), 0);
-        add(new ImageControl(Asset.PlantBackground, 0, 0), 1);
         
-        add(new display.controls.PumpControl(s,s,1,680,550),2);
-        add(new display.controls.PumpControl(s,s,2, 1168, 444),2);
+        add(new display.controls.ReactorWaterLevelControl(s, s, 278, 440),1);
+        add(new display.controls.CondenserWaterLevelControl(s, s, 956, 465),1);
+        
+        add(new ImageControl(Asset.PlantBackground, 0, 0), 2);
+        
+        add(new display.controls.PumpControl(s,s,1,680,550),3);
+        add(new display.controls.PumpControl(s,s,2, 1168, 444),3);
         
         
-        add(new display.controls.ValveControl(s,s,1,1010, 300),2);
-        add(new display.controls.ValveControl(s,s,2,598, 115),2);
+        add(new display.controls.ValveControl(s,s,1,1010, 300),3);
+        add(new display.controls.ValveControl(s,s,2,598, 115),3);
         
         
         

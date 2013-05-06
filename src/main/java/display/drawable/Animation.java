@@ -53,5 +53,14 @@ public class Animation implements Drawable {
         return HitBox.fromImage(frames[currentFrame], x, y);
     }
     
+    public void jumpToFrame(int frameNumber)
+    {
+        if (frameNumber > frames.length || frameNumber < 0) {
+            throw new IllegalArgumentException("Framenumber out of range");
+        }
+        
+        this.currentFrame = frameNumber;
+    }
+    
    
 }

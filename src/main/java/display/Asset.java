@@ -31,5 +31,7 @@ public enum Asset {
     PlantUpArrowOver,
     PlantDownArrow,
     PlantDownArrowOver,
-    PlantDanger
+    PlantDanger,
+    PlantReactorWaterLevelAnimation,
+    PlantCondenserWaterLevelAnimation,
 }

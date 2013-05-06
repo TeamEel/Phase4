@@ -12,7 +12,7 @@ import java.util.Observable;
  *
  * @author David
  */
-public interface PlantStatus extends Observable {
+public interface PlantStatus {
 
     /**
      *
