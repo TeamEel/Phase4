@@ -34,4 +34,5 @@ public enum Asset {
     PlantDanger,
     PlantReactorWaterLevelAnimation,
     PlantCondenserWaterLevelAnimation,
+    PlantQuencher
 }

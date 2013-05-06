@@ -27,6 +27,8 @@ public class PlantScreen extends Screen {
         
         add(new display.controls.ReactorWaterLevelControl(s, s, 278, 440),1);
         add(new display.controls.CondenserWaterLevelControl(s, s, 956, 465),1);
+        add(new display.controls.QuencherControl(s, s, 136, 207),1);
+        
         
         add(new ImageControl(Asset.PlantBackground, 0, 0), 2);
         
