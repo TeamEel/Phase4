@@ -46,6 +46,10 @@ public class PlantScreen extends Screen {
         add(new display.controls.ControlRodPositionControl(s, s,150,450),5);
         add(new display.controls.ReactorWaterLevelAlarmControl(s, s, 50, 50),5);
         
+        add(new display.controls.ReactorStatusControl(s, s, s, 443, 354),5);
+        add(new display.controls.CondenserStatusControl(s, s, s, 1083, 408),5);
+        
+        
         
         s.failTurbine();
     }
