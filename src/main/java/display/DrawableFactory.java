@@ -72,6 +72,8 @@ public class DrawableFactory {
                 return new DrawableImage("/plant/failedturbine.png");
             case PlantTurbine:
                 return new DrawableImage("/plant/turbine.png");
+            case PlantControlRods:
+                return new DrawableImage("/plant/controlrods.png");
             case PlantReactorWaterLevelAnimation:
                 return new Animation(Range.Formatted("/plant/reactor/s%02d.png", 0,10), false,1);
             case PlantCondenserWaterLevelAnimation:

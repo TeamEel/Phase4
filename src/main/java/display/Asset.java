@@ -37,5 +37,6 @@ public enum Asset {
     PlantQuencher,
     PlantFailedCondenser,
     PlantFailedTurbine,
-    PlantTurbine
+    PlantTurbine,
+    PlantControlRods
 }
