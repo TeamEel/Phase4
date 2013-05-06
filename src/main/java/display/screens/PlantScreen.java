@@ -36,7 +36,7 @@ public class PlantScreen extends Screen {
         add(new display.controls.PumpControl(s,s,2, 1168, 444),3);
         
         
-        add(new display.controls.ValveControl(s,s,1,1010, 300),3);
+        add(new display.controls.ValveControl(s,s,1,1010, 300).Rotate90(),3);
         add(new display.controls.ValveControl(s,s,2,598, 115),3);
         
         
