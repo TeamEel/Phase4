@@ -42,10 +42,8 @@ public abstract class FailableComponent {
         stepWear();
     }
 
-    public void repair() throws CannotRepairException {
-        if (!hasFailed) {
-            throw new CannotRepairException("This component cannot be repaired");
-        }
+    public void repair() {
+        
 
         hasFailed = false;
         wear = new Percentage(0);

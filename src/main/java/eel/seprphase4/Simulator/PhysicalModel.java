@@ -248,12 +248,12 @@ public class PhysicalModel implements PlantController, PlantStatus {
     }
 
     @Override
-    public void repairCondenser() throws CannotRepairException {
+    public void repairCondenser() {
         condenser.repair();
     }
 
     @Override
-    public void repairTurbine() throws CannotRepairException {
+    public void repairTurbine() {
         turbine.repair();
     }
 
@@ -272,6 +272,11 @@ public class PhysicalModel implements PlantController, PlantStatus {
         return condenser.getWaterLevel();
     }
 
+    @Override
+    public boolean condenserHasFailed() {
+        return condenser.hasFailed();
+    }
+    
     @Override
     public boolean turbineHasFailed() {
         return turbine.hasFailed();

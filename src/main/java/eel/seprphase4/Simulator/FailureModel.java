@@ -59,6 +59,11 @@ public class FailureModel implements PlantController, PlantStatus {
 
     }
 
+    @Override
+    public boolean condenserHasFailed() {
+        return status.condenserHasFailed();
+    }
+
     private boolean softwareFailure() {
         /*
          * A 1 in 8 chance of a software failure occuring
@@ -157,12 +162,12 @@ public class FailureModel implements PlantController, PlantStatus {
     }
 
     @Override
-    public void repairCondenser() throws CannotRepairException {
+    public void repairCondenser() {
         controller.repairCondenser();
     }
 
     @Override
-    public void repairTurbine() throws CannotRepairException {
+    public void repairTurbine() {
         controller.repairTurbine();
     }
     
