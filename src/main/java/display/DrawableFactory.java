@@ -72,6 +72,8 @@ public class DrawableFactory {
                 return new DrawableImage("/plant/failedturbine.png");
             case PlantTurbine:
                 return new DrawableImage("/plant/turbine.png");
+            case MenuScientists:
+                return new DrawableImage("/menu/scientists.png");
             case PlantControlRods:
                 return new DrawableImage("/plant/controlrods.png");
             case PlantReactorWaterLevelAnimation:

@@ -38,5 +38,6 @@ public enum Asset {
     PlantFailedCondenser,
     PlantFailedTurbine,
     PlantTurbine,
-    PlantControlRods
+    PlantControlRods,
+    MenuScientists
 }

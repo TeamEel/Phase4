@@ -49,7 +49,7 @@ public class SingleplayerStartScreen extends MenuScreen implements ActionListene
         if (source == backButton) {
             ScreenManager.getInstance().setScreen(new MainMenuScreen());
         } else if (source == startButton) {
-            ScreenManager.getInstance().setScreen(new PlantScreen(playerName.getText()));
+            ScreenManager.getInstance().setScreen(new SingleplayerCutScreen(playerName.getText()));
         }
     }
 }
