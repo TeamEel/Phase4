@@ -181,7 +181,7 @@ public class Condenser extends FailableComponent {
     }
 
     @Override
-    public void repair() throws CannotRepairException {
+    public void repair() {
         super.repair();
         initializeVariables();
     }

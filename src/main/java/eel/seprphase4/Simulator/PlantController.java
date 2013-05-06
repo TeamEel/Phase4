@@ -25,9 +25,9 @@ public interface PlantController {
 
     public void repairPump(int pumpNumber) throws KeyNotFoundException, CannotRepairException;
 
-    public void repairCondenser() throws CannotRepairException;
+    public void repairCondenser();
 
-    public void repairTurbine() throws CannotRepairException;
+    public void repairTurbine();
 
     public void failCondenser();
 

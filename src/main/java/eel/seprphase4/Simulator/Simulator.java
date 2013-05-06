@@ -32,6 +32,11 @@ public class Simulator extends Observable implements PlantController, PlantStatu
         
     }
 
+    @Override
+    public boolean condenserHasFailed() {
+        return failureModel.condenserHasFailed();
+    }
+
     private void updateAndNotify() {
         setChanged();
         notifyObservers();
@@ -115,13 +120,13 @@ public class Simulator extends Observable implements PlantController, PlantStatu
     }
 
     @Override
-    public void repairCondenser() throws CannotRepairException {
+    public void repairCondenser() {
         failureModel.repairCondenser();
         updateAndNotify();
     }
 
     @Override
-    public void repairTurbine() throws CannotRepairException {
+    public void repairTurbine() {
         failureModel.repairTurbine();
         updateAndNotify();
     }
@@ -186,7 +191,7 @@ public class Simulator extends Observable implements PlantController, PlantStatu
 
     @Override
     public boolean turbineHasFailed() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return failureModel.turbineHasFailed();
     }
 
     @Override

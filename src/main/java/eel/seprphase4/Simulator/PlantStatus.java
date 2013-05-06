@@ -64,4 +64,6 @@ public interface PlantStatus {
     public ArrayList<FailableComponent> components();
 
     public boolean allowsRandomFailures();
+    
+    public boolean condenserHasFailed();
 }

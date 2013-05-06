@@ -68,12 +68,14 @@ public class ImageControl implements Control {
     @Override
     public boolean onMouseReleased(Point point) {
         if (hitBox.contains(point)) {
-            ActionEvent ae = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "");
-            for (ActionListener al : actionListeners) {
-                al.actionPerformed(ae);
+            if(actionListeners.size()>0) {
+                ActionEvent ae = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "");
+                for (ActionListener al : actionListeners) {
+                    al.actionPerformed(ae);
+                }
+
+                return true;
             }
-            
-            return true;
         }
         return false;
     }
