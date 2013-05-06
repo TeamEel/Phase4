@@ -8,6 +8,7 @@ import display.Asset;
 import display.controls.ImageControl;
 import display.Screen;
 import display.ScreenManager;
+import display.controls.PlantControl;
 import eel.seprphase4.Simulator.Simulator;
 import java.awt.event.KeyEvent;
 
@@ -21,7 +22,7 @@ public class PlantScreen extends Screen {
         super();
         s = new Simulator(playerName);
         
-        
+        add(new PlantControl(s,s),0);
         
         add(new ImageControl(Asset.PlantDefaultWater, 0, 0), 0);
         
