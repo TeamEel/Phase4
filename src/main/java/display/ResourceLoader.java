@@ -33,18 +33,4 @@ public class ResourceLoader {
         }
         return images;
     }
-//    public static Animation animationResource(String resourcePath) {
-//        try {
-//            URL resourceURL = ResourceLoader.class.getResource(resourcePath);
-//            if (resourceURL == null) {
-//                throw new FileNotFoundException(resourcePath);
-//            }
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            AnimationSpec spec = objectMapper.readValue(resourceURL, AnimationSpec.class);
-//                                                                               
-//            return Animation.fromSpec(spec);
-//        } catch (IOException ex) {
-//            throw new Error(ex);
-//        }
-//    }
 }
