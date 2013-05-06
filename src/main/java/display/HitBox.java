@@ -17,6 +17,12 @@ public class HitBox {
         this.topLeft = topLeft;
         this.bottomRight = bottomRight;
     }
+    
+    public static HitBox fromDimensions (int x, int y, int w, int h) {
+        return new HitBox(new Point(x, y),
+                          new Point(x + w,
+                                    y + h));
+    }
 
     public boolean contains(Point p) {
         return p.x >= topLeft.x &&

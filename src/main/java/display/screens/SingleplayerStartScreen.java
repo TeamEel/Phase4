@@ -34,9 +34,13 @@ public class SingleplayerStartScreen extends MenuScreen implements ActionListene
                                         new DrawableText("START", font, Color.white),
                                         new DrawableText("START", font, Color.red),
                                         1100, 600);
+        
+        startButton.addActionListener(this);
+        backButton.addActionListener(this);
+        
         add(playerName, 2);
-        add(backButton, 2);
-        add(startButton, 2);
+        add(backButton, 3);
+        add(startButton, 3);
     }
 
     @Override

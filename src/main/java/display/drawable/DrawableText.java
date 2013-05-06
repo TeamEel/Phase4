@@ -4,6 +4,8 @@ import display.HitBox;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
 
 /**
  *
@@ -47,6 +49,11 @@ public class DrawableText implements Drawable {
 
     @Override
     public HitBox hitBox(int x, int y) {
-        return HitBox.nullHitBox();
+         
+        FontRenderContext frc = new FontRenderContext(new AffineTransform(),true,true);
+
+        return HitBox.fromDimensions(x,y-(int) font.getStringBounds(text,frc ).getHeight(),
+                (int) font.getStringBounds(text,frc ).getWidth(),
+                (int) font.getStringBounds(text,frc ).getHeight());
     }
 }
