@@ -2,6 +2,8 @@ package display;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -49,7 +51,7 @@ public class ScreenManager extends JPanel implements MouseInputListener, KeyList
     }
 
     public void setScreen(Screen screen) {
-        timer.stop();        
+        timer.stop();
         currentScreen = screen;
         timer.restart();
     }
@@ -60,6 +62,8 @@ public class ScreenManager extends JPanel implements MouseInputListener, KeyList
 
     @Override
     public void paintComponent(Graphics g) {
+        ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                                         RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
         currentScreen.paint(g);
     }
 
