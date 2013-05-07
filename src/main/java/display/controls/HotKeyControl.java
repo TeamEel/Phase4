@@ -12,12 +12,12 @@ import java.util.ArrayList;
  *
  * @author David
  */
-public class HotKeyControl implements Control {
+public class HotkeyControl implements Control {
 
     private final int keyCode;
     private ArrayList<ActionListener> actionListeners;
 
-    public HotKeyControl(int keyCode) {
+    public HotkeyControl(int keyCode) {
         this.keyCode = keyCode;
         this.actionListeners = new ArrayList<ActionListener>();
     }

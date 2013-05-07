@@ -1,3 +1,4 @@
+
 package display.saveload;
 
 import display.HitBox;
@@ -36,7 +37,7 @@ public abstract class LoadGameButtonDrawable implements Drawable {
                        width - 2*i, height - 2*i);
         }
         g.drawString(username, x + xOffset() + 6, y + yOffset() + 20);
-        g.drawString(timestamp, x + xOffset() + 6 + 240, y + yOffset() + 40);
+        g.drawString(timestamp, x + xOffset() + 6 + 300, y + yOffset() + 40);
         g.setColor(oldColor);
         g.setFont(oldFont);
     }
