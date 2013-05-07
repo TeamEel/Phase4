@@ -16,21 +16,18 @@ public class Pump extends FailableComponent {
     @JsonProperty
     private Port outputPort;
     @JsonProperty
-    private Mass capacity = kilograms(3);
+    private Mass capacity = kilograms(6);
     @JsonProperty
-    private boolean status = true;
+    private boolean on = true;
 
     private Pump() {
-        super();
         inputPort = null;
         outputPort = null;
     }
 
     public Pump(Port input, Port output) {
-
         inputPort = input;
         outputPort = output;
-
     }
 
     public void step() {
@@ -38,7 +35,7 @@ public class Pump extends FailableComponent {
             outputPort.mass = kilograms(0);
             return;
         }
-        if (status) {
+        if (on) {
             if (inputPort.mass.inKilograms() > capacity.inKilograms()) {
                 outputPort.mass = capacity;
                 inputPort.mass = inputPort.mass.minus(capacity);
@@ -46,9 +43,10 @@ public class Pump extends FailableComponent {
                 outputPort.mass = inputPort.mass;
                 inputPort.mass = kilograms(0);
             }
-
             outputPort.temperature = inputPort.temperature;
             stepWear();
+        } else {
+            outputPort.mass = kilograms(0);
         }
     }
 
@@ -57,16 +55,16 @@ public class Pump extends FailableComponent {
         return new Percentage(0.05);
     }
 
-    public void setStatus(boolean newStatus) {
-        status = newStatus;
+    public void setOnState(boolean isOn) {
+        this.on = isOn;
     }
 
     public void setCapacity(Mass newCapacity) {
         capacity = newCapacity;
     }
 
-    public boolean getStatus() {
-        return status;
+    public boolean isOn() {
+        return on;
     }
 
     public Port inputPort() {

@@ -33,7 +33,7 @@ public class PumpWidget extends ClickableWidget {
 
     @Override
     public void paint(Graphics g) {
-        if (simulator.pumpFailed(pumpNumber)) {
+        if (simulator.pumpHasFailed(pumpNumber)) {
             pumpFailed.draw(g, x, y);
         } else if (mouseIsOver()) {
             pumpOver.draw(g, x, y);
@@ -45,10 +45,10 @@ public class PumpWidget extends ClickableWidget {
     @Override
     public void onClicked() {
         try {
-            if (simulator.pumpFailed(pumpNumber)) {
+            if (simulator.pumpHasFailed(pumpNumber)) {
                 simulator.repairPump(pumpNumber);
             } else {
-                simulator.changePumpState(pumpNumber, !simulator.pumpStatus(pumpNumber));
+                simulator.changePumpState(pumpNumber, !simulator.pumpIsOn(pumpNumber));
             }
         } catch (CannotRepairException e) {
             // ignore
@@ -59,9 +59,9 @@ public class PumpWidget extends ClickableWidget {
 
     @Override
     public void advance(int ms) {
-        if (simulator.pumpFailed(pumpNumber)) {
+        if (simulator.pumpHasFailed(pumpNumber)) {
             pumpFailed.advance(ms);
-        } else if (simulator.pumpStatus(pumpNumber)) {
+        } else if (simulator.pumpIsOn(pumpNumber)) {
             pumpDefault.advance(ms);
             pumpOver.advance(ms);
         }

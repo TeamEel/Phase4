@@ -236,18 +236,18 @@ public class Simulator extends Observable implements PlantController, PlantStatu
         failureModel.failPump(pump);
     }
 @Override
-    public boolean pumpStatus(int pumpNumber) {
-        return failureModel.pumpStatus(pumpNumber);
+    public boolean pumpIsOn(int pumpNumber) {
+        return failureModel.pumpIsOn(pumpNumber);
     }
 
     @Override
-    public boolean pumpFailed(int pumpNumber) {
-        return failureModel.pumpFailed(pumpNumber);
+    public boolean pumpHasFailed(int pumpNumber) {
+        return failureModel.pumpHasFailed(pumpNumber);
     }
 
     @Override
-    public boolean valveState(int valveNumber) {
-        return failureModel.valveState(valveNumber);
+    public boolean valveIsOn(int valveNumber) {
+        return failureModel.valveIsOn(valveNumber);
     }
 
 }

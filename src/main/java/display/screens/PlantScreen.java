@@ -7,6 +7,8 @@ package display.screens;
 import display.Asset;
 import display.controls.ImageControl;
 import display.Screen;
+import display.ScreenManager;
+import display.controls.HotkeyControl;
 import display.controls.PlantControl;
 import display.widgets.ControlRodButtonsWidget;
 import display.widgets.componentwidgets.PumpWidget;
@@ -20,18 +22,25 @@ import display.widgets.displaywidgets.ReactorPressureGaugeWidget;
 import display.widgets.displaywidgets.ReactorThermometerWidget;
 import display.widgets.displaywidgets.ReactorWaterLevelWidget;
 import eel.seprphase4.Simulator.Simulator;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 /**
  *
  * @author James
  */
-public class PlantScreen extends Screen {
+public class PlantScreen extends Screen implements ActionListener {
 
     protected Simulator s;
 
+    private HotkeyControl escapeHotkey;
+    
     public PlantScreen(String playerName) {
         super();
         s = new Simulator(playerName);
+        escapeHotkey = new HotkeyControl(KeyEvent.VK_ESCAPE);
+        escapeHotkey.addActionListener(this);
 
         add(new PlantControl(s, s), 0);
 
@@ -63,10 +72,19 @@ public class PlantScreen extends Screen {
 
         add(new ControlRodButtonsWidget(s, 150, 450), 5);
         add(new display.controls.ReactorWaterLevelAlarmControl(s, s, 50, 50), 5);
+        add(escapeHotkey, 100);
     }
 
     @Deprecated
     public PlantScreen() {
         this("bill");
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object source = e.getSource();
+        if (source == escapeHotkey) {
+            ScreenManager.getInstance().setScreen(new PauseScreen(this));
+        }
     }
 }
