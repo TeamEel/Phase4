@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-package display.screens;
-
-import display.Screen;
-
-/**
- *
- * @author David
- */
-public class PauseScreen extends MenuScreen {
-
-    private final Screen previousScreen;
-
-    public PauseScreen(Screen previous) {
-        this.previousScreen = previous;
-    }
-}
-=======
 package display.screens;
 
 import display.Screen;
@@ -84,4 +66,3 @@ public class PauseScreen extends MenuScreen {
         ScreenManager.getInstance().setScreen(previousScreen);
     }
 }
->>>>>>> c12038a9f563830e26814a6525ff7a00f4eda481

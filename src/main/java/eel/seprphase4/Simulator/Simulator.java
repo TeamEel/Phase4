@@ -49,12 +49,7 @@ public class Simulator extends Observable implements PlantController, PlantStatu
         return userName;
     }
 
-<<<<<<< HEAD
-    public void saveGame() throws JsonProcessingException {
-=======
-    @Override
     public void saveGame() {
->>>>>>> c12038a9f563830e26814a6525ff7a00f4eda481
         SaveGame saveGame = new SaveGame(physicalModel, failureModel, userName);
         try {
             saveGame.save();
