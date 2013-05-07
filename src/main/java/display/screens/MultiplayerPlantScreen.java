@@ -19,11 +19,11 @@ import eel.seprphase4.MultiplayerSimulator;
  */
 public class MultiplayerPlantScreen extends PlantScreen {
 
-    private MultiplayerSimulator multiPlayerSimulator;
+    private MultiplayerSimulator multiplayerSimulator;
 
     public MultiplayerPlantScreen(MultiplayerSimulator simulator) {
         super(simulator);
-        this.multiPlayerSimulator = simulator;
+        this.multiplayerSimulator = simulator;
         add(new MultiplayerSoftwareFailureWidget(simulator), 0);
         add(new RandomFailureModeWidget(simulator, 95, 130), 5);
         add(new CondenserAttackProgressWidget(simulator, 950, 650), 20);
@@ -39,6 +39,11 @@ public class MultiplayerPlantScreen extends PlantScreen {
 
     @Override
     protected void gameOver() {
-        ScreenManager.getInstance().setScreen(new GameOverScreen(multiPlayerSimulator));
+        ScreenManager.getInstance().setScreen(new GameOverScreen(multiplayerSimulator));
+    }
+    
+    @Override
+    protected void pause() {
+        ScreenManager.getInstance().setScreen(new MultiplayerPauseScreen(this, multiplayerSimulator));
     }
 }

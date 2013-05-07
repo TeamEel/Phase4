@@ -37,7 +37,6 @@ public class PlantScreen extends Screen implements ActionListener {
     private HotkeyControl escapeHotkey;
     private PlantWidget plant;
 
-
     public PlantScreen(Simulator simulator) {
         this.simulator = simulator;
         escapeHotkey = new HotkeyControl(KeyEvent.VK_ESCAPE);
@@ -45,7 +44,7 @@ public class PlantScreen extends Screen implements ActionListener {
         plant = new PlantWidget(simulator);
         plant.addActionListener(this);
         add(plant, 0);
-        
+
         add(new ImageControl(Asset.PlantDefaultWater, 0, 0), 0);
 
         add(new ReactorWaterLevelWidget(simulator, 278, 440), 1);
@@ -55,7 +54,7 @@ public class PlantScreen extends Screen implements ActionListener {
         add(new ImageControl(Asset.PlantBackground, 0, 0), 2);
 
         add(new EnergyGeneratedWidget(simulator, 95, 85), 2);
-        
+
         add(new ReactorThermometerWidget(simulator, 550, 400), 10);
         add(new CondenserThermometerWidget(simulator, 850, 400), 10);
 
@@ -91,7 +90,7 @@ public class PlantScreen extends Screen implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source == escapeHotkey) {
-            ScreenManager.getInstance().setScreen(new PauseScreen(this, simulator));
+            pause();
         } else if (source == plant) {
             gameOver();
         }
@@ -99,5 +98,9 @@ public class PlantScreen extends Screen implements ActionListener {
 
     protected void gameOver() {
         ScreenManager.getInstance().setScreen(new GameOverScreen(simulator));
+    }
+
+    protected void pause() {
+        ScreenManager.getInstance().setScreen(new PauseScreen(this, simulator));
     }
 }
