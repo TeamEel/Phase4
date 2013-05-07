@@ -40,6 +40,8 @@ public class TurbineWidget extends ClickableWidget {
 
     @Override
     protected void onClicked() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (simulator.turbineHasFailed()) {
+            simulator.repairTurbine();
+        }
     }
 }
