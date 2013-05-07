@@ -9,6 +9,7 @@ import display.Screen;
 import display.ScreenManager;
 import display.controls.ButtonControl;
 import display.controls.ImageControl;
+import display.controls.PageControl;
 import display.drawable.DrawableText;
 import java.awt.Color;
 import java.awt.Font;
@@ -25,15 +26,26 @@ public class SingleplayerCutScreen extends MenuScreen implements ActionListener 
     public SingleplayerCutScreen(String player1Name) {
         
         final Font font = new Font("Arial", Font.BOLD, 24);
-        add(new ImageControl(new DrawableText("Hello " + player1Name,font,Color.orange), 800, 350),4);
+       
+        
         startButton = new ButtonControl(Asset.StartDefault,
                                         Asset.StartOver,
                                         Asset.StartPressed,
                                         1100, 600);
-        
+      
         startButton.addActionListener(this);
+         
+        PageControl page = new PageControl(new ButtonControl(Asset.NextDefault,
+                                        Asset.NextOver,
+                                        Asset.NextPressed,
+                                        1100, 600), startButton);
         
-        add(startButton,5);
+        page.add(new ImageControl(new DrawableText("Hello " + player1Name,font,Color.orange), 800, 350));
+        page.add(new ImageControl(new DrawableText("Page 2",font,Color.orange), 800, 350));
+        page.add(new ImageControl(new DrawableText("Page 3",font,Color.orange), 800, 350));
+        
+        
+        add(page,5);
         
         add(new ImageControl(Asset.MenuScientists, -100, 200),3);
         this.player1Name = player1Name;
