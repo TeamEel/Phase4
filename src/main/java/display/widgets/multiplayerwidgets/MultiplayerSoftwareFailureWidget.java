@@ -49,6 +49,16 @@ public class MultiplayerSoftwareFailureWidget extends MultiplayerWidget {
 
     @Override
     public boolean onKeyTyped(KeyEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onKeyPressed(KeyEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onKeyReleased(KeyEvent e) {
         switch (e.getKeyChar()) {
             case '1':
                 simulator.attackPump1();
@@ -63,16 +73,6 @@ public class MultiplayerSoftwareFailureWidget extends MultiplayerWidget {
                 simulator.attackTurbine();
                 return true;
         }
-        return false;
-    }
-
-    @Override
-    public boolean onKeyPressed(KeyEvent e) {
-        return false;
-    }
-
-    @Override
-    public boolean onKeyReleased(KeyEvent e) {
         return false;
     }
 }

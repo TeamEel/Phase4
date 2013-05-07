@@ -2,39 +2,37 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package display.controls;
+package display.widgets;
 
-import display.Control;
-import display.ScreenManager;
-import display.screens.MainMenuScreen;
 import eel.seprphase4.GameOverException;
-import eel.seprphase4.Simulator.PlantController;
-import eel.seprphase4.Simulator.PlantStatus;
+import eel.seprphase4.Simulator.Simulator;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 /**
  *
  * @author James
  */
-public class PlantControl implements Control {
+public class PlantWidget extends Widget {
 
-    private int x, y;
-    private int pumpNumber;
-    private PlantStatus status;
-    private PlantController control;
-    private int msPerStep = 50;
+    private static final int msPerStep = 50;
     private int spareMs = 0;
     private int currentStep;
+    private ArrayList<ActionListener> actionListeners;
 
-    public PlantControl(PlantStatus status, PlantController control) {
-
-        this.status = status;
-        this.control = control;
-
+    public PlantWidget(Simulator simulator) {
+        super(simulator, 0, 0);
+        actionListeners = new ArrayList<ActionListener>();
     }
 
+    public void addActionListener(ActionListener al) {
+        actionListeners.add(al);
+    }
+    
     @Override
     public void advance(int ms) {
         int oldStep = currentStep;
@@ -44,9 +42,13 @@ public class PlantControl implements Control {
 
         if (oldStep != currentStep) {
             try {
-                control.step(1);
+                simulator.step(1);
             } catch (GameOverException e) {
-                ScreenManager.getInstance().setScreen(new MainMenuScreen());
+                ActionEvent ae = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null);
+                for (ActionListener al : actionListeners) {
+                    al.actionPerformed(ae);
+                }
+                //ScreenManager.getInstance().setScreen(new MainMenuScreen());
             }
         }
     }

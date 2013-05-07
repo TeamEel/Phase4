@@ -22,8 +22,8 @@ public class RandomFailureModeWidget extends Widget {
 
     public RandomFailureModeWidget(Simulator simulator, int x, int y) {
         super(simulator, x, y);
-        this.text = new DrawableText("Random Failures: " + failureModeText(), new Font("Arial", Font.BOLD, 14),
-                                     Color.orange);
+        this.text = new DrawableText("Random Failures: " + failureModeText(), new Font("Courier New", Font.BOLD, 14),
+                                     Color.BLACK);
     }
 
     @Override
