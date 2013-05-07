@@ -9,7 +9,7 @@ import display.controls.ImageControl;
 import display.Screen;
 import display.ScreenManager;
 import display.controls.HotkeyControl;
-import display.controls.PlantControl;
+import display.widgets.PlantWidget;
 import display.widgets.ControlRodButtonsWidget;
 import display.widgets.componentwidgets.PumpWidget;
 import display.widgets.componentwidgets.QuencherWidget;
@@ -35,15 +35,17 @@ public class PlantScreen extends Screen implements ActionListener {
 
     protected Simulator simulator;
     private HotkeyControl escapeHotkey;
+    private PlantWidget plant;
 
 
     public PlantScreen(Simulator simulator) {
         this.simulator = simulator;
         escapeHotkey = new HotkeyControl(KeyEvent.VK_ESCAPE);
         escapeHotkey.addActionListener(this);
-        add(new PlantControl(simulator, simulator),0);
+        plant = new PlantWidget(simulator);
+        plant.addActionListener(this);
+        add(plant, 0);
         
-
         add(new ImageControl(Asset.PlantDefaultWater, 0, 0), 0);
 
         add(new ReactorWaterLevelWidget(simulator, 278, 440), 1);
@@ -90,7 +92,12 @@ public class PlantScreen extends Screen implements ActionListener {
         Object source = e.getSource();
         if (source == escapeHotkey) {
             ScreenManager.getInstance().setScreen(new PauseScreen(this, simulator));
+        } else if (source == plant) {
+            gameOver();
         }
-       
+    }
+
+    protected void gameOver() {
+        ScreenManager.getInstance().setScreen(new GameOverScreen(simulator));
     }
 }
