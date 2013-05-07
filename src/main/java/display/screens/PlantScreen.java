@@ -18,6 +18,7 @@ import display.widgets.componentwidgets.ValveWidget;
 import display.widgets.displaywidgets.CondenserPressureGaugeWidget;
 import display.widgets.displaywidgets.CondenserThermometerWidget;
 import display.widgets.displaywidgets.CondenserWaterLevelWidget;
+import display.widgets.displaywidgets.EnergyGeneratedWidget;
 import display.widgets.displaywidgets.ReactorPressureGaugeWidget;
 import display.widgets.displaywidgets.ReactorThermometerWidget;
 import display.widgets.displaywidgets.ReactorWaterLevelWidget;
@@ -50,6 +51,8 @@ public class PlantScreen extends Screen implements ActionListener {
 
         add(new ImageControl(Asset.PlantBackground, 0, 0), 2);
 
+        add(new EnergyGeneratedWidget(simulator, 95, 85), 2);
+        
         add(new ReactorThermometerWidget(simulator, 550, 400), 10);
         add(new CondenserThermometerWidget(simulator, 850, 400), 10);
 
