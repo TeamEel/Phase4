@@ -18,7 +18,7 @@ import java.util.Observable;
  *
  * @author David
  */
-public class Simulator extends Observable implements PlantController, PlantStatus, GameManager {
+public class Simulator extends Observable implements PlantController, PlantStatus {
 
     private PhysicalModel physicalModel;
     private FailureModel failureModel;
@@ -43,12 +43,10 @@ public class Simulator extends Observable implements PlantController, PlantStatu
     }
  
 
-    @Override
     public String getUsername() {
         return userName;
     }
 
-    @Override
     public void saveGame() throws JsonProcessingException {
         SaveGame saveGame = new SaveGame(physicalModel, failureModel, userName);
         try {
@@ -58,22 +56,7 @@ public class Simulator extends Observable implements PlantController, PlantStatu
         }
     }
 
-    @Override
-    public void loadGame(int gameNumber) {
-        try {
-            SaveGame saveGame = SaveGame.load(listGames()[gameNumber]);
-            this.physicalModel = saveGame.getPhysicalModel();
-            this.failureModel = saveGame.getFailureModel();
-            this.userName = saveGame.getUserName();
-        } catch (JsonParseException ex) {
-        } catch (IOException ex) {
-        }
-    }
 
-    @Override
-    public String[] listGames() {
-        return FileSystem.listSaveGames(userName);
-    }
 
 
     public boolean step() {
