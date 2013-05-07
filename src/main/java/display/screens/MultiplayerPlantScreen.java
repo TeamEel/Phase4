@@ -4,6 +4,8 @@
  */
 package display.screens;
 
+import display.widgets.MultiplayerSoftwareFailureWidget;
+import display.widgets.RandomFailureModeWidget;
 import eel.seprphase4.Simulator.Simulator;
 
 /**
@@ -14,14 +16,13 @@ public class MultiplayerPlantScreen extends PlantScreen {
 
     public MultiplayerPlantScreen(Simulator simulator) {
         super(simulator);
-
-        add(new display.controls.MultiplayerSoftwareFailureControl(simulator, simulator), 0);
-        add(new display.controls.RandomFailureModeControl(simulator, simulator, simulator, 30, 50), 5);
+        add(new MultiplayerSoftwareFailureWidget(simulator), 0);
+        add(new RandomFailureModeWidget(simulator, 30, 50), 5);
 
         simulator.allowRandomFailures(false);
     }
 
     public MultiplayerPlantScreen(String userName) {
-        super(new Simulator(userName));
+        this(new Simulator(userName));
     }
 }

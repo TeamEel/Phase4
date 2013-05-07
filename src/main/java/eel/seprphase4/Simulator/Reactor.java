@@ -41,6 +41,8 @@ public class Reactor extends FailableComponent {
     private double boilingPtAtPressure;
     @JsonProperty
     private double neededEnergy;
+    @JsonProperty
+    private boolean quencherUsed;
 
     /**
      *
@@ -52,6 +54,7 @@ public class Reactor extends FailableComponent {
         steamMass = kilograms(0);
         temperature = kelvin(350);
         pressure = pascals(101325);
+        quencherUsed = false;
     }
 
     /**
@@ -81,7 +84,14 @@ public class Reactor extends FailableComponent {
     }
 
     public void quench() {
-        temperature = kelvin(350);
+        if (!quencherUsed) {
+            temperature = kelvin(350);
+            quencherUsed = true;
+        }
+    }
+    
+    public boolean quencherUsed() {
+        return quencherUsed;
     }
 
     /**

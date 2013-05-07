@@ -2,60 +2,48 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package display.controls;
+package display.widgets;
 
-import display.Control;
-import eel.seprphase4.Simulator.PlantController;
-import eel.seprphase4.Simulator.PlantStatus;
+import eel.seprphase4.Simulator.Simulator;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 /**
  *
  * @author James
  */
-public class MultiplayerSoftwareFailureControl implements Control {
-    
-    private PlantController controller; 
-    private PlantStatus status;
-    
+public class MultiplayerSoftwareFailureWidget extends Widget {
+
     private int msPerPoint = 800;
     private int failCount = 0;
     private int currentPoints = 0;
     private int spareMs = 0;
-    
-    public MultiplayerSoftwareFailureControl (PlantStatus status, PlantController controller)
-    {
-        this.controller = controller;
-        this.status = status;
+
+    public MultiplayerSoftwareFailureWidget(Simulator simulator) {
+        super(simulator, 0, 0);
     }
-    
+
     @Override
     public void paint(Graphics g) {
-        
     }
 
     @Override
     public void advance(int ms) {
         currentPoints -= (ms + spareMs) / msPerPoint;
         spareMs = (ms + spareMs) % msPerPoint;
-        
-        if(currentPoints < 0 )
-        {
+
+        if (currentPoints < 0) {
             currentPoints = 0;
         }
     }
 
     @Override
     public void onMouseExited() {
-        
     }
 
     @Override
     public void onMouseMoved(Point point) {
-        
     }
 
     @Override
@@ -70,14 +58,7 @@ public class MultiplayerSoftwareFailureControl implements Control {
 
     @Override
     public boolean onKeyTyped(KeyEvent e) {
-        return false;
-    }
-
-    @Override
-    public boolean onKeyPressed(KeyEvent e) {
-        
-        switch(e.getKeyChar())
-        {
+        switch (e.getKeyChar()) {
             case '1':
                 tryFailPump(1);
                 return true;
@@ -93,79 +74,61 @@ public class MultiplayerSoftwareFailureControl implements Control {
             case 's':
                 tryFailSoftware();
                 return true;
-            
         }
         return false;
-     
-        
+    }
+
+    @Override
+    public boolean onKeyPressed(KeyEvent e) {
+        return false;
     }
 
     @Override
     public boolean onKeyReleased(KeyEvent e) {
         return false;
     }
-    
-    private void tryFailCondenser()
-    {
+
+    private void tryFailCondenser() {
         currentPoints++;
-        if(currentPoints>pointsRequired())
-        {
-            controller.failCondenser();
+        if (currentPoints > pointsRequired()) {
+            simulator.failCondenser();
             reset();
         }
-        
-        
     }
-    
-    private void reset(){
+
+    private void reset() {
         failCount++;
         currentPoints = 0;
     }
-    
-    private void tryFailPump(int pump)
-    {
+
+    private void tryFailPump(int pump) {
         currentPoints++;
-        if(currentPoints>pointsRequired())
-        {
-            controller.failPump(pump);
-        
+        if (currentPoints > pointsRequired()) {
+            simulator.failPump(pump);
         }
-      
-    }
-    
-    private void tryFailSoftware()
-    {
-        currentPoints++;
-        if(currentPoints>pointsRequired())
-        {
-            controller.failSoftware();
-            reset();
-        }
-     
-    }
-    
-    private void tryFailTurbine()
-    {
-        currentPoints++;
-        if(currentPoints>pointsRequired())
-        {
-            controller.failTurbine();
-            reset();
-        }
-   
     }
 
-    
-    private double completed()
-    {
-        return currentPoints/pointsRequired();
+    private void tryFailSoftware() {
+        currentPoints++;
+        if (currentPoints > pointsRequired()) {
+            simulator.failSoftware();
+            reset();
+        }
     }
 
-    
-    private int pointsRequired()
-    {
-        return 2^failCount;
+    private void tryFailTurbine() {
+        currentPoints++;
+        if (currentPoints > pointsRequired()) {
+            simulator.failTurbine();
+            reset();
+        }
     }
-    
-  
+
+    private double completed() {
+        return currentPoints / pointsRequired();
+    }
+
+    private int pointsRequired() {
+        return 2 ^ failCount;
+    }
 }

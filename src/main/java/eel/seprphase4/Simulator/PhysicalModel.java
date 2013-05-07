@@ -31,8 +31,6 @@ public class PhysicalModel implements PlantController, PlantStatus {
     @JsonProperty
     private Condenser condenser = new Condenser();
     @JsonProperty
-    private Quencher quencher;
-    @JsonProperty
     private Energy energyGenerated = joules(0);
     @JsonProperty
     private Connection reactorToTurbine;
@@ -55,9 +53,6 @@ public class PhysicalModel implements PlantController, PlantStatus {
 
         heatSink = new HeatSink();
 
-        quencher = new Quencher();
-
-  
         reactorToTurbine = new Connection(reactor.outputPort(), turbine.inputPort(), 0.05);
         turbineToCondenser = new Connection(turbine.outputPort(), condenser.inputPort(), 0.05);
 
@@ -83,7 +78,6 @@ public class PhysicalModel implements PlantController, PlantStatus {
             turbineToCondenser.step();
             condenserToReactor.step();
             heatsinkToCondenser.step();
-
         }
     }
 
@@ -94,7 +88,6 @@ public class PhysicalModel implements PlantController, PlantStatus {
     @Override
     public void moveControlRods(Percentage percent) {
         reactor.moveControlRods(percent);
-        
     }
 
     /**
@@ -121,7 +114,7 @@ public class PhysicalModel implements PlantController, PlantStatus {
 
     @Override
     public boolean quencherUsed() {
-        return quencher.used();
+        return reactor.quencherUsed();
     }
 
     @Override
@@ -229,7 +222,7 @@ public class PhysicalModel implements PlantController, PlantStatus {
 
     @Override
     public void quenchReactor() {
-        quencher.quenchReactor(reactor);
+        reactor.quench();
     }
 
     @Override

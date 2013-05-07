@@ -52,8 +52,10 @@ public class PumpWidget extends ClickableWidget {
             }
         } catch (CannotRepairException e) {
             // ignore
-        } catch (KeyNotFoundException ex) {
+            e.printStackTrace();
+        } catch (KeyNotFoundException e) {
             // ignore
+            e.printStackTrace();
         }
     }
 

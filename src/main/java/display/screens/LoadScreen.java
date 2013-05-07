@@ -20,9 +20,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -69,7 +68,7 @@ public class LoadScreen extends MenuScreen implements ActionListener {
     public void paint(Graphics g) {
         super.paint(g);
         final int first = cursor;
-        final int last = Math.min(cursor + maxGamesToDisplay, gameButtons.size() - 1);
+        final int last = Math.min(cursor + maxGamesToDisplay, gameButtons.size());
         int yOffset = TOP_MARGIN + 40;
         for (int i = first; i < last; i++) {
             ButtonControl b = gameButtons.get(i);
@@ -128,6 +127,8 @@ public class LoadScreen extends MenuScreen implements ActionListener {
             cursor--;
         } else if (source == downButton) {
             cursor++;
+        } else if (source == backButton) {
+            ScreenManager.getInstance().setScreen(new MainMenuScreen());
         }
         cursor = Math.max(cursor, 0);
         cursor = Math.min(cursor, gameButtons.size() - 1);
@@ -138,8 +139,10 @@ public class LoadScreen extends MenuScreen implements ActionListener {
                     Simulator s = new Simulator(SaveGame.load(buttonPaths.get(sourceButton)));
                     ScreenManager.getInstance().setScreen(new PlantScreen(s));
                 } catch (JsonParseException ex) {
-                    // todo error handling
+                    // ignore
+                    ex.printStackTrace();
                 } catch (IOException ex) {
+                    // ignore
                     ex.printStackTrace();
                 }
             }

@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -70,6 +71,7 @@ public class FileSystem {
                 }
             }
         }
+        Collections.reverse(saveGames);
         return saveGames.toArray(new SaveGameDescription[0]);
     }
 
