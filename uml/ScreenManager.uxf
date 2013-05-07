@@ -58,7 +58,7 @@ MouseInputListener
       <x>510</x>
       <y>280</y>
       <w>240</w>
-      <h>170</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>ScreenManager
 --

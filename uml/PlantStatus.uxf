@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="12.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>470</x>
+      <y>320</y>
+      <w>380</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+PlantController
+--
+--
+changePumpState(pumpNumber : int, pumping : boolean)
+changeValveState(valveNumber : int, open : boolean)
+failPump(pumpNumber : int)
+failTurbine() 
+failCondenser()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>150</x>
+      <y>320</y>
+      <w>290</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+PlantStatus
+--
+--
+pumpIsOn(pumpNumber : int) : boolean
+pumpHasFailed(pumpNumber : int) : boolean
+valveIsOpen(valveNumber : int) : boolean
+condenserHasFailed() : boolean
+turbineHasFailed() : boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

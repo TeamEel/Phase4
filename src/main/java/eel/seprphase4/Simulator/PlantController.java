@@ -17,9 +17,9 @@ public interface PlantController {
      */
     public void moveControlRods(Percentage extracted);
 
-    public void changeValveState(int valveNumber, boolean isOpen);
+    public void changeValveState(int valveNumber, boolean open);
 
-    public void changePumpState(int pumpNumber, boolean isPumping);
+    public void changePumpState(int pumpNumber, boolean pumping);
 
     public void quenchReactor();
 
