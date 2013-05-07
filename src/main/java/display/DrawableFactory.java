@@ -113,6 +113,12 @@ public class DrawableFactory {
                 return new DrawableImage("/menu/start_sel.png");
             case StartPressed:
                 return new DrawableImage("/menu/start_press.png");
+            case NextDefault:
+                return new DrawableImage("/menu/next.png");
+            case NextOver:
+                return new DrawableImage("/menu/next_sel.png");
+            case NextPressed:
+                return new DrawableImage("/menu/next_press.png");
             default:
                 throw new Error("Invalid asset requested");
         }
