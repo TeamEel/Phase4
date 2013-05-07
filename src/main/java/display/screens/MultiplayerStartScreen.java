@@ -53,7 +53,7 @@ public class MultiplayerStartScreen extends MenuScreen implements ActionListener
         if (source == backButton) {
             ScreenManager.getInstance().setScreen(new MainMenuScreen());
         } else if (source == startButton) {
-            ScreenManager.getInstance().setScreen(new MultiplayerPlantScreen(player1Name.getText(),
+            ScreenManager.getInstance().setScreen(new MultiplayerCutScreen(player1Name.getText(),
                                                                              player2Name.getText()));
         }
     }

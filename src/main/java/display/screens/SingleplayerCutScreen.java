@@ -41,8 +41,8 @@ public class SingleplayerCutScreen extends MenuScreen implements ActionListener 
                                         1100, 600), startButton);
         
         page.add(new ImageControl(new DrawableText("Hello " + player1Name,font,Color.orange), 800, 350));
-        page.add(new ImageControl(new DrawableText("Page 2",font,Color.orange), 800, 350));
-        page.add(new ImageControl(new DrawableText("Page 3",font,Color.orange), 800, 350));
+        page.add(new ImageControl(new DrawableText("Page 2",font,Color.orange), 700, 350));
+        page.add(new ImageControl(new DrawableText("Page 3",font,Color.orange), 700, 350));
         
         
         add(page,5);

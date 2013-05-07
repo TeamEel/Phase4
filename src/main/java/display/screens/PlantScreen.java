@@ -36,12 +36,13 @@ public class PlantScreen extends Screen implements ActionListener {
     protected Simulator simulator;
     private HotkeyControl escapeHotkey;
 
+
     public PlantScreen(Simulator simulator) {
         this.simulator = simulator;
         escapeHotkey = new HotkeyControl(KeyEvent.VK_ESCAPE);
         escapeHotkey.addActionListener(this);
-
-        add(new PlantControl(simulator, simulator), 0);
+        add(new PlantControl(simulator, simulator),0);
+        
 
         add(new ImageControl(Asset.PlantDefaultWater, 0, 0), 0);
 
@@ -90,5 +91,6 @@ public class PlantScreen extends Screen implements ActionListener {
         if (source == escapeHotkey) {
             ScreenManager.getInstance().setScreen(new PauseScreen(this, simulator));
         }
+       
     }
 }
