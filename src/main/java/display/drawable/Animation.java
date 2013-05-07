@@ -61,6 +61,11 @@ public class Animation implements Drawable {
         
         this.currentFrame = frameNumber;
     }
+
+    @Override
+    public void reset() {
+        currentFrame = 0;
+    }
     
    
 }

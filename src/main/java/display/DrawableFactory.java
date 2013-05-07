@@ -4,9 +4,14 @@
  */
 package display;
 
+import static display.Asset.PlantCondenserWaterLevelAnimation;
+import static display.Asset.PlantReactorWaterLevelAnimation;
+import static display.Asset.Turbine;
+import static display.Asset.ValveOpeningDefault;
 import display.drawable.Animation;
 import display.drawable.Drawable;
 import display.drawable.DrawableImage;
+import display.drawable.RangeDrawable;
 
 /**
  *
@@ -14,8 +19,8 @@ import display.drawable.DrawableImage;
  */
 public class DrawableFactory {
 
-    public static Drawable create(Asset id) {
-        switch (id) {
+    public static Drawable create(Asset a) {
+        switch (a) {
             case MenuBackground:
                 return new DrawableImage("/menu/background.png");
             case MenuLogo:
@@ -41,17 +46,25 @@ public class DrawableFactory {
             case PlantBackground:
                 return new DrawableImage("/plant/background.png");
             case PlantDefaultWater:
-                return new DrawableImage("/plant/waterbaseline.png");  
-            case PlantPump:
-                return new Animation(Range.Formatted("/plant/pump/s%02d.png", 1,60), true,20);
-            case PlantFailedPump:
+                return new DrawableImage("/plant/waterbaseline.png");
+            case PumpDefault:
+                return new Animation(Range.formatted("/plant/pump/s%02d.png", 1, 60), true, 20);
+            case PumpOver:
+                return new Animation(Range.formatted("/plant/pump_sel/s%02d.png", 1, 60), true, 20);
+            case PumpFailed:
                 return new DrawableImage("/plant/pumpfault.png");
             case PlantValveOpen:
                 return new DrawableImage("/plant/valve/s01.png");
             case PlantValveClosed:
                 return new DrawableImage("/plant/valve/s10.png");
-            case PlantValveAnimation:
-                return new Animation(Range.Formatted("/plant/valve/s%02d.png", 1,10), false,20);
+            case ValveOpeningDefault:
+                return new Animation(Range.formatted("/plant/valve/s%02d.png", 1, 10), false, 20);
+            case ValveOpeningOver:
+                return new Animation(Range.formatted("/plant/valve_sel/s%02d.png", 1, 10), false, 20);
+            case ValveClosingDefault:
+                return new Animation(Range.formatted("/plant/valve/s%02d.png", 10, 1), false, 20);
+            case ValveClosingOver:
+                return new Animation(Range.formatted("/plant/valve_sel/s%02d.png", 10, 1), false, 20);
             case PlantUpArrow:
                 return new DrawableImage("/plant/uparrow.png");
             case PlantUpArrowOver:
@@ -62,22 +75,22 @@ public class DrawableFactory {
                 return new DrawableImage("/plant/downarrow_sel.png");
             case PlantDanger:
                 return new DrawableImage("/plant/danger.png");
-            case PlantQuencher:
+            case Quencher:
                 return new DrawableImage("/plant/quencher.png");
-            case PlantFailedCondenser:
+            case CondenserFailed:
                 return new DrawableImage("/plant/failedcondenser.png");
-            case PlantFailedTurbine:
+            case Turbine:
+                return new Animation(Range.formatted("/plant/turbine/s%02d.png", 1, 2), true, 80);
+            case TurbineFailed:
                 return new DrawableImage("/plant/failedturbine.png");
-            case PlantTurbine:
-                return new DrawableImage("/plant/turbine.png");
             case MenuScientists:
                 return new DrawableImage("/menu/scientists.png");
             case PlantControlRods:
                 return new DrawableImage("/plant/controlrods.png");
             case PlantReactorWaterLevelAnimation:
-                return new Animation(Range.Formatted("/plant/reactor/s%02d.png", 0,10), false,1);
+                return new Animation(Range.formatted("/plant/reactor/s%02d.png", 0, 10), false, 1);
             case PlantCondenserWaterLevelAnimation:
-                return new Animation(Range.Formatted("/plant/reactor/s%02d.png", 0,10), false,1);
+                return new Animation(Range.formatted("/plant/reactor/s%02d.png", 0, 10), false, 1);
             case TextFieldBackground:
                 return new DrawableImage("/menu/textfield.png");
             case TextFieldSelectedBackground:
@@ -102,6 +115,23 @@ public class DrawableFactory {
                 return new DrawableImage("/menu/start_press.png");
             default:
                 throw new Error("Invalid asset requested");
+        }
+    }
+
+    public static RangeDrawable createRange(Asset a, double min, double max) {
+        switch (a) {
+            case Exclamation:
+                return new RangeDrawable(Range.formatted("/plant/exclaim/exclaim_%01d.png", 0, 8), min, max);
+            case Thermometer:
+                return new RangeDrawable(Range.formatted("/plant/thermometer/thermo_%02d.png", 0, 10), min, max);
+            case Gauge:
+                return new RangeDrawable(Range.formatted("/plant/gauge/gauge_small_%02d.png", 0, 9), min, max);
+            case PlantReactorWaterLevelAnimation:
+                return new RangeDrawable(Range.formatted("/plant/reactor/s%02d.png", 0, 10), min, max);
+            case PlantCondenserWaterLevelAnimation:
+                return new RangeDrawable(Range.formatted("/plant/reactor/s%02d.png", 0, 10), min, max);
+            default:
+                throw new Error("Invalid RangeDrawable requested");
         }
     }
 }

@@ -56,4 +56,9 @@ public class DrawableText implements Drawable {
                 (int) font.getStringBounds(text,frc ).getWidth(),
                 (int) font.getStringBounds(text,frc ).getHeight());
     }
+
+    @Override
+    public void reset() {
+        // ignore
+    }
 }

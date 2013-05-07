@@ -13,5 +13,7 @@ public interface Drawable {
 
     public void advance(int ms);
 
+    public void reset();
+    
     public HitBox hitBox(int x, int y);
 }

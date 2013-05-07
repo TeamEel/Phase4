@@ -31,7 +31,7 @@ public class FailedCondenserControl implements Control {
         this.controller = controller;
         this.status = status;
        
-        failedSprite = DrawableFactory.create(Asset.PlantFailedCondenser);
+        failedSprite = DrawableFactory.create(Asset.CondenserFailed);
         this.x = x; 
         this.y = y;
     }

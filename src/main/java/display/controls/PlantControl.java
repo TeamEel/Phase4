@@ -35,9 +35,6 @@ public class PlantControl implements Control {
     private PlantStatus status;
     private PlantController control;
    
-    private AnimationControl pumpAnimation;
-    private ImageControl failedPump;
-
     private int msPerStep = 50;
     private int spareMs = 0;
     private int currentStep;

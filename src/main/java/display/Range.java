@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package display;
 
 /**
@@ -9,16 +5,21 @@ package display;
  * @author James
  */
 public class Range {
-    public static String[] Formatted(String path, int from, int to) throws IllegalArgumentException
-    {
-        if(from>to){
-            throw new IllegalArgumentException("To cannot be less than from");
+
+    public static String[] formatted(String path, int from, int to) {
+        int count = Math.abs(to - from) + 1;
+
+        String[] paths = new String[count];
+
+        if (to > from) {
+            for (int i = 0; from + i <= to; i++) {
+                paths[i] = String.format(path, from + i);
+            }
+        } else {
+            for (int i = 0; from - i >= to; i++) {
+                paths[i] = String.format(path, from - i);
+            }
         }
-        String[] paths = new String[1+to-from];
-        
-        for(int i = 0;from+i<=to;i++) { 
-            paths[i] = String.format(path, from+i);
-        }
-         return paths;
+        return paths;
     }
 }

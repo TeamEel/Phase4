@@ -26,9 +26,9 @@ public class SingleplayerCutScreen extends MenuScreen implements ActionListener 
         
         final Font font = new Font("Arial", Font.BOLD, 24);
         add(new ImageControl(new DrawableText("Hello " + player1Name,font,Color.orange), 800, 350),4);
-        startButton = new ButtonControl(new DrawableText("START", font, Color.orange),
-                                        new DrawableText("START", font, Color.white),
-                                        new DrawableText("START", font, Color.red),
+        startButton = new ButtonControl(Asset.StartDefault,
+                                        Asset.StartOver,
+                                        Asset.StartPressed,
                                         1100, 600);
         
         startButton.addActionListener(this);

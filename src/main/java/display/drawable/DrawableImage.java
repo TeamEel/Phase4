@@ -30,4 +30,9 @@ public class DrawableImage implements Drawable {
     public HitBox hitBox(int x, int y) {
         return HitBox.fromImage(image, x, y);
     }
+
+    @Override
+    public void reset() {
+        // ignore
+    }
 }
