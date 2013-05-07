@@ -37,7 +37,7 @@ public class ValveWidget extends ClickableWidget {
 
     @Override
     public void paint(Graphics g) {
-        if (simulator.valveState(valveNumber)) {
+        if (simulator.valveIsOn(valveNumber)) {
             if (mouseIsOver()) {
                 openingOver.draw(g, x, y);
             } else {
@@ -54,7 +54,7 @@ public class ValveWidget extends ClickableWidget {
 
     @Override
     public void onClicked() {
-        simulator.changeValveState(valveNumber, !simulator.valveState(valveNumber));
+        simulator.changeValveState(valveNumber, !simulator.valveIsOn(valveNumber));
         openingDefault.reset();
         closingDefault.reset();
         openingOver.reset();

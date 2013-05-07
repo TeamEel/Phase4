@@ -26,7 +26,7 @@ public class ScreenManager extends JPanel implements MouseInputListener, KeyList
 
     private ScreenManager(int width, int height) {
         this.currentScreen = new Screen();
-        this.timer = new Timer(10, this);
+        this.timer = new Timer(50, this);
         setPreferredSize(new Dimension(width, height));
         setFocusable(true);
         addMouseMotionListener(this);
@@ -121,7 +121,7 @@ public class ScreenManager extends JPanel implements MouseInputListener, KeyList
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == timer) {
-            currentScreen.advance(10);
+            currentScreen.advance(timer.getDelay());
             repaint();
         }
     }

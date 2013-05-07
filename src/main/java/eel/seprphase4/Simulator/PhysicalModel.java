@@ -199,7 +199,7 @@ public class PhysicalModel implements PlantController, PlantStatus {
     }
 
     @Override
-    public boolean valveState(int valveNumber) {
+    public boolean valveIsOn(int valveNumber) {
         if (valveNumber == 1) {
             return reactorToTurbine.getOpen();
         }
@@ -215,12 +215,12 @@ public class PhysicalModel implements PlantController, PlantStatus {
     public void changePumpState(int pumpNumber, boolean isPumping) {
         
         if (pumpNumber == 1) {
-            condenserToReactor.setStatus(isPumping);
+            condenserToReactor.setOnState(isPumping);
             return;
         }
         
         if (pumpNumber == 2) {
-            heatsinkToCondenser.setStatus(isPumping);
+            heatsinkToCondenser.setOnState(isPumping);
             return;
         }
         
@@ -320,19 +320,19 @@ public class PhysicalModel implements PlantController, PlantStatus {
     }
 
     @Override
-    public boolean pumpStatus(int pumpNumber) {
+    public boolean pumpIsOn(int pumpNumber) {
         if (pumpNumber == 1) {
-            return condenserToReactor.getStatus();
+            return condenserToReactor.isOn();
         }
         if (pumpNumber == 2) {
-            return heatsinkToCondenser.getStatus();
+            return heatsinkToCondenser.isOn();
         }
         
         throw new IllegalArgumentException("Pump number out of range");
     }
 
     @Override
-    public boolean pumpFailed(int pumpNumber) {
+    public boolean pumpHasFailed(int pumpNumber) {
         if (pumpNumber == 1) {
             return condenserToReactor.hasFailed();
         }

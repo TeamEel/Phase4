@@ -33,7 +33,7 @@ public class TurbineWidget extends ClickableWidget {
 
     @Override
     public void advance(int ms) {
-        if (simulator.valveState(1) && simulator.valveState(2)) {
+        if (simulator.valveIsOn(1) && simulator.valveIsOn(2)) {
             runningTurbine.advance(ms);
         }
     }

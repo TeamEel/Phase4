@@ -1,7 +1,6 @@
 package eel.seprphase4.Simulator;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import eel.seprphase4.GameOverException;
 import eel.seprphase4.Persistence.FileSystem;
 import eel.seprphase4.Persistence.SaveGame;
@@ -24,12 +23,16 @@ public class Simulator extends Observable implements PlantController, PlantStatu
     private FailureModel failureModel;
     private String userName;
 
+    public Simulator(SaveGame saveGame) {
+        this.physicalModel = saveGame.getPhysicalModel();
+        this.failureModel = saveGame.getFailureModel();
+        this.userName = saveGame.getUserName();
+    }
+
     public Simulator(String userName) {
         physicalModel = new PhysicalModel();
         failureModel = new FailureModel(physicalModel, physicalModel, new RandomProbabilitySource());
         this.userName = userName;
-        
-        
     }
 
     @Override
@@ -41,13 +44,17 @@ public class Simulator extends Observable implements PlantController, PlantStatu
         setChanged();
         notifyObservers();
     }
- 
 
     public String getUsername() {
         return userName;
     }
 
+<<<<<<< HEAD
     public void saveGame() throws JsonProcessingException {
+=======
+    @Override
+    public void saveGame() {
+>>>>>>> c12038a9f563830e26814a6525ff7a00f4eda481
         SaveGame saveGame = new SaveGame(physicalModel, failureModel, userName);
         try {
             saveGame.save();
@@ -55,7 +62,6 @@ public class Simulator extends Observable implements PlantController, PlantStatu
         } catch (IOException ex) {
         }
     }
-
 
 
 
@@ -114,7 +120,6 @@ public class Simulator extends Observable implements PlantController, PlantStatu
         updateAndNotify();
     }
 
-
     @Override
     public Percentage controlRodPosition() {
         return failureModel.controlRodPosition();
@@ -139,7 +144,6 @@ public class Simulator extends Observable implements PlantController, PlantStatu
     public Energy energyGenerated() {
         return failureModel.energyGenerated();
     }
-
 
     @Override
     public Temperature condenserTemperature() {
@@ -182,7 +186,6 @@ public class Simulator extends Observable implements PlantController, PlantStatu
         throw new UnsupportedOperationException("Not supported yet");
     }
 
-
     @Override
     public void failCondenser() {
         failureModel.failCondenser();
@@ -218,19 +221,19 @@ public class Simulator extends Observable implements PlantController, PlantStatu
     public void failPump(int pump) {
         failureModel.failPump(pump);
     }
-@Override
-    public boolean pumpStatus(int pumpNumber) {
-        return failureModel.pumpStatus(pumpNumber);
+
+    @Override
+    public boolean pumpIsOn(int pumpNumber) {
+        return failureModel.pumpIsOn(pumpNumber);
     }
 
     @Override
-    public boolean pumpFailed(int pumpNumber) {
-        return failureModel.pumpFailed(pumpNumber);
+    public boolean pumpHasFailed(int pumpNumber) {
+        return failureModel.pumpHasFailed(pumpNumber);
     }
 
     @Override
-    public boolean valveState(int valveNumber) {
-        return failureModel.valveState(valveNumber);
+    public boolean valveIsOn(int valveNumber) {
+        return failureModel.valveIsOn(valveNumber);
     }
-
 }

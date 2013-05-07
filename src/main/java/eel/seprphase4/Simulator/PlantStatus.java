@@ -55,11 +55,11 @@ public interface PlantStatus {
 
     public boolean turbineHasFailed();
     
-    public boolean pumpStatus(int pumpNumber);
+    public boolean pumpIsOn(int pumpNumber);
     
-    public boolean pumpFailed(int pumpNumber);
+    public boolean pumpHasFailed(int pumpNumber);
 
-    public boolean valveState(int valveNumber);
+    public boolean valveIsOn(int valveNumber);
     
     public ArrayList<FailableComponent> components();
 

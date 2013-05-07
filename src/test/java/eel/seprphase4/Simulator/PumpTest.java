@@ -60,8 +60,8 @@ public class PumpTest {
         Port input = new Port();
         Port output = new Port();
         Pump pump = new Pump(input, output);
-        pump.setStatus(true);
-        assertEquals(pump.getStatus(), true);
+        pump.setOnState(true);
+        assertEquals(pump.isOn(), true);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class PumpTest {
         output.mass = kilograms(0);
         input.temperature = kelvin(100);
         Pump pump = new Pump(input, output);
-        pump.setStatus(false);
+        pump.setOnState(false);
         pump.setCapacity(kilograms(10));
         pump.step();
         assertEquals(kilograms(0), output.mass);
@@ -86,7 +86,7 @@ public class PumpTest {
         output.mass = kilograms(0);
         input.temperature = kelvin(100);
         Pump pump = new Pump(input, output);
-        pump.setStatus(true);
+        pump.setOnState(true);
         pump.fail();
         pump.setCapacity(kilograms(10));
         pump.step();

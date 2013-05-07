@@ -5,6 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Filesystem interaction
@@ -48,6 +51,26 @@ public class FileSystem {
             }
         }
         return acceptableSaveGameFiles.toArray(new String[acceptableSaveGameFiles.size()]);
+    }
+
+    public static SaveGameDescription[] listSaveGames() {
+        File saveDir = new File(savePath());
+        File[] allFiles = saveDir.listFiles();
+        ArrayList<SaveGameDescription> saveGames = new ArrayList<SaveGameDescription>();
+        for (File f : allFiles) {
+            if (f.isFile()) {
+                Pattern p = Pattern.compile("sepr.teameel.([A-Za-z0-9 ]+).([0-9]+).nuke");
+                Matcher m = p.matcher(f.getName());
+                if (m.matches()) {
+                    String username, timestamp, path;
+                    path = f.toString();
+                    username = m.group(1);
+                    timestamp = new Date(Long.parseLong(m.group(2))).toString();
+                    saveGames.add(new SaveGameDescription(username, timestamp, path));
+                }
+            }
+        }
+        return saveGames.toArray(new SaveGameDescription[0]);
     }
 
     /**

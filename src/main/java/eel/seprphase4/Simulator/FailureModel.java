@@ -310,18 +310,18 @@ public class FailureModel implements PlantController, PlantStatus {
     }
 
     @Override
-    public boolean pumpStatus(int pumpNumber) {
-        return status.pumpStatus(pumpNumber);
+    public boolean pumpIsOn(int pumpNumber) {
+        return status.pumpIsOn(pumpNumber);
     }
 
     @Override
-    public boolean pumpFailed(int pumpNumber) {
-        return status.pumpFailed(pumpNumber);
+    public boolean pumpHasFailed(int pumpNumber) {
+        return status.pumpHasFailed(pumpNumber);
     }
 
     @Override
-    public boolean valveState(int valveNumber) {
-        return status.valveState(valveNumber);
+    public boolean valveIsOn(int valveNumber) {
+        return status.valveIsOn(valveNumber);
     }
 
     private void checkReactorWaterLevel() {
