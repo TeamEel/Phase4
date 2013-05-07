@@ -40,10 +40,23 @@ public class SingleplayerCutScreen extends MenuScreen implements ActionListener 
                                         Asset.NextPressed,
                                         1100, 600), startButton);
         
-        page.add(new ImageControl(new DrawableText("Hello " + player1Name,font,Color.orange), 800, 350));
-        page.add(new ImageControl(new DrawableText("Page 2",font,Color.orange), 700, 350));
-        page.add(new ImageControl(new DrawableText("Page 3",font,Color.orange), 700, 350));
+        page.add(new ImageControl(new DrawableText(player1Name + " and your rival Comrad are Physics graduate students!\n"+
+                                                   "They are always building their mad scientist inventions, \n"+
+                                                   "always with the intent of outdoing the other! \n"+
+                                                   "Whenever they aren’t inventing some insane creation, \n"+
+                                                   "they are sabotaging the other’s projects! " + player1Name,font,Color.orange), 650, 300));
         
+        page.add(new ImageControl(new DrawableText("Looks like Comrad is up to their wacky antics again!\n"+
+                                                   "you have decided to build a nuclear reactor for his Physics graduate project, \n"+
+                                                   "and Comrad is determined not to be outdone!",font,Color.orange), 650, 300));
+        
+        page.add(new ImageControl(new DrawableText("Your job is to generate as much power as possible using "+player1Name+"’s\n"+ 
+                                                   "homebrew power plant!\n\nWatch out for Comrad though!\n He is determined to sabotage you at any cost!",font,Color.orange), 650, 300));
+        
+        page.add(new ImageControl(new DrawableText(player1Name + " Generate power by spinning the turbine as fast as possible.\n"
+                +"Raise the control rods using the arrow buttons to heat the water faster. Increasing the steam production spins the turbine faster.\nClick the valves and pumps to turn them on and off.\n"+"Keep an eye on the reactor temperature and pressure! Go too high and the reactor will MELTDOWN!",font,Color.orange), 650, 300));
+        
+
         
         add(page,5);
         

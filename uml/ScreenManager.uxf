@@ -4,8 +4,8 @@
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>180</x>
-      <y>90</y>
+      <x>230</x>
+      <y>190</y>
       <w>590</w>
       <h>120</h>
     </coordinates>
@@ -16,8 +16,8 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>450</x>
-      <y>280</y>
+      <x>500</x>
+      <y>380</y>
       <w>80</w>
       <h>50</h>
     </coordinates>
@@ -27,8 +27,8 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>210</x>
-      <y>130</y>
+      <x>260</x>
+      <y>230</y>
       <w>100</w>
       <h>50</h>
     </coordinates>
@@ -41,8 +41,8 @@ KeyListener
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>340</x>
-      <y>130</y>
+      <x>390</x>
+      <y>230</y>
       <w>160</w>
       <h>50</h>
     </coordinates>
@@ -55,8 +55,8 @@ MouseInputListener
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>510</x>
-      <y>280</y>
+      <x>560</x>
+      <y>380</y>
       <w>240</w>
       <h>120</h>
     </coordinates>
@@ -73,8 +73,8 @@ _+ getInstance : ScreenManager_
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>390</x>
-      <y>150</y>
+      <x>440</x>
+      <y>250</y>
       <w>260</w>
       <h>150</h>
     </coordinates>
@@ -84,8 +84,8 @@ _+ getInstance : ScreenManager_
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>600</x>
-      <y>150</y>
+      <x>650</x>
+      <y>250</y>
       <w>50</w>
       <h>150</h>
     </coordinates>
@@ -95,8 +95,8 @@ _+ getInstance : ScreenManager_
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>230</x>
-      <y>150</y>
+      <x>280</x>
+      <y>250</y>
       <w>420</w>
       <h>150</h>
     </coordinates>
@@ -106,8 +106,8 @@ _+ getInstance : ScreenManager_
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>720</x>
-      <y>300</y>
+      <x>770</x>
+      <y>400</y>
       <w>110</w>
       <h>50</h>
     </coordinates>
@@ -117,8 +117,8 @@ _+ getInstance : ScreenManager_
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>540</x>
-      <y>130</y>
+      <x>590</x>
+      <y>230</y>
       <w>210</w>
       <h>50</h>
     </coordinates>
@@ -130,8 +130,8 @@ _+ getInstance : ScreenManager_
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>810</x>
-      <y>320</y>
+      <x>860</x>
+      <y>420</y>
       <w>90</w>
       <h>30</h>
     </coordinates>
@@ -141,8 +141,8 @@ _+ getInstance : ScreenManager_
   <element>
     <type>com.umlet.element.Note</type>
     <coordinates>
-      <x>230</x>
-      <y>290</y>
+      <x>280</x>
+      <y>390</y>
       <w>250</w>
       <h>80</h>
     </coordinates>

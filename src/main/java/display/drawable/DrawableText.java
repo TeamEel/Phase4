@@ -16,7 +16,7 @@ public class DrawableText implements Drawable {
     private String text;
     private Font font;
     private Color color;
-
+    private final int lineSpace = 7;
     public DrawableText(String text, Font font, Color color) {
         this.text = text;
         this.font = font;
@@ -37,7 +37,14 @@ public class DrawableText implements Drawable {
         Color oldColor = g.getColor();
         g.setFont(font);
         g.setColor(color);
-        g.drawString(text, x, y);
+        if(text.indexOf("\n")!=-1){
+            for (String line : text.split("\n")) {
+                g.drawString(line, x, y += g.getFontMetrics().getHeight()+lineSpace);
+            }
+        }
+        else {
+            g.drawString(text, x, y);
+        }
         g.setColor(oldColor);
         g.setFont(oldFont);
     }
