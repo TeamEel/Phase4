@@ -4,6 +4,7 @@
  */
 package display;
 
+import static display.Asset.MenuUpDefault;
 import static display.Asset.PlantCondenserWaterLevelAnimation;
 import static display.Asset.PlantReactorWaterLevelAnimation;
 import static display.Asset.Turbine;
@@ -113,6 +114,18 @@ public class DrawableFactory {
                 return new DrawableImage("/menu/start_sel.png");
             case StartPressed:
                 return new DrawableImage("/menu/start_press.png");
+            case MenuUpDefault:
+                return new DrawableImage("/menu/arrows/up.png");
+            case MenuUpOver:
+                return new DrawableImage("/menu/arrows/up_over.png");
+            case MenuUpPressed:
+                return new DrawableImage("/menu/arrows/up_press.png");
+            case MenuDownDefault:
+                return new DrawableImage("/menu/arrows/down.png");
+            case MenuDownOver:
+                return new DrawableImage("/menu/arrows/down_over.png");
+            case MenuDownPressed:
+                return new DrawableImage("/menu/arrows/down_press.png");
             default:
                 throw new Error("Invalid asset requested");
         }

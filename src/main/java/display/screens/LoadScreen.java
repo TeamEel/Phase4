@@ -4,12 +4,139 @@
  */
 package display.screens;
 
-import display.Screen;
+import display.Asset;
+import display.controls.ButtonControl;
+import display.saveload.LoadGameButton;
+import static display.screens.MenuScreen.LEFT_MARGIN;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
  * @author drm511
  */
-public class LoadScreen extends MenuScreen {
-    
+public class LoadScreen extends MenuScreen implements ActionListener {
+
+    private static final int maxGamesToDisplay = 4;
+    private final ButtonControl upButton;
+    private final ButtonControl downButton;
+    private final ButtonControl backButton;
+    private ArrayList<LoadGameButton> gameButtons;
+    private HashMap<LoadGameButton, String> buttonPaths;
+    private int cursor;
+
+    public LoadScreen() {
+        upButton = new ButtonControl(Asset.MenuUpDefault,
+                                     Asset.MenuUpOver,
+                                     Asset.MenuUpPressed,
+                                     LEFT_MARGIN, TOP_MARGIN);
+        downButton = new ButtonControl(Asset.MenuDownDefault,
+                                       Asset.MenuDownOver,
+                                       Asset.MenuDownPressed,
+                                       LEFT_MARGIN, TOP_MARGIN + 300);
+        backButton = new ButtonControl(Asset.BackDefault,
+                                       Asset.BackOver,
+                                       Asset.BackPressed,
+                                       LEFT_MARGIN, TOP_MARGIN + 350);
+        gameButtons = new ArrayList<LoadGameButton>();
+        buttonPaths = new HashMap<LoadGameButton, String>();
+
+        cursor = 0;
+
+        add(upButton, 2);
+        add(downButton, 2);
+        add(backButton, 2);
+        gameButtons.add(new LoadGameButton("Alpha", "20-07-1990", LEFT_MARGIN, TOP_MARGIN));
+        gameButtons.add(new LoadGameButton("Beta", "20-07-1990", LEFT_MARGIN, TOP_MARGIN));
+        gameButtons.add(new LoadGameButton("Gamma", "20-07-1990", LEFT_MARGIN, TOP_MARGIN));
+        gameButtons.add(new LoadGameButton("Delta", "20-07-1990", LEFT_MARGIN, TOP_MARGIN));
+        gameButtons.add(new LoadGameButton("Epsilon", "20-07-1990", LEFT_MARGIN, TOP_MARGIN));
+        gameButtons.add(new LoadGameButton("Eta", "20-07-1990", LEFT_MARGIN, TOP_MARGIN));
+        gameButtons.add(new LoadGameButton("Theta", "20-07-1990", LEFT_MARGIN, TOP_MARGIN));
+
+        upButton.addActionListener(this);
+        downButton.addActionListener(this);
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        final int first = cursor;
+        final int last = Math.min(cursor + maxGamesToDisplay, gameButtons.size() - 1);
+        int yOffset = TOP_MARGIN + 40;
+        for (int i = first; i < last; i++) {
+            ButtonControl b = gameButtons.get(i);
+            b.move(LEFT_MARGIN, yOffset);
+            b.paint(g);
+            yOffset += 65;
+        }
+    }
+
+    @Override
+    public void onMouseExited() {
+        super.onMouseExited();
+        for (ButtonControl b : gameButtons) {
+            b.onMouseExited();
+        }
+    }
+
+    @Override
+    public void onMouseMoved(Point p) {
+        super.onMouseMoved(p);
+        for (ButtonControl b : gameButtons) {
+            b.onMouseMoved(p);
+        }
+    }
+
+    @Override
+    public boolean onMousePressed(Point p) {
+        if (super.onMousePressed(p)) {
+            return true;
+        }
+        for (ButtonControl b : gameButtons) {
+            if (b.onMousePressed(p)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onMouseReleased(Point p) {
+        if (super.onMouseReleased(p)) {
+            return true;
+        }
+        for (ButtonControl b : gameButtons) {
+            if (b.onMouseReleased(p)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object source = e.getSource();
+        if (source == upButton) {
+            cursor--;
+        } else if (source == downButton) {
+            cursor++;
+        }
+        cursor = Math.max(cursor, 0);
+        cursor = Math.min(cursor, gameButtons.size() - 1);
+    }
+
+    private void addGame(String path) {
+        LoadGameButton button = buttonForPath(path);
+        gameButtons.add(button);
+        buttonPaths.put(button, path);
+    }
+
+    private LoadGameButton buttonForPath(String path) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

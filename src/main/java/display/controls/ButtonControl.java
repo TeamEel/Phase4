@@ -28,7 +28,7 @@ public class ButtonControl implements Control {
     private final Drawable defaultImage;
     private final Drawable mouseOverImage;
     private final Drawable pressedImage;
-    private final HitBox hitBox;
+    private HitBox hitBox;
     private State state;
     private int x, y;
     private ArrayList<ActionListener> actionListeners;
@@ -141,5 +141,11 @@ public class ButtonControl implements Control {
         defaultImage.advance(ms);
         mouseOverImage.advance(ms);
         pressedImage.advance(ms);
+    }
+    
+    public void move(int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.hitBox = defaultImage.hitBox(x, y);
     }
 }

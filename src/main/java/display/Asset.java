@@ -58,4 +58,10 @@ public enum Asset {
     Exclamation,
     Thermometer,
     Gauge,
+    MenuUpDefault,
+    MenuUpOver,
+    MenuUpPressed,
+    MenuDownDefault,
+    MenuDownOver,
+    MenuDownPressed
 }
