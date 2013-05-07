@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
  * @author drm511
  */
 public class MultiplayerStartScreen extends MenuScreen implements ActionListener {
-                
+
     private final TextFieldControl player1Name;
     private final TextFieldControl player2Name;
     private final ButtonControl backButton;
@@ -53,7 +53,8 @@ public class MultiplayerStartScreen extends MenuScreen implements ActionListener
         if (source == backButton) {
             ScreenManager.getInstance().setScreen(new MainMenuScreen());
         } else if (source == startButton) {
-            ScreenManager.getInstance().setScreen(new MultiplayerPlantScreen(player1Name.getText()));
+            ScreenManager.getInstance().setScreen(new MultiplayerPlantScreen(player1Name.getText(),
+                                                                             player2Name.getText()));
         }
     }
 }
