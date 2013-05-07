@@ -8,13 +8,15 @@ import java.awt.Color;
  */
 public class LoadGameButtonOver extends LoadGameButtonDrawable {
 
+    private static final Color COLOR = new Color(255, 153, 0);
+
     public LoadGameButtonOver(String username, String timestamp) {
         super(username, timestamp);
     }
-    
+
     @Override
     protected Color color() {
-        return Color.orange;
+        return COLOR;
     }
 
     @Override
@@ -26,5 +28,4 @@ public class LoadGameButtonOver extends LoadGameButtonDrawable {
     protected int yOffset() {
         return 0;
     }
-    
 }

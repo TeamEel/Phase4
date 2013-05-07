@@ -25,11 +25,11 @@ public class SaveGame {
     public SaveGame() {
     }
 
-    public static SaveGame load(String filename) throws JsonParseException, IOException {
+    public static SaveGame load(String path) throws JsonParseException, IOException {
         eel.seprphase4.Persistence.Persistence p = new eel.seprphase4.Persistence.Persistence();
-        return p.deserializeSaveGame(FileSystem.readString(filename));
+        return p.deserializeSaveGame(Utils.readFile(path));
     }
-
+    
     public SaveGame(PhysicalModel physicalModel, FailureModel failureModel, String userName) {
         this.physicalModel = physicalModel;
         this.userName = userName;

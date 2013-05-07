@@ -4,16 +4,25 @@
  */
 package display.screens;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import display.Asset;
+import display.ScreenManager;
 import display.controls.ButtonControl;
 import display.saveload.LoadGameButton;
 import static display.screens.MenuScreen.LEFT_MARGIN;
+import eel.seprphase4.Persistence.FileSystem;
+import eel.seprphase4.Persistence.SaveGame;
+import eel.seprphase4.Persistence.SaveGameDescription;
+import eel.seprphase4.Simulator.Simulator;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -47,19 +56,13 @@ public class LoadScreen extends MenuScreen implements ActionListener {
 
         cursor = 0;
 
-        add(upButton, 2);
-        add(downButton, 2);
-        add(backButton, 2);
-        gameButtons.add(new LoadGameButton("Alpha", "20-07-1990", LEFT_MARGIN, TOP_MARGIN));
-        gameButtons.add(new LoadGameButton("Beta", "20-07-1990", LEFT_MARGIN, TOP_MARGIN));
-        gameButtons.add(new LoadGameButton("Gamma", "20-07-1990", LEFT_MARGIN, TOP_MARGIN));
-        gameButtons.add(new LoadGameButton("Delta", "20-07-1990", LEFT_MARGIN, TOP_MARGIN));
-        gameButtons.add(new LoadGameButton("Epsilon", "20-07-1990", LEFT_MARGIN, TOP_MARGIN));
-        gameButtons.add(new LoadGameButton("Eta", "20-07-1990", LEFT_MARGIN, TOP_MARGIN));
-        gameButtons.add(new LoadGameButton("Theta", "20-07-1990", LEFT_MARGIN, TOP_MARGIN));
-
-        upButton.addActionListener(this);
-        downButton.addActionListener(this);
+        addButton(upButton);
+        addButton(downButton);
+        addButton(backButton);
+        SaveGameDescription[] games = FileSystem.listSaveGames();
+        for (SaveGameDescription g : games) {
+            addGame(g);
+        }
     }
 
     @Override
@@ -128,15 +131,25 @@ public class LoadScreen extends MenuScreen implements ActionListener {
         }
         cursor = Math.max(cursor, 0);
         cursor = Math.min(cursor, gameButtons.size() - 1);
+        if (source instanceof LoadGameButton) {
+            LoadGameButton sourceButton = (LoadGameButton)source;
+            if (buttonPaths.containsKey(sourceButton)) {
+                try {
+                    Simulator s = new Simulator(SaveGame.load(buttonPaths.get(sourceButton)));
+                    ScreenManager.getInstance().setScreen(new PlantScreen(s));
+                } catch (JsonParseException ex) {
+                    // todo error handling
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
     }
 
-    private void addGame(String path) {
-        LoadGameButton button = buttonForPath(path);
+    private void addGame(SaveGameDescription desc) {
+        LoadGameButton button = new LoadGameButton(desc.username, desc.timestamp, 0, 0);
         gameButtons.add(button);
-        buttonPaths.put(button, path);
-    }
-
-    private LoadGameButton buttonForPath(String path) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        buttonPaths.put(button, desc.path);
+        button.addActionListener(this);
     }
 }
