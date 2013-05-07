@@ -228,12 +228,12 @@ public class PhysicalModel implements PlantController, PlantStatus {
     @Override
     public void repairPump(int pumpNumber) {
         if (pumpNumber == 1) {
-            condenserToReactor.fail();
+            condenserToReactor.repair();
             return;
         }
         
         if (pumpNumber == 2) {
-            heatsinkToCondenser.fail();
+            heatsinkToCondenser.repair();
             return;
         }
         
