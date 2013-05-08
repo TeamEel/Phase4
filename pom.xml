@@ -108,7 +108,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>display.DisplayTest</mainClass>
+                            <mainClass>eel.seprphase4</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

@@ -1,5 +1,6 @@
 package display.zlist;
 
+import eel.seprphase4.gui.zlist.ZList;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
