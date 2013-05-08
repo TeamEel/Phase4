@@ -128,6 +128,10 @@ public class DrawableFactory {
                 return new DrawableImage("/menu/menu.png");
             case ExitOver:
                 return new DrawableImage("/menu/menu_sel.png");
+            case SwapDefault:
+                return new DrawableImage("/menu/swap.png");
+            case SwapOver:
+                return new DrawableImage("/menu/swap_sel.png");
             default:
                 throw new Error("Invalid asset requested");
         }

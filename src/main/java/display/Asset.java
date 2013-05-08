@@ -64,5 +64,7 @@ public enum Asset {
     SaveDefault,
     SaveOver,
     ExitDefault,
-    ExitOver
+    ExitOver,
+    SwapDefault,
+    SwapOver
 }

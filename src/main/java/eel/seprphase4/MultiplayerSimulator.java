@@ -83,6 +83,14 @@ public class MultiplayerSimulator extends Simulator {
         super.step(steps);
         decay(steps);
     }
+
+    public String getPlayer1Name() {
+        return player1Name;
+    }
+    
+    public String getPlayer2Name() {
+        return player2Name;
+    }
     
     private void attackSucceeded() {
         reset();
