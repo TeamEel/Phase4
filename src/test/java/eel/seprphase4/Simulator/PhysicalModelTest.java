@@ -42,51 +42,7 @@ public class PhysicalModelTest {
 
 
 
-    @Test
-    @Ignore
-    public void shouldSetCondenserBackToNormalFailureState() {
-        PhysicalModel model = new PhysicalModel();
-        model.failCondenser();
-      //  try {
-            model.repairCondenser();
-//        } catch (CannotRepairException e) {
-       //     fail(e.getMessage());
-       // }
-        assertFalse(model.components().get(2).hasFailed());
-    }
-
-    @Test
-    @Ignore
-    public void shouldSetTurbineBackToNormalFailureState() {
-        PhysicalModel model = new PhysicalModel();
-        model.components().get(0).fail();
-       // try {
-            model.repairTurbine();
-        //} catch (CannotRepairException e) {
-      //      fail(e.getMessage());
-       // }
-        assertFalse(model.components().get(0).hasFailed());
-    }
-
-    @Test(expected = CannotRepairException.class)
-    public void shouldNotSetCondenserBackToNormalFailureState() throws CannotRepairException {
-        PhysicalModel model = new PhysicalModel();
-
-
-        model.repairCondenser();
-
-    }
-
-    @Test(expected = CannotRepairException.class)
-    public void shouldNotSetTurbineBackToNormalFailureState() throws CannotRepairException {
-        PhysicalModel model = new PhysicalModel();
-
-
-        model.repairCondenser();
-
-    }
-
-
+  
    
 
     @Test
