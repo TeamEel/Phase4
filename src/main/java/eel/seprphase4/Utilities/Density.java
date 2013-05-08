@@ -32,8 +32,8 @@ public class Density {
     }
 
     /**
-     *
-     * @return
+     * The constant of kilograms per cubic metre at this density
+     * @return kilograms per cubic meter
      */
     public double inKilogramsPerCubicMetre() {
         return kilogramsPerCubicMetre;
@@ -42,7 +42,7 @@ public class Density {
     /**
      * Helper method for the density of liquid water
      *
-     * @return
+     * @return density of liquid water constant
      */
     public static Density ofLiquidWater() {
         return new Density(1000);

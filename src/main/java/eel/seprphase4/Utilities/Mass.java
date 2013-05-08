@@ -18,10 +18,10 @@ public class Mass {
     private final double kilograms;
 
     /**
-     *
+     * Gets the mass from moles of water
      * @param moles
      *
-     * @return
+     * @return Mass from moles 
      */
     public static Mass fromMolesOfWater(double moles) {
         return new Mass(moles * 18 / 1000);
@@ -35,7 +35,7 @@ public class Mass {
     }
 
     /**
-     *
+     * Creates a new mass object from numeric weight
      * @param kilograms
      */
     public Mass(double kilograms) {
@@ -43,16 +43,16 @@ public class Mass {
     }
 
     /**
-     *
-     * @return
+     * Gets the numeric value of the mass
+     * @return kilograms
      */
     public double inKilograms() {
         return kilograms;
     }
 
     /**
-     *
-     * @return
+     * 
+     * @return mass in number of moles
      */
     public double inMolesOfWater() {
         return kilograms * 1000 / 18;
