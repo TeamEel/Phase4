@@ -116,6 +116,18 @@ public class DrawableFactory {
                 return new DrawableImage("/menu/next.png");
             case NextOver:
                 return new DrawableImage("/menu/next_sel.png");
+            case ResumeDefault:
+                return new DrawableImage("/menu/resume.png");
+            case ResumeOver:
+                return new DrawableImage("/menu/resume_sel.png");
+            case SaveDefault:
+                return new DrawableImage("/menu/save.png");
+            case SaveOver:
+                return new DrawableImage("/menu/save_sel.png");
+            case ExitDefault:
+                return new DrawableImage("/menu/menu.png");
+            case ExitOver:
+                return new DrawableImage("/menu/menu_sel.png");
             default:
                 throw new Error("Invalid asset requested");
         }
