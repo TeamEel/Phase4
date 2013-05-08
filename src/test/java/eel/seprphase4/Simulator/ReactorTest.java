@@ -129,7 +129,7 @@ public class ReactorTest {
         Reactor reactor = new Reactor(new Percentage(100), new Percentage(100),
                                       new Temperature(1000), new Pressure(101325));
         reactor.quench();
-        assertThat(reactor.temperature().inKelvin(), not(equalTo(1000.0)));
+        assertThat(reactor.temperature().inKelvin(), lessThan(1000.0));
     }
     
 }

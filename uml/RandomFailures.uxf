@@ -45,16 +45,17 @@ allowRandomFailures(randomFailures : boolean)</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>410</x>
+      <x>390</x>
       <y>250</y>
-      <w>180</w>
-      <h>50</h>
+      <w>210</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>FailureModel
 --
 - randomFailures : boolean
 --
-r</panel_attributes>
+- step() : void
+- chooseRandomFailure() : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
