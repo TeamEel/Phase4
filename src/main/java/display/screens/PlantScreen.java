@@ -73,7 +73,7 @@ public class PlantScreen extends Screen implements ActionListener {
         add(new display.controls.ControlRodsControl(simulator, simulator, 350, 376), 4);
 
         add(new ControlRodButtonsWidget(simulator, 150, 450), 5);
-        add(new display.controls.ReactorWaterLevelAlarmControl(simulator, simulator, 50, 50), 5);
+        add(new display.controls.ReactorWaterLevelAlarmControl(simulator, simulator, 620, 350), 5);
         add(escapeHotkey, 100);
     }
 
