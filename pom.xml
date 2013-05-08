@@ -108,7 +108,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>eel.seprphase4</mainClass>
+                            <mainClass>eel.seprphase4.App</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
