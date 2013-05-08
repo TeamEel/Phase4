@@ -59,4 +59,10 @@ public enum Asset {
     MenuUpOver,
     MenuDownDefault,
     MenuDownOver,
+    ResumeDefault,
+    ResumeOver,
+    SaveDefault,
+    SaveOver,
+    ExitDefault,
+    ExitOver
 }
