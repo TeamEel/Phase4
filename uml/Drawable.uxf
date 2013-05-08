@@ -49,11 +49,11 @@ hitBox(x : int, y : int) : HitBox</panel_attributes>
     <coordinates>
       <x>440</x>
       <y>270</y>
-      <w>280</w>
+      <w>480</w>
       <h>150</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>30;30;30;90;260;90;260;130</additional_attributes>
+    <additional_attributes>30;30;30;90;260;90;460;90;460;130</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
@@ -74,8 +74,8 @@ _+ createRange(asset : Asset, min : int, max : int) : RangeDrawable_</panel_attr
     <type>com.umlet.element.Class</type>
     <coordinates>
       <x>590</x>
-      <y>550</y>
-      <w>240</w>
+      <y>400</y>
+      <w>180</w>
       <h>80</h>
     </coordinates>
     <panel_attributes>Animation
@@ -86,9 +86,20 @@ _+ createRange(asset : Asset, min : int, max : int) : RangeDrawable_</panel_attr
     <additional_attributes/>
   </element>
   <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>440</x>
+      <y>270</y>
+      <w>260</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30;30;30;90;240;90;240;130</additional_attributes>
+  </element>
+  <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>590</x>
+      <x>800</x>
       <y>400</y>
       <w>240</w>
       <h>110</h>
@@ -101,17 +112,6 @@ _+ createRange(asset : Asset, min : int, max : int) : RangeDrawable_</panel_attr
 --
 + setLevel(value : double)</panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>670</x>
-      <y>480</y>
-      <w>50</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;30;70</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
@@ -140,7 +140,7 @@ _+ createRange(asset : Asset, min : int, max : int) : RangeDrawable_</panel_attr
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>710</x>
+      <x>870</x>
       <y>220</y>
       <w>136</w>
       <h>200</h>
