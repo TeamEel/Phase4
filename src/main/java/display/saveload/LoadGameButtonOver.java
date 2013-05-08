@@ -15,7 +15,7 @@ public class LoadGameButtonOver extends LoadGameButtonDrawable {
     
     @Override
     protected Color color() {
-        return Color.orange;
+        return new Color(255, 155, 0);
     }
 
     @Override

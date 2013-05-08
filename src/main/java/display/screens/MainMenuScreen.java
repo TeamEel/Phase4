@@ -25,17 +25,14 @@ public class MainMenuScreen extends MenuScreen implements ActionListener {
     public MainMenuScreen() {
         singlePlayer = new ButtonControl(Asset.SingleplayerDefault,
                                          Asset.SingleplayerOver,
-                                         Asset.SingleplayerPressed,
                                          LEFT_MARGIN + 34, TOP_MARGIN + 84);
 
         multiPlayer = new ButtonControl(Asset.MultiplayerDefault,
                                         Asset.MultiplayerOver,
-                                        Asset.MultiplayerPressed,
                                         LEFT_MARGIN + 34, TOP_MARGIN + 174);
 
         loadGame = new ButtonControl(Asset.LoadgameDefault,
                                      Asset.LoadgameOver,
-                                     Asset.LoadgamePressed,
                                      LEFT_MARGIN + 34, TOP_MARGIN + 264);
         singlePlayer.addActionListener(this);
         multiPlayer.addActionListener(this);

@@ -5,6 +5,9 @@
 package display.controls;
 
 import display.Control;
+import display.drawable.DrawableText;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -17,104 +20,136 @@ import java.util.ArrayList;
  * @author James
  */
 public class PageControl implements Control, ActionListener {
-    private ArrayList<Control> pages;
-    private ButtonControl transportControl;
-    private ButtonControl finishControl;
+
+    private static final Font font = new Font("Courier New", Font.BOLD, 16);
+    private static final Color color = new Color(255, 155, 0);
+    private final ArrayList<Control> pages;
+    private final ButtonControl nextControl;
+    private final ButtonControl backControl;
+    private final ButtonControl finishControl;
+    private final ButtonControl exitControl;
+    private final int x, y;
     private int currentPage;
-    
-    public PageControl(ButtonControl transportControl, ButtonControl finishControl) {
-        pages = new ArrayList<Control>();
-        
-        currentPage = 0;
-        
-        this.transportControl = transportControl;
+
+    public PageControl(ButtonControl nextControl, ButtonControl backControl,
+                       ButtonControl finishControl, ButtonControl exitControl,
+                       int x, int y) {
+        this.pages = new ArrayList<Control>();
+        this.nextControl = nextControl;
+        this.backControl = backControl;
         this.finishControl = finishControl;
-        
-        this.finishControl.addActionListener(this);
-        this.transportControl.addActionListener(this);
+        this.exitControl = exitControl;
+        this.x = x;
+        this.y = y;
+        this.currentPage = 0;
+        this.backControl.addActionListener(this);
+        this.nextControl.addActionListener(this);
     }
-    
+
     public void next() {
-        if(currentPage<pages.size()-1) {
+        if (!lastPage()) {
             currentPage++;
         }
     }
-    
-    public void add(Control control) { 
+
+    public void back() {
+        if (!firstPage()) {
+            currentPage--;
+        }
+    }
+
+    public void add(Control control) {
         pages.add(control);
     }
-            
+
+    public void add(String s) {
+        pages.add(new ImageControl(new DrawableText(s, font, color), x, y));
+    }
+
     @Override
     public void paint(Graphics g) {
         pages.get(currentPage).paint(g);
-        if(currentPage<pages.size()-1) {
-            transportControl.paint(g);
+        if (firstPage()) {
+            exitControl.paint(g);
+        } else {
+            backControl.paint(g);
         }
-        else {
+        if (lastPage()) {
             finishControl.paint(g);
+        } else {
+            nextControl.paint(g);
         }
     }
 
     @Override
     public void advance(int ms) {
         pages.get(currentPage).advance(ms);
-        
-        if(currentPage<pages.size()-1) {
-            transportControl.advance(ms);
-        }
-        else {
+
+        if (lastPage()) {
+            nextControl.advance(ms);
+        } else {
             finishControl.advance(ms);
         }
     }
 
     @Override
     public void onMouseExited() {
-        transportControl.onMouseExited();
+        nextControl.onMouseExited();
+        backControl.onMouseExited();
         finishControl.onMouseExited();
+        exitControl.onMouseExited();
         pages.get(currentPage).onMouseExited();
     }
 
     @Override
     public void onMouseMoved(Point point) {
-        if(currentPage<pages.size()-1) {
-            transportControl.onMouseMoved(point);
-        }
-        else {
+        if (lastPage()) {
             finishControl.onMouseMoved(point);
+        } else {
+            nextControl.onMouseMoved(point);
+        }
+        if (firstPage()) {
+            exitControl.onMouseMoved(point);
+        } else {
+            backControl.onMouseMoved(point);
         }
         pages.get(currentPage).onMouseMoved(point);
     }
 
     @Override
     public boolean onMousePressed(Point point) {
-        if(currentPage<pages.size()-1) {
-            if(transportControl.onMousePressed(point)) {
+        if (firstPage()) {
+            if (exitControl.onMousePressed(point)) {
                 return true;
             }
-            
+        } else if (backControl.onMousePressed(point)) {
+            return true;
         }
-        else {
-            if(finishControl.onMousePressed(point)) {
+        if (lastPage()) {
+            if (finishControl.onMousePressed(point)) {
                 return true;
             }
-           
+        } else if (nextControl.onMousePressed(point)) {
+            return true;
         }
         return pages.get(currentPage).onMousePressed(point);
     }
 
     @Override
     public boolean onMouseReleased(Point point) {
-        if(currentPage<pages.size()-1) {
-            if(transportControl.onMouseReleased(point)) {
+        if (firstPage()) {
+            if (exitControl.onMouseReleased(point)) {
                 return true;
             }
-            
+        } else if (backControl.onMouseReleased(point)) {
+            return true;
         }
-        else {
-            if(finishControl.onMouseReleased(point)) {
+        if (lastPage()) {
+            if (finishControl.onMouseReleased(point)) {
                 return true;
             }
-           
+        } else if (nextControl.onMouseReleased(point)) {
+            return true;
         }
         return pages.get(currentPage).onMouseReleased(point);
     }
@@ -136,10 +171,19 @@ public class PageControl implements Control, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == this.transportControl) {
-            this.next();
+        Object source = ae.getSource();
+        if (source == nextControl) {
+            next();
+        } else if (source == backControl) {
+            back();
         }
     }
-    
-    
+
+    private boolean firstPage() {
+        return currentPage == 0;
+    }
+
+    private boolean lastPage() {
+        return !(currentPage < pages.size() - 1);
+    }
 }

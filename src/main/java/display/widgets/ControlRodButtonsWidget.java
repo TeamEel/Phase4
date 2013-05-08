@@ -23,11 +23,9 @@ public class ControlRodButtonsWidget extends Widget implements ActionListener {
         super(simulator, x, y);
         this.upButton = new ButtonControl(Asset.PlantUpArrow,
                                           Asset.PlantUpArrowOver,
-                                          Asset.PlantUpArrow,
                                           x, y);
         this.downButton = new ButtonControl(Asset.PlantDownArrow,
                                             Asset.PlantDownArrowOver,
-                                            Asset.PlantDownArrow,
                                             x, y + 100);
         upButton.addActionListener(this);
         downButton.addActionListener(this);

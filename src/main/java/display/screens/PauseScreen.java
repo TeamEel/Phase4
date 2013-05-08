@@ -34,14 +34,11 @@ public class PauseScreen extends MenuScreen {
         this.simulator = simulator;
         resumeButton = new ButtonControl(new DrawableText("RESUME", font, Color.white),
                                          new DrawableText("RESUME", font, Color.orange),
-                                         new DrawableText("RESUME", font, Color.orange),
                                          LEFT_MARGIN, TOP_MARGIN);
         saveButton = new ButtonControl(new DrawableText("SAVE", font, Color.white),
                                        new DrawableText("SAVE", font, Color.orange),
-                                       new DrawableText("SAVE", font, Color.orange),
                                        LEFT_MARGIN, TOP_MARGIN + 50);
         exitButton = new ButtonControl(new DrawableText("EXIT", font, Color.white),
-                                       new DrawableText("EXIT", font, Color.orange),
                                        new DrawableText("EXIT", font, Color.orange),
                                        LEFT_MARGIN, TOP_MARGIN + 100);
         addButton(resumeButton);

@@ -27,21 +27,16 @@ public class ButtonControl implements Control {
     }
     private final Drawable defaultImage;
     private final Drawable mouseOverImage;
-    private final Drawable pressedImage;
     private HitBox hitBox;
     private State state;
     private int x, y;
     private ArrayList<ActionListener> actionListeners;
     private boolean pressed;
 
-    public ButtonControl(Drawable defaultImage,
-                         Drawable mouseOverImage,
-                         Drawable pressedImage,
-                         int x, int y) {
+    public ButtonControl(Drawable defaultImage, Drawable mouseOverImage, int x, int y) {
 
         this.defaultImage = defaultImage;
         this.mouseOverImage = mouseOverImage;
-        this.pressedImage = pressedImage;
         this.hitBox = this.defaultImage.hitBox(x, y);
         this.state = State.Default;
         this.x = x;
@@ -50,13 +45,9 @@ public class ButtonControl implements Control {
         this.pressed = false;
     }
 
-    public ButtonControl(Asset defaultAsset,
-                         Asset mouseOverAsset,
-                         Asset pressedAsset,
-                         int x, int y) {
+    public ButtonControl(Asset defaultAsset, Asset mouseOverAsset, int x, int y) {
         this(DrawableFactory.create(defaultAsset),
              DrawableFactory.create(mouseOverAsset),
-             DrawableFactory.create(pressedAsset),
              x, y);
     }
 
@@ -66,20 +57,18 @@ public class ButtonControl implements Control {
 
     @Override
     public void paint(Graphics g) {
-        Drawable imageToDraw;
         switch (state) {
             case MouseOver:
-                imageToDraw = mouseOverImage;
+                mouseOverImage.draw(g, x, y);
                 break;
             case Pressed:
-                imageToDraw = pressedImage;
+                mouseOverImage.draw(g, x + 3, y + 3);                
                 break;
             case Default:
             default:
-                imageToDraw = defaultImage;
+                defaultImage.draw(g, x, y);
                 break;
         }
-        imageToDraw.draw(g, x, y);
     }
 
     @Override
@@ -140,7 +129,6 @@ public class ButtonControl implements Control {
     public void advance(int ms) {
         defaultImage.advance(ms);
         mouseOverImage.advance(ms);
-        pressedImage.advance(ms);
     }
     
     public void move(int x, int y) {
