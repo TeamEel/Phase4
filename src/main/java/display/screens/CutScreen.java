@@ -23,19 +23,15 @@ public abstract class CutScreen extends MenuScreen implements ActionListener {
     public CutScreen() {
         exitButton = new ButtonControl(Asset.BackDefault,
                                        Asset.BackOver,
-                                       Asset.BackPressed,
                                        LEFT_MARGIN, TOP_MARGIN + 350);
         startButton = new ButtonControl(Asset.StartDefault,
                                         Asset.StartOver,
-                                        Asset.StartPressed,
                                         LEFT_MARGIN + 400, TOP_MARGIN + 350);
         pages = new PageControl(new ButtonControl(Asset.NextDefault,
                                                   Asset.NextOver,
-                                                  Asset.NextPressed,
                                                   LEFT_MARGIN + 400, TOP_MARGIN + 350),
                                 new ButtonControl(Asset.BackDefault,
                                                   Asset.BackOver,
-                                                  Asset.BackPressed,
                                                   LEFT_MARGIN, TOP_MARGIN + 350),
                                 startButton, exitButton, 600, 300);
 

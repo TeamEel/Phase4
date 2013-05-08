@@ -40,15 +40,12 @@ public class LoadScreen extends MenuScreen implements ActionListener {
     public LoadScreen() {
         upButton = new ButtonControl(Asset.MenuUpDefault,
                                      Asset.MenuUpOver,
-                                     Asset.MenuUpPressed,
                                      LEFT_MARGIN, TOP_MARGIN);
         downButton = new ButtonControl(Asset.MenuDownDefault,
                                        Asset.MenuDownOver,
-                                       Asset.MenuDownPressed,
                                        LEFT_MARGIN, TOP_MARGIN + 300);
         backButton = new ButtonControl(Asset.BackDefault,
                                        Asset.BackOver,
-                                       Asset.BackPressed,
                                        LEFT_MARGIN, TOP_MARGIN + 350);
         gameButtons = new ArrayList<LoadGameButton>();
         buttonPaths = new HashMap<LoadGameButton, String>();

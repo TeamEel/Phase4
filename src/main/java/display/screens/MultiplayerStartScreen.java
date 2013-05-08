@@ -31,11 +31,9 @@ public class MultiplayerStartScreen extends MenuScreen implements ActionListener
         player2Name = new TextFieldControl("Player 2", LEFT_MARGIN, TOP_MARGIN + 200);
         backButton = new ButtonControl(Asset.BackDefault,
                                        Asset.BackOver,
-                                       Asset.BackPressed,
                                        LEFT_MARGIN, TOP_MARGIN + 350);
         startButton = new ButtonControl(Asset.StartDefault,
                                         Asset.StartOver,
-                                        Asset.StartPressed,
                                         LEFT_MARGIN + 400, TOP_MARGIN + 350);
         add(enterPlayer1Name, 2);
         add(enterPlayer2Name, 2);

@@ -30,20 +30,14 @@ public class DrawableFactory {
                 return new DrawableImage("/menu/button_singleplayer.png");
             case SingleplayerOver:
                 return new DrawableImage("/menu/button_singleplayer_sel.png");
-            case SingleplayerPressed:
-                return new DrawableImage("/menu/button_singleplayer_press.png");
             case MultiplayerDefault:
                 return new DrawableImage("/menu/button_multiplayer.png");
             case MultiplayerOver:
                 return new DrawableImage("/menu/button_multiplayer_sel.png");
-            case MultiplayerPressed:
-                return new DrawableImage("/menu/button_multiplayer_press.png");
             case LoadgameDefault:
                 return new DrawableImage("/menu/button_load.png");
             case LoadgameOver:
                 return new DrawableImage("/menu/button_load_sel.png");
-            case LoadgamePressed:
-                return new DrawableImage("/menu/button_load_press.png");
             case PlantBackground:
                 return new DrawableImage("/plant/background.png");
             case PlantDefaultWater:
@@ -106,32 +100,22 @@ public class DrawableFactory {
                 return new DrawableImage("/menu/back.png");
             case BackOver:
                 return new DrawableImage("/menu/back_sel.png");
-            case BackPressed:
-                return new DrawableImage("/menu/back_press.png");
             case StartDefault:
                 return new DrawableImage("/menu/start.png");
             case StartOver:
                 return new DrawableImage("/menu/start_sel.png");
-            case StartPressed:
-                return new DrawableImage("/menu/start_press.png");
             case MenuUpDefault:
                 return new DrawableImage("/menu/arrows/up.png");
             case MenuUpOver:
                 return new DrawableImage("/menu/arrows/up_over.png");
-            case MenuUpPressed:
-                return new DrawableImage("/menu/arrows/up_press.png");
             case MenuDownDefault:
                 return new DrawableImage("/menu/arrows/down.png");
             case MenuDownOver:
                 return new DrawableImage("/menu/arrows/down_over.png");
-            case MenuDownPressed:
-                return new DrawableImage("/menu/arrows/down_press.png");
             case NextDefault:
                 return new DrawableImage("/menu/next.png");
             case NextOver:
                 return new DrawableImage("/menu/next_sel.png");
-            case NextPressed:
-                return new DrawableImage("/menu/next_press.png");
             default:
                 throw new Error("Invalid asset requested");
         }

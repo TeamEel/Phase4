@@ -32,11 +32,9 @@ public class SingleplayerStartScreen extends MenuScreen implements ActionListene
         playerName = new TextFieldControl("Player 1", LEFT_MARGIN, TOP_MARGIN + 50);
         backButton = new ButtonControl(Asset.BackDefault,
                                        Asset.BackOver,
-                                       Asset.BackPressed,
                                        LEFT_MARGIN, TOP_MARGIN + 350);
         startButton = new ButtonControl(Asset.StartDefault,
                                         Asset.StartOver,
-                                        Asset.StartPressed,
                                         LEFT_MARGIN + 400, TOP_MARGIN + 350);
         add(enterName, 2);
         add(playerName, 2);
